@@ -18,11 +18,11 @@ export function openingRouteNote(row) {
   if (row.method !== 'health') return '';
   const openings = row.routes.filter(result => result.outcome === 'pass' && result.route.opening).map(result => result.route.name);
   const shield = row.structure.condition === 'shield' ? ' (보호막 제거 후)' : '';
-  return openings.map(name => `1${row.unit} ${name} 폭발 가능${shield}`).join(' / ');
+  return openings.map(name => `1${row.unit} · ${name} 폭발 가능${shield}`).join(' / ');
 }
 
 function resultTitle(row) {
-  if (row.method === 'health') return [`${number(row.hits)}${row.unit} 체력 파괴 가능`, openingRouteNote(row)].filter(Boolean).join(' / ');
+  if (row.method === 'health') return [`${number(row.hits)}${row.unit} · 체력 파괴 가능`, openingRouteNote(row)].filter(Boolean).join(' / ');
   if (row.method === 'force') return `${row.route.name} · ${row.component === 'explosion' ? '폭발' : '직접 명중'}`;
   return '확인된 자료로 판정 보류';
 }

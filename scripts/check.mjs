@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { categories, stratagems } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
+import { createSearchMatcher } from '../dist/search.js';
 import { server } from '../server.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
@@ -38,6 +39,17 @@ for (const item of stratagems) {
 }
 assert.equal(stratagems.length, 110, 'Reviewed inventory must contain 110 distinct entries');
 for (const category of categories.filter(item => item.id !== 'all')) assert(stratagems.some(item => item.category === category.id));
+
+const precision = stratagems.find(item => item.id === 'orbital-precision');
+for (const query of ['격타밀정도궤', '도밀격', '도밀타', ' 격 타 밀 정 도 궤 ', '궤도 정밀', 'ＯＰＳ']) {
+  assert(createSearchMatcher(query)(precision), `Precision Strike should match: ${query}`);
+}
+assert(!createSearchMatcher('도밀양')(precision), 'Every search character must be present');
+assert(!createSearchMatcher('도밀타')(stratagems.find(item => item.id === 'eagle-500kg')), 'A partial character overlap must not match');
+assert(createSearchMatcher('AC-8')(stratagems.find(item => item.id === 'autocannon')), 'Equipment code search must still work');
+assert(createSearchMatcher('대전차')(precision), 'Role keyword search must still work');
+assert(!createSearchMatcher('차전대')(precision), 'Unordered matching must not pull characters from role tags');
+assert.equal(stratagems.filter(createSearchMatcher('   ')).length, stratagems.length, 'Empty search should show all items');
 
 assert.deepEqual(Object.keys(wikiIcons).sort(), [...ids].sort(), 'Every stratagem must have a Wiki icon');
 const iconPaths = new Map();
@@ -87,7 +99,7 @@ try {
   }
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
-  console.log(`PASS: ${stratagems.length} records, 7 categories, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
+  console.log(`PASS: ${stratagems.length} records, 7 categories, unordered name search and existing keywords, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
 } finally {
   server.closeAllConnections();
   await new Promise(resolve => server.close(resolve));

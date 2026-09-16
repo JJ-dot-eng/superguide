@@ -3,6 +3,7 @@ import { calculateMatchup } from './combat.js?v=meltagun-1';
 import { combatImages } from './combat-images.js?v=high-difficulty-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=meltagun-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=conditional-hits-1';
+import { syncImagePicker, focusImagePicker } from './image-picker.js?v=icon-picker-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
@@ -86,6 +87,8 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
   }
 
   function render() {
+    syncImagePicker(enemySelect);
+    syncImagePicker(weaponSelect);
     const enemy = enemies.find(item => item.id === state.enemy);
     const weapon = support.find(item => item.id === state.weapon);
     const profile = weaponProfiles[state.weapon];
@@ -144,7 +147,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     showCatalog: () => navigate('catalog'),
     openWeapon(id) {
       if (!support.some(item => item.id === id)) return;
-      state.weapon = id; weaponSelect.value = id; updateModes(); render(); navigate('combat'); enemySelect.focus();
+      state.weapon = id; weaponSelect.value = id; updateModes(); render(); navigate('combat'); focusImagePicker(enemySelect);
     },
   };
 }

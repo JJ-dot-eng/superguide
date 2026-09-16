@@ -2,9 +2,11 @@ import { categories, stratagems, checkedAt } from './data.js?v=meltagun-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=meltagun-1';
+import { initCombat } from './combat-ui.js?v=icon-picker-1';
 import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
-import { initDemolition } from './demolition-ui.js?v=demolition-paths-2';
+import { initDemolition } from './demolition-ui.js?v=icon-picker-1';
+import { initImagePickers } from './image-picker.js?v=icon-picker-1';
+import { pickerConfigs } from './picker-content.js?v=icon-picker-1';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };
@@ -170,6 +172,7 @@ renderCategories(); renderCards();
 const navigate = initFeatureNavigation(renderComparisonState);
 const combat = initCombat({ stratagems, wikiIcons, navigate });
 initDemolition({ stratagems, categories, wikiIcons });
+initImagePickers(pickerConfigs({ stratagems, categories, wikiIcons }), { allIcon: icon('grid') });
 
 // The optional browser API uses the same filters as the visible catalog.
 if (document.modelContext?.registerTool) {

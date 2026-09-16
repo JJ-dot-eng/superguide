@@ -6,7 +6,7 @@ import { initCombat } from './combat-ui.js?v=portrait-layout-1';
 import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
-import { pickerConfigs } from './picker-content.js?v=portrait-layout-1';
+import { pickerConfigs } from './picker-content.js?v=watcher-1';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };

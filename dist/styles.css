@@ -84,6 +84,11 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-breakdown summary:focus-visible,.combat-method summary:focus-visible{outline:2px solid var(--yellow);outline-offset:4px}
 .combat-breakdown ul{padding-left:18px;margin:10px 0;font-size:.875rem;line-height:1.9;color:#c9cebf}
 .combat-breakdown p{font-size:.875rem;color:var(--muted);line-height:1.8}
+.combat-tactical-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.875rem;line-height:1.6;color:var(--text)}
+.combat-tactical-table caption{text-align:left;color:var(--muted);padding:8px 0}
+.combat-tactical-table th,.combat-tactical-table td{padding:8px 6px;border-bottom:1px solid var(--border);text-align:left;overflow-wrap:anywhere}
+.combat-tactical-table thead th:nth-child(1){width:32%}.combat-tactical-table thead th:nth-child(2){width:43%}.combat-tactical-table thead th:nth-child(3){width:25%}
+.combat-tactical-table td:last-child{text-align:right;font-family:var(--mono);white-space:nowrap}.combat-tactical-table tfoot{color:var(--yellow)}
 .combat-method{border:1px solid var(--border);margin-top:24px;padding:15px 20px}
 .combat-method summary{color:var(--text);font-size:1rem}
 .combat-method>div{margin-top:14px;color:var(--muted);font-size:.875rem;line-height:1.9}

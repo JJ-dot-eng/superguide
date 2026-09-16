@@ -4,7 +4,10 @@ const floor = value => Math.floor(value + 1e-9);
 export function damagePerHit(mode, target, main) {
   const mixed = floor(mode.standard * (1 - target.durability / 100) + mode.durable * target.durability / 100);
   const direct = floor(mixed * armorMultiplier(mode.ap, target.armor));
-  const blast = (armor, exdr) => floor(mode.explosion * armorMultiplier(mode.explosionAp, armor) * (1 - exdr / 100));
+  // Explosions use their durable damage. Older reviewed profiles store their
+  // equal normal/durable blast values in `explosion`; C4 records both explicitly.
+  const blastDamage = mode.explosionDurable ?? mode.explosion;
+  const blast = (armor, exdr) => floor(blastDamage * armorMultiplier(mode.explosionAp, armor) * (1 - exdr / 100));
   return {
     direct,
     explosion: target.exdr === 100 ? 0 : blast(target.armor, target.exdr),

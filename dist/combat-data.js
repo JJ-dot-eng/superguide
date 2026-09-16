@@ -278,6 +278,10 @@ export const enemyTypeCount = new Set(enemies.map(enemy => enemy.family || enemy
 const shot = (id, name, standard, durable, ap, explosion = 0, explosionAp = 0, extra = {}) => ({ id, name, standard, durable, ap, explosion, explosionAp, ...extra });
 const profile = (page, modes, note = '') => ({ source: wiki(page), modes, note });
 export const weaponProfiles = {
+  'c4-pack': {
+    ...profile('B/MD_C4_Pack', [shot('charge', '장약 한 개 기폭', 0, 0, 0, 2000, 7, { explosionDurable: 2000, innerRadius: 3, radius: 7, unit: '개', delivery: 'adhesive' })], '장약 한 개씩 같은 부위에 최대 폭발 피해가 들어가는 조건입니다. 부착 위치에 따른 여러 부위의 동시 피해, 가림과 실제 부착 성공 여부는 검증하지 않았으므로 실제 최소 처치 개수와 다를 수 있습니다.'),
+    sourceRevision: 133871, checkedAt: '2026-09-16',
+  },
   'autocannon': profile('AC-8_Autocannon', [
     shot('aphet', '철갑고폭예광탄(APHET)', 325, 260, 4, 150, 3, { falloff: true }),
     { id: 'flak', name: '대공포탄 모드', unsupported: '근접 신관과 파편의 명중 수에 따라 피해가 크게 달라져 고정 탄수를 계산하지 않습니다.' },

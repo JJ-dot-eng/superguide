@@ -1,4 +1,4 @@
-import { categories, stratagems, checkedAt } from './data.js?v=meltagun-1';
+import { categories, stratagems, checkedAt } from './data.js?v=fire-specs-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';

@@ -1,6 +1,6 @@
-import { support } from './data-support.js?v=meltagun-1';
+import { support } from './data-support.js?v=fire-specs-1';
 import { orbitals, eagles } from './data-offense.js';
-import { backpacks, defense, vehicles } from './data-equipment.js?v=shield-generators-1';
+import { backpacks, defense, vehicles } from './data-equipment.js?v=fire-specs-1';
 import { missions } from './data-mission.js';
 
 export const checkedAt = '2026-09-16';

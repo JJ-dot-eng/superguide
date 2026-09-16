@@ -72,6 +72,29 @@ const vent = part('vox-engine', 'vent');
 const bonusFixture = { ...enemy('vox-engine'), main: { ...enemy('vox-engine').main, hp: 1000, constitution: 0 } };
 assert.equal(calculateRoute(bonusFixture, vent, hit(300)).outcome, 'kill', 'Vent destruction adds 700 Main damage after the 300 transferred damage');
 assert.equal(route('vox-engine', 'hatch').outcome, 'unknown', 'Thrown-grenade hatch mechanic is not assigned to support weapon explosions');
+const vox = enemy('vox-engine');
+const leveller = weaponProfiles.leveller.modes[0];
+const voxMatchup = calculateMatchup(vox, leveller);
+const beforeTacticalSummary = structuredClone(voxMatchup);
+const voxSummary = combatSummary(vox, leveller, voxMatchup, { weapon: 'leveller' });
+assert.equal(voxSummary.title, '몸통 명중 시 1발 처치 가능 · 위키 기준');
+assert.match(voxSummary.body, /단일 부위 이론값/);
+assert.match(voxSummary.body, /함께 피격되는 부위와 피해 합계는 자료 미확인/);
+assert.equal(voxSummary.reference.source, `${vox.source}#Tactical_Information`);
+assert.equal(voxSummary.reference.sourceRevision, 134993);
+assert.equal(voxSummary.reference.checkedAt, '2026-09-16');
+assert.deepEqual(voxMatchup, beforeTacticalSummary, 'Wiki tactics must not overwrite any calculated route');
+assert.equal(voxMatchup.best.hits, 3);
+assert.equal(voxMatchup.best.target.id, 'sarcophagus');
+assert.equal(voxMatchup.best.outcome, 'bleed');
+assert.equal(voxMatchup.rows.find(row => row.target.id === 'torso').hits, 5);
+assert.match(renderCombatRoute(voxMatchup.best, vox, leveller, { singlePartTheory: true }), /<strong>3<\/strong><span>발 · 단일 부위 이론값/);
+assert.equal(combatSummary(vox, { ...leveller, id: 'unreviewed' }, voxMatchup, { weapon: 'leveller' }).reference, undefined, 'Tactics apply only to the reviewed firing mode');
+assert.equal(combatSummary(vox, leveller, voxMatchup, { weapon: 'leveller', unsupported: '자료 미확인' }).reference, undefined);
+for (const selected of enemies) for (const [weapon, profile] of Object.entries(weaponProfiles)) for (const mode of profile.modes) {
+  const summary = combatSummary(selected, mode, calculateMatchup(selected, mode), { weapon });
+  assert.equal(Boolean(summary.reference), selected.id === 'vox-engine' && weapon === 'leveller' && mode.id === 'standard', 'Tactical advice must not leak into other enemy, weapon or mode selections');
+}
 assert.equal(route('dropship', 'thruster').outcome, 'down');
 assert.match(combatRouteNotes(route('dropship', 'thruster'), hit()).join(' '), /탑승 병력 처치까지 보장하지/);
 
@@ -126,6 +149,21 @@ try {
     assert(get('combat-sources').innerHTML.includes(e.source));
     assert.doesNotMatch(get('combat-routes').innerHTML, /undefined|NaN|자료 미확인%/);
   }
+  select('combat-enemy', 'vox-engine');
+  select('combat-weapon', 'leveller');
+  assert.match(get('combat-answer').innerHTML, /몸통 명중 시 1발 처치 가능 · 위키 기준/);
+  assert.match(get('combat-answer').innerHTML, /href="https:\/\/helldivers\.wiki\.gg\/wiki\/Vox_Engine#Tactical_Information"/);
+  assert.match(get('combat-answer').innerHTML, /자료 확인 2026-09-16/);
+  assert.doesNotMatch(get('combat-answer').innerHTML, /출혈 유발 이론값 3발/);
+  assert.match(get('combat-routes').innerHTML, /<strong>3<\/strong><span>발 · 단일 부위 이론값/);
+  select('combat-weapon', 'c4-pack');
+  assert.doesNotMatch(get('combat-answer').innerHTML, /위키 기준|위키 전술 설명/);
+  assert.doesNotMatch(get('combat-routes').innerHTML, /단일 부위 이론값/);
+  select('combat-weapon', 'leveller');
+  assert.match(get('combat-answer').innerHTML, /몸통 명중 시 1발 처치 가능 · 위키 기준/);
+  select('combat-enemy', 'charger');
+  assert.doesNotMatch(get('combat-answer').innerHTML, /위키 기준|위키 전술 설명/);
+  assert.doesNotMatch(get('combat-routes').innerHTML, /단일 부위 이론값/);
 } finally {
   if (documentBefore === undefined) delete globalThis.document;
   else globalThis.document = documentBefore;

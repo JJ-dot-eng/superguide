@@ -1,7 +1,7 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=enemies-37-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=vox-leveller-1';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
 import { combatImages } from './combat-images.js?v=enemies-37-1';
-import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=enemies-37-1';
+import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=vox-leveller-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=enemies-37-1';
 import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';
 
@@ -10,7 +10,7 @@ const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') :
 const percent = value => Number.isFinite(value) ? `${number(value)}%` : '자료 미확인';
 const sourceLink = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 
-export function renderCombatRoute(row, enemy, mode) {
+export function renderCombatRoute(row, enemy, mode, { singlePartTheory = false } = {}) {
   const target = row.target;
   const terms = combatTerms(mode);
   const outcome = row.outcome === 'break' && target.resultLabel ? target.resultLabel : combatOutcome(row.outcome, mode);
@@ -42,7 +42,7 @@ export function renderCombatRoute(row, enemy, mode) {
   const notes = combatRouteNotes(row, mode);
   return `<article class="combat-route" data-outcome="${row.outcome}">
     <div class="combat-route-overview"><div class="combat-route-lead"><div class="combat-route-top"><h3>${escape(target.name)}</h3><span class="outcome-tag">${outcome}</span></div>
-    <div class="combat-hit-count">${row.hits != null ? `<strong>${number(row.hits)}</strong><span>${terms.unit}${mode?.conditionalImpact ? ` 이상 · ${escape(target.name)} ${combatImpactVerb(mode)} 시` : row.lowerBound ? ' 이상 · 재생 제외' : ' · 이론값'}${target.prerequisite ? ` · ${escape(target.prerequisite)}` : ''}</span>` : `<strong class="combat-no-count">${row.outcome === 'blocked' ? '관통·피해 조건 미충족' : '—'}</strong>`}</div></div>
+    <div class="combat-hit-count">${row.hits != null ? `<strong>${number(row.hits)}</strong><span>${terms.unit}${mode?.conditionalImpact ? ` 이상 · ${escape(target.name)} ${combatImpactVerb(mode)} 시` : row.lowerBound ? ' 이상 · 재생 제외' : singlePartTheory ? ' · 단일 부위 이론값' : ' · 이론값'}${target.prerequisite ? ` · ${escape(target.prerequisite)}` : ''}</span>` : `<strong class="combat-no-count">${row.outcome === 'blocked' ? '관통·피해 조건 미충족' : '—'}</strong>`}</div></div>
     ${photo ? `<button class="combat-part-photo" data-part-image="${escape(target.id)}" aria-label="${escape(enemy.name)} ${escape(target.name)} 사진 크게 보기" aria-haspopup="dialog" aria-controls="combat-image-dialog"><span class="combat-part-window" style="aspect-ratio:${cropWidth}/${cropHeight}"><img src="${escape(photo.thumbnail)}" alt="${escape(enemy.name)}의 ${escape(target.name)} 위치가 색으로 표시된 사진" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" decoding="async" style="${cropStyle}"></span><span class="combat-part-caption" aria-hidden="true">크게 보기 ↗</span></button>` : `<span class="combat-part-missing">부위 사진<br>자료 미확인</span>`}</div>
     <dl class="combat-part-stats"><div><dt>부위 체력</dt><dd>${number(target.hp == null ? null : target.hp + (target.staticConstitution || 0))}${target.mainOnly ? ' · 본체 공유' : ''}${target.next ? ` → ${number(target.next.hp + (target.next.staticConstitution || 0))}` : ''}</dd></div><div><dt>장갑 수치</dt><dd>${number(target.armor)}${target.next ? ` → ${number(target.next.armor)}` : ''}</dd></div><div><dt>내구도</dt><dd>${percent(target.durability)}${target.next && target.next.durability !== target.durability ? ` → ${percent(target.next.durability)}` : ''}</dd></div><div><dt>폭발 저항</dt><dd>${percent(target.exdr)}</dd></div></dl>
     <p class="combat-target-tip">${escape(combatTargetTip(target, mode, row))}</p>${notes.map(note => `<p class="combat-row-note">${escape(note)}</p>`).join('')}
@@ -98,12 +98,12 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     const unsupported = mode?.unsupported || (!profile && (unsupportedWeapons[weapon.id] || '이 무기의 내구 피해와 부위별 적용 조건을 아직 검증하지 않았습니다.'));
     const { best, rows } = calculateMatchup(enemy, mode, state);
     const answer = $('#combat-answer');
-    const { title, body, tone } = combatSummary(enemy, mode, { best, rows }, { ...state, unsupported });
+    const { title, body, tone, reference } = combatSummary(enemy, mode, { best, rows }, { ...state, unsupported });
     answer.dataset.tone = tone;
     $('#combat-assumption').innerHTML = combatAssumption(mode);
     $('#combat-condition-note').textContent = combatConditionText(mode);
     $('#combat-bomblet-direct').disabled = !(mode?.selectedCondition?.count > 0);
-    answer.innerHTML = `<span class="combat-answer-label">${escape(enemy.name)} × ${escape(weapon.name)}</span><h3>${escape(title)}</h3><p>${escape(body)}</p>`;
+    answer.innerHTML = `<span class="combat-answer-label">${escape(enemy.name)} × ${escape(weapon.name)}</span><h3>${escape(title)}</h3><p>${escape(body)}</p>${reference ? `<p class="combat-sources">${sourceLink(reference.source, '위키 전술 설명')} · 자료 확인 ${escape(reference.checkedAt)}</p>` : ''}`;
     $('#combat-shield').hidden = !enemy.shield;
     $('#combat-shield-cleared').checked = state.shieldCleared;
     if (enemy.shield) {
@@ -113,7 +113,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     }
     $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${mode?.note ? `<p class="combat-row-note">${escape(mode.note)}</p>` : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
     $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(mode?.unit ? enemy.note.replaceAll('탄수', combatTerms(mode).count).replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
-    $('#combat-routes').innerHTML = rows.map(row => renderCombatRoute(row, enemy, mode)).join('');
+    $('#combat-routes').innerHTML = rows.map(row => renderCombatRoute(row, enemy, mode, { singlePartTheory: Boolean(reference) })).join('');
     $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')}${profile?.extraSource ? ` · ${sourceLink(profile.extraSource, '광선 세부 수치')}` : ''} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
   }
 

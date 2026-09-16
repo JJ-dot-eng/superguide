@@ -1,0 +1,4 @@
+# Preserve original Wiki asset bytes across operating systems.
+/dist/assets/stratagems/*.svg -text
+# This Wiki original uses CRLF; keep the standard whitespace checks with CRLF support.
+/dist/assets/stratagems/meltagun-stratagem-icon-background.svg whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

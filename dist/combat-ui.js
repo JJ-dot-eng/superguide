@@ -1,7 +1,7 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=conditional-hits-1';
-import { calculateMatchup } from './combat.js?v=conditional-hits-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=meltagun-1';
+import { calculateMatchup } from './combat.js?v=meltagun-1';
 import { combatImages } from './combat-images.js?v=high-difficulty-1';
-import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=conditional-hits-1';
+import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=meltagun-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=conditional-hits-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -20,13 +20,16 @@ export function renderCombatRoute(row, enemy, mode) {
   const stageExplanation = stages.map((stage, index) => {
     const { direct, explosion, mainExplosion } = stage.damage;
     const transfer = terms.adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? `<br>부위 피해의 본체 전달 ${component.toMain}% · ${component.overflowCap ? `누적 전달 상한 ${number(component.hp + (component.constitution || 0))}` : '전달 상한 없음'}` : '';
+    if (mode?.beam) return `<li><strong>${escape(stage.name)}</strong>: 한 발 최대 광선 피해 ${number(direct)} / AP ${mode.ap} → 장갑 ${stage.armor}${transfer}${Number.isFinite(stage.contactSeconds) ? `<br>계산 종료까지 광선 접촉 약 ${number(stage.contactSeconds)}초 · 누적 부위 피해 ${number(stage.appliedDirect)} · 본체 전달 ${number(stage.mainTransfer)}` : ''}</li>`;
     const blasts = stage.breakdown?.explosions.map(blast => `<br>${escape(blast.name)}: AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% → ${blast.redirected ? '본체 폭발' : '부위 폭발'} ${number(blast.redirected ? blast.mainDamage : blast.partDamage)}<br>최대 피해 반경 ${number(blast.innerRadius)}m / 외곽 반경 ${number(blast.radius)}m`).join('') || '';
     const events = stage.events?.map(event => `<br>${escape(event.name)} ${event.count}회 명중 가정: ${combatImpactLabel(event.attack)} ${number(event.breakdown.damage.direct)} + 부위 폭발 ${number(event.breakdown.damage.explosion)} + 본체 폭발 ${number(event.breakdown.damage.mainExplosion)} (1회당)${event.breakdown.explosions.map(blast => `<br>폭발 AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% / 최대 피해 반경 ${number(blast.innerRadius)}m`).join('')}`).join('') || '';
     component = component.next;
     return `<li><strong>${escape(stage.name)}</strong>: ${combatImpactLabel(mode)} ${number(direct)} + 부위 폭발 ${number(explosion)}${mainExplosion !== 0 ? ` · 본체에 처리되는 폭발 ${number(mainExplosion)}` : ''}${stages.length > 1 ? ` → ${combatCount(stage.hits, mode)}` : ''}${index < stages.length - 1 ? ' 후 다음 부위 공격' : ''}${blasts}${events}${transfer}</li>`;
   }).join('');
   const main = target.main || enemy.main;
-  const breakdownNote = mode?.conditionalImpact
+  const breakdownNote = mode?.beam
+    ? `일반·내구 피해에 부위 내구도와 장갑을 적용합니다. 같은 장갑 수치에서는 피해가 65%이며, 광선에는 폭발 저항을 적용하지 않습니다. 본체 전달 비율과 누적 상한을 반영하고, 부위 파괴 또는 본체 체력 소진 시점에서 멈춥니다. 남은 광선을 파괴된 부위의 초과 피해로 넘기거나 화상으로 더하지 않습니다. 본체 체력 ${number(main.hp)}. 접촉 시간은 충전·재장전·사격 사이 공백을 제외한 이론값이며, 실제 피해 적용 간격은 자료 미확인입니다.`
+    : mode?.conditionalImpact
     ? `각 명중의 일반·내구 피해에 부위 내구도와 장갑을 적용한 뒤 본체 전달 피해를 계산합니다. 전격과 작살 직격에는 폭발 저항을 적용하지 않습니다. 폭발은 각 폭발의 관통·반경·폭발 저항으로 별도 판정합니다. 여러 부위 동시 피해는 합산하지 않습니다. 계산 대상 본체 체력 ${number(main.hp)}. 한 발의 명중 수를 고른 경우 각 명중마다 피해와 본체 전달을 버림 처리하고 누적 전달 상한을 공유합니다.`
     : mode?.delivery === 'melee' && mode.explosion === 0
     ? `타격 일반·내구 피해에 부위 내구도와 장갑을 적용합니다. 부위에서 본체로 전달되는 피해와 누적 전달 상한을 따로 적용합니다. 계산 대상 본체 체력 ${number(main.hp)}. 폭약 피해는 포함하지 않습니다.`
@@ -61,6 +64,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
 
   function updateModes() {
     const modes = weaponProfiles[state.weapon]?.modes;
+    $('#combat-mode-label').textContent = modes?.some(mode => mode.beam) ? '거리별 피해 기준' : '발사·기폭 방식';
     modeSelect.innerHTML = modes ? modes.map(mode => option(mode.id, mode.name)).join('') : option('unsupported', '정밀 계산 미지원');
     modeSelect.disabled = !modes || modes.length === 1;
     state.mode = modeSelect.value;
@@ -105,7 +109,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${mode?.note ? `<p class="combat-row-note">${escape(mode.note)}</p>` : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
     $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(mode?.unit ? enemy.note.replaceAll('탄수', combatTerms(mode).count).replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
     $('#combat-routes').innerHTML = rows.map(row => renderCombatRoute(row, enemy, mode)).join('');
-    $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
+    $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')}${profile?.extraSource ? ` · ${sourceLink(profile.extraSource, '광선 세부 수치')}` : ''} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
   }
 
   enemySelect.addEventListener('change', () => { state.enemy = enemySelect.value; state.shieldCleared = false; updateConditions(); render(); });

@@ -277,6 +277,19 @@ const profile = (page, modes, note = '') => ({ source: wiki(page), modes, note }
 const reviewedExplosive = (page, modes, note) => ({ ...profile(page, modes.map(mode => ({ ...mode, reviewedExplosive: true })), note), checkedAt: '2026-09-16', combatOnly: true });
 const reviewedImpact = (page, modes, note) => ({ ...profile(page, modes.map(mode => ({ ...mode, conditionalImpact: true })), note), checkedAt: '2026-09-16', combatOnly: true });
 export const weaponProfiles = {
+  'meltagun': {
+    ...reviewedImpact('40-K_Meltagun', [
+      ...[
+        ['near', '근거리 · 최대 피해', 2600],
+        ['max-range', '15m · 최대 사거리', 1560],
+      ].map(([id, name, dps]) => shot(id, name, Math.round(dps * 1.4), Math.round(dps * 1.4), 7, 0, 0, {
+        delivery: 'beam', range: 15,
+        beam: { duration: 1.4, standardPerSecond: dps, durablePerSecond: dps },
+      })),
+    ], '한 발은 약 1.4초 동안 이어지는 광선입니다. 사거리 끝 15m에서는 피해가 40% 감소합니다. 중간 거리의 감쇠 곡선은 자료 미확인으로 계산하지 않습니다. 폭발·화상 피해는 없으며, 충전·재장전 시간은 탄수 계산과 별개입니다.'),
+    sourceRevision: 134789, damageRevision: 134890,
+    extraSource: wiki('Module:Decodedata-Attacks/weapons_data.json'),
+  },
   'arc-thrower': reviewedImpact('ARC-3_Arc_Thrower', [
     shot('first-target', '첫 표적 · 전격 명중', 250, 100, 7, 0, 0, { delivery: 'arc', range: 55 }),
   ], '첫 표적의 표시 부위에 전격이 계속 명중하는 조건입니다. 특정 부위를 자유롭게 조준할 수 있는 무기는 아닙니다. 연쇄 대상의 피해 감소와 다른 적의 피해는 제외합니다.'),

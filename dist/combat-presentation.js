@@ -1,4 +1,4 @@
-import { explosionComponents } from './combat.js?v=conditional-hits-1';
+import { explosionComponents } from './combat.js?v=meltagun-1';
 import { combatConditionText, spearCannotLock } from './combat-conditions.js?v=conditional-hits-1';
 
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
@@ -9,11 +9,16 @@ export const combatTerms = mode => mode?.unit === '개'
   : { unit: '발', count: '탄수', one: '한 발', adhesive: false };
 export const combatCount = (hits, mode) => `${number(hits)}${combatTerms(mode).unit}${mode?.conditionalImpact ? ' 이상' : ''}`;
 export const combatOutcome = (outcome, mode) => ({ kill: '처치', bleed: combatTerms(mode).adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? '출혈 유발' : '출혈 처치 유발', break: '부위 파괴', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' })[outcome];
-export const combatImpactLabel = mode => mode?.delivery === 'arc' ? '전격' : mode?.delivery === 'flag' || mode?.delivery === 'melee' ? '타격' : '직격';
-export const combatImpactVerb = mode => mode?.delivery === 'guided' ? '착탄' : '타격';
+export const combatImpactLabel = mode => mode?.beam ? '광선' : mode?.delivery === 'arc' ? '전격' : mode?.delivery === 'flag' || mode?.delivery === 'melee' ? '타격' : '직격';
+export const combatImpactVerb = mode => mode?.beam ? '조준 유지' : mode?.delivery === 'guided' ? '착탄' : '타격';
 
 export function combatModeStats(mode) {
   if (!mode || mode.unsupported) return [];
+  if (mode.beam) return [
+    `초당 일반 피해 ${number(mode.beam.standardPerSecond)} / 초당 내구 피해 ${number(mode.beam.durablePerSecond)} / AP ${number(mode.ap)}`,
+    `한 발 광선 지속 약 ${number(mode.beam.duration)}초 / 한 발 최대 일반·내구 피해 ${number(mode.standard)}`,
+    '폭발 피해 없음 · 화상 피해 없음',
+  ];
   if (mode.conditionalImpact) return [
     `${combatImpactLabel(mode)}${mode.delivery === 'arc' ? ' 1회' : ''} 일반 피해 ${number(mode.standard)} / 내구 피해 ${number(mode.durable)} / AP ${number(mode.ap)}`,
     ...explosionComponents(mode).map(blast => `폭발 일반·내구 피해 ${number(blast.durable)} / AP ${number(blast.ap)} / 최대 피해 ${number(blast.innerRadius)}m · 외곽 ${number(blast.radius)}m`),
@@ -36,6 +41,7 @@ export function combatModeStats(mode) {
 }
 
 export function combatAssumption(mode) {
+  if (mode?.beam) return '<strong>같은 부위에 광선을 유지하는 조건의 이론값</strong>입니다. 한 발을 약 1.4초로 환산하며, 부위 파괴·출혈 시작·본체 체력 소진 시점까지만 계산합니다. 실제 피해 적용 간격과 빗나간 시간은 반영하지 않아, 표시된 ‘발 이상’은 실제 최소 처치 탄수를 보장하지 않습니다.';
   if (mode?.conditionalImpact) return '<strong>해당 부위에 최대 유효 피해가 들어가는 조건의 이론값</strong>입니다. ‘이상’은 표시된 명중 조건 안에서의 횟수이며 실제 최소 처치 횟수나 최대 탄수를 보장하지 않습니다.' + (mode.hitCondition ? ' 전격·자탄 명중 수는 사용자가 선택한 가정이며, 여러 부위 동시 피해는 합산하지 않습니다.' : ' 제외한 피해와 실제 명중 부위에 따라 결과가 달라집니다.');
   if (mode?.reviewedExplosive) return hasBlast(mode)
     ? '<strong>해당 부위에 최대 폭발 피해가 들어가는 조건의 이론값</strong>입니다. 직격·타격이 있는 모드는 그것도 같은 부위에 명중하는 조건입니다. 여러 부위 동시 피해는 합산하지 않으며, 실제 최소 처치 횟수로 단정할 수 없습니다.'
@@ -48,6 +54,7 @@ export function combatAssumption(mode) {
 export function combatTargetTip(target, mode, row) {
   if (mode?.conditionalImpact) {
     const location = target.next ? target.name.split(' → ')[0] : target.name;
+    if (mode.beam) return `조준 유지 부위: ${location}. ${target.next ? '먼저 이 장갑에 광선을 유지하세요. 장갑 제거 후 살점의 피해는 합산하지 않습니다.' : target.tip} 충전 후에도 같은 부위를 계속 따라가며 광선을 맞히세요.`;
     if (mode.delivery === 'arc') return `명중 가정 부위: ${location}. 전격이 이 부위에 닿는 조건이며, 원하는 부위를 자유롭게 조준할 수 있다는 뜻은 아닙니다.`;
     if (mode.delivery === 'guided') return `착탄 부위: ${location}. 미사일이 이 부위에 직접 명중하고 폭발 중심 1.5m 안에 같은 부위가 들어오는 조건입니다.`;
     if (mode.delivery === 'flag') return `타격 부위: ${location}. 깃발 날이 이 부위에 먼저 닿아야 합니다. 실제로 접근해 찌를 수 있는 위치인지 확인하세요.`;
@@ -82,7 +89,7 @@ export function combatShieldNotice(enemy, mode) {
   if (mode?.conditionalImpact) return {
     title: enemy.id === 'harvester' ? '보호막 제거 여부를 먼저 확인하세요' : '방패를 우회한 명중 조건을 확인하세요',
     label: '방패·보호막이 선택한 부위로 향하는 공격을 막지 않는 상태',
-    note: '방패·보호막을 제거하거나 우회해야 합니다. 제거에 필요한 공격과 보호막 재생은 제외하며, 전격·미사일·폭발이 보호막을 통과한다고 가정하지 않습니다.',
+    note: mode?.beam ? '방패·보호막을 제거하거나 우회해 광선이 부위에 직접 닿아야 합니다. 제거에 쓴 광선과 보호막 재생은 제외합니다.' : '방패·보호막을 제거하거나 우회해야 합니다. 제거에 필요한 공격과 보호막 재생은 제외하며, 전격·미사일·폭발이 보호막을 통과한다고 가정하지 않습니다.',
   };
   if (mode?.reviewedExplosive) return enemy.id === 'harvester' ? {
     title: '보호막 제거 여부를 먼저 확인하세요',
@@ -112,6 +119,7 @@ export function combatRouteNotes(row, mode) {
   const terms = combatTerms(mode);
   const notes = [];
   if (row.outcome === 'unknown' && row.reason) notes.push(row.reason);
+  if (mode?.beam && row.outcome === 'armor' && row.reason) notes.push(row.reason);
   if (row.outcome === 'bleed') notes.push(`출혈을 시작시키는 ${terms.count}입니다. 사망까지 시간이 걸릴 수 있습니다.`);
   if (row.outcome === 'break' || row.outcome === 'armor') notes.push(`이 ${terms.count}는 처치에 필요한 ${terms.count}가 아닙니다. 파괴 후 살아 있을 수 있습니다.`);
   if (row.via === 'main') notes.push('해당 부위에서 본체로 처리된 피해가 본체 체력을 소진하는 경로입니다. 치명 부위 파괴와 구분합니다.');

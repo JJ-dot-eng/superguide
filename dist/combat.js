@@ -59,6 +59,7 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
   const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
   if (!mode || mode.unsupported) return { ...base, reason: mode?.unsupported || '정밀 피해 자료를 아직 확인하지 않았습니다.' };
   if (enemy.shield && !shieldCleared) return { ...base, outcome: 'shield', reason: enemy.shield.note };
+  if (mode.beam) return calculateBeamRoute(enemy, target, mode, damageOptions);
   if (mode.hitCondition && !mode.impactEvents) return { ...base, reason: '한 발당 해당 부위의 명중 수를 선택하면 그 가정의 탄수를 계산합니다. 실제 명중 수는 자료 미확인입니다.' };
   if (mode.impactEvents) return calculateImpactRoute(enemy, target, mode, damageOptions);
   // Tanks have independent turret/hull pools; a strider's pilot also has its
@@ -111,6 +112,44 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
     }
   }
   return base;
+}
+
+// A short continuous beam has a maximum damage budget per burst, not an
+// instantaneous hit. Stop when the hitbox breaks or Main HP is exhausted;
+// the unused beam must not become an overkill transfer or hit exposed flesh.
+// This is a continuous-damage envelope, not an invented frame/tick simulator.
+function calculateBeamRoute(enemy, target, mode, options) {
+  const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
+  const main = target.main || enemy.main;
+  const breakdown = damageBreakdown(mode, target, main, options);
+  const damage = breakdown.damage;
+  const stage = { name: target.name, hp: target.hp, armor: target.armor, durability: target.durability, damage, hits: 0, breakdown };
+  const stages = [stage];
+  if (![...Object.values(damage), mode.beam.duration, mode.beam.standardPerSecond, mode.beam.durablePerSecond, target.hp, target.toMain, main.hp].every(known)
+    || mode.beam.duration === 0 || target.hp === 0 || main.hp === 0 || damage.explosion !== 0 || damage.mainExplosion !== 0) {
+    return { ...base, stages, reason: '자료 미확인: 광선의 피해·지속시간 또는 부위 수치가 확인되지 않아 계산을 보류합니다.' };
+  }
+  if (damage.direct === 0) return { ...base, stages, outcome: 'blocked', reason: '광선이 해당 부위 장갑을 관통하지 못하거나 직접 닿지 않습니다.' };
+  const partBursts = target.hp / damage.direct;
+  const transferPerBurst = damage.direct * target.toMain / 100;
+  const transferCap = target.overflowCap ? target.hp + (target.constitution || 0) : Infinity;
+  const mainBursts = !target.isolated && transferPerBurst > 0 && main.hp <= transferCap ? main.hp / transferPerBurst : Infinity;
+  const bursts = Math.min(partBursts, mainBursts);
+  const hits = Math.ceil(bursts - 1e-9);
+  if (hits < 1 || hits > 20000) return { ...base, stages, reason: '계산 범위를 초과했습니다.' };
+  Object.assign(stage, {
+    hits, contactSeconds: bursts * mode.beam.duration,
+    appliedDirect: damage.direct * bursts,
+    mainTransfer: Math.min(transferPerBurst * bursts, transferCap),
+  });
+  const result = { ...base, stages, hits };
+  // Fatal parts take priority at a simultaneous Main/part threshold.
+  if (partBursts <= mainBursts && target.effect === 'kill') return { ...result, outcome: 'kill', via: 'part' };
+  if (mainBursts <= partBursts) return { ...result, outcome: main.constitution ? 'bleed' : 'kill', via: 'main' };
+  return {
+    ...result, outcome: target.effect, via: 'part',
+    ...(target.next ? { reason: '장갑 파괴까지의 탄수입니다. 남은 광선이 노출된 살점에 이어서 닿는 조건은 자료 미확인이므로 최종 처치 탄수는 계산 보류합니다.' } : {}),
+  };
 }
 
 // Multiple arcs/bomblets are separate damage events. Round damage and Main

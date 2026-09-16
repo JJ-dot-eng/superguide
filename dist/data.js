@@ -1,4 +1,4 @@
-import { support } from './data-support.js';
+import { support } from './data-support.js?v=meltagun-1';
 import { orbitals, eagles } from './data-offense.js';
 import { backpacks, defense, vehicles } from './data-equipment.js?v=shield-generators-1';
 import { missions } from './data-mission.js';

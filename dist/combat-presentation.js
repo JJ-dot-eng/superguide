@@ -140,7 +140,7 @@ export function combatRouteNotes(row, mode) {
   return notes;
 }
 
-export function combatSummary(enemy, mode, { best, rows }, { shieldCleared = false, unsupported } = {}) {
+export function combatSummary(enemy, mode, { best, rows }, { weapon, shieldCleared = false, unsupported } = {}) {
   const terms = combatTerms(mode);
   if (unsupported) return { tone: 'neutral', title: `이 무기·모드의 ${terms.count}는 계산 보류`, body: `${unsupported} 처치 불가능이라는 뜻은 아닙니다.` };
   if (enemy.shield && !shieldCleared && !enemy.shield.partial) {
@@ -149,6 +149,14 @@ export function combatSummary(enemy, mode, { best, rows }, { shieldCleared = fal
   }
   if (mode?.hitCondition && !mode.selectedCondition) return { tone: 'neutral', title: '한 발당 명중 조건을 선택하세요', body: combatConditionText(mode) };
   if (spearCannotLock(enemy, mode)) return { tone: 'neutral', title: '직접 락온 불가 · 착탄 가정 참고', body: '스피어는 이 적에게 직접 락온할 수 없습니다. 아래 수치는 다른 표적에 발사한 미사일이 표시 부위에 착탄했을 때의 참고값입니다.' };
+  // Wiki tactics describe observed outcomes; they do not replace one-part damage calculations.
+  const reference = enemy.tacticalResults?.find(result => result.weapon === weapon && result.mode === mode?.id);
+  if (reference) return {
+    tone: 'positive',
+    title: `${reference.target} 명중 시 ${combatCount(reference.hits, mode)} ${combatOutcome(reference.outcome, mode)} 가능 · 위키 기준`,
+    body: reference.note,
+    reference,
+  };
   if (best?.lowerBound) return {
     tone: 'neutral', title: `${number(best.hits)}${terms.unit} 이상 · ${best.target.name} · ${combatOutcome(best.outcome, mode)}`,
     body: `${best.modelNote} ${combatTargetTip(best.target, mode, best)}`,

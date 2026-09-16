@@ -1,5 +1,5 @@
 import { categories, stratagems, checkedAt } from './data.js?v=shields-1';
-import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shields-1';
+import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=compact-cards-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=c4-1';
@@ -62,7 +62,7 @@ function filteredItems() {
   return searchItems(items, state.search);
 }
 function card(item) {
-  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>${renderStats(item)}</button>${renderDefenseSource(item)}<div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}">사용법 보기 <span aria-hidden="true">↗</span></button></div></article>`;
+  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>${renderStats(item)}</button>${renderDefenseSource(item)}<div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}" aria-label="${escape(item.name)} 자세히 보기" aria-haspopup="dialog" aria-controls="detail-dialog">자세히 <span aria-hidden="true">↗</span></button></div></article>`;
 }
 function renderCards() {
   const items = filteredItems();

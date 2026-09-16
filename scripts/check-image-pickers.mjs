@@ -46,8 +46,9 @@ for (const asset of Object.values({ ...pickerEnemyImages, ...pickerStructureImag
   paths.add(asset.src.split('/').at(-1));
 }
 assert.deepEqual((await readdir(new URL('../dist/assets/pickers/', import.meta.url))).sort(), [...paths].sort());
-assert.equal(Object.values(pickerStructureImages).filter(image => image.kind === 'map').length, 14);
-for (const id of ['fabricator', 'bulk-fabricator', 'warp-ship', 'lightning-spire']) assert.equal(pickerStructureImages[id].note, '시설 모습');
+assert.equal(Object.values(pickerStructureImages).filter(image => image.kind === 'map').length, 12);
+assert.equal(Object.values(pickerStructureImages).filter(image => image.kind === 'faction').length, 6);
+for (const id of ['bug-hole', 'titan-hole', 'fabricator', 'bulk-fabricator', 'warp-ship', 'lightning-spire']) assert.equal(pickerStructureImages[id].note, '진영 공통 아이콘');
 
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const doc = new TestDocument(html);

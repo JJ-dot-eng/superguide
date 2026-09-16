@@ -2,7 +2,7 @@ import { categories, stratagems, checkedAt } from './data.js?v=fire-specs-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=vox-explanation-1';
+import { initCombat } from './combat-ui.js?v=vox-explanation-2';
 import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';

@@ -1,4 +1,4 @@
-import { expandedEnemies } from './combat-enemies-expanded.js?v=vox-explanation-1';
+import { expandedEnemies } from './combat-enemies-expanded.js?v=vox-explanation-2';
 // Reviewed Wiki Anatomy and Detailed Weapon Statistics tables, 2026-09-16.
 // Original entries were checked through the search index; expanded anatomy
 // entries use the Wiki revision API, with sourceRevision retained below.

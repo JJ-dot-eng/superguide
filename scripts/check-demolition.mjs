@@ -201,7 +201,7 @@ for (const structure of structures) for (const cleared of [false, true]) {
 const epochFactory = weaponEntry('fabricator', 'epoch');
 assert.deepEqual(epochFactory.attacks.map(attack => attack.mode.id), ['charged']);
 assert.equal(epochFactory.attacks[0].result.hits, 2);
-assert.match(card(epochFactory), /2발 · 본체 체력 소진/);
+assert.match(card(epochFactory), /2발 · 체력 파괴 가능/);
 assert.match(card(epochFactory), /<p class="demolition-aim-note">별도 입구 철거: 환풍구 안쪽에 폭발/);
 assert.doesNotMatch(card(epochFactory), /data-mode="standard"/);
 const epochHole = weaponEntry('bug-hole', 'epoch');
@@ -218,7 +218,7 @@ assert.equal(weaponEntry('jammer', 'orbital-precision').outcome, 'conditional');
 assert.equal(weaponEntry('jammer', 'orbital-precision', { jammerDisabled: true }).outcome, 'demolish');
 const c4Ship = weaponEntry('warp-ship', 'c4-pack');
 assert.equal(c4Ship.outcome, 'health');
-assert.match(card(c4Ship), /1개 · 본체 체력 소진/);
+assert.match(card(c4Ship), /1개 · 체력 파괴 가능/);
 assert.doesNotMatch(card(c4Ship), /<p class="demolition-extra-condition">워프 함선의 보호막을 먼저/);
 assert.deepEqual(getDemolitionSelection(initialDemolitionSelection, stratagems), { view: 'empty' }, 'Other selections must not mutate the initial state');
 

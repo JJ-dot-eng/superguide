@@ -83,5 +83,28 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-method li+li{margin-top:8px}
 .combat-sources a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 .combat-detail-button{margin-bottom:18px}
+.demolition-conditions{display:flex;flex-wrap:wrap;gap:12px 24px;margin-bottom:18px;padding:14px 18px;border:1px solid #65543a;background:#26231a}
+.demolition-conditions label{display:flex;align-items:center;gap:9px;font-size:.875rem;cursor:pointer}
+.demolition-conditions input{width:19px;height:19px;flex:none;accent-color:var(--yellow);margin:0}
+.demolition-loadout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 24px;padding:18px 0;margin-bottom:22px;border-block:1px solid var(--border)}
+.demolition-loadout>p{grid-column:1/-1;font-size:.875rem;line-height:1.8}
+.demolition-force{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+.demolition-force dt{color:var(--muted);font-size:.875rem}
+.demolition-force dd{margin:3px 0 0;color:var(--yellow);font-size:1.125rem;font-weight:600;overflow-wrap:anywhere}
+.demolition-special{color:#bed29b}
+.demolition-card[data-outcome=conditional]{border-top-color:#b18c4f}
+.demolition-card[data-outcome=conditional] .outcome-tag{color:#e9c98b;background:#342d20;border-color:#65543a}
+.demolition-card .demolition-faction{display:block;margin-top:4px;font-size:.8rem;color:var(--muted)}
+.demolition-result-title{margin:14px 0 8px;font-size:1.125rem;font-weight:600;line-height:1.65;overflow-wrap:anywhere}
+.demolition-reason,.demolition-tip{font-size:.875rem;line-height:1.85;color:#c8cec1}
+.demolition-requirements{margin:12px 0;padding:10px 12px 10px 28px;background:#28251c;color:#e3c894;font-size:.875rem;line-height:1.8;border-left:2px solid #b18c4f}
+.demolition-thresholds{margin:14px 0;padding:11px 0;border-block:1px solid var(--border);font-size:.875rem}
+.demolition-thresholds>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:3px 12px}
+.demolition-thresholds>div+div{margin-top:5px}
+.demolition-thresholds dt{color:var(--muted)}
+.demolition-thresholds dd{margin:0;white-space:nowrap}
+.demolition-health{font-size:.8rem;color:var(--muted);margin-top:9px;line-height:1.8}
+.demolition-card .combat-breakdown p+p{margin-top:9px}
+@media(max-width:680px){.demolition-loadout{grid-template-columns:minmax(0,1fr)}.demolition-conditions{padding:12px}.demolition-force dd{font-size:1rem}}
 @media(max-width:1100px){.combat-routes,.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
 @media(max-width:680px){.combat-routes,.combat-context,.combat-controls{grid-template-columns:minmax(0,1fr)}.combat-context>div+div{border-left:0;border-top:1px solid var(--border);padding:18px 0 0}.combat-heading{flex-wrap:wrap}.combat-answer{padding:17px 18px}.combat-answer h3{font-size:1.25rem}.combat-route{padding:17px}.feature-nav button{padding:10px 11px}.feature-nav span{display:none}.combat-shield{padding:14px}.combat-method{padding:13px 16px}}

@@ -8,6 +8,7 @@ import { wikiIcons } from '../dist/wiki-icons.js';
 import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
+import './check-demolition.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
 const ids = new Set();

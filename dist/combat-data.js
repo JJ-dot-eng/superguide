@@ -275,7 +275,33 @@ export const enemyTypeCount = new Set(enemies.map(enemy => enemy.family || enemy
 const shot = (id, name, standard, durable, ap, explosion = 0, explosionAp = 0, extra = {}) => ({ id, name, standard, durable, ap, explosion, explosionAp, ...extra });
 const profile = (page, modes, note = '') => ({ source: wiki(page), modes, note });
 const reviewedExplosive = (page, modes, note) => ({ ...profile(page, modes.map(mode => ({ ...mode, reviewedExplosive: true })), note), checkedAt: '2026-09-16', combatOnly: true });
+const reviewedImpact = (page, modes, note) => ({ ...profile(page, modes.map(mode => ({ ...mode, conditionalImpact: true })), note), checkedAt: '2026-09-16', combatOnly: true });
 export const weaponProfiles = {
+  'arc-thrower': reviewedImpact('ARC-3_Arc_Thrower', [
+    shot('first-target', '첫 표적 · 전격 명중', 250, 100, 7, 0, 0, { delivery: 'arc', range: 55 }),
+  ], '첫 표적의 표시 부위에 전격이 계속 명중하는 조건입니다. 특정 부위를 자유롭게 조준할 수 있는 무기는 아닙니다. 연쇄 대상의 피해 감소와 다른 적의 피해는 제외합니다.'),
+  'spear': reviewedImpact('FAF-14_Spear', [
+    shot('impact', '유도 미사일 · 착탄 부위 기준', 4000, 4000, 7, 200, 3, { delivery: 'guided', explosionDurable: 200, innerRadius: 1.5, radius: 3 }),
+  ], '락온한 표적을 향한 미사일이 표시 부위에 직접 착탄하는 조건입니다. 유도 궤적과 실제 착탄 부위는 보장하지 않으며, 여러 부위 동시 폭발 피해는 제외합니다.'),
+  'one-true-flag': reviewedImpact('CQC-1_One_True_Flag', [
+    shot('melee', '일반 찌르기', 200, 100, 3, 0, 0, { unit: '회', delivery: 'flag' }),
+  ], '깃발 날이 해당 부위에 먼저 닿는 일반 찌르기 기준입니다. 깃발 설치 동작과 방어구의 근접 피해 증가 효과는 제외합니다.'),
+  'speargun': reviewedImpact('S-11_Speargun', [
+    shot('direct', '직격 기준 · 가스 피해 제외', 650, 275, 5, 0, 0, { delivery: 'harpoon', falloff: true }),
+  ], '작살의 직격 피해만 계산합니다. 가스 영역 피해와 가스 지속 피해는 모두 제외하며, 포함하지 않은 피해까지 반영한 실제 최소 탄수는 아닙니다.'),
+  'de-escalator': reviewedImpact('GL-52_De-Escalator', [
+    shot('arc', '전격 · 명중 수 조건', 100, 70, 4, 0, 0, { delivery: 'arc', range: 10, hitCondition: { kind: 'arcs', min: 1, max: 10 } }),
+  ], '전격 1회는 일반 피해 100 / 내구 피해 70 / AP 4입니다. 한 유탄에서 전격 10개가 발생하지만, 특정 부위에 들어가는 개수는 자료 미확인입니다. 유탄 자체 직격은 위키 세부 표 20/2와 변경 기록 0/0이 충돌하여 제외합니다. 전격에 폭발 저항을 적용하지 않습니다.'),
+  'airburst-launcher': reviewedImpact('RL-77_Airburst_Rocket_Launcher', [
+    ...[
+      ['flak', '대공포탄 모드', '근접 신관으로 공중에서 터질 수 있습니다. 직접 맞히지 않은 주탄의 직격 피해는 포함하지 마세요.'],
+      ['cluster', '집속탄 모드', '주탄은 충돌 또는 짧은 시간 경과 후 터지며, 자탄은 분산 후 충돌 시 폭발합니다.'],
+    ].map(([id, name, note]) => shot(id, name, 350, 350, 3, 150, 3, {
+      delivery: 'cluster', explosionDurable: 150, innerRadius: 3, radius: 5, note,
+      hitCondition: { kind: 'bomblets', min: 0, max: 25 },
+      bomblet: { standard: 150, durable: 150, ap: 3, explosion: 500, explosionDurable: 500, explosionAp: 3, innerRadius: 4, radius: 6 },
+    })),
+  ], '주탄과 자탄의 직격·폭발을 따로 계산합니다. 자탄은 25개 발생하지만 같은 부위에 모두 맞는다고 자동 합산하지 않습니다. 선택한 폭발이 모두 해당 부위에 최대 피해를 주는 가정이며, 여러 부위 동시 피해는 제외합니다.'),
   'grenade-launcher': reviewedExplosive('GL-21_Grenade_Launcher', [
     shot('standard', '기본 사격', 0, 0, 4, 400, 3, { explosionDurable: 400, innerRadius: 3.5, radius: 7.5 }),
   ], '직격 피해 0은 위키의 정상값입니다. 안전 신관이 작동할 만큼 거리를 확보하고, 유탄이 튕긴 위치가 아닌 실제 폭발 위치를 기준으로 조준하세요.'),
@@ -336,10 +362,6 @@ export const unsupportedWeapons = {
   'flamethrower': '불길의 접촉 시간과 화상 지속 피해가 필요해 탄수로 환산하지 않습니다.',
   'cremator': '불길의 접촉 시간과 화상 지속 피해가 필요해 탄수로 환산하지 않습니다.',
   'laser-cannon': '광선의 접촉 시간과 화상을 따로 계산해야 하므로 발 단위 계산을 지원하지 않습니다.',
-  'airburst-launcher': '자탄의 명중 개수와 폭발 위치가 달라 고정 탄수를 계산하지 않습니다.',
   'wasp': '유도 모드별 명중 부위와 연속 폭발 조건을 아직 검증하지 않았습니다.',
-  'arc-thrower': '전격이 실제로 선택하는 부위와 연쇄 조건을 아직 검증하지 않았습니다.',
-  'spear': '자동 유도의 실제 명중 부위를 사용자가 정확히 지정할 수 없어 부위별 탄수를 제공하지 않습니다.',
   'sterilizer': '가스의 지속 시간과 대상별 피해 조건이 필요합니다.',
-  'speargun': '작살의 직격과 가스 지속 피해를 함께 계산하는 조건을 아직 검증하지 않았습니다.',
 };

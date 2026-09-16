@@ -31,6 +31,14 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-controls label{font-size:.875rem;color:var(--muted);display:flex;flex-direction:column;gap:7px;min-width:0}
 .combat-controls select{min-width:0;width:100%;height:50px;padding:0 12px;color:var(--text);background:var(--panel);border:1px solid #48503e;border-radius:3px;font-size:1rem;text-overflow:ellipsis}
 .combat-controls select:disabled{color:var(--muted);opacity:1}
+.combat-hit-conditions{margin:0 0 20px;padding:16px 20px;border:1px solid var(--border);border-radius:3px;min-width:0;background:var(--panel)}
+.combat-hit-conditions legend{padding:0 8px;color:var(--yellow);font-size:.875rem}
+.combat-condition-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px;align-items:end}
+.combat-condition-controls label{display:flex;flex-direction:column;gap:7px;min-width:0;color:var(--muted);font-size:.875rem}
+.combat-condition-controls select{width:100%;min-width:0;height:46px;padding:0 10px;color:var(--text);background:var(--bg);border:1px solid #48503e;border-radius:3px;font-size:.875rem}
+.combat-condition-controls .combat-condition-check{flex-direction:row;align-items:center;min-height:46px;gap:9px}
+.combat-condition-check input{width:18px;height:18px;flex:none;accent-color:var(--yellow)}
+.combat-hit-conditions p{margin-top:12px;color:var(--muted);font-size:.875rem;line-height:1.8}
 .combat-shield{padding:16px 20px;border:1px solid #766337;background:#26231a;margin-bottom:18px}
 .combat-shield label{display:flex;gap:10px;align-items:center;cursor:pointer;font-size:1rem}
 .combat-shield input{width:20px;height:20px;flex:none;accent-color:var(--yellow);margin:0}

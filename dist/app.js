@@ -1,7 +1,7 @@
 import { categories, stratagems, checkedAt } from './data.js';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=anatomy-1';
+import { initCombat } from './combat-ui.js?v=enemies-2';
 import { initFeatureNavigation } from './features.js';
 import { initDemolition } from './demolition-ui.js?v=factions-1';
 

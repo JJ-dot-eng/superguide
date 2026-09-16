@@ -16,12 +16,15 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false } = 
   const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
   if (!mode || mode.unsupported) return { ...base, reason: mode?.unsupported || '정밀 피해 자료를 아직 확인하지 않았습니다.' };
   if (enemy.shield && !shieldCleared) return { ...base, outcome: 'shield', reason: enemy.shield.note };
+  // Tanks have independent turret/hull pools; a strider's pilot also has its
+  // own pool. A blast reaching this route must not damage a different pool.
+  const main = target.main || enemy.main;
   let totalHits = 0;
-  let mainRemaining = enemy.main.hp;
+  let mainRemaining = main.hp;
   let current = target;
   const stages = [];
   while (current) {
-    const damage = damagePerHit(mode, current, enemy.main);
+    const damage = damagePerHit(mode, current, main);
     const partDamage = damage.direct + damage.explosion;
     const stage = { name: current.name, hp: current.hp, armor: current.armor, durability: current.durability, damage, hits: 0 };
     stages.push(stage);
@@ -47,7 +50,7 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false } = 
       if (partRemaining <= -(current.constitution || Infinity) && current.effect === 'bleed') return { ...result, outcome: 'kill', via: 'part' };
       // An already-exposed part is an isolated, conservative part-HP estimate:
       // previous armor damage to Main is unknown, so no fresh Main is invented.
-      if (!target.isolated && mainRemaining <= 0) return { ...result, outcome: enemy.main.constitution && mainRemaining > -enemy.main.constitution ? 'bleed' : 'kill', via: 'main' };
+      if (!target.isolated && mainRemaining <= 0) return { ...result, outcome: main.constitution && mainRemaining > -main.constitution ? 'bleed' : 'kill', via: 'main' };
       if (partRemaining <= 0) {
         if (current.next) { current = current.next; break; }
         return { ...result, outcome: current.effect, via: 'part' };

@@ -1,5 +1,6 @@
 import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js?v=epoch-1';
-import { calculateDemolition, forceBounds } from './demolition.js?v=epoch-1';
+import { forceBounds } from './demolition.js?v=epoch-1';
+import { getDemolitionSelection, initialDemolitionSelection } from './demolition-selection.js?v=all-stratagems-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => value.toLocaleString('ko-KR');
@@ -20,14 +21,50 @@ export function openingRouteNote(row) {
   return `입구 철거 경로: ${shield}${openings.join(' 또는 ')}에 폭발이 들어가야 합니다. 위의 본체 체력 소진 탄수와 별도로, 내부 폭발의 철거력으로 판정합니다.`;
 }
 
+function resultTitle(row) {
+  if (row.method === 'health') return `${number(row.hits)}${row.unit} · 본체 체력 소진`;
+  if (row.method === 'force') return `${row.route.name} · ${row.component === 'explosion' ? '폭발' : '직접 명중'}`;
+  return row.outcome === 'blocked' ? '파괴 조건에 미달' : '확인된 자료로 판정 보류';
+}
+
+function attackOpeningNote(row) {
+  if (row.route?.opening) return `조준 조건: ${row.route.name}에 폭발을 넣어야 합니다.`;
+  if (row.method !== 'health') return '';
+  const openings = row.routes.filter(item => item.outcome === 'pass' && item.route.opening).map(item => item.route.name);
+  if (!openings.length) return '';
+  const shield = row.structure.condition === 'shield' ? '보호막 제거 후 ' : '';
+  return `별도 입구 철거: ${shield}${openings.join(' 또는 ')}에 폭발을 넣으세요. (위 탄수와 별도)`;
+}
+
+export function renderDemolitionWeaponCard(entry, { categories, wikiIcons }) {
+  const { weapon, profile, attacks, outcome } = entry;
+  const category = categories.find(item => item.id === weapon.category)?.name || '';
+  const modes = attacks.map(({ mode, result }) => {
+    const openingNote = attackOpeningNote(result);
+    const conditions = result.conditions.filter(text => text !== `${result.route?.name}에 폭발을 넣어야 합니다.` && !(profile.conditionalAim && text === profile.note));
+    return `<li class="demolition-weapon-mode" data-mode="${escape(mode.id)}" data-outcome="${result.outcome}">
+      <div class="demolition-mode-heading"><h4>${escape(mode.name)}</h4><button type="button" class="text-button" data-demolition-weapon="${escape(weapon.id)}" data-demolition-mode="${escape(mode.id)}" aria-label="${escape(weapon.name)} ${escape(mode.name)} 철거 계산 자세히 보기">자세히 ↗</button></div>
+      <p class="demolition-result-title">${escape(resultTitle(result))}</p>
+      <p class="demolition-mode-force">${escape(mode.directLabel || '직격')} 철거력 ${escape(forceText(mode.direct, mode.forceUnknown))} · 폭발 철거력 ${escape(forceText(mode.explosion, mode.forceUnknown))}</p>
+      ${openingNote ? `<p class="demolition-aim-note">${escape(openingNote)}</p>` : ''}
+      ${conditions.map(text => `<p class="demolition-extra-condition">${escape(text.replace('아래 탄수에는', '표시 탄수에는'))}</p>`).join('')}
+    </li>`;
+  }).join('');
+  return `<article class="combat-route demolition-card demolition-weapon-card" data-weapon="${escape(weapon.id)}" data-outcome="${outcome}">
+    <div class="combat-route-top"><div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><h3>${escape(weapon.name)}</h3><span>${escape(category)}</span></div></div><span class="outcome-tag">${outcome === 'conditional' ? '조건부 가능' : '파괴 가능'}</span></div>
+    <ul class="demolition-weapon-modes">${modes}</ul>
+    ${profile.conditionalAim ? '<p class="demolition-extra-condition">명중 조건: 자동 조준·기폭 방식에 따라 실제 타격 여부가 달라집니다. 자세히에서 확인하세요.</p>' : ''}
+  </article>`;
+}
+
 export function initDemolition({ stratagems, categories, wikiIcons }) {
   const $ = selector => document.querySelector(selector);
   const structureSelect = $('#demolition-structure');
   const weaponSelect = $('#demolition-weapon');
   const modeSelect = $('#demolition-mode');
-  const state = { structure: 'all', weapon: 'orbital-precision', mode: 'standard', shieldCleared: false, jammerDisabled: false };
+  const state = { ...initialDemolitionSelection };
   structureSelect.innerHTML = option('all', '모든 건물 · 한눈에 보기') + [...new Set(structures.map(item => item.faction))].map(faction => `<optgroup label="${escape(faction)}">${structures.filter(item => item.faction === faction).map(item => option(item.id, item.name)).join('')}</optgroup>`).join('');
-  weaponSelect.innerHTML = categories.filter(category => category.id !== 'all').map(category => `<optgroup label="${escape(category.name)}">${stratagems.filter(item => item.category === category.id).map(item => option(item.id, item.name)).join('')}</optgroup>`).join('');
+  weaponSelect.innerHTML = option('all', '모든 스트라타젬') + categories.filter(category => category.id !== 'all').map(category => `<optgroup label="${escape(category.name)}">${stratagems.filter(item => item.category === category.id).map(item => option(item.id, item.name)).join('')}</optgroup>`).join('');
   structureSelect.value = state.structure;
   weaponSelect.value = state.weapon;
   const reviewed = Object.values(demolitionProfiles).filter(profile => profile.modes.some(mode => !mode.forceUnknown)).length;
@@ -35,15 +72,9 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
 
   function updateModes() {
     const modes = demolitionProfiles[state.weapon]?.modes;
-    modeSelect.innerHTML = modes?.length ? modes.map(mode => option(mode.id, mode.name)).join('') : option('unsupported', '철거 자료 미확인');
+    modeSelect.innerHTML = state.weapon === 'all' ? option('all', '모든 탄종·공격') : modes?.length ? modes.map(mode => option(mode.id, mode.name)).join('') : option('unsupported', '철거 자료 미확인');
     modeSelect.disabled = !modes || modes.length < 2;
     state.mode = modeSelect.value;
-  }
-
-  function resultTitle(row) {
-    if (row.method === 'health') return `${number(row.hits)}${row.unit} · 본체 체력 소진`;
-    if (row.method === 'force') return `${row.route.name} · ${row.component === 'explosion' ? '폭발' : '직접 명중'}`;
-    return row.outcome === 'blocked' ? '파괴 조건에 미달' : '확인된 자료로 판정 보류';
   }
 
   function resultCard(row) {
@@ -59,11 +90,40 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
   }
 
   function render() {
-    const weapon = stratagems.find(item => item.id === state.weapon);
-    const profile = demolitionProfiles[state.weapon];
-    const mode = profile?.modes.find(item => item.id === state.mode);
-    const visibleStructures = structures.filter(item => state.structure === 'all' || item.id === state.structure);
-    const rows = visibleStructures.map(structure => calculateDemolition(structure, profile, mode, state));
+    const selection = getDemolitionSelection(state, stratagems);
+    const answerBox = $('#demolition-answer');
+    const results = $('#demolition-results');
+    const loadout = $('#demolition-loadout');
+    const empty = selection.view === 'empty';
+    $('#demolition-assumption').hidden = empty;
+    loadout.hidden = empty;
+    results.hidden = empty;
+    results.dataset.view = selection.view;
+
+    if (empty || selection.view === 'weapons') {
+      const { structure, entries = [] } = selection;
+      $('#demolition-shield-option').hidden = structure?.condition !== 'shield';
+      $('#demolition-jammer-option').hidden = structure?.condition !== 'jammer' || !entries.some(entry => entry.profile.requiresCallIn);
+      $('#demolition-conditions').hidden = $('#demolition-shield-option').hidden && $('#demolition-jammer-option').hidden;
+      $('#demolition-sources').innerHTML = `${link(demolitionSource, '철거력·시설 임계값')} · ${link(structureDamageSource, '시설 체력·피해 규칙')}${structure ? ` · ${link(structure.source, '선택한 시설 자료')}` : ''}<br>자료 확인 ${demolitionCheckedAt} · 커뮤니티 위키 검색 색인 기준 · 실시간 패치 동기화 아님`;
+      if (empty) {
+        answerBox.dataset.tone = 'neutral';
+        answerBox.innerHTML = '<p>건물이나 스트라타젬을 선택해 주세요.</p>';
+        loadout.innerHTML = '';
+        results.innerHTML = '';
+        return;
+      }
+
+      const { possible, conditional, unknown, blocked } = selection;
+      answerBox.dataset.tone = possible ? 'positive' : 'neutral';
+      answerBox.innerHTML = `<span class="combat-answer-label">${escape(structure.name)} × 모든 스트라타젬</span><h3>${entries.length ? `파괴 가능 ${possible}종 · 조건부 ${conditional}종` : '파괴 가능한 스트라타젬이 아직 확인되지 않았습니다.'}</h3><p>파괴 가능한 탄종·공격만 표시합니다. 목록에 없는 장비는 조건 미충족 ${blocked}종 · 자료 미확인 ${unknown}종입니다. 자료 미확인은 파괴 불가능을 뜻하지 않습니다.</p>`;
+      loadout.innerHTML = `<div class="combat-weapon-title"><div><strong>${escape(structure.name)}</strong><span>${escape(structure.faction)}</span></div></div><dl class="demolition-force">${structure.routes.map(route => `<div><dt>${escape(route.name)}${route.explosiveOnly ? ' · 내부 폭발' : ''}</dt><dd>철거력 ${route.threshold} 이상</dd></div>`).join('')}</dl><p>${escape(structure.tip)}</p>${structure.health ? `<p class="demolition-health">본체 체력 ${number(structure.health.hp)} · 장갑 ${structure.health.armor} · 내구도 ${structure.health.durability}% · 체력 파괴는 철거력과 별도로 계산합니다.</p>` : ''}`;
+      results.innerHTML = entries.map(entry => renderDemolitionWeaponCard(entry, { categories, wikiIcons })).join('');
+      return;
+    }
+
+    const { weapon, profile, mode, rows } = selection;
+    const visibleStructures = rows.map(row => row.structure);
     const possible = rows.filter(row => ['demolish', 'health'].includes(row.outcome)).length;
     const conditional = rows.filter(row => row.outcome === 'conditional').length;
     const unknown = rows.filter(row => row.outcome === 'unknown').length;
@@ -86,6 +146,17 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
   modeSelect.addEventListener('change', () => { state.mode = modeSelect.value; render(); });
   $('#demolition-shield-cleared').addEventListener('change', event => { state.shieldCleared = event.target.checked; render(); });
   $('#demolition-jammer-disabled').addEventListener('change', event => { state.jammerDisabled = event.target.checked; render(); });
+  $('#demolition-results').addEventListener('click', event => {
+    const button = event.target.closest('[data-demolition-weapon]');
+    if (!button) return;
+    state.weapon = button.dataset.demolitionWeapon;
+    weaponSelect.value = state.weapon;
+    updateModes();
+    state.mode = button.dataset.demolitionMode;
+    modeSelect.value = state.mode;
+    render();
+    weaponSelect.focus();
+  });
   updateModes();
   render();
 }

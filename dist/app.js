@@ -3,8 +3,8 @@ import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from '
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=c4-1';
-import { initFeatureNavigation } from './features.js?v=headings-1';
-import { initDemolition } from './demolition-ui.js?v=factions-1';
+import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
+import { initDemolition } from './demolition-ui.js?v=all-stratagems-1';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };

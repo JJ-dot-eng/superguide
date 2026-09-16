@@ -8,7 +8,13 @@ export const focusImagePicker = select => (controllers.get(select)?.trigger || s
 export const filterPickerItems = (items, query = '', group = '') => searchItems(items.filter(item => !group || item.group === group).map(item => ({ ...item, tags: item.tags || [] })), query);
 export const pickerFocusIndex = (index, key, length) => Math.max(0, Math.min(length - 1, key === 'Home' ? 0 : key === 'End' ? length - 1 : index + ({ ArrowLeft: -1, ArrowRight: 1, ArrowUp: -3, ArrowDown: 3 }[key] || 0)));
 
-const artwork = (item, allIcon) => item.id === 'all' ? `<span class="picker-all-icon" aria-hidden="true">${allIcon}</span>` : `<img src="${escape(item.image.src)}" alt="" width="120" height="90" loading="lazy" decoding="async">`;
+const artwork = (item, allIcon) => {
+  if (item.id === 'all') return `<span class="picker-all-icon" aria-hidden="true">${allIcon}</span>`;
+  const framing = item.id.startsWith('voteless-') ? ' picker-bust-voteless'
+    : ['rocket-devastator', 'heavy-devastator'].includes(item.id) ? ' picker-bust-devastator'
+    : ['scout-strider', 'reinforced-strider'].includes(item.id) ? ' picker-raised-strider' : '';
+  return `<span class="picker-image-frame${framing}"><img src="${escape(item.image.src)}" alt="" width="120" height="90" loading="lazy" decoding="async"></span>`;
+};
 
 export function renderPickerItems(items, selected, allIcon = '') {
   const focusId = items.some(item => item.id === selected) ? selected : items[0]?.id;

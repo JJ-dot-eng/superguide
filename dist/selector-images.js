@@ -1,5 +1,5 @@
-// Representative enemies and facility markers from Helldivers Wiki.
-// Original SVGs and Wiki-sized raster thumbnails; no generated game artwork.
+// Representative enemies and facility markers from Helldivers Wiki and user-provided artwork.
+// Original files and source-served image versions; no generated game artwork.
 export const pickerEnemyImages = {
   "charger": {
     "src": "./assets/pickers/enemy-charger.png",
@@ -44,16 +44,17 @@ export const pickerEnemyImages = {
     "kind": "portrait"
   },
   "hulk": {
-    "src": "./assets/pickers/enemy-hulk.png",
-    "title": "Hulk Scorcher Enemy Icon.png",
-    "source": "https://helldivers.wiki.gg/wiki/File:Hulk_Scorcher_Enemy_Icon.png",
-    "originalUrl": "https://helldivers.wiki.gg/images/Hulk_Scorcher_Enemy_Icon.png?2d38a9",
-    "assetUrl": "https://helldivers.wiki.gg/images/thumb/Hulk_Scorcher_Enemy_Icon.png/256px-Hulk_Scorcher_Enemy_Icon.png?2d38a9",
-    "width": 256,
-    "height": 256,
-    "sha256": "1286e013d7d0ff4b9772b60637a6192126331f49ea101655ebea070deb4a5f31",
+    "src": "./assets/pickers/enemy-hulk-portrait.webp",
+    "title": "Hulk Enemy Icon.png",
+    "sourceType": "wiki",
+    "source": "https://helldivers.fandom.com/wiki/File:Hulk_Enemy_Icon.png",
+    "originalUrl": "https://static.wikia.nocookie.net/helldivers_gamepedia/images/8/85/Hulk_Enemy_Icon.png/revision/latest?cb=20250223150839",
+    "assetUrl": "https://static.wikia.nocookie.net/helldivers_gamepedia/images/8/85/Hulk_Enemy_Icon.png/revision/latest?cb=20250223150839",
+    "width": 1185,
+    "height": 1176,
+    "sha256": "c8c316fa8407cc4049308419d49ef2d0ed3ec9d47fd047cdbb8ce0570ced588f",
     "retrievedAt": "2026-09-16",
-    "uploader": "Roy Bee",
+    "uploader": "S233",
     "license": "",
     "kind": "portrait"
   },
@@ -86,16 +87,17 @@ export const pickerEnemyImages = {
     "kind": "portrait"
   },
   "overseer": {
-    "src": "./assets/pickers/enemy-overseer.png",
-    "title": "Overseer Enemy Icon.png",
-    "source": "https://helldivers.wiki.gg/wiki/File:Overseer_Enemy_Icon.png",
-    "originalUrl": "https://helldivers.wiki.gg/images/Overseer_Enemy_Icon.png?f19e78",
-    "assetUrl": "https://helldivers.wiki.gg/images/thumb/Overseer_Enemy_Icon.png/256px-Overseer_Enemy_Icon.png?f19e78",
-    "width": 256,
-    "height": 256,
-    "sha256": "2394feec2d0f18a3d2ba4cc8b8d6fcbf6cb14651bf5b0b74f4d780062f5b8996",
+    "src": "./assets/pickers/enemy-overseer-portrait.png",
+    "width": 1101,
+    "height": 1350,
+    "title": "오버시어 대표 이미지",
+    "sourceType": "user-provided",
+    "source": null,
+    "originalUrl": null,
+    "assetUrl": null,
+    "uploader": null,
+    "sha256": "54c183eb8b4a943911a4502eccedcb453d1ac08024c7c43db371c6bef1ce0c2d",
     "retrievedAt": "2026-09-16",
-    "uploader": "Roy Bee",
     "license": "",
     "kind": "portrait"
   },
@@ -383,16 +385,17 @@ export const pickerEnemyImages = {
     "kind": "portrait"
   },
   "elevated-overseer": {
-    "src": "./assets/pickers/enemy-elevated-overseer.png",
-    "title": "Elevated Overseer Enemy Icon.png",
-    "source": "https://helldivers.wiki.gg/wiki/File:Elevated_Overseer_Enemy_Icon.png",
-    "originalUrl": "https://helldivers.wiki.gg/images/Elevated_Overseer_Enemy_Icon.png?618075",
-    "assetUrl": "https://helldivers.wiki.gg/images/thumb/Elevated_Overseer_Enemy_Icon.png/256px-Elevated_Overseer_Enemy_Icon.png?618075",
-    "width": 256,
-    "height": 256,
-    "sha256": "f488d6cabdfd038c6d3c9493aeba07d095ed40339fa524a98286b9827fa97678",
+    "src": "./assets/pickers/enemy-elevated-overseer-portrait.webp",
+    "width": 1200,
+    "height": 1600,
+    "title": "Elevated Overseer.png",
+    "sourceType": "wiki",
+    "source": "https://helldivers.fandom.com/wiki/File:Elevated_Overseer.png",
+    "originalUrl": "https://static.wikia.nocookie.net/helldivers_gamepedia/images/0/06/Elevated_Overseer.png/revision/latest?cb=20250522013656",
+    "assetUrl": "https://static.wikia.nocookie.net/helldivers_gamepedia/images/0/06/Elevated_Overseer.png/revision/latest?cb=20250522013656",
+    "uploader": "S233",
+    "sha256": "56ff75625513cce709e1b27016617895b206d5916773ad2186cc3bc8ca339b3c",
     "retrievedAt": "2026-09-16",
-    "uploader": "Nikki Bot",
     "license": "",
     "kind": "portrait"
   }

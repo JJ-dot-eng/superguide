@@ -11,6 +11,7 @@ import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
 import './check-demolition.mjs';
+import './check-defense.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
 const ids = new Set();

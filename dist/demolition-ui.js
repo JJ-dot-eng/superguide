@@ -17,24 +17,19 @@ const forceText = (value, unknown = false) => {
 export function openingRouteNote(row) {
   if (row.method !== 'health') return '';
   const openings = row.routes.filter(result => result.outcome === 'pass' && result.route.opening).map(result => result.route.name);
-  if (!openings.length) return '';
-  const shield = row.structure.condition === 'shield' ? '보호막 제거 후 ' : '';
-  return `입구 철거 경로: ${shield}${openings.join(' 또는 ')}에 폭발이 들어가야 합니다. 위의 본체 체력 소진 탄수와 별도로, 내부 폭발의 철거력으로 판정합니다.`;
+  const shield = row.structure.condition === 'shield' ? ' (보호막 제거 후)' : '';
+  return openings.map(name => `1${row.unit} ${name} 폭발 가능${shield}`).join(' / ');
 }
 
 function resultTitle(row) {
-  if (row.method === 'health') return `${number(row.hits)}${row.unit} · 체력 파괴 가능`;
+  if (row.method === 'health') return [`${number(row.hits)}${row.unit} 체력 파괴 가능`, openingRouteNote(row)].filter(Boolean).join(' / ');
   if (row.method === 'force') return `${row.route.name} · ${row.component === 'explosion' ? '폭발' : '직접 명중'}`;
   return '확인된 자료로 판정 보류';
 }
 
 function attackOpeningNote(row) {
   if (row.route?.opening) return `조준 조건: ${row.route.name}에 폭발을 넣어야 합니다.`;
-  if (row.method !== 'health') return '';
-  const openings = row.routes.filter(item => item.outcome === 'pass' && item.route.opening).map(item => item.route.name);
-  if (!openings.length) return '';
-  const shield = row.structure.condition === 'shield' ? '보호막 제거 후 ' : '';
-  return `별도 입구 철거: ${shield}${openings.join(' 또는 ')}에 폭발을 넣으세요. (위 탄수와 별도)`;
+  return '';
 }
 
 export function renderDemolitionWeaponCard(entry, { categories, wikiIcons }) {
@@ -82,13 +77,12 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
   function resultCard(row) {
     const structure = row.structure;
     const mode = demolitionProfiles[state.weapon]?.modes.find(item => item.id === state.mode);
-    const openingNote = openingRouteNote(row);
     const routeEvidence = row.routes.map(result => {
       const components = result.components.filter(item => item.outcome !== 'inapplicable').map(item => `${item.component === 'direct' ? '직접 명중' : '폭발'} ${forceText(mode[item.component], mode.forceUnknown)}: ${item.outcome === 'pass' ? '충족' : item.outcome === 'unknown' ? '판정 보류' : '미충족'}`).join(' / ');
       return `<li>${escape(result.route.name)}: 철거력 ${result.route.threshold}${result.route.explosiveOnly ? ' 이상의 내부 폭발' : ' 이상'}<br>${escape(components)}</li>`;
     }).join('');
     const hpEvidence = row.health ? `<p>본체 공격 1회 피해: 직격 ${number(row.health.direct)} + 폭발 ${number(row.health.explosion)} = ${number(row.health.total)}${row.health.hits ? `<br>체력 ${number(structure.health.hp)} ÷ 피해 ${number(row.health.total)} → ${number(row.health.hits)}${row.unit} (올림)` : '<br>본체에 계산상 피해 없음'}</p>` : structure.health ? '<p>체력 파괴: 자료 미확인. 확인된 피해 자료만으로는 이 공격의 탄수를 계산할 수 없습니다.</p>' : '';
-    return `<article class="combat-route demolition-card" data-outcome="${row.outcome}" data-faction="${escape(structure.faction)}"><div class="combat-route-top"><h3>${escape(structure.name)}</h3><span class="outcome-tag">${resultLabel(row)}</span></div><span class="demolition-faction">${escape(structure.faction)}</span><p class="demolition-result-title">${escape(resultTitle(row))}</p><p class="demolition-reason">${escape(row.reason)}</p>${row.conditions.length ? `<ul class="demolition-requirements">${row.conditions.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}${openingNote ? `<p class="combat-row-note">${escape(openingNote)}</p>` : ''}<dl class="demolition-thresholds">${structure.routes.map(route => `<div><dt>${escape(route.name)}${route.explosiveOnly ? ' · 폭발' : ''}</dt><dd>철거력 ${route.threshold}</dd></div>`).join('')}</dl><p class="demolition-tip">${escape(structure.tip)}</p>${structure.health ? `<p class="demolition-health">본체 체력 ${number(structure.health.hp)} · 장갑 ${structure.health.armor} · 내구도 ${structure.health.durability}%${structure.health.exdr < 0 ? ' · 폭발 피해 ×2.5' : ''}</p>` : ''}<details class="combat-breakdown"><summary>판정 근거와 조준 조건</summary>${routeEvidence ? `<ul>${routeEvidence}</ul>` : '<p>해당 장비의 철거 자료가 아직 없습니다.</p>'}${hpEvidence}${structure.note ? `<p class="combat-row-note">${escape(structure.note)}</p>` : ''}${mode?.falloff || mode?.damage?.falloff ? '<p>거리 감쇠 전 최대 피해 기준입니다. 실전 탄수는 늘어날 수 있습니다.</p>' : ''}<p class="combat-sources">${link(structure.source, '시설 철거 조건')}${structure.healthSource ? ` · ${link(structure.healthSource, '시설 체력 수치')}` : ''}</p></details></article>`;
+    return `<article class="combat-route demolition-card" data-outcome="${row.outcome}" data-faction="${escape(structure.faction)}"><div class="combat-route-top"><h3>${escape(structure.name)}</h3><span class="outcome-tag">${resultLabel(row)}</span></div><span class="demolition-faction">${escape(structure.faction)}</span><p class="demolition-result-title">${escape(resultTitle(row))}</p><p class="demolition-reason">${escape(row.reason)}</p>${row.conditions.length ? `<ul class="demolition-requirements">${row.conditions.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}<dl class="demolition-thresholds">${structure.routes.map(route => `<div><dt>${escape(route.name)}${route.explosiveOnly ? ' · 폭발' : ''}</dt><dd>철거력 ${route.threshold}</dd></div>`).join('')}</dl><p class="demolition-tip">${escape(structure.tip)}</p>${structure.health ? `<p class="demolition-health">본체 체력 ${number(structure.health.hp)} · 장갑 ${structure.health.armor} · 내구도 ${structure.health.durability}%${structure.health.exdr < 0 ? ' · 폭발 피해 ×2.5' : ''}</p>` : ''}<details class="combat-breakdown"><summary>판정 근거와 조준 조건</summary>${routeEvidence ? `<ul>${routeEvidence}</ul>` : '<p>해당 장비의 철거 자료가 아직 없습니다.</p>'}${hpEvidence}${structure.note ? `<p class="combat-row-note">${escape(structure.note)}</p>` : ''}${mode?.falloff || mode?.damage?.falloff ? '<p>거리 감쇠 전 최대 피해 기준입니다. 실전 탄수는 늘어날 수 있습니다.</p>' : ''}<p class="combat-sources">${link(structure.source, '시설 철거 조건')}${structure.healthSource ? ` · ${link(structure.healthSource, '시설 체력 수치')}` : ''}</p></details></article>`;
   }
 
   function render() {

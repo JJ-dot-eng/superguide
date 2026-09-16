@@ -1,7 +1,9 @@
 import { categories, stratagems, checkedAt } from './data.js';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js';
+import { initCombat } from './combat-ui.js?v=demolition-1';
+import { initFeatureNavigation } from './features.js';
+import { initDemolition } from './demolition-ui.js';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };
@@ -77,7 +79,7 @@ function showToast(message) {
   clearTimeout(showToast.timer); showToast.timer = setTimeout(() => { $('#toast').hidden = true; }, 3500);
 }
 function renderComparisonState() {
-  const visible = state.selected.size > 0 && $('#combat-view').hidden;
+  const visible = state.selected.size > 0 && !$('#catalog-view').hidden;
   $('#compare-bar').hidden = !visible;
   document.body.classList.toggle('has-comparison', visible);
   $('#compare-names').textContent = [...state.selected].map(id => stratagems.find(item => item.id === id).name).join(' · ');
@@ -155,7 +157,9 @@ document.querySelectorAll('dialog').forEach(dialog => {
 });
 document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); combat.showCatalog(); $('#search').focus(); } });
 renderCategories(); renderCards();
-const combat = initCombat({ stratagems, wikiIcons, onViewChange: renderComparisonState });
+const navigate = initFeatureNavigation(renderComparisonState);
+const combat = initCombat({ stratagems, wikiIcons, navigate });
+initDemolition({ stratagems, categories, wikiIcons });
 
 // The optional browser API uses the same filters as the visible catalog.
 if (document.modelContext?.registerTool) {

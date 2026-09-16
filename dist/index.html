@@ -7,8 +7,8 @@
   <meta name="description" content="헬다이버즈 2 스트라타젬 도감. 지원 무기, 궤도, 이글, 배낭, 센트리와 차량의 사거리, 직격·폭발 피해, 장갑 관통과 사용법을 찾아보세요.">
   <title>HELLDIVERS 2 — 스트라타젬 도감</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23111312'/%3E%3Cpath d='M16 4v24M4 16h24' stroke='%23ffe44f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23ffe44f' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./styles.css?v=fabae73f44b5">
-  <script type="module" src="./app.js"></script>
+  <link rel="stylesheet" href="./styles.css?v=262643610de9">
+  <script type="module" src="./app.js?v=demolition-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">도감으로 바로 가기</a>
@@ -24,7 +24,7 @@
     </aside>
     <main id="main" tabindex="-1">
       <div class="page-heading"><div><div class="eyebrow"><span class="yellow-line"></span> SUPER EARTH FIELD MANUAL</div><h1>스트라타젬 도감<span class="heading-dot">.</span></h1><p class="intro">어디까지 닿고, 얼마나 뚫는지. 투하 전에 확인하세요.</p></div><div class="manual-stamp"><span>전술 자료집</span><strong>HD—02</strong><span>열람일 <time datetime="2026-09-16">2026.09.16</time></span></div></div>
-      <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view">스트라타젬 도감</button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view">적 대응 계산 <span>어디를 몇 발?</span></button></nav>
+      <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view">스트라타젬 도감</button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view">적 대응 계산 <span>어디를 몇 발?</span></button><button data-feature="demolition" aria-pressed="false" aria-controls="demolition-view">건물 철거 계산 <span>어디까지 부숴질까?</span></button></nav>
       <div class="notice-strip" id="catalog-notice"><span class="notice-symbol" aria-hidden="true">!</span><p><strong>한 발의 피해와 한 번의 호출은 다릅니다.</strong> 기본 수치 · 함선 모듈 제외 · 미확인 수치 구분</p><button id="notice-guide" aria-label="피해량 기준 자세히 보기">기준 보기 <span aria-hidden="true">↗</span></button></div>
       <section class="catalog" id="catalog-view" aria-labelledby="section-title">
         <div class="catalog-heading"><div class="catalog-title"><h2 id="section-title">전체 스트라타젬</h2><span class="count-badge" id="total-count"></span></div><span class="catalog-caption" id="category-caption">임무에 맞는 화력을 찾아보세요.</span></div>
@@ -58,6 +58,34 @@
             <li>적의 체력이 가득 찬 상태에서 시작합니다. 한 폭발이 여러 부위를 동시에 맞히는 효과, 화상·가스·파편, 기존 피해, 장비 강화와 행성 효과는 포함하지 않습니다. 보호막 제거에 쓴 탄수도 별도입니다.</li>
           </ul>
           <p id="combat-sources" class="combat-sources"></p>
+        </div></details>
+      </section>
+      <section id="demolition-view" class="combat-view" aria-labelledby="demolition-title" hidden>
+        <div class="combat-heading"><div><h2 id="demolition-title">어디까지 부숴질까?</h2><p>건물과 스트라타젬을 골라 철거 방법과 필요한 조건을 확인하세요.</p></div><span class="count-badge" id="demolition-coverage"></span></div>
+        <div class="combat-controls">
+          <label for="demolition-structure">건물·시설<select id="demolition-structure"></select></label>
+          <label for="demolition-weapon">스트라타젬<select id="demolition-weapon"></select></label>
+          <label for="demolition-mode">탄종·공격<select id="demolition-mode"></select></label>
+        </div>
+        <div class="demolition-conditions" id="demolition-conditions">
+          <label id="demolition-shield-option"><input type="checkbox" id="demolition-shield-cleared">워프 함선의 보호막 제거됨</label>
+          <label id="demolition-jammer-option"><input type="checkbox" id="demolition-jammer-disabled">스트라타젬 교란기 비활성화됨</label>
+        </div>
+        <div id="demolition-answer" class="combat-answer" role="status" aria-live="polite" aria-atomic="true"></div>
+        <p class="combat-assumption">철거력은 <strong>시설 파괴 조건을 판정하는 수치</strong>입니다. 직격은 실제 명중, 폭발은 중심부 최대값 기준이며 외곽에서는 철거력이 줄어듭니다.</p>
+        <div id="demolition-loadout" class="demolition-loadout"></div>
+        <div id="demolition-results" class="combat-routes demolition-results"></div>
+        <details class="combat-method"><summary>철거 계산 기준과 지원 범위</summary><div>
+          <ul>
+            <li>각 공격의 철거력이 시설의 요구값 이상이면 철거 조건을 충족합니다. 직격과 폭발 철거력은 더하지 않으며, 부족한 철거력을 여러 발 쏴서 누적시키지도 않습니다.</li>
+            <li>벌레굴 내부와 제조소 환풍구 등에는 폭발이 직접 닿아야 합니다. 수치가 충분해도 벽·지형에 가리거나 입구 밖에서 터지면 실패할 수 있습니다.</li>
+            <li>체력이 있는 시설은 별도로 피해를 계산합니다. 확인된 탄종만 일반·내구 피해, 장갑 관통, 폭발 배율을 적용하며, 같은 지점을 직격하고 중심 폭발도 닿는 조건입니다.</li>
+            <li>탄수는 포탄·탄환 한 발 단위입니다. 폭격 한 번에 떨어지는 여러 발, 파편, 화상·가스, 거리 감쇠, 이미 받은 피해와 함선 모듈은 합산하지 않습니다.</li>
+            <li>워프 함선 보호막 제거와 교란기 비활성화는 별도 조건입니다. 자료로 확인된 일부 공격의 보호막 관통 사례는 예외로 안내합니다.</li>
+            <li>자동 조준·센트리·지뢰는 시설에 공격을 실제로 맞힐 수 있는지 따로 확인해야 합니다. 지원포드 낙하와 장비 자체의 파괴 폭발은 포함하지 않습니다.</li>
+            <li>‘자료 미확인’은 파괴 불가능이라는 뜻이 아닙니다. 출처가 엇갈리는 값은 범위로 표시하고, 낮은 값으로도 충족할 때만 철거 가능으로 확정합니다.</li>
+          </ul>
+          <p id="demolition-sources" class="combat-sources"></p>
         </div></details>
       </section>
       <footer class="page-footer"><span>HELLDIVERS 2 <span class="slash">/</span> 비공식 팬 가이드</span><p>Arrowhead Game Studios·Sony Interactive Entertainment와 무관합니다. <button id="sources-button">자료 출처 및 확인 기준 ↗</button></p></footer>

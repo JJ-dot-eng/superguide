@@ -1,0 +1,103 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { stratagems } from '../dist/data.js';
+import { structures, demolitionProfiles } from '../dist/demolition-data.js';
+import { calculateDemolition, calculateStructureDamage, evaluateForce } from '../dist/demolition.js';
+import { featureFromHash, featureIds } from '../dist/features.js';
+
+const target = id => structures.find(item => item.id === id);
+const attack = (id, modeId) => demolitionProfiles[id].modes.find(mode => !modeId || mode.id === modeId);
+const calc = (structureId, weaponId, modeId, options) => calculateDemolition(target(structureId), demolitionProfiles[weaponId], attack(weaponId, modeId), options);
+const wikiSource = url => assert.equal(new URL(url).hostname, 'helldivers.wiki.gg');
+const validForce = value => value == null || typeof value === 'number' && Number.isFinite(value) && value >= 0 || value && typeof value === 'object' && Number.isFinite(value.min) && Number.isFinite(value.max) && value.min >= 0 && value.max >= value.min;
+assert.equal(new Set(structures.map(item => item.id)).size, structures.length);
+for (const structure of structures) {
+  assert(structure.name && structure.faction && structure.tip && structure.routes.length);
+  wikiSource(structure.source);
+  assert.equal(new Set(structure.routes.map(route => route.id)).size, structure.routes.length);
+  for (const route of structure.routes) assert(route.threshold > 0 && route.threshold <= 60);
+  if (structure.health) {
+    const { hp, armor, durability, exdr } = structure.health;
+    assert(hp > 0 && armor >= 0 && durability >= 0 && durability <= 100 && Number.isFinite(exdr) && exdr <= 100);
+    wikiSource(structure.healthSource);
+  }
+}
+let combinations = 0;
+for (const [id, profile] of Object.entries(demolitionProfiles)) {
+  assert(stratagems.some(item => item.id === id), `Unknown stratagem: ${id}`);
+  wikiSource(profile.source);
+  assert(profile.modes.length && new Set(profile.modes.map(mode => mode.id)).size === profile.modes.length);
+  for (const mode of profile.modes) {
+    assert(mode.name && validForce(mode.direct) && validForce(mode.explosion), `Invalid force: ${id}/${mode.id}`);
+    if (mode.damage) for (const field of ['standard', 'durable', 'ap', 'explosion', 'explosionAp']) assert(Number.isFinite(mode.damage[field]) && mode.damage[field] >= 0, `${id}/${mode.id}: ${field}`);
+    for (const structure of structures) for (const cleared of [false, true]) {
+      const result = calculateDemolition(structure, profile, mode, { shieldCleared: cleared, jammerDisabled: cleared });
+      assert(['demolish', 'health', 'conditional', 'blocked', 'unknown'].includes(result.outcome));
+      assert.equal(result.routes.length, structure.routes.length);
+      assert(result.reason && (result.hits === null || Number.isInteger(result.hits) && result.hits > 0));
+      if (result.health) for (const key of ['direct', 'explosion', 'total']) assert(Number.isFinite(result.health[key]) && result.health[key] >= 0);
+      if (result.outcome === 'conditional') assert(result.conditions.length > 0 && result.method);
+      if (result.method === 'force') assert(result.routes.some(row => row.route === result.route && row.outcome === 'pass'));
+      combinations++;
+    }
+  }
+}
+
+// Force is a per-component threshold, not additive damage or a hit counter.
+const wall = { id: 'wall', threshold: 50 };
+assert.equal(evaluateForce(wall, { direct: 30, explosion: 30 }).outcome, 'insufficient');
+assert.equal(evaluateForce(wall, { direct: 50, explosion: null }).outcome, 'pass');
+assert.equal(evaluateForce(wall, { direct: { min: 40, max: 50 }, explosion: null }).outcome, 'unknown');
+assert.equal(evaluateForce({ threshold: 40 }, { direct: { min: 40, max: 50 }, explosion: null }).outcome, 'pass');
+assert.equal(calc('bug-hole', 'laser-cannon').outcome, 'blocked', 'A beam is not an internal explosion');
+assert.equal(calc('container', 'laser-cannon').outcome, 'demolish');
+assert.equal(calc('fabricator', 'autocannon', 'aphet').outcome, 'conditional');
+assert.equal(calc('fabricator', 'autocannon', 'aphet').route.id, 'vent');
+assert.equal(calc('fabricator', 'autocannon', 'aphet').health.total, 0, 'AP 4 must not damage an AV 5 outer wall');
+assert.equal(calc('bug-hole', 'autocannon', 'flak').route.id, 'inner');
+assert.equal(calc('detector', 'eagle-500kg').outcome, 'demolish');
+assert.equal(calc('detector', 'eagle-500kg').component, 'explosion', 'Use the agreed blast value, not the disputed direct value');
+assert.equal(calc('gunship-facility', 'eagle-500kg').outcome, 'blocked');
+assert.equal(calc('gunship-facility', 'hellbomb').outcome, 'demolish');
+
+// Verified body HP remains a separate destruction path when force is low.
+assert.equal(calc('fabricator', 'recoilless', 'heat').hits, 1);
+assert.equal(calc('fabricator', 'recoilless', 'heat').method, 'health');
+assert.equal(calc('fabricator', 'recoilless', 'he').hits, 4, 'Equal AP: floor(750 × 0.65) = 487, explosion AP too low');
+assert.equal(calc('fabricator', 'commando').hits, 2);
+assert.equal(calc('bulk-fabricator', 'recoilless', 'heat').hits, 2);
+assert.equal(calc('shrieker-nest', 'autocannon', 'aphet').hits, 7, '2500 / (260 durable + 150 blast), rounded up');
+assert.equal(calc('warp-ship', 'quasar', null, { shieldCleared: true }).hits, 3);
+assert.equal(calc('warp-ship', 'recoilless', 'heat', { shieldCleared: true }).hits, 2);
+assert.equal(calculateStructureDamage(target('warp-ship'), attack('eagle-500kg')).total, 5750, 'Negative explosion resistance gives 2.5× blast damage');
+assert.equal(calc('shrieker-nest', 'grenade-launcher').outcome, 'unknown', 'Unknown HP attack must not mean impossible');
+assert.equal(calc('fabricator', 'machine-gun').outcome, 'unknown', 'Unknown force must not be treated as zero');
+assert.equal(calc('spore-spewer', 'machine-gun').outcome, 'health', 'Known HP damage remains usable with unknown force');
+assert.equal(calculateDemolition(target('container'), undefined, undefined).outcome, 'unknown');
+
+// Conditions change the result, not the structure HP or attack damage.
+assert.equal(calc('warp-ship', 'quasar').outcome, 'conditional');
+assert.equal(calc('warp-ship', 'quasar', null, { shieldCleared: true }).outcome, 'health');
+assert.equal(calc('warp-ship', 'orbital-precision').outcome, 'demolish');
+assert.equal(calc('warp-ship', 'c4-pack').outcome, 'health', 'A reviewed C4 blast bypasses the ship shield');
+assert.equal(calc('warp-ship', 'c4-pack').hits, 1);
+assert.equal(calc('warp-ship', 'c4-pack').unit, '개');
+assert.equal(calc('warp-ship', 'seaf-artillery', 'he').outcome, 'demolish');
+assert.equal(calc('warp-ship', 'seaf-artillery', 'smoke').outcome, 'conditional');
+assert.equal(calc('warp-ship', 'seaf-artillery', 'smoke', { shieldCleared: true }).outcome, 'demolish');
+assert.equal(calc('warp-ship', 'seaf-artillery', 'smoke', { shieldCleared: true }).component, 'direct');
+assert.equal(calc('warp-ship', 'orbital-smoke').outcome, 'unknown', 'Unconfirmed non-explosive hull path must remain uncertain');
+assert.equal(calc('jammer', 'orbital-precision').outcome, 'conditional');
+assert.equal(calc('jammer', 'orbital-precision', null, { jammerDisabled: true }).outcome, 'demolish');
+assert.equal(calc('jammer', 'portable-hellbomb').outcome, 'demolish', 'An already carried bomb does not need a call-in');
+assert.equal(calc('container', 'autocannon-sentry').outcome, 'conditional', 'Numeric force is not a promise of automatic target acquisition');
+assert.equal(calc('gunship-facility', 'seaf-artillery', 'he').outcome, 'blocked');
+assert.equal(calc('gunship-facility', 'seaf-artillery', 'mini-nuke').outcome, 'demolish');
+
+for (const id of featureIds) assert.equal(featureFromHash(`#${id}`), id);
+for (const hash of ['', '#unknown', '#combat-extra']) assert.equal(featureFromHash(hash), 'catalog');
+const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+const ui = await readFile(new URL('../dist/demolition-ui.js', import.meta.url), 'utf8');
+for (const [, id] of ui.matchAll(/\$\('#([a-z-]+)'\)/g)) assert(html.includes(`id="${id}"`), `Missing demolition control: ${id}`);
+for (const id of featureIds) assert(html.includes(`id="${id}-view"`) && html.includes(`data-feature="${id}"`));
+console.log(`PASS: ${structures.length} facilities, ${Object.keys(demolitionProfiles).length} weapon profiles, ${combinations} demolition/HP cases, openings, shields, jammer conditions, uncertain data and 3 feature routes.`);

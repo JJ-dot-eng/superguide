@@ -6,7 +6,7 @@ const number = value => value.toLocaleString('ko-KR');
 const outcomes = { kill: '처치', bleed: '출혈 처치 유발', break: '부위 파괴', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' };
 const sourceLink = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 
-export function initCombat({ stratagems, wikiIcons, onViewChange }) {
+export function initCombat({ stratagems, wikiIcons, navigate }) {
   const $ = selector => document.querySelector(selector);
   const enemySelect = $('#combat-enemy');
   const weaponSelect = $('#combat-weapon');
@@ -71,30 +71,16 @@ export function initCombat({ stratagems, wikiIcons, onViewChange }) {
     $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${combatCheckedAt} · 커뮤니티 위키 검색 색인의 표 기준 · 실시간 패치 동기화 아님`;
   }
 
-  function selectView(view, updateHash = true) {
-    const combat = view === 'combat';
-    $('#catalog-view').hidden = combat;
-    $('#catalog-notice').hidden = combat;
-    $('#combat-view').hidden = !combat;
-    document.querySelectorAll('[data-feature]').forEach(button => {
-      const active = button.dataset.feature === view;
-      button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active));
-    });
-    if (updateHash) history.replaceState(null, '', `${location.pathname}${location.search}${combat ? '#combat' : ''}`);
-    onViewChange();
-  }
-  document.querySelectorAll('[data-feature]').forEach(button => button.addEventListener('click', () => selectView(button.dataset.feature)));
-  window.addEventListener('hashchange', () => selectView(location.hash === '#combat' ? 'combat' : 'catalog', false));
   enemySelect.addEventListener('change', () => { state.enemy = enemySelect.value; state.shieldCleared = false; render(); });
   weaponSelect.addEventListener('change', () => { state.weapon = weaponSelect.value; updateModes(); render(); });
   modeSelect.addEventListener('change', () => { state.mode = modeSelect.value; render(); });
   $('#combat-shield-cleared').addEventListener('change', event => { state.shieldCleared = event.target.checked; render(); });
-  updateModes(); render(); selectView(location.hash === '#combat' ? 'combat' : 'catalog', false);
+  updateModes(); render();
   return {
-    showCatalog: () => selectView('catalog'),
+    showCatalog: () => navigate('catalog'),
     openWeapon(id) {
       if (!support.some(item => item.id === id)) return;
-      state.weapon = id; weaponSelect.value = id; updateModes(); render(); selectView('combat'); enemySelect.focus();
+      state.weapon = id; weaponSelect.value = id; updateModes(); render(); navigate('combat'); enemySelect.focus();
     },
   };
 }

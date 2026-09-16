@@ -2699,6 +2699,17 @@ export const expandedEnemies = [
     "sourceRevision": 134993,
     "tacticalResults": [
       {
+        "weapon": "solo-silo",
+        "mode": "standard",
+        "target": "몸통",
+        "hits": 1,
+        "outcome": "kill",
+        "note": "몸통을 노리세요. 아래 부위별 계산은 여러 부위 동시 폭발 피해를 합산하지 않은 단일 부위 이론값으로, 이 안내와 구분합니다. 함께 피격되는 부위와 피해 합계는 자료 미확인입니다.",
+        "source": "https://helldivers.wiki.gg/wiki/Vox_Engine#Tactical_Information",
+        "sourceRevision": 134993,
+        "checkedAt": "2026-09-16"
+      },
+      {
         "weapon": "leveller",
         "mode": "standard",
         "target": "몸통",

@@ -16,3 +16,72 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .list-view .strat-icon .wiki-stratagem-icon{width:26px;height:26px}
 .dialog-identity .wiki-stratagem-icon{width:50px;height:50px}
 @media(max-width:520px){.dialog-identity .wiki-stratagem-icon{width:40px;height:40px}}
+
+/* Enemy matchups extend the field manual's existing palette and spacing. */
+.feature-nav{display:flex;gap:8px;border-bottom:1px solid var(--border);margin:0 0 24px;padding-bottom:12px;flex-wrap:wrap}
+.feature-nav button{padding:11px 16px;border:1px solid transparent;border-radius:3px;color:var(--muted);font-size:1rem}
+.feature-nav button.active{color:var(--yellow);background:var(--yellow-soft);border-color:#4a4d2c}
+.feature-nav button:hover{color:var(--text)}
+.feature-nav span{font-size:.875rem;margin-left:8px;color:var(--muted)}
+.combat-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+.combat-heading h2{font-size:1.5rem;letter-spacing:-.5px}
+.combat-heading p{font-size:1rem;color:var(--muted);margin-top:7px}
+.combat-heading .count-badge{white-space:nowrap;font-size:.875rem}
+.combat-controls{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:14px;margin-bottom:20px}
+.combat-controls label{font-size:.875rem;color:var(--muted);display:flex;flex-direction:column;gap:7px;min-width:0}
+.combat-controls select{min-width:0;width:100%;height:50px;padding:0 12px;color:var(--text);background:var(--panel);border:1px solid #48503e;border-radius:3px;font-size:1rem;text-overflow:ellipsis}
+.combat-controls select:disabled{color:var(--muted);opacity:1}
+.combat-shield{padding:16px 20px;border:1px solid #766337;background:#26231a;margin-bottom:18px}
+.combat-shield label{display:flex;gap:10px;align-items:center;cursor:pointer;font-size:1rem}
+.combat-shield input{width:20px;height:20px;flex:none;accent-color:var(--yellow);margin:0}
+.combat-shield p{margin:7px 0 0 30px;color:#d3c39c;font-size:.875rem}
+.combat-answer{border:1px solid #515839;border-left:4px solid var(--yellow);background:#22271c;padding:21px 24px}
+.combat-answer[data-tone=neutral]{background:var(--panel);border-color:#474d42;border-left-color:var(--muted)}
+.combat-answer-label{font-size:.875rem;color:var(--muted)}
+.combat-answer h3{font-size:1.5rem;color:var(--yellow);line-height:1.55;margin:6px 0}
+.combat-answer[data-tone=neutral] h3{color:var(--text)}
+.combat-answer p{font-size:1rem;color:#cad0c2}
+.combat-assumption{font-size:.875rem;color:var(--muted);margin:13px 0 24px;line-height:1.8}
+.combat-assumption strong{font-weight:500;color:var(--text)}
+.combat-context{display:grid;grid-template-columns:1fr 1.2fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:22px;padding:18px 0;gap:24px}
+.combat-context>div{min-width:0}
+.combat-context>div+div{border-left:1px solid var(--border);padding-left:24px}
+.combat-context p{color:var(--muted);font-size:.875rem;line-height:1.8;margin-top:7px}
+.combat-weapon-title{display:flex;align-items:center;gap:12px}
+.combat-weapon-title img{object-fit:contain;flex:none}
+.combat-weapon-title strong,.combat-weapon-title span{display:block}
+.combat-weapon-title span{font-size:.875rem;color:var(--muted);margin-top:2px}
+.combat-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.combat-route{border:1px solid var(--border);border-top:2px solid #657746;background:var(--panel);padding:20px;min-width:0;border-radius:3px}
+.combat-route[data-outcome=blocked],.combat-route[data-outcome=unknown],.combat-route[data-outcome=shield]{border-top-color:#6a7164}
+.combat-route[data-outcome=bleed]{border-top-color:#b18c4f}
+.combat-route[data-outcome=break],.combat-route[data-outcome=armor]{border-top-color:#88aab1}
+.combat-route-top{display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:space-between}
+.combat-route h3{font-size:1rem;font-weight:600}
+.outcome-tag{font-size:.875rem;background:#2b3525;color:#c0d69e;border:1px solid #4b5a3c;border-radius:3px;padding:2px 7px;white-space:nowrap}
+[data-outcome=bleed] .outcome-tag{color:#e9c98b;background:#342d20;border-color:#65543a}
+[data-outcome=break] .outcome-tag,[data-outcome=armor] .outcome-tag{color:#b6d2d9;background:#243136;border-color:#485f64}
+[data-outcome=blocked] .outcome-tag,[data-outcome=unknown] .outcome-tag,[data-outcome=shield] .outcome-tag{background:#292d27;color:var(--muted);border-color:#41483b}
+.combat-hit-count{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:13px 0 18px;min-height:54px}
+.combat-hit-count strong{font:600 2.75rem/1.25 var(--mono);color:var(--text)}
+.combat-hit-count span{color:var(--muted);font-size:.875rem}
+.combat-hit-count .combat-no-count{font:500 1.1rem/1.6 var(--font);color:var(--muted);padding-top:8px}
+.combat-part-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 16px;padding:13px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.combat-part-stats dt{font-size:.875rem;color:var(--muted)}
+.combat-part-stats dd{margin:3px 0 0;font:500 1rem/1.5 var(--mono);color:var(--text)}
+.combat-target-tip{font-size:1rem;color:#c8cec1;line-height:1.8}
+.combat-row-note{font-size:.875rem!important;color:#d0b983!important;line-height:1.8;margin-top:9px!important}
+.combat-breakdown{margin-top:16px;border-top:1px solid var(--border);padding-top:11px}
+.combat-breakdown summary,.combat-method summary{cursor:pointer;font-size:.875rem;color:var(--muted);padding:4px 0}
+.combat-breakdown summary:focus-visible,.combat-method summary:focus-visible{outline:2px solid var(--yellow);outline-offset:4px}
+.combat-breakdown ul{padding-left:18px;margin:10px 0;font-size:.875rem;line-height:1.9;color:#c9cebf}
+.combat-breakdown p{font-size:.875rem;color:var(--muted);line-height:1.8}
+.combat-method{border:1px solid var(--border);margin-top:24px;padding:15px 20px}
+.combat-method summary{color:var(--text);font-size:1rem}
+.combat-method>div{margin-top:14px;color:var(--muted);font-size:.875rem;line-height:1.9}
+.combat-method ul{padding-left:22px}
+.combat-method li+li{margin-top:8px}
+.combat-sources a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
+.combat-detail-button{margin-bottom:18px}
+@media(max-width:1100px){.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
+@media(max-width:680px){.combat-routes,.combat-context,.combat-controls{grid-template-columns:minmax(0,1fr)}.combat-context>div+div{border-left:0;border-top:1px solid var(--border);padding:18px 0 0}.combat-heading{flex-wrap:wrap}.combat-answer{padding:17px 18px}.combat-answer h3{font-size:1.25rem}.combat-route{padding:17px}.feature-nav button{padding:10px 11px}.feature-nav span{display:none}.combat-shield{padding:14px}.combat-method{padding:13px 16px}}

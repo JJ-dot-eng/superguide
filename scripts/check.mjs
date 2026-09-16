@@ -7,6 +7,7 @@ import { categories, stratagems } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
 import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
+import './check-combat.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
 const ids = new Set();

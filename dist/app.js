@@ -1,6 +1,7 @@
 import { categories, stratagems, checkedAt } from './data.js';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
+import { initCombat } from './combat-ui.js';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };
@@ -76,8 +77,9 @@ function showToast(message) {
   clearTimeout(showToast.timer); showToast.timer = setTimeout(() => { $('#toast').hidden = true; }, 3500);
 }
 function renderComparisonState() {
-  $('#compare-bar').hidden = !state.selected.size;
-  document.body.classList.toggle('has-comparison', Boolean(state.selected.size));
+  const visible = state.selected.size > 0 && $('#combat-view').hidden;
+  $('#compare-bar').hidden = !visible;
+  document.body.classList.toggle('has-comparison', visible);
   $('#compare-names').textContent = [...state.selected].map(id => stratagems.find(item => item.id === id).name).join(' · ');
   $('#compare-count').textContent = `${state.selected.size}/3`;
   $('#compare-open').disabled = state.selected.size < 2;
@@ -104,6 +106,13 @@ function openDetail(id) {
     const paragraph = document.createElement('p'); paragraph.append(link);
     $('#detail-content .source-note').append(paragraph);
   }
+  if (item.category === 'support') {
+    const button = document.createElement('button');
+    button.className = 'primary-button combat-detail-button';
+    button.textContent = '이 무기로 적 대응 계산 ↗';
+    button.addEventListener('click', () => { $('#detail-dialog').close(); combat.openWeapon(item.id); });
+    $('#detail-content .dialog-summary').after(button);
+  }
   $('#detail-dialog').showModal();
 }
 function openInfo() {
@@ -125,7 +134,7 @@ function openComparison() {
   $('#compare-dialog').setAttribute('aria-labelledby', 'comparison-title'); $('#compare-dialog').showModal();
 }
 
-$('#categories').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; state.category = button.dataset.category; renderCategories(); renderCards(); });
+$('#categories').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; combat.showCatalog(); state.category = button.dataset.category; renderCategories(); renderCards(); });
 $('#search').addEventListener('input', event => { state.search = event.target.value; renderCards(); });
 $('#penetration').addEventListener('change', event => { state.penetration = event.target.value; renderCards(); });
 $('#cards').addEventListener('click', event => { const button = event.target.closest('[data-open]'); if (button) openDetail(button.dataset.open); });
@@ -144,8 +153,9 @@ $('#compare-open').addEventListener('click', openComparison);
 document.querySelectorAll('dialog').forEach(dialog => {
   dialog.addEventListener('click', event => { if (event.target.closest('[data-close]')) dialog.close(); else if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
 });
-document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); $('#search').focus(); } });
+document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); combat.showCatalog(); $('#search').focus(); } });
 renderCategories(); renderCards();
+const combat = initCombat({ stratagems, wikiIcons, onViewChange: renderComparisonState });
 
 // The optional browser API uses the same filters as the visible catalog.
 if (document.modelContext?.registerTool) {
@@ -170,6 +180,7 @@ if (document.modelContext?.registerTool) {
         if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).some(key => !['category', 'query', 'penetration'].includes(key))) throw new Error('필터는 category, query, penetration만 포함한 객체여야 합니다.');
         const { category = 'all', query = '', penetration = 'all' } = input;
         if (!categories.some(item => item.id === category) || !penetrationValues.includes(penetration) || typeof query !== 'string' || query.length > 200) throw new Error('유효하지 않은 종류, 검색어 또는 관통 등급입니다.');
+        combat.showCatalog();
         Object.assign(state, { category, search: query, penetration });
         $('#search').value = query; $('#penetration').value = penetration;
         renderCategories(); renderCards();

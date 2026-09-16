@@ -67,7 +67,9 @@ export function renderDefenseStats(item, context = 'card') {
   const view = defenseView(item);
   if (!view) return '';
   const detailed = context === 'detail';
-  return `<div class="defense-panel" data-defense="${escape(item.defense.type)}" aria-label="방어 성능"><p class="defense-heading"><strong>방어 성능</strong><span>${escape(item.rangeLabel || '방어 범위 자료 미확인')}</span></p><div class="${detailed ? 'detail-stats' : 'stats-grid'} defense-highlights">${view.highlights.map(row => `<div class="${detailed ? 'detail-stat' : 'stat'}"><span class="stat-label">${escape(row.label)}</span><span class="stat-value${row.unknown ? ' unknown' : ''}">${valueHtml(row)}</span>${row.caption ? `<span class="stat-caption">${escape(row.caption)}</span>` : ''}</div>`).join('')}</div><dl class="defense-facts">${view.additional.map(row => `<div><dt>${escape(row.label)}</dt><dd>${valueHtml(row)}${row.caption ? `<span>${escape(row.caption)}</span>` : ''}</dd></div>`).join('')}</dl><div class="defense-explanations">${view.notes.map(note => `<p>${escape(note)}</p>`).join('')}</div></div>`;
+  const highlights = view.highlights.map(row => `<div class="${detailed ? 'detail-stat' : 'stat'}"><span class="stat-label">${escape(row.label)}</span><span class="stat-value${row.unknown ? ' unknown' : ''}">${valueHtml(row)}</span>${row.caption ? `<span class="stat-caption">${escape(row.caption)}</span>` : ''}</div>`).join('');
+  const details = detailed ? `<dl class="defense-facts">${view.additional.map(row => `<div><dt>${escape(row.label)}</dt><dd>${valueHtml(row)}${row.caption ? `<span>${escape(row.caption)}</span>` : ''}</dd></div>`).join('')}</dl><div class="defense-explanations">${view.notes.map(note => `<p>${escape(note)}</p>`).join('')}</div>` : '';
+  return `<div class="defense-panel" data-defense="${escape(item.defense.type)}" aria-label="방어 성능"><p class="defense-heading"><strong>방어 성능</strong><span>${escape(item.rangeLabel || '방어 범위 자료 미확인')}</span></p><div class="${detailed ? 'detail-stats' : 'stats-grid'} defense-highlights">${highlights}</div>${details}</div>`;
 }
 
 export function renderDefenseSource(item) {

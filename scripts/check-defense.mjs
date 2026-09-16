@@ -71,11 +71,19 @@ for (const [item, values] of expected) {
   for (const [id, value] of Object.entries(values)) assert.equal(metrics.get(id).value, value, `${item.id}: ${id}`);
   for (const context of ['card', 'detail']) {
     const html = renderDefenseStats(item, context);
-    for (const metric of metrics.values()) {
+    const visibleMetrics = context === 'card' ? view.highlights : [...metrics.values()];
+    for (const metric of visibleMetrics) {
       assert(html.includes(metric.label), `${context}: missing ${metric.label}`);
       assert(html.includes(metric.value), `${context}: missing ${metric.value}`);
     }
-    for (const note of view.notes) assert(html.includes(note));
+    if (context === 'card') {
+      assert.equal((html.match(/class="stat"/g) || []).length, 4, 'Cards show four core defense metrics');
+      assert(!html.includes('defense-facts') && !html.includes('defense-explanations'), 'Additional facts and long explanations open in the detail dialog');
+      for (const metric of view.additional) assert(!html.includes(metric.label));
+      for (const note of view.notes) assert(!html.includes(note));
+    } else {
+      for (const note of view.notes) assert(html.includes(note));
+    }
     assert(html.includes(item.rangeLabel), 'Existing coverage description remains visible');
     assert(!/<a\b/.test(html), 'Source links must remain outside the card button');
     assert(!/NaN|undefined|Infinity/.test(html));

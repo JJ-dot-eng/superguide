@@ -1,4 +1,4 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=vox-tactics-2';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=vox-explanation-1';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
 import { combatImages } from './combat-images.js?v=enemies-37-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=vox-leveller-1';
@@ -9,6 +9,20 @@ const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': 
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
 const percent = value => Number.isFinite(value) ? `${number(value)}%` : '자료 미확인';
 const sourceLink = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
+
+export function renderTacticalExplanation(reference) {
+  const explanation = reference?.explanation;
+  if (!explanation) return '';
+  return `<details class="combat-breakdown combat-tactical-explanation"><summary>한 발 처치가 가능한 이유 · 가정 계산 자세히</summary>
+    <p>${escape(explanation.intro)}</p>
+    <ul>${explanation.attacks.map(attack => `<li>${escape(attack)}</li>`).join('')}</ul>
+    <table class="combat-tactical-table"><caption>여러 부위 동시 피격을 가정한 본체 전달 피해</caption><thead><tr><th scope="col">피격 부위</th><th scope="col">전달 계산</th><th scope="col">본체 피해</th></tr></thead>
+    <tbody>${explanation.rows.map(row => `<tr><th scope="row">${escape(row.part)}</th><td>${escape(row.formula)}</td><td>${number(row.mainDamage)}</td></tr>`).join('')}</tbody>
+    <tfoot><tr><th scope="row" colspan="2">가정 합계 · 실측값 아님</th><td>${number(explanation.total)}</td></tr></tfoot></table>
+    <ul>${explanation.notes.map(note => `<li>${escape(note)}</li>`).join('')}</ul>
+    <p class="combat-sources">${explanation.sources.map(source => sourceLink(source.url, escape(source.label))).join(' · ')}</p>
+  </details>`;
+}
 
 export function renderCombatRoute(row, enemy, mode, { singlePartTheory = false } = {}) {
   const target = row.target;
@@ -103,7 +117,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     $('#combat-assumption').innerHTML = combatAssumption(mode);
     $('#combat-condition-note').textContent = combatConditionText(mode);
     $('#combat-bomblet-direct').disabled = !(mode?.selectedCondition?.count > 0);
-    answer.innerHTML = `<span class="combat-answer-label">${escape(enemy.name)} × ${escape(weapon.name)}</span><h3>${escape(title)}</h3><p>${escape(body)}</p>${reference ? `<p class="combat-sources">${sourceLink(reference.source, '위키 전술 설명')} · 자료 확인 ${escape(reference.checkedAt)}</p>` : ''}`;
+    answer.innerHTML = `<span class="combat-answer-label">${escape(enemy.name)} × ${escape(weapon.name)}</span><h3>${escape(title)}</h3><p>${escape(body)}</p>${renderTacticalExplanation(reference)}${reference ? `<p class="combat-sources">${sourceLink(reference.source, '위키 전술 설명')} · 자료 확인 ${escape(reference.checkedAt)}</p>` : ''}`;
     $('#combat-shield').hidden = !enemy.shield;
     $('#combat-shield-cleared').checked = state.shieldCleared;
     if (enemy.shield) {

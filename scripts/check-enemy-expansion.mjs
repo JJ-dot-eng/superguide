@@ -4,7 +4,7 @@ import { expandedEnemies } from '../dist/combat-enemies-expanded.js';
 import { calculateMatchup, calculateRoute } from '../dist/combat.js';
 import { spearCannotLock } from '../dist/combat-conditions.js';
 import { combatSummary, combatRouteNotes } from '../dist/combat-presentation.js';
-import { renderCombatRoute } from '../dist/combat-ui.js';
+import { renderCombatRoute, renderTacticalExplanation } from '../dist/combat-ui.js';
 import { pickerEnemyImages } from '../dist/selector-images.js';
 import { initCombat } from '../dist/combat-ui.js';
 import { stratagems } from '../dist/data.js';
@@ -103,6 +103,27 @@ assert.equal(soloMatchup.best.hits, 3);
 assert.equal(soloMatchup.best.outcome, 'bleed');
 assert.equal(soloMatchup.rows.find(row => row.target.id === 'torso').hits, 6);
 assert.equal(combatSummary(vox, { ...soloMode, id: 'unreviewed' }, soloMatchup, { weapon: 'solo-silo' }).reference, undefined);
+const exampleParts = [['torso', 1], ['undercarriage', 1], ['trackpod-latch', 4], ['track', 4], ['torso-flap', 2]];
+for (const [mode, reference] of [[leveller, voxSummary.reference], [soloMode, soloSummary.reference]]) {
+  const blasts = mode.explosions || [{ durable: mode.explosionDurable, ap: mode.explosionAp }];
+  const amounts = exampleParts.map(([id, count]) => {
+    const target = part('vox-engine', id);
+    assert(blasts.every(blast => blast.ap > target.armor));
+    const transferred = blasts.reduce((sum, blast) => sum + blast.durable * (1 - target.exdr / 100) * target.toMain / 100, 0);
+    return Math.min(transferred, target.overflowCap ? target.hp : Infinity) * count;
+  });
+  if (mode === leveller) amounts.unshift(leveller.standard);
+  assert.deepEqual(reference.explanation.rows.map(row => row.mainDamage), amounts, 'Explanation must apply the shared part cap after both explosions');
+  assert.equal(reference.explanation.total, amounts.reduce((sum, amount) => sum + amount, 0));
+  const html = renderTacticalExplanation(reference);
+  assert.match(html, /<details class="combat-breakdown combat-tactical-explanation">/);
+  assert.match(html, /가정 합계 · 실측값 아님/);
+  assert.match(html, /이미 본체에 피해를 줬다면/);
+  assert.match(html, /Template:Anatomy_Table/);
+}
+assert.equal(voxSummary.reference.explanation.total, 8400);
+assert.equal(soloSummary.reference.explanation.total, 11240);
+assert.equal(renderTacticalExplanation(), '');
 for (const selected of enemies) for (const [weapon, profile] of Object.entries(weaponProfiles)) for (const mode of profile.modes) {
   const summary = combatSummary(selected, mode, calculateMatchup(selected, mode), { weapon });
   assert.equal(Boolean(summary.reference), selected.id === 'vox-engine' && ['leveller', 'solo-silo'].includes(weapon) && mode.id === 'standard', 'Tactical advice must not leak into other enemy, weapon or mode selections');
@@ -166,14 +187,21 @@ try {
   assert.match(get('combat-answer').innerHTML, /몸통 명중 시 1발 처치 가능 · 위키 기준/);
   assert.match(get('combat-answer').innerHTML, /href="https:\/\/helldivers\.wiki\.gg\/wiki\/Vox_Engine#Tactical_Information"/);
   assert.match(get('combat-answer').innerHTML, /자료 확인 2026-09-16/);
+  assert.match(get('combat-answer').innerHTML, /<td>8,400<\/td>/);
+  assert.match(get('combat-answer').innerHTML, /8,400 \+ 2,500 = 10,900/);
+  assert(get('combat-answer').innerHTML.indexOf(voxSummary.body) < get('combat-answer').innerHTML.indexOf('<details'), 'Explanation appears below the existing guidance');
   assert.doesNotMatch(get('combat-answer').innerHTML, /출혈 유발 이론값 3발/);
   assert.match(get('combat-routes').innerHTML, /<strong>3<\/strong><span>발 · 단일 부위 이론값/);
   select('combat-weapon', 'solo-silo');
+  assert.match(get('combat-answer').innerHTML, /<td>11,240<\/td>/);
+  assert.doesNotMatch(get('combat-answer').innerHTML, /<td>12,240<\/td>|8,400 \+ 2,500/);
+  assert.match(get('combat-answer').innerHTML, /특히 3m 충돌 폭발/);
   assert.match(get('combat-answer').innerHTML, /몸통 명중 시 1발 처치 가능 · 위키 기준/);
   assert.match(get('combat-answer').innerHTML, /Vox_Engine#Tactical_Information/);
   assert.match(get('combat-answer').innerHTML, /자료 확인 2026-09-16/);
   assert.match(get('combat-routes').innerHTML, /<strong>3<\/strong><span>발 · 단일 부위 이론값/);
   select('combat-enemy', 'charger');
+  assert.doesNotMatch(get('combat-answer').innerHTML, /combat-tactical-explanation/);
   assert.doesNotMatch(get('combat-answer').innerHTML, /위키 기준|위키 전술 설명/);
   assert.doesNotMatch(get('combat-routes').innerHTML, /단일 부위 이론값/);
   select('combat-enemy', 'vox-engine');

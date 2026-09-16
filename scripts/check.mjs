@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import { categories, stratagems } from '../dist/data.js';
+import { wikiIcons } from '../dist/wiki-icons.js';
 import { server } from '../server.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
@@ -37,6 +39,26 @@ for (const item of stratagems) {
 assert.equal(stratagems.length, 110, 'Reviewed inventory must contain 110 distinct entries');
 for (const category of categories.filter(item => item.id !== 'all')) assert(stratagems.some(item => item.category === category.id));
 
+assert.deepEqual(Object.keys(wikiIcons).sort(), [...ids].sort(), 'Every stratagem must have a Wiki icon');
+const iconPaths = new Map();
+for (const [id, icon] of Object.entries(wikiIcons)) {
+  assert(/^\.\/assets\/stratagems\/[a-z0-9-]+\.svg$/.test(icon.src), `${id}: invalid icon path`);
+  for (const key of ['source', 'originalUrl']) {
+    const url = new URL(icon[key]);
+    assert.equal(url.protocol, 'https:');
+    assert.equal(url.hostname, 'helldivers.wiki.gg', `${id}: icon must come from the Wiki`);
+  }
+  assert(icon.title.endsWith('.svg'), `${id}: missing original file title`);
+  assert(/^\d{4}-\d{2}-\d{2}$/.test(icon.retrievedAt), `${id}: missing retrieval date`);
+  const bytes = await readFile(new URL(`../dist/${icon.src}`, import.meta.url));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), icon.sha256, `${id}: original icon bytes changed`);
+  assert(bytes.toString('utf8').includes('<svg'), `${id}: invalid SVG`);
+  if (iconPaths.has(icon.src)) assert.equal(iconPaths.get(icon.src), icon.sha256, `${id}: inconsistent shared icon`);
+  iconPaths.set(icon.src, icon.sha256);
+}
+const assetFiles = await readdir(new URL('../dist/assets/stratagems/', import.meta.url));
+assert.deepEqual(assetFiles.sort(), [...iconPaths.keys()].map(path => path.split('/').at(-1)).sort(), 'No missing or unused icon files');
+
 const files = await readdir(new URL('../dist/', import.meta.url));
 for (const file of files.filter(name => name.endsWith('.js'))) {
   const result = spawnSync(process.execPath, ['--check', fileURLToPath(new URL(`../dist/${file}`, import.meta.url))], { encoding: 'utf8' });
@@ -53,13 +75,19 @@ try {
     assert.equal(response.status, 200, `Broken local resource: ${path}`);
     if (path.endsWith('.js')) assert(response.headers.get('content-type').includes('javascript'));
   }
+  for (const [path, sha256] of iconPaths) {
+    const response = await fetch(new URL(path, base + '/'));
+    assert.equal(response.status, 200, `Broken Wiki icon: ${path}`);
+    assert(response.headers.get('content-type').includes('image/svg+xml'), `Incorrect icon MIME type: ${path}`);
+    assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), sha256, `Incorrect icon response: ${path}`);
+  }
   for (const path of ['/missing', '/.git/config', '/..%2Fpackage.json', '/..%2F..%2F']) {
     const response = await fetch(base + path);
     assert([403, 404].includes(response.status), `Private path served: ${path}`);
   }
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
-  console.log(`PASS: ${stratagems.length} records, 7 categories, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
+  console.log(`PASS: ${stratagems.length} records, 7 categories, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
 } finally {
   server.closeAllConnections();
   await new Promise(resolve => server.close(resolve));

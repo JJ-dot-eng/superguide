@@ -79,7 +79,7 @@ const beforeTacticalSummary = structuredClone(voxMatchup);
 const voxSummary = combatSummary(vox, leveller, voxMatchup, { weapon: 'leveller' });
 assert.equal(voxSummary.title, '몸통 명중 시 1발 처치 가능 · 위키 기준');
 assert.match(voxSummary.body, /단일 부위 이론값/);
-assert.match(voxSummary.body, /함께 피격되는 부위와 피해 합계는 자료 미확인/);
+assert.match(voxSummary.body, /피해 합계는 아래 ‘가정 계산 자세히’에 정리/);
 assert.equal(voxSummary.reference.source, `${vox.source}#Tactical_Information`);
 assert.equal(voxSummary.reference.sourceRevision, 134993);
 assert.equal(voxSummary.reference.checkedAt, '2026-09-16');

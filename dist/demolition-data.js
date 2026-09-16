@@ -1,4 +1,4 @@
-import { weaponProfiles } from './combat-data.js';
+import { weaponProfiles } from './combat-data.js?v=explosive-weapons-1';
 
 export const demolitionCheckedAt = '2026-09-16';
 export const demolitionSource = 'https://helldivers.wiki.gg/wiki/Demolition';
@@ -120,6 +120,6 @@ for (const id of ['orbital-120', 'orbital-380', 'orbital-walking']) demolitionPr
 // Keep reviewed HP attacks useful even where their demolition value is not yet
 // confirmed. Unknown force must never be treated as zero or "cannot destroy".
 for (const [id, entry] of Object.entries(weaponProfiles)) {
-  if (demolitionProfiles[id]) continue;
+  if (demolitionProfiles[id] || entry.combatOnly) continue;
   demolitionProfiles[id] = profile(entry.modes.filter(item => !item.unsupported).map(item => mode(item.id, item.name, null, null, { damage: item, forceUnknown: true })), { source: entry.source, note: '이 무기의 탄환 철거력은 확인 중입니다. 확인된 피해 수치로 체력 파괴 경로만 계산합니다. 과충전 자폭·장비 파괴 폭발은 제외합니다.' });
 }

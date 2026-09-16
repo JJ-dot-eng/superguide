@@ -11,6 +11,7 @@ import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
 import './check-c4.mjs';
+import './check-explosive-weapons.mjs';
 import './check-demolition.mjs';
 import './check-defense.mjs';
 

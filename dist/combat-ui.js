@@ -1,10 +1,10 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=enemy-names-1';
-import { calculateMatchup } from './combat.js?v=c4-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=explosive-weapons-1';
+import { calculateMatchup } from './combat.js?v=explosive-weapons-1';
 import { combatImages } from './combat-images.js?v=high-difficulty-1';
-import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats } from './combat-presentation.js?v=c4-1';
+import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats } from './combat-presentation.js?v=explosive-weapons-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-const number = value => value.toLocaleString('ko-KR');
+const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
 const sourceLink = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 
 export function renderCombatRoute(row, enemy, mode) {
@@ -18,12 +18,15 @@ export function renderCombatRoute(row, enemy, mode) {
   let component = target;
   const stageExplanation = stages.map((stage, index) => {
     const { direct, explosion, mainExplosion } = stage.damage;
-    const transfer = terms.adhesive ? `<br>부위 피해의 본체 전달 ${component.toMain}% · ${component.overflowCap ? `누적 전달 상한 ${number(component.hp + (component.constitution || 0))}` : '전달 상한 없음'}` : '';
+    const transfer = terms.adhesive || mode?.reviewedExplosive ? `<br>부위 피해의 본체 전달 ${component.toMain}% · ${component.overflowCap ? `누적 전달 상한 ${number(component.hp + (component.constitution || 0))}` : '전달 상한 없음'}` : '';
+    const blasts = stage.breakdown?.explosions.map(blast => `<br>${escape(blast.name)}: AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% → ${blast.redirected ? '본체 폭발' : '부위 폭발'} ${number(blast.redirected ? blast.mainDamage : blast.partDamage)}<br>최대 피해 반경 ${number(blast.innerRadius)}m / 외곽 반경 ${number(blast.radius)}m`).join('') || '';
     component = component.next;
-    return `<li><strong>${escape(stage.name)}</strong>: 직격 ${number(direct)} + 부위 폭발 ${number(explosion)}${mainExplosion ? ` · 본체에 처리되는 폭발 ${number(mainExplosion)}` : ''}${stages.length > 1 ? ` → ${combatCount(stage.hits, mode)}` : ''}${index < stages.length - 1 ? ' 후 다음 부위 공격' : ''}${transfer}</li>`;
+    return `<li><strong>${escape(stage.name)}</strong>: ${mode?.delivery === 'melee' ? '타격' : '직격'} ${number(direct)} + 부위 폭발 ${number(explosion)}${mainExplosion !== 0 ? ` · 본체에 처리되는 폭발 ${number(mainExplosion)}` : ''}${stages.length > 1 ? ` → ${combatCount(stage.hits, mode)}` : ''}${index < stages.length - 1 ? ' 후 다음 부위 공격' : ''}${blasts}${transfer}</li>`;
   }).join('');
   const main = target.main || enemy.main;
-  const breakdownNote = terms.adhesive
+  const breakdownNote = mode?.delivery === 'melee' && mode.explosion === 0
+    ? `타격 일반·내구 피해에 부위 내구도와 장갑을 적용합니다. 부위에서 본체로 전달되는 피해와 누적 전달 상한을 따로 적용합니다. 계산 대상 본체 체력 ${number(main.hp)}. 폭약 피해는 포함하지 않습니다.`
+    : terms.adhesive || mode?.reviewedExplosive
     ? `폭발 관통과 해당 부위의 폭발 저항을 적용합니다. 폭발 면역 부위는 본체 장갑·폭발 저항으로 처리하며, 이 폭발을 부위 피해에 중복으로 더하지 않습니다. 계산 대상 본체 체력 ${number(main.hp)} / 장갑 ${main.armor} / 폭발 저항 ${main.exdr}%. 한 폭발의 여러 부위 동시 피해는 합산하지 않습니다.`
     : '일반 피해에 내구도·장갑을 적용한 값입니다. 폭발은 중심부 최대값이며 본체 전달 피해를 부위 피해에 중복으로 더하지 않습니다.';
   const notes = combatRouteNotes(row, mode);
@@ -78,8 +81,8 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
       $('#combat-shield-label').textContent = notice.label;
       $('#combat-shield-note').textContent = `방패·보호막 체력 ${number(enemy.shield.hp)} / 장갑 ${enemy.shield.armor}. ${notice.note}`;
     }
-    $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
-    $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(combatTerms(mode).adhesive ? enemy.note.replaceAll('탄수', '장약 개수').replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
+    $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${mode?.note ? `<p class="combat-row-note">${escape(mode.note)}</p>` : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
+    $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(mode?.unit ? enemy.note.replaceAll('탄수', combatTerms(mode).count).replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
     $('#combat-routes').innerHTML = rows.map(row => renderCombatRoute(row, enemy, mode)).join('');
     $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
   }

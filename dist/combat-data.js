@@ -274,7 +274,37 @@ export const enemyTypeCount = new Set(enemies.map(enemy => enemy.family || enemy
 
 const shot = (id, name, standard, durable, ap, explosion = 0, explosionAp = 0, extra = {}) => ({ id, name, standard, durable, ap, explosion, explosionAp, ...extra });
 const profile = (page, modes, note = '') => ({ source: wiki(page), modes, note });
+const reviewedExplosive = (page, modes, note) => ({ ...profile(page, modes.map(mode => ({ ...mode, reviewedExplosive: true })), note), checkedAt: '2026-09-16', combatOnly: true });
 export const weaponProfiles = {
+  'grenade-launcher': reviewedExplosive('GL-21_Grenade_Launcher', [
+    shot('standard', '기본 사격', 0, 0, 4, 400, 3, { explosionDurable: 400, innerRadius: 3.5, radius: 7.5 }),
+  ], '직격 피해 0은 위키의 정상값입니다. 안전 신관이 작동할 만큼 거리를 확보하고, 유탄이 튕긴 위치가 아닌 실제 폭발 위치를 기준으로 조준하세요.'),
+  'belt-fed-gl': reviewedExplosive('GL-28_Belt-Fed_Grenade_Launcher', [
+    shot('standard', '기본 사격', 0, 0, 4, 150, 4, { explosionDurable: 150, innerRadius: 2, radius: 4 }),
+  ], '직격 피해 0은 위키의 정상값입니다. 유탄이 정상적으로 기폭해 선택한 부위에 최대 폭발 피해가 닿는 조건입니다.'),
+  'breaching-hammer': reviewedExplosive('CQC-20_Breaching_Hammer', [
+    shot('melee', '일반 타격 · 폭약 없음', 300, 150, 3, 0, 0, { unit: '회', delivery: 'melee', note: '폭약 없이 망치로 직접 타격합니다. 방어구의 근접 피해 증가 효과는 적용하지 않습니다.' }),
+    shot('explosive', '폭약 사용 · 타격과 기폭', 300, 150, 3, 2200, 6, { explosionDurable: 2200, innerRadius: 0.5, radius: 3, unit: '회', delivery: 'melee', note: '폭약 한 개를 장착한 타격 1회 기준입니다. 직접 타격과 폭발이 같은 부위에 들어오는 조건이며, 매번 폭약을 다시 장착해야 합니다.' }),
+  ], '망치가 실제로 닿는 위치에서 정면 타격하는 조건입니다. 휘두를 때 처음 접촉한 부위만 타격하며, 높은 부위나 비행 중인 적에게 접근할 수 있는지는 계산하지 않습니다.'),
+  'leveller': reviewedExplosive('EAT-411_Leveller', [
+    shot('standard', '기본 사격', 1000, 1000, 6, 2500, 6, { explosionDurable: 2500, innerRadius: 10, radius: 25, falloff: true }),
+  ], '선택한 부위에 탄체가 직접 명중하고 같은 부위에 최대 폭발 피해가 닿는 조건입니다.'),
+  'epoch': reviewedExplosive('PLAS-45_Epoch', [
+    shot('standard', '일반 발사', 400, 200, 4, 500, 4, { explosionDurable: 500, innerRadius: 2.3, radius: 3, falloff: true }),
+    shot('charged', '완전 충전 발사', 800, 400, 5, 800, 5, { explosionDurable: 800, innerRadius: 3, radius: 4, falloff: true }),
+  ], '일반 발사와 완전 충전의 직격·내구 피해, 관통, 폭발 반경을 각각 적용합니다. 과충전 자폭은 정상 발사 모드에서 제외합니다.'),
+  'expendable-napalm': reviewedExplosive('EAT-700_Expendable_Napalm', [
+    shot('standard', '주탄 기준·자탄과 화염 제외', 500, 500, 3, 250, 6, { explosionDurable: 250, innerRadius: 1.6, radius: 8, explosionName: '주폭발' }),
+  ], '주탄 기준·자탄과 화염 제외. 주탄 직격과 주폭발만 계산합니다. 자탄 한 개의 폭발은 일반·내구 피해 각각 50 / AP 3이지만, 명중 수와 화염의 실제 피해 지속시간은 자료 미확인입니다. 제외한 피해까지 포함한 실제 최소 탄수는 아닙니다.'),
+  'solo-silo': reviewedExplosive('MS-11_Solo_Silo', [
+    shot('standard', '미사일 1발 · 충돌 폭발과 주폭발', 0, 0, 0, 0, 0, {
+      directKind: 'none',
+      explosions: [
+        { id: 'impact', name: '충돌 폭발', standard: 1500, durable: 1500, ap: 9, innerRadius: 3, radius: 6 },
+        { id: 'main', name: '주폭발', standard: 2500, durable: 2500, ap: 7, innerRadius: 10, radius: 25 },
+      ],
+    }),
+  ], '충돌 피해도 폭발입니다. 두 폭발의 관통·반경·폭발 저항을 각각 적용한 뒤 같은 부위에 들어오는 피해만 더합니다. 두 폭발 모두 최대 피해 반경 안에 들어오는 조건이며, 같은 탄의 후속 폭발이 제거된 장갑 안쪽에 추가로 닿는 효과는 자료 미확인으로 제외합니다.'),
   'c4-pack': {
     ...profile('B/MD_C4_Pack', [shot('charge', '장약 한 개 기폭', 0, 0, 0, 2000, 7, { explosionDurable: 2000, innerRadius: 3, radius: 7, unit: '개', delivery: 'adhesive' })], '장약 한 개씩 같은 부위에 최대 폭발 피해가 들어가는 조건입니다. 부착 위치에 따른 여러 부위의 동시 피해, 가림과 실제 부착 성공 여부는 검증하지 않았으므로 실제 최소 처치 개수와 다를 수 있습니다.'),
     sourceRevision: 133871, checkedAt: '2026-09-16',

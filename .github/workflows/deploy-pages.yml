@@ -28,6 +28,18 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
+      - name: Version stylesheet to refresh browser caches
+        run: |
+          node --input-type=module <<'NODE'
+          import { createHash } from 'node:crypto';
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const css = readFileSync('dist/styles.css', 'utf8').replaceAll('\r\n', '\n');
+          const version = createHash('sha256').update(css).digest('hex').slice(0, 12);
+          const html = readFileSync('dist/index.html', 'utf8');
+          const reference = /href="\.\/styles\.css(?:\?[^"]*)?"/;
+          if (!reference.test(html)) throw new Error('Stylesheet reference missing');
+          writeFileSync('dist/index.html', html.replace(reference, 'href="./styles.css?v=' + version + '"'));
+          NODE
       - name: Validate site
         run: npm run check
       - name: Configure GitHub Pages

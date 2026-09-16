@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { stratagems } from '../dist/data.js';
+import { stratagems, categories } from '../dist/data.js';
+import { wikiIcons } from '../dist/wiki-icons.js';
 import { structures, demolitionProfiles } from '../dist/demolition-data.js';
 import { calculateDemolition, calculateStructureDamage, evaluateForce } from '../dist/demolition.js';
 import { featureFromHash, featureIds } from '../dist/features.js';
-import { openingRouteNote } from '../dist/demolition-ui.js';
+import { openingRouteNote, renderDemolitionWeaponCard } from '../dist/demolition-ui.js';
+import { getDemolitionSelection, initialDemolitionSelection } from '../dist/demolition-selection.js';
 
 const target = id => structures.find(item => item.id === id);
 const attack = (id, modeId) => demolitionProfiles[id].modes.find(mode => !modeId || mode.id === modeId);
@@ -152,6 +154,74 @@ assert.equal(unknownChargedDamage.route.id, 'vent');
 assert.equal(unknownChargedDamage.health, null);
 assert(unknownChargedDamage.conditions.some(condition => condition.includes('환풍구 안쪽')));
 
+// Either selector can drive the calculator. No arbitrary weapon is chosen on
+// entry, and reverse lookup includes only independently verified firing modes.
+assert.deepEqual(getDemolitionSelection(initialDemolitionSelection, stratagems), { view: 'empty' });
+const select = overrides => getDemolitionSelection({ ...initialDemolitionSelection, ...overrides }, stratagems);
+const weaponEntry = (structure, weapon, options = {}) => select({ structure, ...options }).entries.find(entry => entry.weapon.id === weapon);
+const card = entry => renderDemolitionWeaponCard(entry, { categories, wikiIcons });
+const selectedPrecision = select({ weapon: 'orbital-precision', mode: 'standard' });
+assert.equal(selectedPrecision.view, 'all');
+assert.equal(selectedPrecision.rows.length, structures.length);
+for (const result of selectedPrecision.rows) assert.deepEqual(result, calc(result.structure.id, 'orbital-precision'));
+const selectedEpoch = select({ structure: 'fabricator', weapon: 'epoch', mode: 'charged' });
+assert.equal(selectedEpoch.view, 'single');
+assert.deepEqual(selectedEpoch.rows, [chargedFactory]);
+const unreviewed = stratagems.find(item => !demolitionProfiles[item.id]);
+assert.equal(select({ structure: 'fabricator', weapon: unreviewed.id, mode: 'unsupported' }).rows[0].outcome, 'unknown');
+
+let reverseViews = 0;
+for (const structure of structures) for (const cleared of [false, true]) {
+  const options = { shieldCleared: cleared, jammerDisabled: cleared };
+  const selection = select({ structure: structure.id, ...options });
+  assert.equal(selection.view, 'weapons');
+  assert.equal(selection.possible + selection.conditional, selection.entries.length);
+  assert.equal(selection.entries.length + selection.unknown + selection.blocked, stratagems.length, 'Counts must be per stratagem, not per firing mode');
+  const entries = new Map(selection.entries.map(entry => [entry.weapon.id, entry]));
+  assert.equal(entries.size, selection.entries.length, 'A stratagem must appear only once');
+  for (const weapon of stratagems) {
+    const profile = demolitionProfiles[weapon.id];
+    const expected = (profile?.modes || []).map(mode => ({ mode, result: calculateDemolition(structure, profile, mode, options) })).filter(attack => ['demolish', 'health', 'conditional'].includes(attack.result.outcome));
+    assert.deepEqual(entries.get(weapon.id)?.attacks || [], expected, `Reverse lookup changed a calculation: ${structure.id}/${weapon.id}`);
+    if (expected.length) {
+      assert.equal(entries.get(weapon.id).outcome === 'conditional', expected.every(attack => attack.result.outcome === 'conditional'));
+      const markup = card(entries.get(weapon.id));
+      assert(markup.includes(wikiIcons[weapon.id].src), 'Use the existing Wiki icon');
+      assert.doesNotMatch(markup, /undefined|NaN|Infinity/);
+      for (const attack of expected) {
+        assert(markup.includes(`data-demolition-mode="${attack.mode.id}"`), 'Details must open the firing mode being shown');
+        const detail = select({ structure: structure.id, weapon: weapon.id, mode: attack.mode.id, ...options });
+        assert.deepEqual(detail.rows[0], attack.result, 'The details selection must retain the reverse lookup result');
+      }
+    }
+  }
+  reverseViews++;
+}
+
+const epochFactory = weaponEntry('fabricator', 'epoch');
+assert.deepEqual(epochFactory.attacks.map(attack => attack.mode.id), ['charged']);
+assert.equal(epochFactory.attacks[0].result.hits, 2);
+assert.match(card(epochFactory), /2발 · 본체 체력 소진/);
+assert.match(card(epochFactory), /<p class="demolition-aim-note">별도 입구 철거: 환풍구 안쪽에 폭발/);
+assert.doesNotMatch(card(epochFactory), /data-mode="standard"/);
+const epochHole = weaponEntry('bug-hole', 'epoch');
+assert.deepEqual(epochHole.attacks.map(attack => attack.mode.id), ['charged']);
+assert.match(card(epochHole), /<p class="demolition-aim-note">조준 조건: 굴 안쪽에 폭발/);
+assert.equal(weaponEntry('bug-hole', 'laser-cannon'), undefined);
+assert.equal(weaponEntry('fabricator', 'machine-gun'), undefined, 'Unverified force must not appear as a viable weapon');
+assert.deepEqual(weaponEntry('shrieker-nest', 'epoch').attacks.map(attack => [attack.mode.id, attack.result.hits]), [['standard', 4], ['charged', 3]]);
+assert.deepEqual(weaponEntry('gunship-facility', 'seaf-artillery').attacks.map(attack => attack.mode.id), ['mini-nuke']);
+assert.match(card(weaponEntry('fabricator', 'autocannon')), /조준 조건: 환풍구 안쪽에 폭발/);
+assert.equal(weaponEntry('warp-ship', 'quasar').outcome, 'conditional');
+assert.equal(weaponEntry('warp-ship', 'quasar', { shieldCleared: true }).outcome, 'health');
+assert.equal(weaponEntry('jammer', 'orbital-precision').outcome, 'conditional');
+assert.equal(weaponEntry('jammer', 'orbital-precision', { jammerDisabled: true }).outcome, 'demolish');
+const c4Ship = weaponEntry('warp-ship', 'c4-pack');
+assert.equal(c4Ship.outcome, 'health');
+assert.match(card(c4Ship), /1개 · 본체 체력 소진/);
+assert.doesNotMatch(card(c4Ship), /<p class="demolition-extra-condition">워프 함선의 보호막을 먼저/);
+assert.deepEqual(getDemolitionSelection(initialDemolitionSelection, stratagems), { view: 'empty' }, 'Other selections must not mutate the initial state');
+
 for (const id of featureIds) assert.equal(featureFromHash(`#${id}`), id);
 for (const hash of ['', '#unknown', '#combat-extra']) assert.equal(featureFromHash(hash), 'catalog');
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
@@ -159,3 +229,4 @@ const ui = await readFile(new URL('../dist/demolition-ui.js', import.meta.url), 
 for (const [, id] of ui.matchAll(/\$\('#([a-z-]+)'\)/g)) assert(html.includes(`id="${id}"`), `Missing demolition control: ${id}`);
 for (const id of featureIds) assert(html.includes(`id="${id}-view"`) && html.includes(`data-feature="${id}"`));
 console.log(`PASS: ${structures.length} facilities, ${Object.keys(demolitionProfiles).length} weapon profiles, ${combinations} demolition/HP cases, openings, shields, jammer conditions, uncertain data and 3 feature routes.`);
+console.log(`PASS: ${reverseViews} building-to-stratagem views, separate firing modes, opening notes, Wiki icons and matching detail calculations.`);

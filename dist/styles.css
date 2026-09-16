@@ -128,6 +128,18 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .demolition-thresholds dd{margin:0;white-space:nowrap}
 .demolition-health{font-size:.8rem;color:var(--muted);margin-top:9px;line-height:1.8}
 .demolition-card .combat-breakdown p+p{margin-top:9px}
+.demolition-weapon-card .combat-route-top{align-items:flex-start}
+.demolition-weapon-card .combat-weapon-title{flex:1 1 180px;min-width:0}
+.demolition-weapon-card h3{overflow-wrap:anywhere}
+.demolition-weapon-modes{list-style:none;padding:0;margin:16px 0 0}
+.demolition-weapon-mode+.demolition-weapon-mode{border-top:1px solid var(--border);margin-top:14px;padding-top:14px}
+.demolition-mode-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.demolition-mode-heading h4{font-size:.875rem;line-height:1.65;font-weight:600;color:#d1d7c9;margin:0;overflow-wrap:anywhere}
+.demolition-mode-heading .text-button{flex:none;font-size:.8rem;line-height:1.65;padding:0}
+.demolition-weapon-card .demolition-result-title{font-size:1rem;margin:6px 0}
+.demolition-mode-force{font-size:.8rem;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}
+.demolition-aim-note{margin-top:8px;padding:7px 10px;border-left:2px solid #b18c4f;background:#28251c;color:#e3c894;font-size:.875rem;line-height:1.75}
+.demolition-extra-condition{margin-top:8px;color:#e3c894;font-size:.8rem;line-height:1.8}
 @media(max-width:680px){.demolition-loadout{grid-template-columns:minmax(0,1fr)}.demolition-conditions{padding:12px}.demolition-force dd{font-size:1rem}}
 @media(max-width:1100px){.combat-routes,.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
 @media(max-width:680px){.combat-routes,.combat-context,.combat-controls{grid-template-columns:minmax(0,1fr)}.combat-context>div+div{border-left:0;border-top:1px solid var(--border);padding:18px 0 0}.combat-heading{flex-wrap:wrap}.combat-answer{padding:17px 18px}.combat-answer h3{font-size:1.25rem}.combat-route{padding:17px}.feature-nav button{padding:10px 11px}.feature-nav span{display:none}.combat-shield{padding:14px}.combat-method{padding:13px 16px}}

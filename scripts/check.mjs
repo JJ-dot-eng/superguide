@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { categories, stratagems } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
-import { createSearchMatcher } from '../dist/search.js';
+import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
@@ -50,6 +50,23 @@ assert(createSearchMatcher('AC-8')(stratagems.find(item => item.id === 'autocann
 assert(createSearchMatcher('대전차')(precision), 'Role keyword search must still work');
 assert(!createSearchMatcher('차전대')(precision), 'Unordered matching must not pull characters from role tags');
 assert.equal(stratagems.filter(createSearchMatcher('   ')).length, stratagems.length, 'Empty search should show all items');
+
+const strikeIds = searchItems(stratagems, '타격').map(item => item.id);
+assert.equal(strikeIds[0], 'orbital-precision', 'Name matches should retain their catalog order');
+for (const id of ['autocannon', 'breaching-hammer']) {
+  assert(strikeIds.includes(id), `Description matches should remain searchable: ${id}`);
+  assert(strikeIds.indexOf('orbital-airburst') >= 0 && strikeIds.indexOf('orbital-airburst') < strikeIds.indexOf(id), 'Airburst Strike must precede description-only matches');
+}
+assert(strikeIds.indexOf('autocannon') < strikeIds.indexOf('breaching-hammer'), 'Description matches should retain their catalog order');
+assert.deepEqual(searchItems(stratagems, '   '), stratagems, 'Clearing the search must restore the original order');
+for (const [query, id] of [['도밀타', 'orbital-precision'], ['반톤', 'eagle-500kg'], ['톤반', 'eagle-500kg']]) {
+  assert.equal(searchItems(stratagems, query)[0]?.id, id, `Unordered names and aliases must still work: ${query}`);
+}
+const aliasExample = Object.freeze([
+  { ...stratagems.find(item => item.id === 'autocannon'), summary: '반톤 폭탄과 함께 쓰는 무기' },
+  stratagems.find(item => item.id === 'eagle-500kg'),
+]);
+assert.deepEqual(searchItems(aliasExample, '반톤').map(item => item.id), ['eagle-500kg', 'autocannon'], 'Aliases must precede description-only matches without reordering source data');
 
 assert.deepEqual(Object.keys(wikiIcons).sort(), [...ids].sort(), 'Every stratagem must have a Wiki icon');
 const iconPaths = new Map();
@@ -99,7 +116,7 @@ try {
   }
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
-  console.log(`PASS: ${stratagems.length} records, 7 categories, unordered name search and existing keywords, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
+  console.log(`PASS: ${stratagems.length} records, 7 categories, name-first ranking, unordered names and aliases, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
 } finally {
   server.closeAllConnections();
   await new Promise(resolve => server.close(resolve));

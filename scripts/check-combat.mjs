@@ -7,9 +7,10 @@ import { stratagems } from '../dist/data.js';
 const source = url => assert.equal(new URL(url).hostname, 'helldivers.wiki.gg');
 source(damageSource);
 assert.match(combatCheckedAt, /^\d{4}-\d{2}-\d{2}$/);
-assert.equal(enemies.length, 31, 'Difficulty and body-size variants remain separate selections');
+assert.equal(enemies.length, 28, 'Use high-difficulty entries while retaining distinct body sizes');
 assert.equal(enemyTypeCount, 26, 'Variants must not inflate the enemy species counter');
 assert.equal(new Set(enemies.map(enemy => enemy.id)).size, enemies.length);
+assert(!enemies.some(enemy => ['hunter', 'warrior', 'bile-spewer'].includes(enemy.id)), 'Low-difficulty entries must not be selectable');
 const validateMain = pool => {
   for (const key of ['hp', 'armor', 'durability', 'exdr', 'constitution']) assert(Number.isFinite(pool[key]) && pool[key] >= 0, `Invalid main pool: ${key}`);
   assert(pool.hp > 0 && pool.armor <= 10 && pool.durability <= 100 && pool.exdr <= 100);
@@ -96,17 +97,17 @@ assert.equal(calculateMatchup(enemy('charger'), mode('autocannon', 'flak')).best
 assert(calculateMatchup(enemy('charger'), undefined).rows.every(row => row.outcome === 'unknown' && row.hits === null));
 
 // Current Wiki anatomy examples and mechanically distinct new routes.
-assert.equal(route('warrior', 'head', 'maxigun').hits, 2);
+assert.deepEqual([enemy('hunter-hardened').main.hp, ...enemy('hunter-hardened').parts.map(part => part.hp)], [160, 40, 60, 60], 'Retain high-difficulty Hunter health');
+assert.deepEqual([enemy('warrior-hardened').main.hp, ...enemy('warrior-hardened').parts.map(part => part.hp)], [325, 150, 100, 100], 'Retain high-difficulty Warrior health');
+for (const family of ['hunter', 'warrior', 'bile-spewer']) assert.equal(enemies.filter(enemy => enemy.family === family).length, 1, 'Each difficulty-dependent enemy appears once');
 assert.equal(route('warrior-hardened', 'head', 'maxigun').hits, 3, 'Difficulty 4 increases Warrior head HP');
 assert.equal(route('warrior-hardened', 'head', 'maxigun').outcome, 'bleed', 'Decapitated Warriors can still attack');
 assert.equal(route('brood-commander', 'head', 'machine-gun').outcome, 'bleed');
 assert.equal(route('brood-commander', 'head', 'recoilless').outcome, 'kill', 'Sufficient head overkill exhausts the bleed pool');
 assert.equal(route('hive-guard', 'head', 'stalwart').outcome, 'blocked');
 assert.equal(route('hive-guard', 'head', 'machine-gun').outcome, 'bleed');
-assert.equal(route('bile-spewer', 'head', 'stalwart').outcome, 'kill');
 assert.equal(route('bile-spewer-armored', 'head', 'stalwart').outcome, 'blocked', 'Difficulty 6 head armor blocks AP 2');
 assert.equal(route('bile-spewer-armored', 'mouth', 'stalwart').outcome, 'kill', 'Mouth armor does not increase with head armor');
-assert.equal(route('bile-spewer', 'head', 'machine-gun').hits, 4);
 assert.equal(route('bile-spewer-armored', 'head', 'machine-gun').hits, 6);
 assert.equal(route('nursing-spewer', 'head', 'machine-gun').hits, 4);
 assert.equal(route('stalker', 'head', 'anti-materiel').hits, 1);

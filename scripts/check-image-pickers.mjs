@@ -5,7 +5,7 @@ import { stratagems, categories } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
 import { pickerConfigs } from '../dist/picker-content.js';
 import { pickerEnemyImages, pickerStructureImages } from '../dist/selector-images.js';
-import { initImagePickers, filterPickerItems, renderPickerItems, pickerFocusIndex } from '../dist/image-picker.js?v=icon-picker-1';
+import { initImagePickers, filterPickerItems, renderPickerItems, pickerFocusIndex } from '../dist/image-picker.js?v=portrait-layout-1';
 import { initCombat } from '../dist/combat-ui.js';
 import { initDemolition } from '../dist/demolition-ui.js';
 import { TestDocument } from './test-dom.mjs';
@@ -30,14 +30,31 @@ for (const [start, key, length, expected] of [[0, 'ArrowUp', 10, 0], [1, 'ArrowD
 
 const paths = new Set();
 for (const asset of Object.values({ ...pickerEnemyImages, ...pickerStructureImages })) {
-  assert.equal(new URL(asset.source).hostname, 'helldivers.wiki.gg');
-  assert.equal(new URL(asset.assetUrl).hostname, 'helldivers.wiki.gg');
-  assert.equal(new URL(asset.originalUrl).hostname, 'helldivers.wiki.gg');
+  if (asset.sourceType === 'user-provided') {
+    assert.equal(asset.source, null);
+    assert.equal(asset.assetUrl, null);
+    assert.equal(asset.originalUrl, null);
+    assert.equal(asset.uploader, null);
+  } else {
+    const wikiHost = new URL(asset.source).hostname;
+    assert(['helldivers.wiki.gg', 'helldivers.fandom.com'].includes(wikiHost));
+    const assetHost = wikiHost === 'helldivers.fandom.com' ? 'static.wikia.nocookie.net' : wikiHost;
+    assert.equal(new URL(asset.assetUrl).hostname, assetHost);
+    assert.equal(new URL(asset.originalUrl).hostname, assetHost);
+    assert(asset.uploader);
+  }
   assert.equal(asset.retrievedAt, '2026-09-16');
-  assert(asset.width > 0 && asset.height > 0 && asset.uploader);
+  assert(asset.width > 0 && asset.height > 0);
   const bytes = await readFile(new URL('../dist/' + asset.src.slice(2), import.meta.url));
   assert.equal(createHash('sha256').update(bytes).digest('hex'), asset.sha256);
   if (asset.src.endsWith('.svg')) assert.match(bytes.toString(), /<svg/);
+  else if (asset.src.endsWith('.webp')) {
+    assert.equal(bytes.toString('ascii', 0, 4), 'RIFF');
+    assert.equal(bytes.toString('ascii', 8, 16), 'WEBPVP8X');
+    assert.equal(bytes.readUInt32LE(4) + 8, bytes.length);
+    assert.equal(bytes.readUIntLE(24, 3) + 1, asset.width);
+    assert.equal(bytes.readUIntLE(27, 3) + 1, asset.height);
+  }
   else {
     assert.equal(bytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
     assert.equal(bytes.readUInt32BE(16), asset.width);
@@ -125,4 +142,4 @@ try {
 const css = await readFile(new URL('../dist/styles.css', import.meta.url), 'utf8');
 assert.match(css, /\.picker-grid\{[^}]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
 assert.match(css, /\.picker-scroll\{[^}]*overflow-y:auto[^}]*overscroll-behavior:contain/);
-console.log(`PASS: four image pickers, 191 options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} Wiki assets.`);
+console.log(`PASS: four image pickers, 191 options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} source image assets.`);

@@ -162,7 +162,8 @@ try {
   for (const [path, asset] of pickerAssets) {
     const response = await fetch(new URL(path, base + '/'));
     assert.equal(response.status, 200, `Broken picker image: ${path}`);
-    assert(response.headers.get('content-type').includes(path.endsWith('.svg') ? 'image/svg+xml' : 'image/png'));
+    const imageType = path.endsWith('.svg') ? 'image/svg+xml' : path.endsWith('.webp') ? 'image/webp' : 'image/png';
+    assert(response.headers.get('content-type').includes(imageType));
     assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), asset.sha256, `Incorrect picker image response: ${path}`);
   }
   for (const path of ['/missing', '/.git/config', '/..%2Fpackage.json', '/..%2F..%2F']) {

@@ -3,7 +3,7 @@ import { calculateMatchup } from './combat.js?v=meltagun-1';
 import { combatImages } from './combat-images.js?v=high-difficulty-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=meltagun-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=conditional-hits-1';
-import { syncImagePicker, focusImagePicker } from './image-picker.js?v=icon-picker-1';
+import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';

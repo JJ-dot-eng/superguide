@@ -2,7 +2,7 @@ import { categories, stratagems, checkedAt } from './data.js?v=shields-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shields-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=enemies-2';
+import { initCombat } from './combat-ui.js?v=c4-1';
 import { initFeatureNavigation } from './features.js';
 import { initDemolition } from './demolition-ui.js?v=factions-1';
 

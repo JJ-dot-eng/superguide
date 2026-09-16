@@ -30,7 +30,7 @@ for (const enemy of enemies) {
   if (enemy.sourceRevision) assert(Number.isSafeInteger(enemy.sourceRevision) && enemy.sourceRevision > 0);
   enemy.parts.forEach(validatePart);
 }
-assert.equal(Object.keys(weaponProfiles).length, 12);
+assert.equal(Object.keys(weaponProfiles).length, 13);
 for (const [id, profile] of Object.entries(weaponProfiles)) {
   assert(stratagems.some(item => item.id === id && item.category === 'support'), `Unknown weapon: ${id}`);
   source(profile.source);
@@ -40,6 +40,7 @@ for (const [id, profile] of Object.entries(weaponProfiles)) {
     if (mode.unsupported) continue;
     for (const key of ['standard', 'durable', 'ap', 'explosion', 'explosionAp']) assert(Number.isFinite(mode[key]) && mode[key] >= 0, `${id}: ${key}`);
     assert(mode.durable <= mode.standard && mode.ap <= 10 && mode.explosionAp <= 10);
+    if (mode.explosionDurable != null) assert(Number.isFinite(mode.explosionDurable) && mode.explosionDurable >= 0);
   }
 }
 

@@ -1,8 +1,8 @@
-import { categories, stratagems, checkedAt } from './data.js?v=shield-generators-1';
+import { categories, stratagems, checkedAt } from './data.js?v=meltagun-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=conditional-hits-1';
+import { initCombat } from './combat-ui.js?v=meltagun-1';
 import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
 import { initDemolition } from './demolition-ui.js?v=demolition-paths-2';
 

@@ -4,6 +4,7 @@ import { stratagems } from '../dist/data.js';
 import { structures, demolitionProfiles } from '../dist/demolition-data.js';
 import { calculateDemolition, calculateStructureDamage, evaluateForce } from '../dist/demolition.js';
 import { featureFromHash, featureIds } from '../dist/features.js';
+import { openingRouteNote } from '../dist/demolition-ui.js';
 
 const target = id => structures.find(item => item.id === id);
 const attack = (id, modeId) => demolitionProfiles[id].modes.find(mode => !modeId || mode.id === modeId);
@@ -93,6 +94,63 @@ assert.equal(calc('jammer', 'portable-hellbomb').outcome, 'demolish', 'An alread
 assert.equal(calc('container', 'autocannon-sentry').outcome, 'conditional', 'Numeric force is not a promise of automatic target acquisition');
 assert.equal(calc('gunship-facility', 'seaf-artillery', 'he').outcome, 'blocked');
 assert.equal(calc('gunship-facility', 'seaf-artillery', 'mini-nuke').outcome, 'demolish');
+
+// Epoch's ordinary and fully charged projectiles are separate attacks. The
+// weapon's overcharge self-destruction explosion is not a selectable shot.
+assert.deepEqual(demolitionProfiles.epoch.modes.map(mode => [mode.id, mode.name, mode.direct, mode.explosion]), [
+  ['standard', '일반 발사', 10, 10],
+  ['charged', '완전 충전 발사', 10, 30],
+]);
+assert.equal(demolitionProfiles.epoch.source, 'https://helldivers.wiki.gg/wiki/PLAS-45_Epoch');
+const standardEpoch = attack('epoch', 'standard');
+const chargedEpoch = attack('epoch', 'charged');
+assert.deepEqual(standardEpoch.damage, { standard: 400, durable: 200, ap: 4, explosion: 500, explosionAp: 4 });
+assert.deepEqual(chargedEpoch.damage, { standard: 800, durable: 400, ap: 5, explosion: 800, explosionAp: 5 });
+assert.equal(calc('container', 'epoch', 'standard').outcome, 'blocked', '10 direct + 10 blast must not meet force 20');
+assert.equal(calc('container', 'epoch', 'charged').outcome, 'demolish');
+assert.equal(calc('titan-hole', 'epoch', 'charged').outcome, 'blocked', '10 direct + 30 blast must not meet force 40');
+assert.equal(calc('bug-hole', 'epoch', 'standard').outcome, 'blocked');
+const chargedHole = calc('bug-hole', 'epoch', 'charged');
+assert.equal(chargedHole.outcome, 'conditional');
+assert.equal(chargedHole.route.id, 'inner');
+assert.equal(chargedHole.component, 'explosion');
+assert(chargedHole.conditions.some(condition => condition.includes('굴 안쪽') && condition.includes('폭발')));
+assert.equal(chargedHole.routes.find(row => row.route.id === 'outer').outcome, 'insufficient');
+
+assert.equal(calc('fabricator', 'epoch', 'standard').outcome, 'blocked', 'Known AP 4 damage cannot penetrate the AV 5 wall');
+const chargedFactory = calc('fabricator', 'epoch', 'charged');
+assert.equal(chargedFactory.method, 'health');
+assert.equal(chargedFactory.hits, 2);
+assert.deepEqual(chargedFactory.health, { direct: 260, explosion: 520, total: 780, hits: 2 });
+assert.equal(chargedFactory.routes.find(row => row.route.id === 'outer').outcome, 'insufficient');
+assert.equal(chargedFactory.routes.find(row => row.route.id === 'vent').outcome, 'pass');
+assert.match(openingRouteNote(chargedFactory), /환풍구 안쪽에 폭발이 들어가야/);
+assert.match(openingRouteNote(chargedFactory), /체력 소진 탄수와 별도로/);
+assert.equal(openingRouteNote(calc('fabricator', 'epoch', 'standard')), '');
+assert.equal(calc('bulk-fabricator', 'epoch', 'charged').hits, 6);
+assert.match(openingRouteNote(calc('bulk-fabricator', 'epoch', 'charged')), /상단 환풍구 안쪽/);
+for (const id of ['spore-spewer', 'shrieker-nest']) {
+  const standard = calc(id, 'epoch', 'standard');
+  const charged = calc(id, 'epoch', 'charged');
+  assert.equal(standard.method, 'health'); assert.equal(standard.hits, 4);
+  assert.equal(charged.method, 'health'); assert.equal(charged.hits, 3);
+  assert(standard.routes.every(row => row.outcome === 'insufficient') && charged.routes.every(row => row.outcome === 'insufficient'), 'HP destruction must work despite insufficient demolition force');
+}
+assert.equal(calc('warp-ship', 'epoch', 'charged').outcome, 'conditional');
+assert.equal(calc('warp-ship', 'epoch', 'charged', { shieldCleared: true }).hits, 4);
+
+// Any unverified damage component keeps HP destruction unknown; it must not be
+// silently converted to zero, including when a known opening path still works.
+for (const key of ['standard', 'durable', 'ap', 'explosion', 'explosionAp']) for (const missing of [null, undefined, NaN]) {
+  const incomplete = { ...standardEpoch, damage: { ...standardEpoch.damage, [key]: missing } };
+  const result = calculateDemolition(target('spore-spewer'), demolitionProfiles.epoch, incomplete);
+  assert.equal(result.outcome, 'unknown'); assert.equal(result.health, null); assert.equal(result.hits, null);
+}
+const unknownChargedDamage = calculateDemolition(target('fabricator'), demolitionProfiles.epoch, { ...chargedEpoch, damage: undefined });
+assert.equal(unknownChargedDamage.outcome, 'conditional');
+assert.equal(unknownChargedDamage.route.id, 'vent');
+assert.equal(unknownChargedDamage.health, null);
+assert(unknownChargedDamage.conditions.some(condition => condition.includes('환풍구 안쪽')));
 
 for (const id of featureIds) assert.equal(featureFromHash(`#${id}`), id);
 for (const hash of ['', '#unknown', '#combat-extra']) assert.equal(featureFromHash(hash), 'catalog');

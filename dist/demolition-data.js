@@ -69,6 +69,10 @@ export const demolitionProfiles = {
   'solo-silo': profile(shot(null, 40, { name: '미사일 폭발', note: '여러 폭발의 철거력 40을 합산하지 않습니다.' })),
   'speargun': profile(shot(30, 30)),
   'de-escalator': profile(shot(20, null, { directLabel: '전격' }), { conditionalAim: true, note: indirect }),
+  'epoch': profile([
+    mode('standard', '일반 발사', 10, 10, { damage: damage(400, 200, 4, 500, 4), note: '피해: 직격 400 / 내구 200 / 폭발 500. 직격·폭발 관통 4.' }),
+    mode('charged', '완전 충전 발사', 10, 30, { damage: damage(800, 400, 5, 800, 5), note: '피해: 직격 800 / 내구 400 / 폭발 800. 직격·폭발 관통 5. 벌레굴 내부와 제조소 환풍구는 폭발이 안쪽에 들어가야 철거력으로 파괴됩니다.' }),
+  ], { source: wiki('PLAS-45_Epoch'), damageSource: wiki('PLAS-45_Epoch#Detailed_Weapon_Statistics'), note: '과충전 자폭은 발사 모드와 피해 계산에서 제외합니다.' }),
   'orbital-precision': callIn(shot(50, 50, { name: '포탄 1발', damage: damage(4000, 4000, 8, 1500, 6), shieldBypass: true }), { source: wiki('Orbital_Precision_Strike') }),
   'orbital-120': callIn(shot(50, 50, { name: '포탄 1발', damage: damage(3500, 3500, 7, 1200, 5), shieldBypass: true, note: '한 번의 호출 전체가 아닌, 시설에 명중한 포탄 한 발 기준입니다.' })),
   'orbital-380': callIn(shot(50, 50, { name: '포탄 1발', damage: damage(4000, 4000, 8, 1500, 6), shieldBypass: true, note: '폭격 범위 안에 있어도 포탄이 빗나가면 파괴되지 않습니다.' })),

@@ -1,5 +1,5 @@
-import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js';
-import { calculateDemolition, forceBounds } from './demolition.js';
+import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js?v=epoch-1';
+import { calculateDemolition, forceBounds } from './demolition.js?v=epoch-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => value.toLocaleString('ko-KR');
@@ -11,6 +11,14 @@ const forceText = (value, unknown = false) => {
   const force = forceBounds(value);
   return !force ? '없음' : force.min === force.max ? String(force.min) : `${force.min}–${force.max} · 자료 불일치`;
 };
+
+export function openingRouteNote(row) {
+  if (row.method !== 'health') return '';
+  const openings = row.routes.filter(result => result.outcome === 'pass' && result.route.opening).map(result => result.route.name);
+  if (!openings.length) return '';
+  const shield = row.structure.condition === 'shield' ? '보호막 제거 후 ' : '';
+  return `입구 철거 경로: ${shield}${openings.join(' 또는 ')}에 폭발이 들어가야 합니다. 위의 본체 체력 소진 탄수와 별도로, 내부 폭발의 철거력으로 판정합니다.`;
+}
 
 export function initDemolition({ stratagems, categories, wikiIcons }) {
   const $ = selector => document.querySelector(selector);
@@ -41,12 +49,13 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
   function resultCard(row) {
     const structure = row.structure;
     const mode = demolitionProfiles[state.weapon]?.modes.find(item => item.id === state.mode);
+    const openingNote = openingRouteNote(row);
     const routeEvidence = row.routes.map(result => {
       const components = result.components.filter(item => item.outcome !== 'inapplicable').map(item => `${item.component === 'direct' ? '직접 명중' : '폭발'} ${forceText(mode[item.component], mode.forceUnknown)}: ${item.outcome === 'pass' ? '충족' : item.outcome === 'unknown' ? '판정 보류' : '미충족'}`).join(' / ');
       return `<li>${escape(result.route.name)}: 철거력 ${result.route.threshold}${result.route.explosiveOnly ? ' 이상의 내부 폭발' : ' 이상'}<br>${escape(components)}</li>`;
     }).join('');
-    const hpEvidence = row.health ? `<p>본체 공격 1회 피해: 직격 ${number(row.health.direct)} + 폭발 ${number(row.health.explosion)} = ${number(row.health.total)}${row.health.hits ? `<br>체력 ${number(structure.health.hp)} ÷ 피해 ${number(row.health.total)} → ${number(row.health.hits)}${row.unit} (올림)` : '<br>본체에 계산상 피해 없음'}</p>` : structure.health ? '<p>시설 체력은 확인되었지만 이 공격의 탄수 계산은 지원하지 않습니다.</p>' : '';
-    return `<article class="combat-route demolition-card" data-outcome="${row.outcome}"><div class="combat-route-top"><h3>${escape(structure.name)}</h3><span class="outcome-tag">${outcomes[row.outcome]}</span></div><span class="demolition-faction">${escape(structure.faction)}</span><p class="demolition-result-title">${escape(resultTitle(row))}</p><p class="demolition-reason">${escape(row.reason)}</p>${row.conditions.length ? `<ul class="demolition-requirements">${row.conditions.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}<dl class="demolition-thresholds">${structure.routes.map(route => `<div><dt>${escape(route.name)}${route.explosiveOnly ? ' · 폭발' : ''}</dt><dd>철거력 ${route.threshold}</dd></div>`).join('')}</dl><p class="demolition-tip">${escape(structure.tip)}</p>${structure.health ? `<p class="demolition-health">본체 체력 ${number(structure.health.hp)} · 장갑 ${structure.health.armor} · 내구도 ${structure.health.durability}%${structure.health.exdr < 0 ? ' · 폭발 피해 ×2.5' : ''}</p>` : ''}<details class="combat-breakdown"><summary>판정 근거와 조준 조건</summary>${routeEvidence ? `<ul>${routeEvidence}</ul>` : '<p>해당 장비의 철거 자료가 아직 없습니다.</p>'}${hpEvidence}${structure.note ? `<p class="combat-row-note">${escape(structure.note)}</p>` : ''}${mode?.falloff || mode?.damage?.falloff ? '<p>거리 감쇠 전 최대 피해 기준입니다. 실전 탄수는 늘어날 수 있습니다.</p>' : ''}<p class="combat-sources">${link(structure.source, '시설 철거 조건')}${structure.healthSource ? ` · ${link(structure.healthSource, '시설 체력 수치')}` : ''}</p></details></article>`;
+    const hpEvidence = row.health ? `<p>본체 공격 1회 피해: 직격 ${number(row.health.direct)} + 폭발 ${number(row.health.explosion)} = ${number(row.health.total)}${row.health.hits ? `<br>체력 ${number(structure.health.hp)} ÷ 피해 ${number(row.health.total)} → ${number(row.health.hits)}${row.unit} (올림)` : '<br>본체에 계산상 피해 없음'}</p>` : structure.health ? '<p>체력 파괴: 자료 미확인. 확인된 피해 자료만으로는 이 공격의 탄수를 계산할 수 없습니다.</p>' : '';
+    return `<article class="combat-route demolition-card" data-outcome="${row.outcome}"><div class="combat-route-top"><h3>${escape(structure.name)}</h3><span class="outcome-tag">${outcomes[row.outcome]}</span></div><span class="demolition-faction">${escape(structure.faction)}</span><p class="demolition-result-title">${escape(resultTitle(row))}</p><p class="demolition-reason">${escape(row.reason)}</p>${row.conditions.length ? `<ul class="demolition-requirements">${row.conditions.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}${openingNote ? `<p class="combat-row-note">${escape(openingNote)}</p>` : ''}<dl class="demolition-thresholds">${structure.routes.map(route => `<div><dt>${escape(route.name)}${route.explosiveOnly ? ' · 폭발' : ''}</dt><dd>철거력 ${route.threshold}</dd></div>`).join('')}</dl><p class="demolition-tip">${escape(structure.tip)}</p>${structure.health ? `<p class="demolition-health">본체 체력 ${number(structure.health.hp)} · 장갑 ${structure.health.armor} · 내구도 ${structure.health.durability}%${structure.health.exdr < 0 ? ' · 폭발 피해 ×2.5' : ''}</p>` : ''}<details class="combat-breakdown"><summary>판정 근거와 조준 조건</summary>${routeEvidence ? `<ul>${routeEvidence}</ul>` : '<p>해당 장비의 철거 자료가 아직 없습니다.</p>'}${hpEvidence}${structure.note ? `<p class="combat-row-note">${escape(structure.note)}</p>` : ''}${mode?.falloff || mode?.damage?.falloff ? '<p>거리 감쇠 전 최대 피해 기준입니다. 실전 탄수는 늘어날 수 있습니다.</p>' : ''}<p class="combat-sources">${link(structure.source, '시설 철거 조건')}${structure.healthSource ? ` · ${link(structure.healthSource, '시설 체력 수치')}` : ''}</p></details></article>`;
   }
 
   function render() {

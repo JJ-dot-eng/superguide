@@ -59,6 +59,8 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
   const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
   if (!mode || mode.unsupported) return { ...base, reason: mode?.unsupported || '정밀 피해 자료를 아직 확인하지 않았습니다.' };
   if (enemy.shield && !shieldCleared) return { ...base, outcome: 'shield', reason: enemy.shield.note };
+  if (mode.hitCondition && !mode.impactEvents) return { ...base, reason: '한 발당 해당 부위의 명중 수를 선택하면 그 가정의 탄수를 계산합니다. 실제 명중 수는 자료 미확인입니다.' };
+  if (mode.impactEvents) return calculateImpactRoute(enemy, target, mode, damageOptions);
   // Tanks have independent turret/hull pools; a strider's pilot also has its
   // own pool. A blast reaching this route must not damage a different pool.
   const main = target.main || enemy.main;
@@ -71,7 +73,7 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
     const damage = breakdown.damage;
     const partDamage = damage.direct + damage.explosion;
     const stage = { name: current.name, hp: current.hp, armor: current.armor, durability: current.durability, damage, hits: 0 };
-    if (mode.reviewedExplosive || mode.explosions) stage.breakdown = breakdown;
+    if (mode.reviewedExplosive || mode.explosions || mode.conditionalImpact) stage.breakdown = breakdown;
     stages.push(stage);
     if (!Object.values(damage).every(known)) return { ...base, stages, reason: '자료 미확인: 이 부위에 적용되는 일부 피해·관통·반경을 확인하지 못해 최종 횟수는 계산 보류합니다. 확인된 피해는 계산 과정에 별도로 표시합니다.' };
     if (partDamage === 0 && damage.mainExplosion === 0) {
@@ -107,6 +109,61 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
       }
       if (hit === 20000) return { ...base, stages, reason: '계산 범위를 초과했습니다.' };
     }
+  }
+  return base;
+}
+
+// Multiple arcs/bomblets are separate damage events. Round damage and Main
+// transfer per event, share the transfer cap, and stop on a destroyed hitbox.
+// The existing single-impact model above is intentionally kept unchanged.
+function calculateImpactRoute(enemy, target, mode, options) {
+  const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
+  const main = target.main || enemy.main;
+  let mainRemaining = main.hp, totalHits = 0, current = target;
+  const stages = [];
+  while (current) {
+    const events = mode.impactEvents.map(event => ({ ...event, breakdown: damageBreakdown(event.attack, current, main, { ...options, directHit: event.directHit }) }));
+    const damage = Object.fromEntries(['direct', 'explosion', 'mainExplosion'].map(key => [key, sumKnown(events.map(event => {
+      const amount = event.breakdown.damage[key];
+      return known(amount) ? amount * event.count : null;
+    }))]));
+    const stage = { name: current.name, hp: current.hp, armor: current.armor, durability: current.durability, damage, hits: 0, events };
+    stages.push(stage);
+    if (!Object.values(damage).every(known)) return { ...base, stages, reason: '자료 미확인: 선택한 명중 조건에 필요한 피해 수치가 확인되지 않았습니다.' };
+    if (Object.values(damage).every(amount => amount === 0)) return { ...base, stages, outcome: totalHits ? 'armor' : 'blocked', hits: totalHits || null, reason: '선택한 명중 조건에서는 이 부위와 본체에 피해가 들어가지 않습니다.' };
+    let partRemaining = current.hp;
+    let transferBudget = current.hp + (current.constitution || 0);
+    const eventCount = events.reduce((sum, event) => sum + event.count, 0);
+    let advance = false;
+    for (let shot = 0; shot < 20000 && !advance; shot++) {
+      totalHits++; stage.hits++;
+      let applied = 0;
+      for (const event of events) for (let hit = 0; hit < event.count; hit++) {
+        applied++;
+        const single = event.breakdown.damage;
+        const partDamage = single.direct + single.explosion;
+        let transfer = [single.direct, ...event.breakdown.explosions.map(blast => blast.partDamage)]
+          .reduce((sum, amount) => sum + floor(amount * current.toMain / 100), 0);
+        if (current.overflowCap) {
+          transfer = Math.min(transfer, transferBudget);
+          transferBudget -= transfer;
+        }
+        mainRemaining -= transfer + single.mainExplosion;
+        partRemaining -= partDamage;
+        const result = { ...base, stages, hits: totalHits };
+        if (partRemaining <= 0 && current.effect === 'kill') return { ...result, outcome: 'kill', via: 'part' };
+        if (partRemaining <= -(current.constitution || Infinity) && current.effect === 'bleed') return { ...result, outcome: 'kill', via: 'part' };
+        if (!target.isolated && mainRemaining <= 0) return { ...result, outcome: main.constitution && mainRemaining > -main.constitution ? 'bleed' : 'kill', via: 'main' };
+        if (partRemaining <= 0) {
+          if (!current.next) return { ...result, outcome: current.effect, via: 'part' };
+          if (applied < eventCount) return { ...base, stages, reason: '장갑 파괴 후 같은 발의 남은 전격·자탄이 노출 부위에 닿는지는 자료 미확인입니다. 최종 탄수는 계산 보류합니다.' };
+          current = current.next;
+          advance = true;
+          break;
+        }
+      }
+    }
+    if (!advance) return { ...base, stages, reason: '계산 범위를 초과했습니다.' };
   }
   return base;
 }

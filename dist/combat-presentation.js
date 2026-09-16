@@ -1,4 +1,5 @@
-import { explosionComponents } from './combat.js?v=explosive-weapons-1';
+import { explosionComponents } from './combat.js?v=conditional-hits-1';
+import { combatConditionText, spearCannotLock } from './combat-conditions.js?v=conditional-hits-1';
 
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
 const hasBlast = mode => mode && (mode.explosion !== 0 || mode.explosions?.length > 0);
@@ -6,11 +7,18 @@ export const combatTerms = mode => mode?.unit === '개'
   ? { unit: '개', count: '장약 개수', one: '장약 한 개', adhesive: mode.delivery === 'adhesive' }
   : mode?.unit === '회' ? { unit: '회', count: '타격 횟수', one: '타격 한 번', adhesive: false }
   : { unit: '발', count: '탄수', one: '한 발', adhesive: false };
-export const combatCount = (hits, mode) => `${number(hits)}${combatTerms(mode).unit}`;
-export const combatOutcome = (outcome, mode) => ({ kill: '처치', bleed: combatTerms(mode).adhesive || mode?.reviewedExplosive ? '출혈 유발' : '출혈 처치 유발', break: '부위 파괴', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' })[outcome];
+export const combatCount = (hits, mode) => `${number(hits)}${combatTerms(mode).unit}${mode?.conditionalImpact ? ' 이상' : ''}`;
+export const combatOutcome = (outcome, mode) => ({ kill: '처치', bleed: combatTerms(mode).adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? '출혈 유발' : '출혈 처치 유발', break: '부위 파괴', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' })[outcome];
+export const combatImpactLabel = mode => mode?.delivery === 'arc' ? '전격' : mode?.delivery === 'flag' || mode?.delivery === 'melee' ? '타격' : '직격';
+export const combatImpactVerb = mode => mode?.delivery === 'guided' ? '착탄' : '타격';
 
 export function combatModeStats(mode) {
   if (!mode || mode.unsupported) return [];
+  if (mode.conditionalImpact) return [
+    `${combatImpactLabel(mode)}${mode.delivery === 'arc' ? ' 1회' : ''} 일반 피해 ${number(mode.standard)} / 내구 피해 ${number(mode.durable)} / AP ${number(mode.ap)}`,
+    ...explosionComponents(mode).map(blast => `폭발 일반·내구 피해 ${number(blast.durable)} / AP ${number(blast.ap)} / 최대 피해 ${number(blast.innerRadius)}m · 외곽 ${number(blast.radius)}m`),
+    ...(mode.bomblet ? [`자탄 1개 직격 ${number(mode.bomblet.standard)} / 내구 ${number(mode.bomblet.durable)} / AP ${mode.bomblet.ap}`, `자탄 폭발 일반·내구 ${number(mode.bomblet.explosion)} / AP ${mode.bomblet.explosionAp} / 최대 피해 ${mode.bomblet.innerRadius}m · 외곽 ${mode.bomblet.radius}m`] : []),
+  ];
   if (mode.reviewedExplosive) return [
     mode.directKind === 'none' ? '별도 직격 피해 없음 · 충돌 피해도 폭발로 계산' : `${mode.delivery === 'melee' ? '타격' : '직격'} 일반 피해 ${number(mode.standard)} / 내구 피해 ${number(mode.durable)} / AP ${number(mode.ap)}`,
     ...explosionComponents(mode).flatMap(blast => [
@@ -28,6 +36,7 @@ export function combatModeStats(mode) {
 }
 
 export function combatAssumption(mode) {
+  if (mode?.conditionalImpact) return '<strong>해당 부위에 최대 유효 피해가 들어가는 조건의 이론값</strong>입니다. ‘이상’은 표시된 명중 조건 안에서의 횟수이며 실제 최소 처치 횟수나 최대 탄수를 보장하지 않습니다.' + (mode.hitCondition ? ' 전격·자탄 명중 수는 사용자가 선택한 가정이며, 여러 부위 동시 피해는 합산하지 않습니다.' : ' 제외한 피해와 실제 명중 부위에 따라 결과가 달라집니다.');
   if (mode?.reviewedExplosive) return hasBlast(mode)
     ? '<strong>해당 부위에 최대 폭발 피해가 들어가는 조건의 이론값</strong>입니다. 직격·타격이 있는 모드는 그것도 같은 부위에 명중하는 조건입니다. 여러 부위 동시 피해는 합산하지 않으며, 실제 최소 처치 횟수로 단정할 수 없습니다.'
     : '표시 횟수는 <strong>같은 부위에 정면 타격이 계속 닿는 조건의 이론값</strong>입니다. 실제 접근 가능 여부와 방어구의 근접 피해 증가 효과는 포함하지 않습니다.';
@@ -37,6 +46,14 @@ export function combatAssumption(mode) {
 }
 
 export function combatTargetTip(target, mode, row) {
+  if (mode?.conditionalImpact) {
+    const location = target.next ? target.name.split(' → ')[0] : target.name;
+    if (mode.delivery === 'arc') return `명중 가정 부위: ${location}. 전격이 이 부위에 닿는 조건이며, 원하는 부위를 자유롭게 조준할 수 있다는 뜻은 아닙니다.`;
+    if (mode.delivery === 'guided') return `착탄 부위: ${location}. 미사일이 이 부위에 직접 명중하고 폭발 중심 1.5m 안에 같은 부위가 들어오는 조건입니다.`;
+    if (mode.delivery === 'flag') return `타격 부위: ${location}. 깃발 날이 이 부위에 먼저 닿아야 합니다. 실제로 접근해 찌를 수 있는 위치인지 확인하세요.`;
+    if (mode.delivery === 'harpoon') return `직격 부위: ${location}. ${target.tip} 가스 피해는 제외합니다.`;
+    return `폭발 피해를 받는 부위: ${location}. 선택한 주폭발은 중심 3m, 자탄 폭발은 각각 중심 4m 안에 이 부위가 들어오는 조건입니다.` + (target.exdr === 100 ? ' 이 부위는 폭발 면역이므로 폭발은 본체 장갑·폭발 저항으로 따로 판정합니다.' : '');
+  }
   if (mode?.reviewedExplosive) {
     const location = target.next ? target.name.split(' → ')[0] : target.name;
     let tip = target.tip;
@@ -62,6 +79,11 @@ export function combatTargetTip(target, mode, row) {
 
 export function combatShieldNotice(enemy, mode) {
   if (!enemy.shield) return null;
+  if (mode?.conditionalImpact) return {
+    title: enemy.id === 'harvester' ? '보호막 제거 여부를 먼저 확인하세요' : '방패를 우회한 명중 조건을 확인하세요',
+    label: '방패·보호막이 선택한 부위로 향하는 공격을 막지 않는 상태',
+    note: '방패·보호막을 제거하거나 우회해야 합니다. 제거에 필요한 공격과 보호막 재생은 제외하며, 전격·미사일·폭발이 보호막을 통과한다고 가정하지 않습니다.',
+  };
   if (mode?.reviewedExplosive) return enemy.id === 'harvester' ? {
     title: '보호막 제거 여부를 먼저 확인하세요',
     label: '보호막이 제거되어 선택 부위에 공격이 닿는 상태',
@@ -105,6 +127,12 @@ export function combatSummary(enemy, mode, { best, rows }, { shieldCleared = fal
     const notice = combatShieldNotice(enemy, mode);
     return { tone: 'neutral', title: notice.title, body: notice.note };
   }
+  if (mode?.hitCondition && !mode.selectedCondition) return { tone: 'neutral', title: '한 발당 명중 조건을 선택하세요', body: combatConditionText(mode) };
+  if (spearCannotLock(enemy, mode)) return { tone: 'neutral', title: '직접 락온 불가 · 착탄 가정 참고', body: '스피어는 이 적에게 직접 락온할 수 없습니다. 아래 수치는 다른 표적에 발사한 미사일이 표시 부위에 착탄했을 때의 참고값입니다.' };
+  if (best && mode?.conditionalImpact) return {
+    tone: 'positive', title: `${combatCount(best.hits, mode)} · ${best.target.name} ${combatImpactVerb(mode)} 시 · ${combatOutcome(best.outcome, mode)}`,
+    body: [combatConditionText(mode), combatTargetTip(best.target, mode, best)].filter(Boolean).join('. '),
+  };
   if (best) return {
     tone: 'positive',
     title: terms.adhesive || mode?.reviewedExplosive ? `${best.target.name} · ${combatOutcome(best.outcome, mode)} 이론값 ${combatCount(best.hits, mode)}` : `${best.target.name} · ${combatCount(best.hits, mode)}로 ${best.outcome === 'bleed' ? '출혈 처치 유발' : '처치 가능'}`,

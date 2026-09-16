@@ -12,6 +12,7 @@ import { server } from '../server.mjs';
 import './check-combat.mjs';
 import './check-c4.mjs';
 import './check-explosive-weapons.mjs';
+import './check-conditional-weapons.mjs';
 import './check-demolition.mjs';
 import './check-defense.mjs';
 

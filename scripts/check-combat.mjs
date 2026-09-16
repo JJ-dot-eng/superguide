@@ -31,7 +31,7 @@ for (const enemy of enemies) {
   if (enemy.sourceRevision) assert(Number.isSafeInteger(enemy.sourceRevision) && enemy.sourceRevision > 0);
   enemy.parts.forEach(validatePart);
 }
-assert.equal(Object.keys(weaponProfiles).length, 20);
+assert.equal(Object.keys(weaponProfiles).length, 26);
 for (const [id, profile] of Object.entries(weaponProfiles)) {
   assert(stratagems.some(item => item.id === id && item.category === 'support'), `Unknown weapon: ${id}`);
   source(profile.source);

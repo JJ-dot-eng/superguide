@@ -131,3 +131,32 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 @media(max-width:680px){.demolition-loadout{grid-template-columns:minmax(0,1fr)}.demolition-conditions{padding:12px}.demolition-force dd{font-size:1rem}}
 @media(max-width:1100px){.combat-routes,.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
 @media(max-width:680px){.combat-routes,.combat-context,.combat-controls{grid-template-columns:minmax(0,1fr)}.combat-context>div+div{border-left:0;border-top:1px solid var(--border);padding:18px 0 0}.combat-heading{flex-wrap:wrap}.combat-answer{padding:17px 18px}.combat-answer h3{font-size:1.25rem}.combat-route{padding:17px}.feature-nav button{padding:10px 11px}.feature-nav span{display:none}.combat-shield{padding:14px}.combat-method{padding:13px 16px}}
+
+.defense-panel{min-width:0;margin-top:18px;border-top:1px solid var(--border);padding-top:14px}
+.defense-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font-size:13px;line-height:1.6}
+.defense-heading strong{font-weight:600;color:var(--tone,var(--yellow))}
+.defense-heading>span{color:var(--muted)}
+.defense-panel .defense-highlights{margin:12px 0 0;padding-top:0;border-top:0;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.defense-panel .stat-label{font-size:13px}
+.defense-panel .stat-caption{font-size:12px;line-height:1.6;color:var(--muted)}
+.defense-panel .stat-value{overflow-wrap:anywhere}
+.defense-facts{margin:16px 0 0;border-top:1px solid var(--border);font-size:13px;line-height:1.65}
+.defense-facts>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,1fr);gap:8px 12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.defense-facts dt{color:var(--muted)}
+.defense-facts dd{margin:0;color:var(--text);font-weight:600;text-align:right;overflow-wrap:anywhere}
+.defense-facts dd>small{margin-left:3px;font-weight:400;font-size:12px}
+.defense-facts dd>span{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.defense-explanations{margin-top:12px;color:#bfc8b4;font-size:13px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}
+.defense-explanations p+p{margin-top:7px}
+.defense-source{padding:0 20px 12px;margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+.defense-source a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
+.list-view .defense-panel{grid-column:2;grid-row:1/6;margin:0;border-top:0;border-left:1px solid var(--border);padding:0 0 0 24px}
+.list-view .defense-panel .stats-grid{grid-column:auto;grid-row:auto;border:0;margin:12px 0 0;padding:0;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.list-view .defense-source{padding-inline:22px;text-align:right}
+.detail-dialog .defense-panel{margin-bottom:24px}
+.detail-dialog .defense-heading{font-size:15px}
+.detail-dialog .defense-highlights{border-top:1px solid #3b452f}
+.detail-dialog .defense-facts,.detail-dialog .defense-explanations{font-size:14px}
+.comparison-table .comparison-value>small{display:inline;margin-left:3px}
+.comparison-table td>p+p{margin-top:9px}
+@media(max-width:520px){.list-view .defense-panel{margin-top:18px;padding:14px 0 0;border-left:0;border-top:1px solid var(--border)}.list-view .defense-source{text-align:left;padding-inline:20px}}

@@ -1,4 +1,5 @@
-import { categories, stratagems, checkedAt } from './data.js';
+import { categories, stratagems, checkedAt } from './data.js?v=shields-1';
+import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shields-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=enemies-2';
@@ -36,6 +37,12 @@ function statValues(item) {
   ];
 }
 
+function renderStats(item, context = 'card') {
+  if (item.defense) return renderDefenseStats(item, context);
+  const detailed = context === 'detail';
+  return `<div class="${detailed ? 'detail-stats' : 'stats-grid'}">${statValues(item).map(stat => `<div class="${detailed ? 'detail-stat' : 'stat'}"><span class="stat-label">${stat.label}</span><span class="stat-value ${stat.style}">${stat.value}</span><span class="stat-caption">${escape(stat.caption)}</span></div>`).join('')}</div>`;
+}
+
 function renderCategories() {
   $('#categories').innerHTML = categories.map(category => `<button class="category-button ${state.category === category.id ? 'active' : ''}" data-category="${category.id}" aria-pressed="${state.category === category.id}">${icon(category.icon)}<span>${category.name}</span><span class="nav-count">${category.id === 'all' ? stratagems.length : stratagems.filter(item => item.category === category.id).length}</span></button>`).join('');
 }
@@ -55,7 +62,7 @@ function filteredItems() {
   return searchItems(items, state.search);
 }
 function card(item) {
-  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div><div class="stats-grid">${statValues(item).map(stat => `<div class="stat"><span class="stat-label">${stat.label}</span><span class="stat-value ${stat.style}">${stat.value}</span><span class="stat-caption">${escape(stat.caption)}</span></div>`).join('')}</div></button><div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}">사용법 보기 <span aria-hidden="true">↗</span></button></div></article>`;
+  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>${renderStats(item)}</button>${renderDefenseSource(item)}<div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}">사용법 보기 <span aria-hidden="true">↗</span></button></div></article>`;
 }
 function renderCards() {
   const items = filteredItems();
@@ -93,7 +100,7 @@ const dialogTop = label => `<div class="dialog-top"><span>${label}</span><button
 function openDetail(id) {
   const item = stratagems.find(item => item.id === id);
   if (!item) return;
-  $('#detail-content').innerHTML = `<div class="dialog-inner">${dialogTop(cat(item.category).label + ' / FIELD NOTES')}<div class="dialog-identity"><span class="strat-icon">${stratagemIcon(item)}</span><div><h2 id="detail-title">${escape(item.name)}</h2><p class="dialog-en">${escape(item.en)}</p></div></div><p class="dialog-summary">${escape(item.summary)}</p>${item.input ? `<div class="input-sequence"><span>호출 코드</span>${escape(item.input)}</div>` : ''}<div class="detail-stats">${statValues(item).map(stat => `<div class="detail-stat"><span class="stat-label">${stat.label}</span><span class="stat-value ${stat.style}">${stat.value}</span><span class="stat-caption">${escape(stat.caption)}</span></div>`).join('')}</div><div class="detail-block"><h3>이렇게 사용하세요</h3><p>${escape(item.usage)}</p></div>${item.notes || item.rangeNote || item.modes ? `<div class="detail-block"><h3>수치와 운용 기준</h3><ul>${[item.rangeNote, item.notes, ...(item.modes || [])].filter(Boolean).map(note => `<li>${escape(note)}</li>`).join('')}</ul></div>` : ''}${item.radius && item.innerRadius ? `<div class="detail-block"><h3>폭발 범위</h3><div class="blast-figure"><svg viewBox="0 0 140 140" role="img" aria-label="중심 ${item.innerRadius}미터, 외곽 ${item.radius}미터의 폭발 반경"><path d="M70 0v140M0 70h140" stroke="#344429"/><circle cx="70" cy="70" r="57" fill="#a3ad4420" stroke="#a5b572" stroke-dasharray="3 4"/><circle cx="70" cy="70" r="${Math.max(10, 57 * item.innerRadius / item.radius)}" fill="#e4d95435" stroke="#e4d954"/><circle cx="70" cy="70" r="3" fill="#f4e454"/></svg><p><strong>중심 ${item.innerRadius} m</strong> 안쪽이 최대 피해 구간입니다.<br>외곽 ${item.radius} m까지 피해가 감소합니다.<br>그림은 충격파·함선 모듈을 제외한 반경입니다.</p></div></div>` : ''}${item.warning ? `<p class="detail-caution">${escape(item.warning)}</p>` : ''}<div class="source-note"><p><strong>자료 열람 ${checkedAt}</strong>${item.patch ? ` · 페이지 갱신 패치 ${escape(item.patch)}` : ''}</p><p>${item.verified ? '표시된 수치는 커뮤니티 위키의 세부 통계에서 확인했습니다.' : '확인된 정보만 표시하며, 미확인 수치는 임의로 추정하지 않습니다.'} ${item.utility ? '지원 기능의 피해량은 해당 없음으로 표시합니다.' : '실제 피해는 타격 부위, 내구도, 각도, 거리의 영향을 받습니다.'}</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener noreferrer">Helldivers Wiki · 항목 원문 ↗</a></p></div></div>`;
+  $('#detail-content').innerHTML = `<div class="dialog-inner">${dialogTop(cat(item.category).label + ' / FIELD NOTES')}<div class="dialog-identity"><span class="strat-icon">${stratagemIcon(item)}</span><div><h2 id="detail-title">${escape(item.name)}</h2><p class="dialog-en">${escape(item.en)}</p></div></div><p class="dialog-summary">${escape(item.summary)}</p>${item.input ? `<div class="input-sequence"><span>호출 코드</span>${escape(item.input)}</div>` : ''}${renderStats(item, 'detail')}<div class="detail-block"><h3>이렇게 사용하세요</h3><p>${escape(item.usage)}</p></div>${item.notes || item.rangeNote || item.modes ? `<div class="detail-block"><h3>수치와 운용 기준</h3><ul>${[item.rangeNote, item.notes, ...(item.modes || [])].filter(Boolean).map(note => `<li>${escape(note)}</li>`).join('')}</ul></div>` : ''}${item.radius && item.innerRadius ? `<div class="detail-block"><h3>폭발 범위</h3><div class="blast-figure"><svg viewBox="0 0 140 140" role="img" aria-label="중심 ${item.innerRadius}미터, 외곽 ${item.radius}미터의 폭발 반경"><path d="M70 0v140M0 70h140" stroke="#344429"/><circle cx="70" cy="70" r="57" fill="#a3ad4420" stroke="#a5b572" stroke-dasharray="3 4"/><circle cx="70" cy="70" r="${Math.max(10, 57 * item.innerRadius / item.radius)}" fill="#e4d95435" stroke="#e4d954"/><circle cx="70" cy="70" r="3" fill="#f4e454"/></svg><p><strong>중심 ${item.innerRadius} m</strong> 안쪽이 최대 피해 구간입니다.<br>외곽 ${item.radius} m까지 피해가 감소합니다.<br>그림은 충격파·함선 모듈을 제외한 반경입니다.</p></div></div>` : ''}${item.warning ? `<p class="detail-caution">${escape(item.warning)}</p>` : ''}<div class="source-note"><p><strong>자료 열람 ${escape(item.defense ? item.defense.checkedAt || '자료 미확인' : checkedAt)}</strong>${item.patch ? ` · 페이지 갱신 패치 ${escape(item.patch)}` : ''}</p><p>${item.verified ? '표시된 수치는 커뮤니티 위키의 세부 통계에서 확인했습니다.' : '확인된 정보만 표시하며, 미확인 수치는 임의로 추정하지 않습니다.'} ${item.utility ? '지원 기능의 피해량은 해당 없음으로 표시합니다.' : '실제 피해는 타격 부위, 내구도, 각도, 거리의 영향을 받습니다.'}</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener noreferrer">Helldivers Wiki · 항목 원문 ↗</a></p></div></div>`;
   $('#detail-dialog').setAttribute('aria-labelledby', 'detail-title');
   const iconLink = document.createElement('a');
   iconLink.href = wikiIcons[item.id].source;
@@ -124,15 +131,18 @@ function openInfo() {
 function openComparison() {
   const items = [...state.selected].map(id => stratagems.find(item => item.id === id));
   if (items.length < 2) return;
+  const defenseOnly = items.every(item => item.defense);
   const rows = [
     ['종류', item => cat(item.category).name],
-    ...['사거리 / 범위', '직격 / 지속 피해', '폭발 피해', '장갑 관통'].map((label, index) => [label, item => { const stat = statValues(item)[index]; return `<span class="comparison-value">${stat.value}</span><small>${escape(stat.caption)}</small>`; }]),
+    ...['사거리 / 범위', '직격 / 지속 피해', '폭발 피해', '장갑 관통'].filter((_, index) => !defenseOnly || index === 0).map((label, index) => [label, item => { const stat = statValues(item)[index]; return `<span class="comparison-value">${stat.value}</span><small>${escape(stat.caption)}</small>`; }]),
+    ...defenseComparisonRows(items),
     ['주요 용도', item => escape(item.tags.join(' · '))],
     ['사용법', item => escape(item.usage)],
     ['주의', item => escape(item.warning || '항목의 세부 기준을 확인하세요.')],
+    ['자료 확인일', item => escape(item.defense ? item.defense.checkedAt || '자료 미확인' : checkedAt)],
     ['자료 출처', item => `<a href="${escape(item.source)}" target="_blank" rel="noopener noreferrer">위키 원문 ↗</a>`],
   ];
-  $('#comparison-content').innerHTML = `<div class="dialog-inner">${dialogTop('SIDE BY SIDE / STRATAGEM COMPARISON')}<h2 id="comparison-title">필요한 화력, 나란히 비교.</h2><div class="compare-scroller" tabindex="0" role="region" aria-label="스트라타젬 비교표. 작은 화면에서는 가로로 스크롤할 수 있습니다."><table class="comparison-table"><thead><tr><th scope="col">비교 항목</th>${items.map(item => `<th scope="col">${escape(item.name)}<small>${escape(item.en)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(([label, value]) => `<tr><td>${label}</td>${items.map(item => `<td>${value(item)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="source-note">사거리와 폭발 반경, 탄당 피해와 초당 피해는 서로 다른 단위입니다. 각 값 아래의 기준을 함께 확인하세요.</p></div>`;
+  $('#comparison-content').innerHTML = `<div class="dialog-inner">${dialogTop('SIDE BY SIDE / STRATAGEM COMPARISON')}<h2 id="comparison-title">${defenseOnly ? '방어 성능, 나란히 비교.' : '필요한 화력, 나란히 비교.'}</h2><div class="compare-scroller" tabindex="0" role="region" aria-label="스트라타젬 비교표. 작은 화면에서는 가로로 스크롤할 수 있습니다."><table class="comparison-table"><thead><tr><th scope="col">비교 항목</th>${items.map(item => `<th scope="col">${escape(item.name)}<small>${escape(item.en)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(([label, value]) => `<tr><td>${label}</td>${items.map(item => `<td>${value(item)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="source-note">${defenseOnly ? '보호막 용량과 장치 본체 체력은 별개입니다. 재생 대기시간과 완전 회복 시간도 구분해 확인하세요.' : '사거리와 폭발 반경, 탄당 피해와 초당 피해는 서로 다른 단위입니다. 각 값 아래의 기준을 함께 확인하세요.'}</p></div>`;
   $('#compare-dialog').setAttribute('aria-labelledby', 'comparison-title'); $('#compare-dialog').showModal();
 }
 

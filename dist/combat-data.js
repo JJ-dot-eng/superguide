@@ -1,3 +1,4 @@
+import { expandedEnemies } from './combat-enemies-expanded.js?v=enemies-37-1';
 // Reviewed Wiki Anatomy and Detailed Weapon Statistics tables, 2026-09-16.
 // Original entries were checked through the search index; expanded anatomy
 // entries use the Wiki revision API, with sourceRevision retained below.
@@ -48,7 +49,7 @@ const voteless = (id, name, hp, headHp, forearmHp) => ({
   ],
 });
 
-export const enemies = [
+const originalEnemies = [
   {
     id: 'charger', name: '차저', faction: '테르미니드', source: wiki('Charger'),
     main: main(2400, 4, 100, 25, 750),
@@ -269,6 +270,15 @@ export const enemies = [
     ],
   },
 ];
+
+// Faction order, with related base units and variants adjacent.
+const enemyOrder = ["hunter-hardened","warrior-hardened","alpha-warrior","bile-warrior","rupture-warrior","spore-burst-warrior","hive-guard","brood-commander","alpha-commander","nursing-spewer","bile-spewer-armored","rupture-spewer","stalker","predator-stalker","charger","behemoth","spore-charger","rupture-charger","impaler","shrieker","dragonroach","bile-titan","spore-burst-bile-titan","hive-lord","berserker","radical","agitator","devastator","rocket-devastator","heavy-devastator","conflagration-devastator","incendiary-mg-devastator","jet-brigade-devastator","scout-strider","reinforced-strider","hulk","hulk-bruiser","hulk-obliterator","hulk-firebomber","jet-brigade-hulk-scorcher","jet-brigade-hulk-bruiser","annihilator-tank","shredder-tank","barrager-tank","gunship","dropship","war-strider","factory-strider","vox-engine","voteless-light","voteless-medium","voteless-heavy","wretch","overseer","elevated-overseer","crescent-overseer","watcher","fleshmob","crusher","harvester","veracitor","gatekeeper","stingray","warp-ship","leviathan"];
+const factionOrder = ['테르미니드', '오토마톤', '일루미닛'];
+const enemyRank = new Map(enemyOrder.map((id, index) => [id, index]));
+export const enemies = [...originalEnemies, ...expandedEnemies].sort((a, b) =>
+  factionOrder.indexOf(a.faction) - factionOrder.indexOf(b.faction)
+  || (enemyRank.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (enemyRank.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+  || a.name.localeCompare(b.name, 'ko'));
 
 export const enemyTypeCount = new Set(enemies.map(enemy => enemy.family || enemy.id)).size;
 

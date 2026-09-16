@@ -7,8 +7,8 @@ import { stratagems } from '../dist/data.js';
 const source = url => assert.equal(new URL(url).hostname, 'helldivers.wiki.gg');
 source(damageSource);
 assert.match(combatCheckedAt, /^\d{4}-\d{2}-\d{2}$/);
-assert.equal(enemies.length, 28, 'Use high-difficulty entries while retaining distinct body sizes');
-assert.equal(enemyTypeCount, 26, 'Variants must not inflate the enemy species counter');
+assert.equal(enemies.length, 65, 'Include the reviewed expansion, excluding Overship');
+assert.equal(enemyTypeCount, 63, 'Body-size options must not inflate the enemy species counter');
 assert.equal(new Set(enemies.map(enemy => enemy.id)).size, enemies.length);
 assert(!enemies.some(enemy => ['hunter', 'warrior', 'bile-spewer'].includes(enemy.id)), 'Low-difficulty entries must not be selectable');
 const validateMain = pool => {
@@ -16,10 +16,14 @@ const validateMain = pool => {
   assert(pool.hp > 0 && pool.armor <= 10 && pool.durability <= 100 && pool.exdr <= 100);
 };
 const validatePart = target => {
-  for (const key of ['hp', 'armor', 'durability', 'exdr', 'toMain']) assert(Number.isFinite(target[key]) && target[key] >= 0, `${target.id}: ${key}`);
-  assert(target.hp > 0 && target.armor <= 10 && target.durability <= 100 && target.exdr <= 100);
-  assert(['kill', 'bleed', 'break', 'armor'].includes(target.effect));
-  assert.equal(typeof target.overflowCap, 'boolean');
+  for (const key of ['hp', 'armor', 'durability', 'exdr', 'toMain']) {
+    if (target[key] == null) assert(target.unknownReason || key === 'toMain' && target.partOnly, `${target.id}: missing ${key} must have an explicit calculation boundary`);
+    else assert(Number.isFinite(target[key]) && target[key] >= 0, `${target.id}: ${key}`);
+  }
+  assert((target.hp == null || target.hp > 0) && target.armor <= 10 && target.durability <= 100 && target.exdr <= 100);
+  assert(['kill', 'bleed', 'break', 'armor', 'down'].includes(target.effect));
+  if (target.overflowCap == null) assert(target.unknownReason || target.capUnverified || target.partOnly);
+  else assert.equal(typeof target.overflowCap, 'boolean');
   if (target.main) { validateMain(target.main); assert(target.main.name); }
   if (target.next) { assert.equal(target.effect, 'armor'); validatePart(target.next); }
 };

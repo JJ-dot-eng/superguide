@@ -3,6 +3,14 @@ export const armorMultiplier = (ap, armor) => ap < armor ? 0 : ap === armor ? 0.
 const floor = value => Math.floor(value + 1e-9);
 const known = value => Number.isFinite(value) && value >= 0;
 const sumKnown = values => values.every(known) ? values.reduce((sum, value) => sum + value, 0) : null;
+// Non-decaying constitution is extra health, not a bleed-out timer.
+const partHealth = part => part.hp + (part.staticConstitution || 0);
+const transferLimit = part => partHealth(part) + (part.constitution || 0) + (part.transferExtraHealth || 0);
+const hasUnknownCap = part => part.capUnverified && part.overflowCap == null || Boolean(part.next && hasUnknownCap(part.next));
+const withCapScenario = (part, capped) => ({ ...part,
+  ...(part.capUnverified && part.overflowCap == null ? { overflowCap: capped } : {}),
+  ...(part.next ? { next: withCapScenario(part.next, capped) } : {}),
+});
 
 // Legacy profiles store equal normal/durable explosion damage in one field.
 // Explicit null is unverified data and must not fall back to normal damage.
@@ -25,7 +33,7 @@ function blastAtDistance(blast, distance) {
   return { factor: (blast.radius - distance) / (blast.radius - blast.innerRadius), ap: known(blast.ap) ? Math.max(2, blast.ap - 1) : null };
 }
 
-export function damageBreakdown(mode, target, main, { blastDistance = 0, directHit = true } = {}) {
+export function damageBreakdown(mode, target, main, { blastDistance = 0, directHit = true, excludeMainExplosion = false } = {}) {
   let direct = null;
   if (!directHit || mode.standard === 0 && mode.durable === 0 || known(mode.ap) && mode.ap < target.armor) direct = 0;
   else if ([mode.ap, target.durability, target.armor].every(known)) {
@@ -38,10 +46,11 @@ export function damageBreakdown(mode, target, main, { blastDistance = 0, directH
     const redirected = target.exdr === 100;
     const recipient = redirected ? main : target;
     let amount = null;
-    if (factor === 0 || recipient.exdr === 100 || blast.durable === 0 || known(ap) && ap < recipient.armor) amount = 0;
+    if (redirected && excludeMainExplosion || factor === 0 || recipient.exdr === 100 || blast.durable === 0 || known(ap) && ap < recipient.armor) amount = 0;
     // Negative ExDR is a verified vulnerability multiplier (e.g. Warp Ships).
     else if ([factor, ap, blast.durable, recipient.armor].every(known) && Number.isFinite(recipient.exdr) && recipient.exdr <= 100) amount = floor(blast.durable * factor * armorMultiplier(ap, recipient.armor) * (1 - recipient.exdr / 100));
     return { ...blast, effectiveAp: ap, factor, exdr: recipient.exdr, armor: recipient.armor, redirected,
+      ...(redirected && excludeMainExplosion ? { excluded: true } : {}),
       partDamage: redirected ? 0 : amount, mainDamage: redirected ? amount : 0 };
   });
   return { direct, explosions, damage: {
@@ -56,9 +65,41 @@ export function damagePerHit(mode, target, main, options) {
 }
 
 export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...damageOptions } = {}) {
+  // A missing cap is not an unlimited cap. Calculate both possible settings and
+  // publish a count only when the outcome and count agree in both scenarios.
+  if (hasUnknownCap(target) && !target.unknownReason) {
+    const capped = calculateRoute(enemy, withCapScenario(target, true), mode, { shieldCleared, ...damageOptions });
+    const uncapped = calculateRoute(enemy, withCapScenario(target, false), mode, { shieldCleared, ...damageOptions });
+    if (capped.hits === uncapped.hits && capped.outcome === uncapped.outcome) {
+      const result = { ...capped, target, via: capped.via === uncapped.via ? capped.via : undefined };
+      return capped.hits == null ? result : { ...result,
+        modelNote: [capped.modelNote, '본체 전달 상한은 자료 미확인입니다. 상한 적용 여부가 표시 횟수와 결과에 영향을 주지 않는 경우만 계산했습니다.'].filter(Boolean).join(' '),
+      };
+    }
+    return { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite), reason: '본체 전달 상한의 적용 여부에 따라 결과가 달라져 계산을 보류합니다.' };
+  }
+  // A separate device can have its own destruction threshold without a normal
+  // Main transfer route. Keep its source values null and calculate only the
+  // device itself; no unverified Main damage or secondary explosion is invented.
+  if (target.partOnly && !target.unknownReason) {
+    const isolated = { ...target, partOnly: false, toMain: 0, overflowCap: false, isolated: true };
+    const result = calculateRoute(enemy, isolated, mode, { shieldCleared, ...damageOptions, excludeMainExplosion: true });
+    return { ...result, target, modelNote: target.partOnlyNote };
+  }
+  const result = calculateReviewedRoute(enemy, target, mode, { shieldCleared, ...damageOptions });
+  // No firing cadence is invented for regenerative enemies. The count is an
+  // explicit no-regeneration lower bound unless a non-regenerating fatal part wins.
+  if (enemy.regeneration && result.hits != null && !(result.via === 'part' && (target.next || target).regenerates === false)) {
+    return { ...result, lowerBound: true, modelNote: enemy.regeneration.note };
+  }
+  return result;
+}
+
+function calculateReviewedRoute(enemy, target, mode, { shieldCleared = false, ...damageOptions } = {}) {
   const base = { target, stages: [], hits: null, outcome: 'unknown', conditional: Boolean(target.prerequisite) };
   if (!mode || mode.unsupported) return { ...base, reason: mode?.unsupported || '정밀 피해 자료를 아직 확인하지 않았습니다.' };
-  if (enemy.shield && !shieldCleared) return { ...base, outcome: 'shield', reason: enemy.shield.note };
+  if (enemy.shield && !shieldCleared && (!enemy.shield.partial || target.requiresShieldClear)) return { ...base, outcome: 'shield', reason: enemy.shield.note };
+  if (target.unknownReason) return { ...base, reason: target.unknownReason };
   if (mode.beam) return calculateBeamRoute(enemy, target, mode, damageOptions);
   if (mode.hitCondition && !mode.impactEvents) return { ...base, reason: '한 발당 해당 부위의 명중 수를 선택하면 그 가정의 탄수를 계산합니다. 실제 명중 수는 자료 미확인입니다.' };
   if (mode.impactEvents) return calculateImpactRoute(enemy, target, mode, damageOptions);
@@ -73,15 +114,15 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
     const breakdown = damageBreakdown(mode, current, main, damageOptions);
     const damage = breakdown.damage;
     const partDamage = damage.direct + damage.explosion;
-    const stage = { name: current.name, hp: current.hp, armor: current.armor, durability: current.durability, damage, hits: 0 };
+    const stage = { name: current.name, hp: partHealth(current), armor: current.armor, durability: current.durability, damage, hits: 0 };
     if (mode.reviewedExplosive || mode.explosions || mode.conditionalImpact) stage.breakdown = breakdown;
     stages.push(stage);
     if (!Object.values(damage).every(known)) return { ...base, stages, reason: '자료 미확인: 이 부위에 적용되는 일부 피해·관통·반경을 확인하지 못해 최종 횟수는 계산 보류합니다. 확인된 피해는 계산 과정에 별도로 표시합니다.' };
     if (partDamage === 0 && damage.mainExplosion === 0) {
       return { ...base, stages, hits: totalHits || null, outcome: totalHits ? 'armor' : 'blocked', reason: totalHits ? '장갑은 제거했지만 노출 부위에 피해를 주지 못합니다.' : '이 부위와 본체에 계산상 피해가 들어가지 않습니다.' };
     }
-    let partRemaining = current.hp;
-    let transferBudget = current.hp + (current.constitution || 0);
+    let partRemaining = current.mainOnly ? Infinity : partHealth(current);
+    let transferBudget = transferLimit(current);
     // Never continue firing into an unknown destroyed hitbox. Known armor layers
     // advance only on the next shot; a plate's excess damage is not carried over.
     for (let hit = 1; hit <= 20000; hit++) {
@@ -97,6 +138,7 @@ export function calculateRoute(enemy, target, mode, { shieldCleared = false, ...
       }
       mainRemaining -= transfer + damage.mainExplosion;
       partRemaining -= partDamage;
+      if (partRemaining <= 0) mainRemaining -= current.destroyMainDamage || 0;
       const result = { ...base, stages, hits: totalHits };
       // Fatal part destruction bypasses the Main constitution pool.
       if (partRemaining <= 0 && current.effect === 'kill') return { ...result, outcome: 'kill', via: 'part' };
@@ -123,16 +165,16 @@ function calculateBeamRoute(enemy, target, mode, options) {
   const main = target.main || enemy.main;
   const breakdown = damageBreakdown(mode, target, main, options);
   const damage = breakdown.damage;
-  const stage = { name: target.name, hp: target.hp, armor: target.armor, durability: target.durability, damage, hits: 0, breakdown };
+  const stage = { name: target.name, hp: partHealth(target), armor: target.armor, durability: target.durability, damage, hits: 0, breakdown };
   const stages = [stage];
   if (![...Object.values(damage), mode.beam.duration, mode.beam.standardPerSecond, mode.beam.durablePerSecond, target.hp, target.toMain, main.hp].every(known)
     || mode.beam.duration === 0 || target.hp === 0 || main.hp === 0 || damage.explosion !== 0 || damage.mainExplosion !== 0) {
     return { ...base, stages, reason: '자료 미확인: 광선의 피해·지속시간 또는 부위 수치가 확인되지 않아 계산을 보류합니다.' };
   }
   if (damage.direct === 0) return { ...base, stages, outcome: 'blocked', reason: '광선이 해당 부위 장갑을 관통하지 못하거나 직접 닿지 않습니다.' };
-  const partBursts = target.hp / damage.direct;
+  const partBursts = target.mainOnly ? Infinity : partHealth(target) / damage.direct;
   const transferPerBurst = damage.direct * target.toMain / 100;
-  const transferCap = target.overflowCap ? target.hp + (target.constitution || 0) : Infinity;
+  const transferCap = target.overflowCap ? transferLimit(target) : Infinity;
   const mainBursts = !target.isolated && transferPerBurst > 0 && main.hp <= transferCap ? main.hp / transferPerBurst : Infinity;
   const bursts = Math.min(partBursts, mainBursts);
   const hits = Math.ceil(bursts - 1e-9);
@@ -145,6 +187,7 @@ function calculateBeamRoute(enemy, target, mode, options) {
   const result = { ...base, stages, hits };
   // Fatal parts take priority at a simultaneous Main/part threshold.
   if (partBursts <= mainBursts && target.effect === 'kill') return { ...result, outcome: 'kill', via: 'part' };
+  if (partBursts <= mainBursts && main.hp - stage.mainTransfer - (target.destroyMainDamage || 0) <= 0) return { ...result, outcome: main.constitution ? 'bleed' : 'kill', via: 'main' };
   if (mainBursts <= partBursts) return { ...result, outcome: main.constitution ? 'bleed' : 'kill', via: 'main' };
   return {
     ...result, outcome: target.effect, via: 'part',
@@ -166,12 +209,12 @@ function calculateImpactRoute(enemy, target, mode, options) {
       const amount = event.breakdown.damage[key];
       return known(amount) ? amount * event.count : null;
     }))]));
-    const stage = { name: current.name, hp: current.hp, armor: current.armor, durability: current.durability, damage, hits: 0, events };
+    const stage = { name: current.name, hp: partHealth(current), armor: current.armor, durability: current.durability, damage, hits: 0, events };
     stages.push(stage);
     if (!Object.values(damage).every(known)) return { ...base, stages, reason: '자료 미확인: 선택한 명중 조건에 필요한 피해 수치가 확인되지 않았습니다.' };
     if (Object.values(damage).every(amount => amount === 0)) return { ...base, stages, outcome: totalHits ? 'armor' : 'blocked', hits: totalHits || null, reason: '선택한 명중 조건에서는 이 부위와 본체에 피해가 들어가지 않습니다.' };
-    let partRemaining = current.hp;
-    let transferBudget = current.hp + (current.constitution || 0);
+    let partRemaining = current.mainOnly ? Infinity : partHealth(current);
+    let transferBudget = transferLimit(current);
     const eventCount = events.reduce((sum, event) => sum + event.count, 0);
     let advance = false;
     for (let shot = 0; shot < 20000 && !advance; shot++) {
@@ -189,6 +232,7 @@ function calculateImpactRoute(enemy, target, mode, options) {
         }
         mainRemaining -= transfer + single.mainExplosion;
         partRemaining -= partDamage;
+        if (partRemaining <= 0) mainRemaining -= current.destroyMainDamage || 0;
         const result = { ...base, stages, hits: totalHits };
         if (partRemaining <= 0 && current.effect === 'kill') return { ...result, outcome: 'kill', via: 'part' };
         if (partRemaining <= -(current.constitution || Infinity) && current.effect === 'bleed') return { ...result, outcome: 'kill', via: 'part' };
@@ -209,7 +253,7 @@ function calculateImpactRoute(enemy, target, mode, options) {
 
 export function calculateMatchup(enemy, mode, options) {
   const rows = enemy.parts.map(target => calculateRoute(enemy, target, mode, options));
-  const candidates = rows.filter(row => !row.conditional && ['kill', 'bleed'].includes(row.outcome));
+  const candidates = rows.filter(row => !row.conditional && ['kill', 'bleed', 'down'].includes(row.outcome));
   candidates.sort((a, b) => a.hits - b.hits || (a.outcome === 'kill' ? 0 : 1) - (b.outcome === 'kill' ? 0 : 1));
   return { rows, best: candidates[0] || null };
 }

@@ -25,6 +25,7 @@ export function combatConditionText(mode) {
   return `${primary} · 자탄 ${count}개 ${bombletDirect && count > 0 ? '직격과 폭발' : '폭발'} 명중 가정`;
 }
 
-// Current calculator roster intersected with the Wiki's Spear lock-on list.
+// Original-roster fallback. Expanded entries store their reviewed spearLock flag
+// from https://helldivers.wiki.gg/wiki/FAF-14_Spear (2026-09-16).
 const spearTargets = new Set(['charger', 'behemoth', 'bile-titan', 'hulk', 'harvester', 'brood-commander', 'stalker', 'impaler', 'scout-strider', 'reinforced-strider', 'gunship', 'annihilator-tank']);
-export const spearCannotLock = (enemy, mode) => mode?.delivery === 'guided' && !spearTargets.has(enemy.id);
+export const spearCannotLock = (enemy, mode) => mode?.delivery === 'guided' && !(typeof enemy.spearLock === 'boolean' ? enemy.spearLock : spearTargets.has(enemy.id));

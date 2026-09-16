@@ -11,6 +11,7 @@ import { pickerEnemyImages, pickerStructureImages } from '../dist/selector-image
 import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
+import './check-enemy-expansion.mjs';
 import './check-c4.mjs';
 import './check-explosive-weapons.mjs';
 import './check-conditional-weapons.mjs';
@@ -105,18 +106,19 @@ for (const enemy of enemies) {
   assert.deepEqual(Object.keys(combatImages[enemy.id]).sort(), enemy.parts.map(part => part.id).sort(), `${enemy.id}: anatomy parts must match calculation routes`);
   for (const part of enemy.parts) {
     const photos = combatImages[enemy.id][part.id];
-    assert.equal(photos.length, part.next ? 2 : 1, `${enemy.id}/${part.id}: show both armor stages`);
+    const expectedStages = (part.next ? ['initial', 'exposed'] : ['initial']).filter(stage => !part.missingPhotoStages?.includes(stage));
+    assert.deepEqual(photos.map(photo => photo.stage), expectedStages, `${enemy.id}/${part.id}: show each available stage in order; absent source images must be explicit`);
     for (const photo of photos) {
       assert(photo.title.endsWith('.png') && photo.width > 0 && photo.height > 0);
       if (photo.thumbnailCrop) {
         const [x, y, width, height] = photo.thumbnailCrop;
-        assert([x, y, width, height].every(Number.isFinite) && x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 213, `Anatomy crop exceeds image: ${photo.title}`);
+        assert([x, y, width, height].every(Number.isFinite) && x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= (photo.thumbnailWidth || 320) && y + height <= (photo.thumbnailHeight || 213), `Anatomy crop exceeds image: ${photo.title}`);
       }
       for (const key of ['source', 'originalUrl', 'renderedUrl', 'thumbnailUrl']) {
         const url = new URL(photo[key]);
         assert.equal(url.protocol, 'https:'); assert.equal(url.hostname, 'helldivers.wiki.gg');
       }
-      for (const [path, hash, width, height] of [[photo.src, photo.sha256, photo.width, photo.height], [photo.thumbnail, photo.thumbnailSha256, 320, 213]]) {
+      for (const [path, hash, width, height] of [[photo.src, photo.sha256, photo.width, photo.height], [photo.thumbnail, photo.thumbnailSha256, photo.thumbnailWidth || 320, photo.thumbnailHeight || 213]]) {
         assert(/^\.\/assets\/anatomy\/[a-z-]+\.png$/.test(path), 'Anatomy images must load from the site');
         const bytes = await readFile(new URL(`../dist/${path}`, import.meta.url));
         assert.equal(bytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', `Invalid anatomy PNG: ${path}`);
@@ -158,7 +160,7 @@ try {
     assert(response.headers.get('content-type').includes('image/png'), `Incorrect anatomy MIME type: ${path}`);
     assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), sha256);
   }
-  const pickerAssets = new Map(Object.values({ ...pickerEnemyImages, ...pickerStructureImages }).map(asset => [asset.src, asset]));
+  const pickerAssets = new Map([...Object.values(pickerEnemyImages), ...Object.values(pickerStructureImages)].map(asset => [asset.src, asset]));
   for (const [path, asset] of pickerAssets) {
     const response = await fetch(new URL(path, base + '/'));
     assert.equal(response.status, 200, `Broken picker image: ${path}`);

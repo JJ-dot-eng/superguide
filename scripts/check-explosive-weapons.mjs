@@ -158,13 +158,13 @@ for (const selected of enemies) for (const id of ids) for (const shot of weaponP
   const result = calculateMatchup(selected, shot, { shieldCleared: true });
   const summary = combatSummary(selected, shot, result, { shieldCleared: true });
   if (explosionComponents(shot).length) assert.match(combatAssumption(shot), /최대 폭발 피해가 들어가는 조건의 이론값/);
-  if (result.best) assert.match(summary.title, /이론값/);
+  if (result.best) assert.match(summary.title, result.best.lowerBound ? /이상/ : /이론값/);
   for (const row of result.rows) {
     const html = renderCombatRoute(row, selected, shot);
     assert.doesNotMatch(html, /undefined|NaN/);
-    if (row.hits) assert(html.includes(`<span>${combatTerms(shot).unit} · 이론값`));
+    if (row.hits) assert(html.includes(`<span>${combatTerms(shot).unit}${row.lowerBound ? ' 이상 · 재생 제외' : ' · 이론값'}`));
     if (id === 'breaching-hammer') assert.doesNotMatch(html, /<span>발|한 발|\d+발|탄수/);
-    if (id === 'solo-silo') { assert.match(html, /충돌 폭발:/); assert.match(html, /주폭발:/); }
+    if (id === 'solo-silo' && row.stages.length) { assert.match(html, /충돌 폭발:/); assert.match(html, /주폭발:/); }
     cards++;
   }
 }

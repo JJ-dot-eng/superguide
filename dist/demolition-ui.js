@@ -1,6 +1,7 @@
 import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js?v=explosive-weapons-1';
 import { forceBounds } from './demolition.js?v=epoch-1';
 import { getDemolitionSelection, initialDemolitionSelection } from './demolition-selection.js?v=explosive-weapons-1';
+import { syncImagePicker } from './image-picker.js?v=icon-picker-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => value.toLocaleString('ko-KR');
@@ -86,6 +87,8 @@ export function initDemolition({ stratagems, categories, wikiIcons }) {
   }
 
   function render() {
+    syncImagePicker(structureSelect);
+    syncImagePicker(weaponSelect);
     const selection = getDemolitionSelection(state, stratagems);
     const answerBox = $('#demolition-answer');
     const results = $('#demolition-results');

@@ -83,6 +83,24 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-method li+li{margin-top:8px}
 .combat-sources a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 .combat-detail-button{margin-bottom:18px}
+.combat-route-overview{display:grid;grid-template-columns:minmax(0,1fr) clamp(94px,38%,136px);align-items:start;gap:12px;margin-bottom:16px}
+.combat-route-lead{min-width:0}
+.combat-route-overview .combat-route-top{justify-content:flex-start;gap:7px 9px}
+.combat-route-overview .combat-hit-count{margin:12px 0 0;min-height:54px;gap:6px 9px}
+.combat-part-photo{display:block;width:100%;padding:0;overflow:hidden;border:1px solid #48503e;border-radius:3px;background:#111511;text-align:center}
+.combat-part-window{position:relative;display:block;width:100%;overflow:hidden}
+.combat-part-window img{position:absolute;display:block;max-width:none;object-fit:fill}
+.combat-part-caption{display:block;padding:3px 2px;color:var(--muted);font-size:.875rem;line-height:1.5}
+.combat-part-photo:hover{border-color:var(--yellow)}
+.combat-part-photo:hover .combat-part-caption{color:var(--yellow)}
+.combat-image-dialog{width:min(920px,calc(100vw - 32px));max-width:920px}
+.combat-image-dialog h2{font-size:1.4rem;line-height:1.6}
+.combat-image-dialog #combat-image-tip{margin:10px 0 20px;color:#cad0c2;font-size:1rem;line-height:1.8}
+.combat-image-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:20px}
+.combat-image-gallery figure{margin:0;min-width:0}
+.combat-image-gallery figcaption{font-size:1rem;color:var(--yellow);margin-bottom:9px}
+.combat-image-gallery img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:3px}
+.combat-image-gallery .combat-sources{font-size:.875rem;margin-top:9px}
 .demolition-conditions{display:flex;flex-wrap:wrap;gap:12px 24px;margin-bottom:18px;padding:14px 18px;border:1px solid #65543a;background:#26231a}
 .demolition-conditions label{display:flex;align-items:center;gap:9px;font-size:.875rem;cursor:pointer}
 .demolition-conditions input{width:19px;height:19px;flex:none;accent-color:var(--yellow);margin:0}

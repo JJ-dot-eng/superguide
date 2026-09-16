@@ -1,4 +1,4 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=high-difficulty-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=enemy-names-1';
 import { calculateMatchup } from './combat.js?v=c4-1';
 import { combatImages } from './combat-images.js?v=high-difficulty-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats } from './combat-presentation.js?v=c4-1';

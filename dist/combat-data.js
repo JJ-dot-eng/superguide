@@ -245,9 +245,9 @@ export const enemies = [
       part('engine', '차체 후방 엔진실', 1500, 4, 100, 50, 150, false, 'kill', '뒤로 돌아가 차체 뒤의 엔진실을 맞히세요. 위쪽 포탑 방열판과 구분합니다.'),
     ],
   },
-  voteless('voteless-light', '보트리스 · 경량형', 100, 40, 50),
-  voteless('voteless-medium', '보트리스 · 중간형', 130, 50, 50),
-  voteless('voteless-heavy', '보트리스 · 중량형', 160, 60, 65),
+  voteless('voteless-light', '무권자 · 경량형', 100, 40, 50),
+  voteless('voteless-medium', '무권자 · 중간형', 130, 50, 50),
+  voteless('voteless-heavy', '무권자 · 중량형', 160, 60, 65),
   {
     id: 'watcher', name: '와처', faction: '일루미닛', source: wiki('Watcher'), sourceRevision: 135178,
     main: main(600, 0, 0, 0),
@@ -259,7 +259,7 @@ export const enemies = [
     ],
   },
   {
-    id: 'elevated-overseer', name: '엘리베이티드 오버시어 · 비행형', faction: '일루미닛', source: wiki('Elevated_Overseer'), sourceRevision: 135189,
+    id: 'elevated-overseer', name: '고위 오버시어 · 비행형', faction: '일루미닛', source: wiki('Elevated_Overseer'), sourceRevision: 135189,
     main: main(450, 0, 0, 0),
     note: '비행형은 지상형과 체력·머리 장갑이 다릅니다. 제트팩 파괴는 즉사이며, 흉부는 장갑을 벗긴 뒤 몸통에 후속탄을 맞힙니다.',
     parts: [

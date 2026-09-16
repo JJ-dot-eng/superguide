@@ -2,7 +2,7 @@ import { categories, stratagems, checkedAt } from './data.js?v=shield-generators
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=high-difficulty-1';
+import { initCombat } from './combat-ui.js?v=enemy-names-1';
 import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
 import { initDemolition } from './demolition-ui.js?v=all-stratagems-1';
 

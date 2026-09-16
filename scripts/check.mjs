@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { categories, stratagems } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
+import { enemies } from '../dist/combat-data.js';
+import { combatImages } from '../dist/combat-images.js';
 import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
@@ -90,6 +92,37 @@ for (const [id, icon] of Object.entries(wikiIcons)) {
 const assetFiles = await readdir(new URL('../dist/assets/stratagems/', import.meta.url));
 assert.deepEqual(assetFiles.sort(), [...iconPaths.keys()].map(path => path.split('/').at(-1)).sort(), 'No missing or unused icon files');
 
+const anatomyPaths = new Map();
+assert.deepEqual(Object.keys(combatImages).sort(), enemies.map(enemy => enemy.id).sort(), 'Each supported enemy needs anatomy images');
+for (const enemy of enemies) {
+  assert.deepEqual(Object.keys(combatImages[enemy.id]).sort(), enemy.parts.map(part => part.id).sort(), `${enemy.id}: anatomy parts must match calculation routes`);
+  for (const part of enemy.parts) {
+    const photos = combatImages[enemy.id][part.id];
+    assert.equal(photos.length, part.next ? 2 : 1, `${enemy.id}/${part.id}: show both armor stages`);
+    for (const photo of photos) {
+      assert(photo.title.endsWith('.png') && photo.width > 0 && photo.height > 0);
+      if (photo.thumbnailCrop) {
+        const [x, y, width, height] = photo.thumbnailCrop;
+        assert([x, y, width, height].every(Number.isFinite) && x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 213, `Anatomy crop exceeds image: ${photo.title}`);
+      }
+      for (const key of ['source', 'originalUrl', 'renderedUrl', 'thumbnailUrl']) {
+        const url = new URL(photo[key]);
+        assert.equal(url.protocol, 'https:'); assert.equal(url.hostname, 'helldivers.wiki.gg');
+      }
+      for (const [path, hash, width, height] of [[photo.src, photo.sha256, photo.width, photo.height], [photo.thumbnail, photo.thumbnailSha256, 320, 213]]) {
+        assert(/^\.\/assets\/anatomy\/[a-z-]+\.png$/.test(path), 'Anatomy images must load from the site');
+        const bytes = await readFile(new URL(`../dist/${path}`, import.meta.url));
+        assert.equal(bytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', `Invalid anatomy PNG: ${path}`);
+        assert.equal(bytes.readUInt32BE(16), width); assert.equal(bytes.readUInt32BE(20), height);
+        assert.equal(createHash('sha256').update(bytes).digest('hex'), hash, `Wiki image changed: ${path}`);
+        anatomyPaths.set(path, hash);
+      }
+    }
+  }
+}
+const anatomyFiles = await readdir(new URL('../dist/assets/anatomy/', import.meta.url));
+assert.deepEqual(anatomyFiles.sort(), [...anatomyPaths.keys()].map(path => path.split('/').at(-1)).sort(), 'No missing or unused anatomy images');
+
 const files = await readdir(new URL('../dist/', import.meta.url));
 for (const file of files.filter(name => name.endsWith('.js'))) {
   const result = spawnSync(process.execPath, ['--check', fileURLToPath(new URL(`../dist/${file}`, import.meta.url))], { encoding: 'utf8' });
@@ -112,13 +145,19 @@ try {
     assert(response.headers.get('content-type').includes('image/svg+xml'), `Incorrect icon MIME type: ${path}`);
     assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), sha256, `Incorrect icon response: ${path}`);
   }
+  for (const [path, sha256] of anatomyPaths) {
+    const response = await fetch(new URL(path, base + '/'));
+    assert.equal(response.status, 200, `Broken anatomy image: ${path}`);
+    assert(response.headers.get('content-type').includes('image/png'), `Incorrect anatomy MIME type: ${path}`);
+    assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), sha256);
+  }
   for (const path of ['/missing', '/.git/config', '/..%2Fpackage.json', '/..%2F..%2F']) {
     const response = await fetch(base + path);
     assert([403, 404].includes(response.status), `Private path served: ${path}`);
   }
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
-  console.log(`PASS: ${stratagems.length} records, 7 categories, name-first ranking, unordered names and aliases, ${iconPaths.size} original Wiki icons, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
+  console.log(`PASS: ${stratagems.length} records, 7 categories, name-first ranking, unordered names and aliases, ${iconPaths.size} original Wiki icons, ${anatomyPaths.size} anatomy images/thumbnails, ${files.filter(name => name.endsWith('.js')).length} JavaScript files, local assets and HTTP boundaries.`);
 } finally {
   server.closeAllConnections();
   await new Promise(resolve => server.close(resolve));

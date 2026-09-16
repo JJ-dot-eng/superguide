@@ -51,7 +51,7 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-weapon-title img{object-fit:contain;flex:none}
 .combat-weapon-title strong,.combat-weapon-title span{display:block}
 .combat-weapon-title span{font-size:.875rem;color:var(--muted);margin-top:2px}
-.combat-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.combat-routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
 .combat-route{border:1px solid var(--border);border-top:2px solid #657746;background:var(--panel);padding:20px;min-width:0;border-radius:3px}
 .combat-route[data-outcome=blocked],.combat-route[data-outcome=unknown],.combat-route[data-outcome=shield]{border-top-color:#6a7164}
 .combat-route[data-outcome=bleed]{border-top-color:#b18c4f}
@@ -83,5 +83,5 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .combat-method li+li{margin-top:8px}
 .combat-sources a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 .combat-detail-button{margin-bottom:18px}
-@media(max-width:1100px){.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
+@media(max-width:1100px){.combat-routes,.combat-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.combat-controls label:last-child{grid-column:1/-1}.combat-heading{align-items:flex-start}.combat-heading .count-badge{white-space:normal;text-align:center;min-width:90px}}
 @media(max-width:680px){.combat-routes,.combat-context,.combat-controls{grid-template-columns:minmax(0,1fr)}.combat-context>div+div{border-left:0;border-top:1px solid var(--border);padding:18px 0 0}.combat-heading{flex-wrap:wrap}.combat-answer{padding:17px 18px}.combat-answer h3{font-size:1.25rem}.combat-route{padding:17px}.feature-nav button{padding:10px 11px}.feature-nav span{display:none}.combat-shield{padding:14px}.combat-method{padding:13px 16px}}

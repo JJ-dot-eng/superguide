@@ -2,6 +2,8 @@
 
 헬다이버즈 2의 스트라타젬 110개를 한국어로 정리한 비공식 팬 사이트입니다. 지원 무기, 궤도, 이글, 센트리·설치물, 배낭, 차량·엑소슈트, 공용·임무로 분류합니다.
 
+공개 사이트: [Superguide](https://jj-dot-eng.github.io/superguide/) · [적 대응 계산](https://jj-dot-eng.github.io/superguide/#combat)
+
 ## 실행
 
 Node.js 20 이상에서 별도 패키지 설치 없이 실행합니다.
@@ -17,6 +19,12 @@ npm run check
 ```
 
 검증 명령은 데이터의 필수 항목·단위·중복·범위, 모든 항목의 위키 아이콘 연결과 원본 파일 해시, JavaScript 문법, 정적 파일 응답과 서버의 경로 경계를 확인합니다.
+
+## 배포
+
+GitHub의 `JJ-dot-eng/superguide` 저장소에서 GitHub Pages 프로젝트 사이트로 배포합니다. `master` 브랜치에 변경을 올리면 `.github/workflows/deploy-pages.yml`이 검증을 실행하고, 통과한 경우 `dist` 폴더를 공개합니다. GitHub의 Actions 화면에서 수동으로 다시 실행할 수도 있습니다.
+
+사이트 파일과 아이콘은 상대 경로로 연결하며, 적 대응 계산 화면은 `#combat`을 사용해 `/superguide/` 아래에서도 동작합니다. 기존 Sites 연결 설정은 `.openai/hosting.json`에 보존합니다.
 
 ## 사용
 
@@ -56,6 +64,7 @@ npm run check
 - `server.mjs`: 로컬 정적 서버
 - `scripts/check.mjs`: 데이터·정적 파일 검증
 - `scripts/check-combat.mjs`: 적 대응 계산과 자료 연결 검증
+- `.github/workflows/deploy-pages.yml`: 검증 후 GitHub Pages 자동 배포
 - `.openai/hosting.json`: Sites 연결과 정적 사이트 배포 설정
 
 `dist`는 자동 빌드 부산물이 아니라 직접 관리하는 사이트 원본입니다. Git에 포함합니다. 외부 폰트는 Google Fonts를 사용하며 연결되지 않으면 시스템 폰트로 표시합니다. 스트라타젬 아이콘은 사이트에 함께 포함하여 위키에 다시 접속하지 않아도 표시됩니다.

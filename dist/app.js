@@ -3,7 +3,7 @@ import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from '
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=c4-1';
-import { initFeatureNavigation } from './features.js';
+import { initFeatureNavigation } from './features.js?v=headings-1';
 import { initDemolition } from './demolition-ui.js?v=factions-1';
 
 const $ = (selector) => document.querySelector(selector);

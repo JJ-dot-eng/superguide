@@ -81,7 +81,7 @@ assert.equal(calculateRoute({ main }, part, near, { directHit: false }).outcome,
 let cards = 0;
 for (const enemy of enemies) for (const mode of profile.modes) {
   const matchup = calculateMatchup(enemy, mode, { shieldCleared: true });
-  if (enemy.shield) assert(calculateMatchup(enemy, mode).rows.every(row => row.outcome === 'shield' && row.hits === null));
+  if (enemy.shield) assert(calculateMatchup(enemy, mode).rows.filter(row => !enemy.shield.partial || row.target.requiresShieldClear).every(row => row.outcome === 'shield' && row.hits === null));
   for (const row of matchup.rows) {
     const html = renderCombatRoute(row, enemy, mode);
     assert.doesNotMatch(html, /undefined|NaN|폭발 중심 3m/);

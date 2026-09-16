@@ -11,7 +11,7 @@ import { initDemolition } from '../dist/demolition-ui.js';
 import { TestDocument } from './test-dom.mjs';
 
 const configs = pickerConfigs({ stratagems, categories, wikiIcons });
-assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 28], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
+assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 65], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
 for (const config of configs) {
   assert.equal(new Set(config.items.map(item => item.id)).size, config.items.length);
   const html = renderPickerItems(config.items, config.items[0].id);
@@ -29,7 +29,7 @@ assert.match(renderPickerItems([{ id: 'unsafe', name: '<img src=x>', group: '"te
 for (const [start, key, length, expected] of [[0, 'ArrowUp', 10, 0], [1, 'ArrowDown', 10, 4], [4, 'ArrowUp', 10, 1], [2, 'ArrowRight', 10, 3], [8, 'ArrowDown', 10, 9], [4, 'Home', 10, 0], [4, 'End', 10, 9]]) assert.equal(pickerFocusIndex(start, key, length), expected);
 
 const paths = new Set();
-for (const asset of Object.values({ ...pickerEnemyImages, ...pickerStructureImages })) {
+for (const asset of [...Object.values(pickerEnemyImages), ...Object.values(pickerStructureImages)]) {
   if (asset.sourceType === 'user-provided') {
     assert.equal(asset.source, null);
     assert.equal(asset.assetUrl, null);
@@ -91,7 +91,7 @@ try {
   assert.equal(doc.activeElement, inside('input'));
   assert.match(inside('#picker-title').textContent, /적 유닛 선택/);
   type('차저');
-  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 2);
+  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 4);
   select('behemoth');
   assert.equal(get('combat-enemy').value, 'behemoth');
   assert.match(get('combat-answer').innerHTML, /베히모스 차저/);
@@ -124,7 +124,7 @@ try {
   type('존재하지않음');
   assert.equal(inside('.picker-empty').hidden, false);
   click(inside('.picker-empty button'));
-  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 28);
+  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 65);
   inside('input').dispatchEvent({ type: 'keydown', key: 'ArrowDown' });
   const buttons = inside('.picker-grid').querySelectorAll('button');
   const current = buttons.indexOf(doc.activeElement);
@@ -142,4 +142,4 @@ try {
 const css = await readFile(new URL('../dist/styles.css', import.meta.url), 'utf8');
 assert.match(css, /\.picker-grid\{[^}]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
 assert.match(css, /\.picker-scroll\{[^}]*overflow-y:auto[^}]*overscroll-behavior:contain/);
-console.log(`PASS: four image pickers, 191 options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} source image assets.`);
+console.log(`PASS: four image pickers, 228 options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} source image assets.`);

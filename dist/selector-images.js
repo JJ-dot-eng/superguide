@@ -1,6 +1,8 @@
+import { expandedPickerImages } from './selector-images-expanded.js?v=enemies-37-1';
 // Representative enemies and facility markers from Helldivers Wiki and user-provided artwork.
 // Original files and source-served image versions; no generated game artwork.
 export const pickerEnemyImages = {
+  ...expandedPickerImages,
   "charger": {
     "src": "./assets/pickers/enemy-charger.png",
     "title": "Charger Enemy Icon.png",

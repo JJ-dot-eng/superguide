@@ -119,7 +119,7 @@ for (const id of ids) for (const baseMode of weaponProfiles[id].modes) for (cons
     if (id === 'one-true-flag') assert.doesNotMatch(html, /\d+발|<span>발|한 발 피해/);
     cards++;
   }
-  if (targetEnemy.shield) assert(calculateMatchup(targetEnemy, mode).rows.every(row => row.outcome === 'shield' && row.hits === null));
+  if (targetEnemy.shield) assert(calculateMatchup(targetEnemy, mode).rows.filter(row => !targetEnemy.shield.partial || row.target.requiresShieldClear).every(row => row.outcome === 'shield' && row.hits === null));
 }
 assert.equal(combatCount(2, raw('spear')), '2발 이상');
 assert.equal(combatCount(2, raw('one-true-flag')), '2회 이상');

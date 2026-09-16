@@ -1,4 +1,4 @@
-import { weaponProfiles } from './combat-data.js?v=explosive-weapons-1';
+import { weaponProfiles } from './combat-data.js?v=enemies-37-1';
 
 export const demolitionCheckedAt = '2026-09-16';
 export const demolitionSource = 'https://helldivers.wiki.gg/wiki/Demolition';

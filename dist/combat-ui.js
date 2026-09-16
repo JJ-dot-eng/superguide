@@ -1,34 +1,36 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=meltagun-1';
-import { calculateMatchup } from './combat.js?v=meltagun-1';
-import { combatImages } from './combat-images.js?v=high-difficulty-1';
-import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=meltagun-1';
-import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=conditional-hits-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=enemies-37-1';
+import { calculateMatchup } from './combat.js?v=enemies-37-1';
+import { combatImages } from './combat-images.js?v=enemies-37-1';
+import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=enemies-37-1';
+import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=enemies-37-1';
 import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
+const percent = value => Number.isFinite(value) ? `${number(value)}%` : '자료 미확인';
 const sourceLink = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 
 export function renderCombatRoute(row, enemy, mode) {
   const target = row.target;
   const terms = combatTerms(mode);
-  const outcome = combatOutcome(row.outcome, mode);
+  const outcome = row.outcome === 'break' && target.resultLabel ? target.resultLabel : combatOutcome(row.outcome, mode);
   const stages = row.stages;
-  const photo = combatImages[enemy.id][target.id][0];
-  const [cropX, cropY, cropWidth, cropHeight] = photo.thumbnailCrop || [0, 0, 320, 213];
-  const cropStyle = `width:${320 / cropWidth * 100}%;height:${213 / cropHeight * 100}%;left:${-cropX / cropWidth * 100}%;top:${-cropY / cropHeight * 100}%;`;
+  const photo = combatImages[enemy.id]?.[target.id]?.find(photo => photo.stage === 'initial');
+  const thumbWidth = photo?.thumbnailWidth || 320, thumbHeight = photo?.thumbnailHeight || 213;
+  const [cropX, cropY, cropWidth, cropHeight] = photo?.thumbnailCrop || [0, 0, thumbWidth, thumbHeight];
+  const cropStyle = `width:${thumbWidth / cropWidth * 100}%;height:${thumbHeight / cropHeight * 100}%;left:${-cropX / cropWidth * 100}%;top:${-cropY / cropHeight * 100}%;`;
   let component = target;
   const stageExplanation = stages.map((stage, index) => {
     const { direct, explosion, mainExplosion } = stage.damage;
-    const transfer = terms.adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? `<br>부위 피해의 본체 전달 ${component.toMain}% · ${component.overflowCap ? `누적 전달 상한 ${number(component.hp + (component.constitution || 0))}` : '전달 상한 없음'}` : '';
+    const transfer = component.partOnly ? `<br>독립 장치 자체 파괴 기준 · 본체 전달 미합산` : terms.adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? `<br>부위 피해의 본체 전달 ${number(component.toMain)}% · ${component.overflowCap == null ? '전달 상한 자료 미확인' : component.overflowCap ? `누적 전달 상한 ${number(component.hp + (component.staticConstitution || 0) + (component.constitution || 0) + (component.transferExtraHealth || 0))}` : '전달 상한 없음'}` : '';
     if (mode?.beam) return `<li><strong>${escape(stage.name)}</strong>: 한 발 최대 광선 피해 ${number(direct)} / AP ${mode.ap} → 장갑 ${stage.armor}${transfer}${Number.isFinite(stage.contactSeconds) ? `<br>계산 종료까지 광선 접촉 약 ${number(stage.contactSeconds)}초 · 누적 부위 피해 ${number(stage.appliedDirect)} · 본체 전달 ${number(stage.mainTransfer)}` : ''}</li>`;
-    const blasts = stage.breakdown?.explosions.map(blast => `<br>${escape(blast.name)}: AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% → ${blast.redirected ? '본체 폭발' : '부위 폭발'} ${number(blast.redirected ? blast.mainDamage : blast.partDamage)}<br>최대 피해 반경 ${number(blast.innerRadius)}m / 외곽 반경 ${number(blast.radius)}m`).join('') || '';
-    const events = stage.events?.map(event => `<br>${escape(event.name)} ${event.count}회 명중 가정: ${combatImpactLabel(event.attack)} ${number(event.breakdown.damage.direct)} + 부위 폭발 ${number(event.breakdown.damage.explosion)} + 본체 폭발 ${number(event.breakdown.damage.mainExplosion)} (1회당)${event.breakdown.explosions.map(blast => `<br>폭발 AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% / 최대 피해 반경 ${number(blast.innerRadius)}m`).join('')}`).join('') || '';
+    const blasts = stage.breakdown?.explosions.map(blast => blast.excluded ? `<br>${escape(blast.name)}: 독립 장치 폭발 면역 → 장치 피해 0 · 주변 본체 피해 미합산` : `<br>${escape(blast.name)}: AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% → ${blast.redirected ? '본체 폭발' : '부위 폭발'} ${number(blast.redirected ? blast.mainDamage : blast.partDamage)}<br>최대 피해 반경 ${number(blast.innerRadius)}m / 외곽 반경 ${number(blast.radius)}m`).join('') || '';
+    const events = stage.events?.map(event => `<br>${escape(event.name)} ${event.count}회 명중 가정: ${combatImpactLabel(event.attack)} ${number(event.breakdown.damage.direct)} + 부위 폭발 ${number(event.breakdown.damage.explosion)} + 본체 폭발 ${number(event.breakdown.damage.mainExplosion)} (1회당)${event.breakdown.explosions.map(blast => blast.excluded ? '<br>독립 장치 폭발 면역 · 주변 본체 피해 미합산' : `<br>폭발 AP ${number(blast.effectiveAp)} → ${blast.redirected ? '본체' : '부위'} 장갑 ${number(blast.armor)} / 폭발 저항 ${number(blast.exdr)}% / 최대 피해 반경 ${number(blast.innerRadius)}m`).join('')}`).join('') || '';
     component = component.next;
     return `<li><strong>${escape(stage.name)}</strong>: ${combatImpactLabel(mode)} ${number(direct)} + 부위 폭발 ${number(explosion)}${mainExplosion !== 0 ? ` · 본체에 처리되는 폭발 ${number(mainExplosion)}` : ''}${stages.length > 1 ? ` → ${combatCount(stage.hits, mode)}` : ''}${index < stages.length - 1 ? ' 후 다음 부위 공격' : ''}${blasts}${events}${transfer}</li>`;
   }).join('');
   const main = target.main || enemy.main;
-  const breakdownNote = mode?.beam
+  const breakdownNote = target.partOnly ? target.partOnlyNote : mode?.beam
     ? `일반·내구 피해에 부위 내구도와 장갑을 적용합니다. 같은 장갑 수치에서는 피해가 65%이며, 광선에는 폭발 저항을 적용하지 않습니다. 본체 전달 비율과 누적 상한을 반영하고, 부위 파괴 또는 본체 체력 소진 시점에서 멈춥니다. 남은 광선을 파괴된 부위의 초과 피해로 넘기거나 화상으로 더하지 않습니다. 본체 체력 ${number(main.hp)}. 접촉 시간은 충전·재장전·사격 사이 공백을 제외한 이론값이며, 실제 피해 적용 간격은 자료 미확인입니다.`
     : mode?.conditionalImpact
     ? `각 명중의 일반·내구 피해에 부위 내구도와 장갑을 적용한 뒤 본체 전달 피해를 계산합니다. 전격과 작살 직격에는 폭발 저항을 적용하지 않습니다. 폭발은 각 폭발의 관통·반경·폭발 저항으로 별도 판정합니다. 여러 부위 동시 피해는 합산하지 않습니다. 계산 대상 본체 체력 ${number(main.hp)}. 한 발의 명중 수를 고른 경우 각 명중마다 피해와 본체 전달을 버림 처리하고 누적 전달 상한을 공유합니다.`
@@ -40,9 +42,9 @@ export function renderCombatRoute(row, enemy, mode) {
   const notes = combatRouteNotes(row, mode);
   return `<article class="combat-route" data-outcome="${row.outcome}">
     <div class="combat-route-overview"><div class="combat-route-lead"><div class="combat-route-top"><h3>${escape(target.name)}</h3><span class="outcome-tag">${outcome}</span></div>
-    <div class="combat-hit-count">${row.hits != null ? `<strong>${number(row.hits)}</strong><span>${terms.unit}${mode?.conditionalImpact ? ` 이상 · ${escape(target.name)} ${combatImpactVerb(mode)} 시` : ' · 이론값'}${target.prerequisite ? ` · ${escape(target.prerequisite)}` : ''}</span>` : `<strong class="combat-no-count">${row.outcome === 'blocked' ? '관통·피해 조건 미충족' : '—'}</strong>`}</div></div>
-    <button class="combat-part-photo" data-part-image="${escape(target.id)}" aria-label="${escape(enemy.name)} ${escape(target.name)} 사진 크게 보기" aria-haspopup="dialog" aria-controls="combat-image-dialog"><span class="combat-part-window" style="aspect-ratio:${cropWidth}/${cropHeight}"><img src="${escape(photo.thumbnail)}" alt="${escape(enemy.name)}의 ${escape(target.name)} 위치가 색으로 표시된 사진" width="320" height="213" loading="lazy" decoding="async" style="${cropStyle}"></span><span class="combat-part-caption" aria-hidden="true">크게 보기 ↗</span></button></div>
-    <dl class="combat-part-stats"><div><dt>부위 체력</dt><dd>${number(target.hp)}${target.next ? ` → ${number(target.next.hp)}` : ''}</dd></div><div><dt>장갑 수치</dt><dd>${target.armor}${target.next ? ` → ${target.next.armor}` : ''}</dd></div><div><dt>내구도</dt><dd>${target.durability}%${target.next && target.next.durability !== target.durability ? ` → ${target.next.durability}%` : ''}</dd></div><div><dt>폭발 저항</dt><dd>${target.exdr}%</dd></div></dl>
+    <div class="combat-hit-count">${row.hits != null ? `<strong>${number(row.hits)}</strong><span>${terms.unit}${mode?.conditionalImpact ? ` 이상 · ${escape(target.name)} ${combatImpactVerb(mode)} 시` : row.lowerBound ? ' 이상 · 재생 제외' : ' · 이론값'}${target.prerequisite ? ` · ${escape(target.prerequisite)}` : ''}</span>` : `<strong class="combat-no-count">${row.outcome === 'blocked' ? '관통·피해 조건 미충족' : '—'}</strong>`}</div></div>
+    ${photo ? `<button class="combat-part-photo" data-part-image="${escape(target.id)}" aria-label="${escape(enemy.name)} ${escape(target.name)} 사진 크게 보기" aria-haspopup="dialog" aria-controls="combat-image-dialog"><span class="combat-part-window" style="aspect-ratio:${cropWidth}/${cropHeight}"><img src="${escape(photo.thumbnail)}" alt="${escape(enemy.name)}의 ${escape(target.name)} 위치가 색으로 표시된 사진" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" decoding="async" style="${cropStyle}"></span><span class="combat-part-caption" aria-hidden="true">크게 보기 ↗</span></button>` : `<span class="combat-part-missing">부위 사진<br>자료 미확인</span>`}</div>
+    <dl class="combat-part-stats"><div><dt>부위 체력</dt><dd>${number(target.hp == null ? null : target.hp + (target.staticConstitution || 0))}${target.mainOnly ? ' · 본체 공유' : ''}${target.next ? ` → ${number(target.next.hp + (target.next.staticConstitution || 0))}` : ''}</dd></div><div><dt>장갑 수치</dt><dd>${number(target.armor)}${target.next ? ` → ${number(target.next.armor)}` : ''}</dd></div><div><dt>내구도</dt><dd>${percent(target.durability)}${target.next && target.next.durability !== target.durability ? ` → ${percent(target.next.durability)}` : ''}</dd></div><div><dt>폭발 저항</dt><dd>${percent(target.exdr)}</dd></div></dl>
     <p class="combat-target-tip">${escape(combatTargetTip(target, mode, row))}</p>${notes.map(note => `<p class="combat-row-note">${escape(note)}</p>`).join('')}
     ${target.main ? `<p class="combat-row-note">${escape(target.main.name)} 체력 ${number(target.main.hp)} 기준 · 다른 본체 체력과 별도 계산</p>` : ''}
     ${stageExplanation ? `<details class="combat-breakdown"><summary>${terms.one} 피해와 계산 과정</summary><ul>${stageExplanation}</ul><p>${escape(breakdownNote)}</p></details>` : ''}
@@ -107,7 +109,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     if (enemy.shield) {
       const notice = combatShieldNotice(enemy, mode);
       $('#combat-shield-label').textContent = notice.label;
-      $('#combat-shield-note').textContent = `방패·보호막 체력 ${number(enemy.shield.hp)} / 장갑 ${enemy.shield.armor}. ${notice.note}`;
+      $('#combat-shield-note').textContent = `방패·보호막 체력 ${enemy.shield.infiniteHealth ? '파괴 불가' : number(enemy.shield.hp)}${Number.isFinite(enemy.shield.armor) ? ` / 장갑 ${enemy.shield.armor}` : ''}. ${notice.note}`;
     }
     $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${mode?.note ? `<p class="combat-row-note">${escape(mode.note)}</p>` : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
     $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(mode?.unit ? enemy.note.replaceAll('탄수', combatTerms(mode).count).replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
@@ -137,7 +139,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     const row = calculateMatchup(enemy, mode, state).rows.find(item => item.target.id === target.id);
     $('#combat-image-tip').textContent = combatTargetTip(target, mode, row) + (enemy.id === 'harvester' ? ' 좌우는 적의 몸을 기준으로 구분합니다.' : '');
     $('#combat-image-gallery').innerHTML = photos.map((photo, index) => {
-      const label = photo.caption || (photos.length > 1 ? index === 0 ? '1. 장갑이 남아 있는 상태' : '2. 장갑 제거 후 노출된 부위' : target.name);
+      const label = photo.caption || (target.next ? photo.stage === 'initial' ? '1. 장갑이 남아 있는 상태' : '2. 장갑 제거 후 노출된 부위' : target.name);
       return `<figure><figcaption>${escape(label)}</figcaption><img src="${escape(photo.src)}" alt="${escape(enemy.name)} ${escape(label)} — 색으로 표시된 영역이 조준 부위" width="${photo.width}" height="${photo.height}" decoding="async"><p class="combat-sources">${sourceLink(photo.source, '위키 사진 출처')}</p></figure>`;
     }).join('');
     $('#combat-image-dialog').showModal();

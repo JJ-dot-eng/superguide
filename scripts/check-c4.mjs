@@ -99,13 +99,13 @@ let cards = 0;
 for (const selected of enemies) {
   const matchup = calculateMatchup(selected, charge, { shieldCleared: true });
   const summary = combatSummary(selected, charge, matchup, { shieldCleared: true });
-  if (matchup.best) assert.match(summary.title, /이론값 \d+개/);
+  if (matchup.best) assert.match(summary.title, matchup.best.lowerBound ? /\d+개 이상/ : /이론값 \d+개/);
   assert(!/\d+발|한 발|탄수|최소/.test(summary.title));
   for (const row of matchup.rows) {
     const html = renderCombatRoute(row, selected, charge);
-    if (row.hits != null) assert.match(html, /<span>개 · 이론값/);
+    if (row.hits != null) assert.match(html, row.lowerBound ? /<span>개 이상 · 재생 제외/ : /<span>개 · 이론값/);
     assert.match(html, /부착 후보/);
-    assert.match(html, /장약 한 개 피해와 계산 과정/);
+    if (row.stages.length) assert.match(html, /장약 한 개 피해와 계산 과정/);
     assert(!/한 발|\d+발|<span>발|탄수|undefined|NaN/.test(html));
     assert(html.includes(`data-outcome="${row.outcome}"`));
     cards++;

@@ -1,5 +1,5 @@
-import { explosionComponents } from './combat.js?v=meltagun-1';
-import { combatConditionText, spearCannotLock } from './combat-conditions.js?v=conditional-hits-1';
+import { explosionComponents } from './combat.js?v=enemies-37-1';
+import { combatConditionText, spearCannotLock } from './combat-conditions.js?v=enemies-37-1';
 
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
 const hasBlast = mode => mode && (mode.explosion !== 0 || mode.explosions?.length > 0);
@@ -8,7 +8,7 @@ export const combatTerms = mode => mode?.unit === '개'
   : mode?.unit === '회' ? { unit: '회', count: '타격 횟수', one: '타격 한 번', adhesive: false }
   : { unit: '발', count: '탄수', one: '한 발', adhesive: false };
 export const combatCount = (hits, mode) => `${number(hits)}${combatTerms(mode).unit}${mode?.conditionalImpact ? ' 이상' : ''}`;
-export const combatOutcome = (outcome, mode) => ({ kill: '처치', bleed: combatTerms(mode).adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? '출혈 유발' : '출혈 처치 유발', break: '부위 파괴', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' })[outcome];
+export const combatOutcome = (outcome, mode) => ({ kill: '처치', bleed: combatTerms(mode).adhesive || mode?.reviewedExplosive || mode?.conditionalImpact ? '출혈 유발' : '출혈 처치 유발', break: '부위 파괴', down: '추락 유발', armor: '장갑 파괴', blocked: '피해 없음', unknown: '계산 보류', shield: '사선 조건 확인' })[outcome];
 export const combatImpactLabel = mode => mode?.beam ? '광선' : mode?.delivery === 'arc' ? '전격' : mode?.delivery === 'flag' || mode?.delivery === 'melee' ? '타격' : '직격';
 export const combatImpactVerb = mode => mode?.beam ? '조준 유지' : mode?.delivery === 'guided' ? '착탄' : '타격';
 
@@ -59,7 +59,7 @@ export function combatTargetTip(target, mode, row) {
     if (mode.delivery === 'guided') return `착탄 부위: ${location}. 미사일이 이 부위에 직접 명중하고 폭발 중심 1.5m 안에 같은 부위가 들어오는 조건입니다.`;
     if (mode.delivery === 'flag') return `타격 부위: ${location}. 깃발 날이 이 부위에 먼저 닿아야 합니다. 실제로 접근해 찌를 수 있는 위치인지 확인하세요.`;
     if (mode.delivery === 'harpoon') return `직격 부위: ${location}. ${target.tip} 가스 피해는 제외합니다.`;
-    return `폭발 피해를 받는 부위: ${location}. 선택한 주폭발은 중심 3m, 자탄 폭발은 각각 중심 4m 안에 이 부위가 들어오는 조건입니다.` + (target.exdr === 100 ? ' 이 부위는 폭발 면역이므로 폭발은 본체 장갑·폭발 저항으로 따로 판정합니다.' : '');
+    return `폭발 피해를 받는 부위: ${location}. 선택한 주폭발은 중심 3m, 자탄 폭발은 각각 중심 4m 안에 이 부위가 들어오는 조건입니다.` + (target.exdr === 100 ? target.partOnly ? ' 이 장치는 폭발 면역입니다. 주변 본체의 폭발 피해는 장치 파괴 횟수에 합산하지 않습니다.' : ' 이 부위는 폭발 면역이므로 폭발은 본체 장갑·폭발 저항으로 따로 판정합니다.' : '');
   }
   if (mode?.reviewedExplosive) {
     const location = target.next ? target.name.split(' → ')[0] : target.name;
@@ -70,15 +70,15 @@ export function combatTargetTip(target, mode, row) {
       tip += radii.every(Number.isFinite)
         ? radii.length > 1 ? ` 두 폭발 모두 선택 부위에 닿아야 합니다. 충돌 폭발 중심에서 ${number(Math.min(...radii))}m 안에 드는 위치를 노리세요.` : ` 선택 부위가 폭발 중심에서 ${number(radii[0])}m 안에 들어오는 위치를 노리세요.`
         : ' 최대 폭발 피해가 해당 부위에 닿는 조건입니다. 폭발 반경 일부는 자료 미확인입니다.';
-      if (target.exdr === 100) tip += ' 이 부위 자체는 폭발 면역입니다. 폭발은 본체 장갑·폭발 저항으로 따로 계산하며, 폭발로 이 부위를 파괴하는 결과가 아닙니다.';
+      if (target.exdr === 100) tip += target.partOnly ? ' 이 장치는 폭발 면역입니다. 주변 본체의 폭발 피해는 장치 파괴 횟수에 합산하지 않습니다.' : ' 이 부위 자체는 폭발 면역입니다. 폭발은 본체 장갑·폭발 저항으로 따로 계산하며, 폭발로 이 부위를 파괴하는 결과가 아닙니다.';
     }
     if (row?.stages.length > 1) tip += ` 장갑을 제거한 다음 공격부터 ${target.next.name}을 노리세요. 같은 공격의 초과 피해를 노출 부위에 넘기지 않습니다.`;
     return tip;
   }
   if (!combatTerms(mode).adhesive) return target.tip;
   const location = target.next ? target.name.split(' → ')[0] : target.name;
-  let tip = `부착 후보: ${location} 쪽 표면. 사진의 강조 부위를 확인하고, 기폭 시 해당 부위가 폭발 중심 ${number(mode.innerRadius)}m 안에 들어가게 붙이세요.`;
-  if (target.exdr === 100) tip += ' 이 부위 자체는 폭발 면역이므로, 부위 파괴가 아닌 본체에 처리되는 폭발 피해를 계산합니다.';
+  let tip = `부착 후보: ${location} 쪽 표면. 부위 위치를 확인하고, 기폭 시 해당 부위가 폭발 중심 ${number(mode.innerRadius)}m 안에 들어가게 붙이세요.`;
+  if (target.exdr === 100) tip += target.partOnly ? ' 이 장치는 폭발 면역입니다. 주변 본체의 폭발 피해는 장치 파괴 횟수에 합산하지 않습니다.' : ' 이 부위 자체는 폭발 면역이므로, 부위 파괴가 아닌 본체에 처리되는 폭발 피해를 계산합니다.';
   if (row?.stages.length > 1) tip += ` 장갑 제거 후에는 노출된 ${target.next.name}에 다음 장약의 폭발이 닿아야 합니다. 한 장약의 초과 피해를 다음 부위에 넘기지 않습니다.`;
   if (target.prerequisite) tip += ` ‘${target.prerequisite}’ 조건을 먼저 충족해야 하며, 준비에 사용한 장약은 제외합니다.`;
   return tip;
@@ -86,6 +86,11 @@ export function combatTargetTip(target, mode, row) {
 
 export function combatShieldNotice(enemy, mode) {
   if (!enemy.shield) return null;
+  if (enemy.shield.kind === 'energy') return {
+    title: enemy.shield.partial ? '조종사 보호막과 노출 부위를 구분하세요' : '보호막 제거 여부를 먼저 확인하세요',
+    label: enemy.shield.label,
+    note: `${enemy.shield.note} 보호막 제거에 필요한 공격과 재생은 이 횟수에 포함하지 않습니다.`,
+  };
   if (mode?.conditionalImpact) return {
     title: enemy.id === 'harvester' ? '보호막 제거 여부를 먼저 확인하세요' : '방패를 우회한 명중 조건을 확인하세요',
     label: '방패·보호막이 선택한 부위로 향하는 공격을 막지 않는 상태',
@@ -118,8 +123,15 @@ export function combatShieldNotice(enemy, mode) {
 export function combatRouteNotes(row, mode) {
   const terms = combatTerms(mode);
   const notes = [];
-  if (row.outcome === 'unknown' && row.reason) notes.push(row.reason);
+  if (['unknown', 'shield'].includes(row.outcome) && row.reason) notes.push(row.reason);
+  if (row.modelNote) notes.push(row.modelNote);
+  if (row.target.followupNote) notes.push(row.target.followupNote);
+  if (row.target.destroyMainDamage) notes.push(`부위 파괴 시 본체에 추가 피해 ${number(row.target.destroyMainDamage)}가 한 번 적용됩니다.`);
+  for (const part of [row.target, row.target.next].filter(Boolean)) {
+    if (part.staticConstitution) notes.push(`${part.name}: 기본 체력 ${number(part.hp)} + 시간에 따라 줄지 않는 추가 체력 ${number(part.staticConstitution)} = ${number(part.hp + part.staticConstitution)} 기준입니다. 출혈 대기시간이 아닙니다.`);
+  }
   if (mode?.beam && row.outcome === 'armor' && row.reason) notes.push(row.reason);
+  if (row.outcome === 'down') notes.push('수송기 추락을 유발하는 횟수입니다. 탑승 병력 처치까지 보장하지 않습니다.');
   if (row.outcome === 'bleed') notes.push(`출혈을 시작시키는 ${terms.count}입니다. 사망까지 시간이 걸릴 수 있습니다.`);
   if (row.outcome === 'break' || row.outcome === 'armor') notes.push(`이 ${terms.count}는 처치에 필요한 ${terms.count}가 아닙니다. 파괴 후 살아 있을 수 있습니다.`);
   if (row.via === 'main') notes.push('해당 부위에서 본체로 처리된 피해가 본체 체력을 소진하는 경로입니다. 치명 부위 파괴와 구분합니다.');
@@ -131,12 +143,17 @@ export function combatRouteNotes(row, mode) {
 export function combatSummary(enemy, mode, { best, rows }, { shieldCleared = false, unsupported } = {}) {
   const terms = combatTerms(mode);
   if (unsupported) return { tone: 'neutral', title: `이 무기·모드의 ${terms.count}는 계산 보류`, body: `${unsupported} 처치 불가능이라는 뜻은 아닙니다.` };
-  if (enemy.shield && !shieldCleared) {
+  if (enemy.shield && !shieldCleared && !enemy.shield.partial) {
     const notice = combatShieldNotice(enemy, mode);
     return { tone: 'neutral', title: notice.title, body: notice.note };
   }
   if (mode?.hitCondition && !mode.selectedCondition) return { tone: 'neutral', title: '한 발당 명중 조건을 선택하세요', body: combatConditionText(mode) };
   if (spearCannotLock(enemy, mode)) return { tone: 'neutral', title: '직접 락온 불가 · 착탄 가정 참고', body: '스피어는 이 적에게 직접 락온할 수 없습니다. 아래 수치는 다른 표적에 발사한 미사일이 표시 부위에 착탄했을 때의 참고값입니다.' };
+  if (best?.lowerBound) return {
+    tone: 'neutral', title: `${number(best.hits)}${terms.unit} 이상 · ${best.target.name} · ${combatOutcome(best.outcome, mode)}`,
+    body: `${best.modelNote} ${combatTargetTip(best.target, mode, best)}`,
+  };
+  if (best?.outcome === 'down') return { tone: 'positive', title: `${best.target.name} · 추락 유발 이론값 ${combatCount(best.hits, mode)}`, body: best.target.tip };
   if (best && mode?.conditionalImpact) return {
     tone: 'positive', title: `${combatCount(best.hits, mode)} · ${best.target.name} ${combatImpactVerb(mode)} 시 · ${combatOutcome(best.outcome, mode)}`,
     body: [combatConditionText(mode), combatTargetTip(best.target, mode, best)].filter(Boolean).join('. '),

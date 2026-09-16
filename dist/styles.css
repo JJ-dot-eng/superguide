@@ -113,6 +113,11 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .demolition-card[data-outcome=conditional]{border-top-color:#b18c4f}
 .demolition-card[data-outcome=conditional] .outcome-tag{color:#e9c98b;background:#342d20;border-color:#65543a}
 .demolition-card .demolition-faction{display:block;margin-top:4px;font-size:.8rem;color:var(--muted)}
+.demolition-results[data-view=all] .demolition-card{--faction-color:#a6ce82;--faction-border:#657746;--faction-background:var(--panel);border-top-color:var(--faction-border);background:var(--faction-background)}
+.demolition-results[data-view=all] .demolition-card[data-faction="테르미니드"]{--faction-color:#f2b44f;--faction-border:#b88335;--faction-background:#211e16}
+.demolition-results[data-view=all] .demolition-card[data-faction="오토마톤"]{--faction-color:#f39183;--faction-border:#ae5a4d;--faction-background:#241a19}
+.demolition-results[data-view=all] .demolition-card[data-faction="일루미닛"]{--faction-color:#c29be5;--faction-border:#8660ad;--faction-background:#1f1b28}
+.demolition-results[data-view=all] .demolition-faction{color:var(--faction-color)}
 .demolition-result-title{margin:14px 0 8px;font-size:1.125rem;font-weight:600;line-height:1.65;overflow-wrap:anywhere}
 .demolition-reason,.demolition-tip{font-size:.875rem;line-height:1.85;color:#c8cec1}
 .demolition-requirements{margin:12px 0;padding:10px 12px 10px 28px;background:#28251c;color:#e3c894;font-size:.875rem;line-height:1.8;border-left:2px solid #b18c4f}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111312">
+  <meta name="description" content="헬다이버즈 2 스트라타젬 도감. 지원 무기, 궤도, 이글, 배낭, 센트리와 차량의 사거리, 직격·폭발 피해, 장갑 관통과 사용법을 찾아보세요.">
+  <title>HELLDIVERS 2 — 스트라타젬 도감</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23111312'/%3E%3Cpath d='M16 4v24M4 16h24' stroke='%23ffe44f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23ffe44f' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">도감으로 바로 가기</a>
+  <header class="topbar">
+    <a href="./" class="brand" aria-label="스트라타젬 도감 홈"><span class="brand-mark" aria-hidden="true">✛</span><span>HELLDIVERS<span class="brand-two">Ⅱ</span><small>STRATAGEM FIELD GUIDE</small></span></a>
+    <div class="topbar-right"><span class="edition">비공식 전술 가이드 <span class="slash">/</span> 한국어</span><button class="text-button" id="guide-button"><span aria-hidden="true">ⓘ</span> 수치 읽는 법</button></div>
+  </header>
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="스트라타젬 종류">
+      <div class="nav-heading">ARSENAL INDEX <span>01—07</span></div>
+      <nav id="categories" class="categories"></nav>
+      <div class="sidebar-foot"><span class="mini-cross" aria-hidden="true">✛</span><strong>알고 투하하자.</strong><p>필요한 화력, 필요한 거리.<br>다음 강하를 위한 짧은 작전 브리핑.</p><div class="tiny-rule"></div><span class="mono">FOR MANAGED DEMOCRACY.</span></div>
+    </aside>
+    <main id="main" tabindex="-1">
+      <div class="page-heading"><div><div class="eyebrow"><span class="yellow-line"></span> SUPER EARTH FIELD MANUAL</div><h1>스트라타젬 도감<span class="heading-dot">.</span></h1><p class="intro">어디까지 닿고, 얼마나 뚫는지. 투하 전에 확인하세요.</p></div><div class="manual-stamp"><span>전술 자료집</span><strong>HD—02</strong><span>열람일 <time datetime="2026-09-16">2026.09.16</time></span></div></div>
+      <div class="notice-strip"><span class="notice-symbol" aria-hidden="true">!</span><p><strong>한 발의 피해와 한 번의 호출은 다릅니다.</strong> 기본 수치 · 함선 모듈 제외 · 미확인 수치 구분</p><button id="notice-guide" aria-label="피해량 기준 자세히 보기">기준 보기 <span aria-hidden="true">↗</span></button></div>
+      <section class="catalog" aria-labelledby="section-title">
+        <div class="catalog-heading"><div class="catalog-title"><h2 id="section-title">전체 스트라타젬</h2><span class="count-badge" id="total-count"></span></div><span class="catalog-caption" id="category-caption">임무에 맞는 화력을 찾아보세요.</span></div>
+        <div class="toolbar"><label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="이름, 장비 코드, 용도로 검색" autocomplete="off" aria-label="스트라타젬 검색"><kbd aria-hidden="true">/</kbd></label><label class="select-field"><span class="sr-only">관통 등급</span><select id="penetration"><option value="all">모든 관통 등급</option><option value="tank">대전차 · AP 5 이상</option><option value="heavy">중장갑 · AP 4</option><option value="medium">일반 장갑 · AP 3</option><option value="light">경장갑 · AP 2 이하</option><option value="none">피해 없음 · 지원용</option><option value="unknown">수치 미확인</option></select></label><div class="view-toggle" aria-label="목록 보기 방식"><button class="view-button active" data-view="grid" aria-label="카드 보기" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button><button class="view-button" data-view="list" aria-label="목록 보기" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 5h13M8 12h13M8 19h13M3 5h1M3 12h1M3 19h1"/></svg></button></div></div>
+        <div class="results-bar"><p id="results-count" role="status" aria-live="polite"></p><button class="reset-button" id="reset" hidden>필터 초기화 <span aria-hidden="true">↺</span></button><span class="results-tip">최대 3개까지 나란히 비교</span></div>
+        <div class="card-grid" id="cards"></div>
+        <div class="empty-state" id="empty" hidden><span aria-hidden="true">⌕</span><h3>일치하는 스트라타젬이 없습니다.</h3><p>다른 이름이나 용도로 검색해 보세요.</p><button class="primary-button" id="empty-reset">필터 초기화</button></div>
+      </section>
+      <footer class="page-footer"><span>HELLDIVERS 2 <span class="slash">/</span> 비공식 팬 가이드</span><p>Arrowhead Game Studios·Sony Interactive Entertainment와 무관합니다. <button id="sources-button">자료 출처 및 확인 기준 ↗</button></p></footer>
+    </main>
+  </div>
+  <div class="compare-bar" id="compare-bar" hidden><div><span class="compare-label">화력 비교</span><span id="compare-names"></span></div><div class="compare-actions"><button class="text-button" id="compare-clear">비우기</button><button class="primary-button" id="compare-open">비교하기 <span id="compare-count">0/3</span> <span aria-hidden="true">↗</span></button></div></div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <dialog id="detail-dialog" class="detail-dialog"><div id="detail-content"></div></dialog>
+  <dialog id="info-dialog" class="info-dialog"><div id="info-content"></div></dialog>
+  <dialog id="compare-dialog" class="compare-dialog"><div id="comparison-content"></div></dialog>
+  <noscript><p class="noscript">이 도감을 검색하고 열람하려면 브라우저에서 JavaScript를 켜주세요.</p></noscript>
+</body>
+</html>

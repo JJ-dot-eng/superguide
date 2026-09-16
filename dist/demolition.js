@@ -21,6 +21,8 @@ export function evaluateForce(route, mode) {
 
 export function calculateStructureDamage(structure, mode) {
   if (!structure.health || !mode?.damage) return null;
+  // Missing values must not be coerced to zero or produce an invented hit count.
+  if (!['standard', 'durable', 'ap', 'explosion', 'explosionAp'].every(key => Number.isFinite(mode.damage[key]) && mode.damage[key] >= 0)) return null;
   const { direct, explosion } = damagePerHit(mode.damage, structure.health, structure.health);
   const total = direct + explosion;
   return { direct, explosion, total, hits: total > 0 ? Math.ceil(structure.health.hp / total) : null };

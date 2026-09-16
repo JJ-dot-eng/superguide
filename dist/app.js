@@ -1,5 +1,5 @@
-import { categories, stratagems, checkedAt } from './data.js?v=shields-1';
-import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=compact-cards-1';
+import { categories, stratagems, checkedAt } from './data.js?v=shield-generators-1';
+import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=high-difficulty-1';

@@ -11,7 +11,7 @@ const legFlesh = () => part('leg-flesh', '노출된 다리 살점', 800, 2, 70, 
 const hunter = (id, name, hp, limbHp) => ({
   id, name, faction: '테르미니드', source: wiki('Hunter'), sourceRevision: 135080, family: 'hunter',
   main: main(hp, 0, 0, 0),
-  note: '난이도 4부터 본체와 사지 체력이 증가합니다. 작은 머리는 난이도와 관계없이 체력 40입니다. 한쪽 다리 파괴와 처치를 구분합니다.',
+  note: '난이도 4 이상 기준입니다. 머리 체력은 40이며, 한쪽 다리 파괴와 처치를 구분합니다.',
   parts: [
     part('head', '머리', 40, 0, 0, 100, 100, true, 'kill', '도약하기 전이나 착지한 순간 작은 머리를 맞히세요.'),
     part('claw', '앞발 한쪽', limbHp, 0, 0, 100, 40, false, 'break', '몸 앞의 길게 뻗은 앞발 한쪽입니다. 앞발 하나를 부쉈다고 즉사하는 부위는 아닙니다.'),
@@ -21,7 +21,7 @@ const hunter = (id, name, hp, limbHp) => ({
 const warrior = (id, name, hp, headHp, limbHp) => ({
   id, name, faction: '테르미니드', source: wiki('Warrior'), sourceRevision: 135082, family: 'warrior',
   main: main(hp, 1, 20, 0),
-  note: '난이도 4부터 체력이 증가합니다. 머리를 잃어도 잠시 돌진·공격할 수 있어, 머리 파괴는 출혈 시작과 즉사를 나눠 표시합니다.',
+  note: '난이도 4 이상 기준입니다. 머리를 잃어도 잠시 돌진·공격할 수 있어, 머리 파괴는 출혈 시작과 즉사를 나눠 표시합니다.',
   parts: [
     part('head', '머리', headHp, 1, 20, 100, 100, false, 'bleed', '정면 머리를 노리세요. 머리가 떨어진 뒤에도 다가올 수 있으니 거리를 두세요.', { constitution: 200 }),
     part('claw', '앞발 한쪽', limbHp, 1, 0, 100, 40, false, 'break', '몸 앞의 집게 모양 앞발 하나를 노리는 조건입니다.'),
@@ -130,10 +130,8 @@ export const enemies = [
       part('generator', '보호막 생성기 한 개', 350, 3, 0, 100, 10, true, 'break', '눈 위아래의 돌출 부위를 하나 파괴하면 보호막 재생을 막을 수 있습니다.'),
     ],
   },
-  hunter('hunter', '헌터 · 난이도 1–3', 130, 45),
-  hunter('hunter-hardened', '헌터 · 난이도 4 이상', 160, 60),
-  warrior('warrior', '워리어 · 난이도 1–3', 250, 110, 75),
-  warrior('warrior-hardened', '워리어 · 난이도 4 이상', 325, 150, 100),
+  hunter('hunter-hardened', '헌터', 160, 60),
+  warrior('warrior-hardened', '워리어', 325, 150, 100),
   {
     id: 'hive-guard', name: '하이브 가드', faction: '테르미니드', source: wiki('Hive_Guard'), sourceRevision: 135085,
     main: main(500, 2, 30, 0),
@@ -154,8 +152,7 @@ export const enemies = [
       part('leg', '다리 한쪽', 170, 1, 40, 100, 60, false, 'break', '장갑이 얇은 옆 다리를 노려 이동과 돌진 속도를 낮추세요.'),
     ],
   },
-  spewer('bile-spewer', '바일 스퓨어 · 난이도 3–5', 'Bile_Spewer', 2, '난이도 6 미만의 바일 스퓨어 기준입니다. 머리는 장갑 2이며 입과 후방 복부는 장갑이 없습니다.', 135087, 'bile-spewer'),
-  spewer('bile-spewer-armored', '바일 스퓨어 · 난이도 6 이상', 'Bile_Spewer', 3, '난이도 6부터 본체·머리 등의 장갑이 3으로 증가합니다. 입과 후방 복부의 수치는 그대로입니다.', 135087, 'bile-spewer'),
+  spewer('bile-spewer-armored', '바일 스퓨어', 'Bile_Spewer', 3, '난이도 6 이상 기준으로 본체·머리 장갑은 3입니다. 입과 후방 복부에는 장갑이 없습니다.', 135087, 'bile-spewer'),
   spewer('nursing-spewer', '너싱 스퓨어', 'Nursing_Spewer', 2, '노란 복부의 너싱 스퓨어 기준입니다. 고난도 바일 스퓨어의 장갑 수치를 적용하지 않습니다.', 135086),
   {
     id: 'stalker', name: '스토커', faction: '테르미니드', source: wiki('Stalker'), sourceRevision: 135091,

@@ -1,10 +1,10 @@
-import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches } from './faction-data.js?v=predator-hunter-1';
-import { enemies, weaponProfiles, combatCheckedAt } from './combat-data.js?v=predator-hunter-1';
+import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches } from './faction-data.js?v=all-enemies-1';
+import { enemies, weaponProfiles, combatCheckedAt } from './combat-data.js?v=all-enemies-1';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
 import { combatCount, combatOutcome, combatTargetTip, combatRouteNotes, combatSummary, combatShieldNotice } from './combat-presentation.js?v=vox-leveller-1';
-import { pickerEnemyImages } from './selector-images.js?v=predator-hunter-1';
-import { factionLoadouts } from './faction-loadouts.js?v=predator-hunter-1';
-import { factionGuideEnemies } from './faction-data.js?v=predator-hunter-1';
+import { pickerEnemyImages } from './selector-images.js?v=all-enemies-1';
+import { factionLoadouts } from './faction-loadouts.js?v=all-enemies-1';
+import { factionGuideEnemies } from './faction-data.js?v=all-enemies-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const link = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)} ↗</a>`;

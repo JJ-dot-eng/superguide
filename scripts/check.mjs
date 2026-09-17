@@ -12,6 +12,7 @@ import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
 import './check-combat.mjs';
 import './check-enemy-expansion.mjs';
+import './check-additional-enemies.mjs';
 import './check-c4.mjs';
 import './check-explosive-weapons.mjs';
 import './check-conditional-weapons.mjs';

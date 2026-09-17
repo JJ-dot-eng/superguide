@@ -1,6 +1,6 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=predator-hunter-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=all-enemies-1';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
-import { combatImages } from './combat-images.js?v=predator-hunter-1';
+import { combatImages } from './combat-images.js?v=all-enemies-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=vox-leveller-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=enemies-37-1';
 import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';
@@ -128,7 +128,7 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
     $('#combat-loadout').innerHTML = `<div class="combat-weapon-title"><img src="${escape(wikiIcons[weapon.id].src)}" alt="" width="40" height="40"><div><strong>${escape(weapon.name)}</strong><span>${escape(mode?.name || '정밀 계산 미지원')}</span></div></div>${combatModeStats(mode).length ? `<p>${combatModeStats(mode).map(escape).join('<br>')}</p>` : ''}${mode?.falloff ? '<p class="combat-row-note">거리 감쇠가 있는 무기입니다. 표시 탄수는 근거리 최대 피해 기준입니다.</p>' : ''}${mode?.note ? `<p class="combat-row-note">${escape(mode.note)}</p>` : ''}${profile?.note ? `<p class="combat-row-note">${escape(profile.note)}</p>` : ''}`;
     $('#combat-enemy-info').innerHTML = `<strong>${escape(enemy.name)}</strong><p>본체 체력 ${number(enemy.main.hp)} / 본체 장갑 ${enemy.main.armor}</p><p>${escape(mode?.unit ? enemy.note.replaceAll('탄수', combatTerms(mode).count).replaceAll('후속탄', '후속 공격') : enemy.note)}</p>`;
     $('#combat-routes').innerHTML = rows.map(row => renderCombatRoute(row, enemy, mode, { singlePartTheory: Boolean(reference) })).join('');
-    $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')}${profile?.extraSource ? ` · ${sourceLink(profile.extraSource, '광선 세부 수치')}` : ''} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
+    $('#combat-sources').innerHTML = `${sourceLink(enemy.source, '적 부위 수치')} · ${sourceLink(profile?.source || weapon.source, '무기 수치')}${profile?.extraSource ? ` · ${sourceLink(profile.extraSource, '광선 세부 수치')}` : ''} · ${sourceLink(damageSource, '피해 계산 규칙')}<br>적 자료 확인 ${escape(enemy.checkedAt || combatCheckedAt)} · 무기 자료 확인 ${escape(profile?.checkedAt || combatCheckedAt)} · 커뮤니티 위키의 부위·무기 표 기준 · 실시간 패치 동기화 아님`;
   }
 
   enemySelect.addEventListener('change', () => { state.enemy = enemySelect.value; state.shieldCleared = false; updateConditions(); render(); });

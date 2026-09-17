@@ -7,8 +7,8 @@ import { stratagems } from '../dist/data.js';
 const source = url => assert.equal(new URL(url).hostname, 'helldivers.wiki.gg');
 source(damageSource);
 assert.match(combatCheckedAt, /^\d{4}-\d{2}-\d{2}$/);
-assert.equal(enemies.length, 66, 'Include the reviewed expansion, excluding Overship');
-assert.equal(enemyTypeCount, 64, 'Body-size options must not inflate the enemy species counter');
+assert.equal(enemies.length, 84, 'Include the reviewed expansion, excluding Overship');
+assert.equal(enemyTypeCount, 82, 'Body-size options must not inflate the enemy species counter');
 assert.equal(new Set(enemies.map(enemy => enemy.id)).size, enemies.length);
 assert(!enemies.some(enemy => ['hunter', 'warrior', 'bile-spewer'].includes(enemy.id)), 'Low-difficulty entries must not be selectable');
 const validateMain = pool => {

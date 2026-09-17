@@ -2,7 +2,9 @@ import { expandedPickerImages } from './selector-images-expanded.js?v=enemies-37
 // Representative enemies and facility markers from Helldivers Wiki and user-provided artwork.
 // Original files and source-served image versions; no generated game artwork.
 import { predatorHunterPortrait } from './predator-hunter-images.js';
+import { additionalPickerImages } from './enemy-images-additional.js';
 export const pickerEnemyImages = {
+  ...additionalPickerImages,
   'predator-hunter': predatorHunterPortrait,
   ...expandedPickerImages,
   "charger": {

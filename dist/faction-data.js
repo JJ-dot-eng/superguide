@@ -7,8 +7,23 @@ export const factionSides = [
 ];
 const wiki = name => `https://helldivers.wiki.gg/wiki/${name}`;
 const unit = (enemy, change, weapons, targets = ['head'], base = null) => ({ enemy, change, weapons, targets, base });
-const precision = ['anti-materiel', 'autocannon', 'heavy-machine-gun'];
+const precision = ['autocannon', 'heavy-machine-gun', 'anti-materiel'];
 const antiTank = ['recoilless', 'quasar', 'commando'];
+const jetHulkWeapons = ['grenade-launcher', 'epoch:charged', 'autocannon', 'anti-materiel'];
+export const factionHandling = {
+  'anti-materiel': { label: '정밀 사격 · 숙련 후 추천', note: '작은 약점을 조준경으로 정확히 맞혀야 합니다. 적은 탄수보다 조준 난도를 고려해 후순위로 배치했습니다.' },
+  'grenade-launcher': { label: '범위 폭발 활용', note: '작은 점을 맞히는 대신 폭발 범위에 약점을 넣는 대응입니다. 근접 폭발과 아군 위치에 주의하세요.' },
+  'epoch:charged': { label: '충전 타이밍 필요', note: '완전 충전 후 발사하세요. 충전을 지나치게 유지하면 자폭할 수 있어 타이밍 연습이 필요합니다.' },
+};
+export const factionApproaches = Object.fromEntries(['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher'].flatMap(enemy =>
+  ['grenade-launcher', 'epoch:charged'].map(choice => [`${enemy}:${choice}`, {
+    target: 'jetpack', directHit: false,
+    title: '정면 상부에 착탄 → 뒤쪽 제트팩에 폭발',
+    tip: '작은 붉은 눈을 정확히 맞힐 필요 없이 머리·상체 위쪽에서 폭발시켜 뒤쪽 제트팩을 폭발 범위에 넣으세요. 제트팩이 파괴되면 헐크도 처치됩니다.',
+    condition: '제트팩에 최대 폭발 피해가 닿는 조건입니다. 정면 어디에 맞혀도 같은 결과가 나오는 것은 아니며, 착탄 위치·거리 감쇠·폭발 경로에 따라 더 필요할 수 있습니다. 제트팩 직격 피해와 다른 부위 피해는 합산하지 않습니다.',
+    source: wiki('Jet_Brigade_Hulk_Scorcher#Tactical_Information'),
+  }])
+));
 // Weapon-specific aim choices take precedence over the unit's general shortlist.
 export const factionAimTargets = {
   'rupture-spewer:grenade-launcher': ['butt', 'spinal-plates'],
@@ -40,14 +55,14 @@ export const factionGuides = [
   { id: 'jet-brigade', side: 'automaton', name: '제트 여단', en: 'Jet Brigade', source: wiki('Jet_Brigade'),
     intro: '점프팩으로 거리를 좁힙니다. 헐크는 점프팩 파괴가 처치로 이어지지만, 데바스테이터는 같은 조건이 아닙니다.',
     coverage: '주요 중장갑 변종을 다룹니다. 일반 보병 변종은 포함하지 않습니다.',
-    units: [unit('jet-brigade-devastator', '점프팩을 부숴도 살아남을 수 있습니다. 확실한 처치 경로인 머리를 우선 비교합니다.', precision, ['head'], 'devastator'), unit('jet-brigade-hulk-bruiser', '기존 방열판을 점프팩이 덮습니다. 점프팩 파괴는 출혈이 아닌 처치 조건입니다.', precision, ['jetpack', 'head'], 'hulk-bruiser'), unit('jet-brigade-hulk-scorcher', '도약하는 화염방사형입니다. 점프팩과 작은 눈의 명중 조건을 구분하세요.', precision, ['jetpack', 'head'], 'hulk')] },
+    units: [unit('jet-brigade-devastator', '점프팩을 부숴도 살아남을 수 있습니다. 확실한 처치 경로인 머리를 우선 비교합니다.', precision, ['head'], 'devastator'), unit('jet-brigade-hulk-bruiser', '정면 상부의 폭발로 뒤쪽 제트팩을 터뜨리는 대응을 먼저 추천합니다. 눈 정밀 사격보다 조준 부담이 적고, 제트팩 파괴는 즉시 처치로 이어집니다.', jetHulkWeapons, ['jetpack', 'head'], 'hulk-bruiser'), unit('jet-brigade-hulk-scorcher', '도약하는 화염방사형입니다. 거리를 두고 정면 상부를 폭발시켜 제트팩을 노리세요. 작은 눈 정밀 사격은 숙련자용 대안입니다.', jetHulkWeapons, ['jetpack', 'head'], 'hulk')] },
   { id: 'incineration', side: 'automaton', name: '소각 군단', en: 'Incineration Corps', source: wiki('Incineration_Corps'),
     intro: '화염·소이 무장을 사용하는 주요 변종입니다. 같은 색상의 일반 유닛까지 체력 보정을 적용하지는 않습니다.',
     coverage: '화염형·소이 기관총 데바스테이터와 헐크 파이어봄버 기준입니다.',
-    units: [unit('conflagration-devastator', '소이 산탄총과 방패를 사용합니다. 방패 위로 드러난 머리를 노리거나 측면에서 허리를 공격하세요. 일반 헤비 데바스테이터의 배낭 약점은 없습니다.', precision, ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총과 방패로 압박합니다. 방패 정면을 계속 쏘기보다 위로 드러난 머리를 직접 맞히세요.', precision, ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 유탄과 화염방사기를 사용합니다. 정면에서는 작은 붉은 눈을 직접 맞히세요. 후방 방열판 파괴는 즉사와 다른 출혈 경로입니다.', ['anti-materiel', 'railgun', 'autocannon'], ['head'], 'hulk-bruiser')] },
+    units: [unit('conflagration-devastator', '소이 산탄총과 방패를 사용합니다. 방패 위로 드러난 머리를 노리거나 측면에서 허리를 공격하세요. 일반 헤비 데바스테이터의 배낭 약점은 없습니다.', precision, ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총과 방패로 압박합니다. 방패 정면을 계속 쏘기보다 위로 드러난 머리를 직접 맞히세요.', precision, ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 유탄과 화염방사기를 사용합니다. 정면에서는 작은 붉은 눈을 직접 맞히세요. 후방 방열판 파괴는 즉사와 다른 출혈 경로입니다.', ['autocannon', 'railgun', 'anti-materiel'], ['head'], 'hulk-bruiser')] },
   { id: 'cyborgs', side: 'automaton', name: '사이보그 군단', en: 'Cyborg Legion', source: wiki('Cyborg_Legion'),
     intro: '래디컬·애지테이터가 스트라이더 계열을 대체하고, 고난이도에는 복스 엔진이 등장합니다. 보병 정밀 대응과 대형 표적용 화력을 함께 준비하세요.',
-    units: [unit('radical', '빠르게 접근하는 전용 보병입니다. 노출된 머리를 먼저 노리세요.', ['machine-gun', 'anti-materiel', 'autocannon']), unit('agitator', '주변 병력을 지휘하는 전용 보병입니다. 투구를 벗긴 뒤 머리에 후속 공격이 필요합니다.', precision, ['helmet', 'torso-armor']), unit('vox-engine', '팩토리 스트라이더를 대체하는 대형 병기입니다. 넓은 폭발의 위키 처치 안내와 단일 부위 계산을 구분합니다.', ['leveller', 'solo-silo', 'recoilless'], ['sarcophagus'])] },
+    units: [unit('radical', '빠르게 접근하는 전용 보병입니다. 노출된 머리를 먼저 노리세요.', ['machine-gun', 'autocannon', 'anti-materiel']), unit('agitator', '주변 병력을 지휘하는 전용 보병입니다. 투구를 벗긴 뒤 머리에 후속 공격이 필요합니다.', precision, ['helmet', 'torso-armor']), unit('vox-engine', '팩토리 스트라이더를 대체하는 대형 병기입니다. 넓은 폭발의 위키 처치 안내와 단일 부위 계산을 구분합니다.', ['leveller', 'solo-silo', 'recoilless'], ['sarcophagus'])] },
   { id: 'vote-snatchers', side: 'illuminate', name: '보트 스내처', en: 'Vote Snatchers', source: wiki('Vote_Snatchers'),
     intro: '레치와 크러셔가 주요 일루미닛 병력을 대체합니다. 무권자·플레시몹도 함께 등장하므로 근접 압박에 대비하세요.',
     units: [unit('wretch', '머리 파괴만으로 즉사하지 않습니다. 본체로 피해가 전달되는 다리 경로를 비교합니다.', ['machine-gun', 'heavy-machine-gun', 'autocannon'], ['leg']), unit('crusher', '장갑 4 헬멧을 제거한 뒤 머리를 공격합니다. 몸통·다리의 재생을 제외한 수치는 별도 조건입니다.', ['heavy-machine-gun', 'autocannon', 'railgun'], ['helmet'])] },

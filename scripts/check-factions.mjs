@@ -16,14 +16,14 @@ for (const guide of factionGuides) {
   assert.doesNotMatch(html, /undefined|NaN/);
   assert(html.includes(guide.source));
   for (const unit of guide.units) for (const choice of unit.weapons) {
-    const { enemy, mode, row, weapon, reference, tactic } = factionRecommendation(unit, choice);
+    const { enemy, mode, row, weapon, reference, tactic, approach } = factionRecommendation(unit, choice);
     if (!row) {
       assert(tactic?.source && mode.unsupported, `${unit.enemy}/${choice} needs source-backed advice and an explicit calculation limitation`);
       assert(html.includes(mode.unsupported));
       cases++;
       continue;
     }
-    const actual = calculateMatchup(enemy, mode, { shieldCleared: true }).rows.find(item => item.target.id === row.target.id);
+    const actual = calculateMatchup(enemy, mode, { shieldCleared: true, ...(approach ? { directHit: approach.directHit } : {}) }).rows.find(item => item.target.id === row.target.id);
     assert.deepEqual(row, actual);
     assert(['kill', 'bleed', 'down'].includes(row.outcome));
     assert(!row.conditional);
@@ -39,12 +39,33 @@ for (const guide of factionGuides) {
 }
 const unit = id => factionGuides.flatMap(guide => guide.units).find(item => item.enemy === id);
 for (const id of ['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher']) {
+  assert.deepEqual(unit(id).weapons.slice(0, 2), ['grenade-launcher', 'epoch:charged']);
+  assert.equal(unit(id).weapons.at(-1), 'anti-materiel');
+  for (const [choice, hits, damage] of [['grenade-launcher', 3, 260], ['epoch:charged', 1, 800]]) {
+    const recommendation = factionRecommendation(unit(id), choice);
+    assert.equal(recommendation.row.target.id, 'jetpack');
+    assert.equal(recommendation.row.hits, hits);
+    assert.equal(recommendation.row.stages[0].damage.direct, 0, 'Frontal splash must not invent a direct jetpack hit');
+    assert.equal(recommendation.row.stages[0].damage.explosion, damage);
+    assert.equal(recommendation.approach.directHit, false);
+  }
   const amr = factionRecommendation(unit(id), 'anti-materiel');
   assert.equal(amr.row.target.id, 'head');
   assert.equal(amr.row.hits, 1);
   assert.equal(amr.alternatives.find(row => row.target.id === 'jetpack').hits, 3);
   assert.equal(factionRecommendation(unit(id), 'heavy-machine-gun').row.hits, 4);
 }
+for (const guide of factionGuides) for (const item of guide.units) {
+  if (item.weapons.includes('anti-materiel')) assert.equal(item.weapons.at(-1), 'anti-materiel', 'AMR should remain the precision alternative');
+}
+const jetHTML = renderFactionGuide(factionGuides.find(guide => guide.id === 'jet-brigade'), stratagems, wikiIcons);
+assert.match(jetHTML, /정면 상부에 착탄 → 뒤쪽 제트팩에 폭발/);
+assert.match(jetHTML, /3발 · 제트팩 파괴로 처치/);
+assert.match(jetHTML, /1발 · 제트팩 파괴로 처치/);
+assert.match(jetHTML, /정면 어디에 맞혀도 같은 결과가 나오는 것은 아니며/);
+assert.match(jetHTML, /제트팩 직격을 제외/);
+assert.match(jetHTML, /숙련 후 추천/);
+assert.match(jetHTML, /충전 타이밍 필요/);
 const gate = factionRecommendation(unit('gatekeeper'), 'autocannon');
 assert.equal(gate.row.target.id, 'rear-weakspot');
 assert.equal(gate.row.hits, 3);
@@ -92,6 +113,9 @@ try {
   assert.equal(doc.querySelector('#combat-mode').value, 'charged');
   assert.equal(doc.querySelector('#combat-shield-cleared').checked, false);
   click('[data-faction-side="automaton"]');
+  click('[data-faction-combat="jet-brigade-hulk-bruiser"][data-weapon="epoch"]');
+  assert.equal(doc.querySelector('#combat-enemy').value, 'jet-brigade-hulk-bruiser');
+  assert.equal(doc.querySelector('#combat-mode').value, 'charged');
   click('[data-faction-id="cyborgs"]');
   assert.match(root.innerHTML, /몸통 명중 시 1발 처치 가능/);
   click('[data-faction-combat="vox-engine"]');

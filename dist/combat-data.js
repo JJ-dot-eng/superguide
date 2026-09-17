@@ -132,6 +132,19 @@ const originalEnemies = [
     ],
   },
   hunter('hunter-hardened', '헌터', 160, 60),
+  {
+    id: 'predator-hunter', name: '프레데터 헌터', faction: '테르미니드', family: 'predator-hunter',
+    source: wiki('Predator_Hunter'), sourceRevision: 135098, checkedAt: '2026-09-17',
+    main: main(175, 0, 0, 0),
+    note: '은신·담즙 발사·측면 도약을 사용하는 변종입니다. 본체 체력 175는 일반 고난이도 헌터 160과 다릅니다. 머리는 치명 부위이며 앞발·다리·날개 하나의 파괴는 처치가 아닙니다.',
+    parts: [
+      part('body', '본체', 175, 0, 0, 0, 100, true, 'kill', '몸통 중앙에 집중하세요. 개별 부위 파괴 대신 본체 체력을 소진하는 경로입니다.', { mainOnly: true }),
+      part('head', '머리', 40, 0, 0, 100, 100, true, 'kill', '은신이 풀리거나 착지한 순간 작은 머리를 직접 맞히세요.'),
+      part('claw', '앞발 한쪽', 60, 0, 0, 100, 40, false, 'break', '길게 뻗은 앞발 한쪽입니다. 한쪽 파괴는 처치와 다릅니다.'),
+      part('leg', '다리 한쪽', 60, 0, 0, 100, 50, false, 'break', '같은 다리를 맞혀 이동과 도약을 방해하세요. 한 다리 파괴만으로 죽지 않습니다.'),
+      part('wing', '날개 한쪽', 20, 0, 0, 100, 30, false, 'break', '등의 날개 한쪽입니다. 날개 파괴는 치명 부위 파괴가 아닙니다.'),
+    ],
+  },
   warrior('warrior-hardened', '워리어', 325, 150, 100),
   {
     id: 'hive-guard', name: '하이브 가드', faction: '테르미니드', source: wiki('Hive_Guard'), sourceRevision: 135085,
@@ -272,7 +285,7 @@ const originalEnemies = [
 ];
 
 // Faction order, with related base units and variants adjacent.
-const enemyOrder = ["hunter-hardened","warrior-hardened","alpha-warrior","bile-warrior","rupture-warrior","spore-burst-warrior","hive-guard","brood-commander","alpha-commander","nursing-spewer","bile-spewer-armored","rupture-spewer","stalker","predator-stalker","charger","behemoth","spore-charger","rupture-charger","impaler","shrieker","dragonroach","bile-titan","spore-burst-bile-titan","hive-lord","berserker","radical","agitator","devastator","rocket-devastator","heavy-devastator","conflagration-devastator","incendiary-mg-devastator","jet-brigade-devastator","scout-strider","reinforced-strider","hulk","hulk-bruiser","hulk-obliterator","hulk-firebomber","jet-brigade-hulk-scorcher","jet-brigade-hulk-bruiser","annihilator-tank","shredder-tank","barrager-tank","gunship","dropship","war-strider","factory-strider","vox-engine","voteless-light","voteless-medium","voteless-heavy","wretch","overseer","elevated-overseer","crescent-overseer","watcher","fleshmob","crusher","harvester","veracitor","gatekeeper","stingray","warp-ship","leviathan"];
+const enemyOrder = ["hunter-hardened","predator-hunter","warrior-hardened","alpha-warrior","bile-warrior","rupture-warrior","spore-burst-warrior","hive-guard","brood-commander","alpha-commander","nursing-spewer","bile-spewer-armored","rupture-spewer","stalker","predator-stalker","charger","behemoth","spore-charger","rupture-charger","impaler","shrieker","dragonroach","bile-titan","spore-burst-bile-titan","hive-lord","berserker","radical","agitator","devastator","rocket-devastator","heavy-devastator","conflagration-devastator","incendiary-mg-devastator","jet-brigade-devastator","scout-strider","reinforced-strider","hulk","hulk-bruiser","hulk-obliterator","hulk-firebomber","jet-brigade-hulk-scorcher","jet-brigade-hulk-bruiser","annihilator-tank","shredder-tank","barrager-tank","gunship","dropship","war-strider","factory-strider","vox-engine","voteless-light","voteless-medium","voteless-heavy","wretch","overseer","elevated-overseer","crescent-overseer","watcher","fleshmob","crusher","harvester","veracitor","gatekeeper","stingray","warp-ship","leviathan"];
 const factionOrder = ['테르미니드', '오토마톤', '일루미닛'];
 const enemyRank = new Map(enemyOrder.map((id, index) => [id, index]));
 export const enemies = [...originalEnemies, ...expandedEnemies].sort((a, b) =>

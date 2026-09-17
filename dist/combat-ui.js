@@ -1,6 +1,6 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=vox-explanation-2';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=predator-hunter-1';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
-import { combatImages } from './combat-images.js?v=enemies-37-1';
+import { combatImages } from './combat-images.js?v=predator-hunter-1';
 import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=vox-leveller-1';
 import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=enemies-37-1';
 import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';

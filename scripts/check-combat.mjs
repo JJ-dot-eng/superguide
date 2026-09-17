@@ -7,8 +7,8 @@ import { stratagems } from '../dist/data.js';
 const source = url => assert.equal(new URL(url).hostname, 'helldivers.wiki.gg');
 source(damageSource);
 assert.match(combatCheckedAt, /^\d{4}-\d{2}-\d{2}$/);
-assert.equal(enemies.length, 65, 'Include the reviewed expansion, excluding Overship');
-assert.equal(enemyTypeCount, 63, 'Body-size options must not inflate the enemy species counter');
+assert.equal(enemies.length, 66, 'Include the reviewed expansion, excluding Overship');
+assert.equal(enemyTypeCount, 64, 'Body-size options must not inflate the enemy species counter');
 assert.equal(new Set(enemies.map(enemy => enemy.id)).size, enemies.length);
 assert(!enemies.some(enemy => ['hunter', 'warrior', 'bile-spewer'].includes(enemy.id)), 'Low-difficulty entries must not be selectable');
 const validateMain = pool => {
@@ -109,6 +109,10 @@ assert(calculateMatchup(enemy('charger'), undefined).rows.every(row => row.outco
 
 // Current Wiki anatomy examples and mechanically distinct new routes.
 assert.deepEqual([enemy('hunter-hardened').main.hp, ...enemy('hunter-hardened').parts.map(part => part.hp)], [160, 40, 60, 60], 'Retain high-difficulty Hunter health');
+assert.deepEqual([enemy('predator-hunter').main.hp, ...enemy('predator-hunter').parts.map(part => part.hp)], [175, 175, 40, 60, 60, 20]);
+assert.equal(enemy('predator-hunter').sourceRevision, 135098);
+assert.deepEqual(enemy('predator-hunter').parts.map(part => part.armor), [0, 0, 0, 0, 0]);
+assert.deepEqual(enemy('predator-hunter').parts.map(part => part.toMain), [100, 100, 40, 50, 30]);
 assert.deepEqual([enemy('warrior-hardened').main.hp, ...enemy('warrior-hardened').parts.map(part => part.hp)], [325, 150, 100, 100], 'Retain high-difficulty Warrior health');
 for (const family of ['hunter', 'warrior', 'bile-spewer']) assert.equal(enemies.filter(enemy => enemy.family === family).length, 1, 'Each difficulty-dependent enemy appears once');
 assert.equal(route('warrior-hardened', 'head', 'maxigun').hits, 3, 'Difficulty 4 increases Warrior head HP');

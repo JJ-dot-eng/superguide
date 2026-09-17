@@ -1,6 +1,8 @@
 import { expandedCombatImages } from './combat-images-expanded.js?v=enemies-37-1';
 // Wiki-rendered anatomy images, unaltered. thumbnailCrop is only the CSS viewing window; the enlarged view shows the full image.
+import { predatorHunterAnatomy } from './predator-hunter-images.js';
 export const combatImages = {
+  'predator-hunter': predatorHunterAnatomy,
   ...expandedCombatImages,
   "charger": {
     "head": [

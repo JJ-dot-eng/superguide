@@ -7,15 +7,20 @@ import { stratagems } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
 import { initCombat } from '../dist/combat-ui.js';
 import { TestDocument } from './test-dom.mjs';
+import { factionLoadouts } from '../dist/faction-loadouts.js';
 
 let cases = 0;
 assert.equal(new Set(factionGuides.map(item => item.id)).size, factionGuides.length);
 for (const guide of factionGuides) {
   assert(factionSides.some(side => side.id === guide.side));
   const html = renderFactionGuide(guide, stratagems, wikiIcons);
+  assert.doesNotMatch(html, /대물소총|data-weapon="anti-materiel"/);
   assert.doesNotMatch(html, /undefined|NaN/);
   assert(html.includes(guide.source));
   for (const unit of guide.units) for (const choice of unit.weapons) {
+    const selection = factionLoadouts[unit.enemy].find(item => item.weapon === choice);
+    assert(selection?.label && selection.note);
+    assert(html.includes(selection.note), 'Show the actual matchup-specific benefit and limitation');
     const { enemy, mode, row, weapon, reference, tactic, approach } = factionRecommendation(unit, choice);
     if (!row) {
       assert(tactic?.source && mode.unsupported, `${unit.enemy}/${choice} needs source-backed advice and an explicit calculation limitation`);
@@ -26,6 +31,7 @@ for (const guide of factionGuides) {
     const actual = calculateMatchup(enemy, mode, { shieldCleared: true, ...(approach ? { directHit: approach.directHit } : {}) }).rows.find(item => item.target.id === row.target.id);
     assert.deepEqual(row, actual);
     assert(['kill', 'bleed', 'down'].includes(row.outcome));
+    assert(selection.targets.includes(row.target.id), 'Do not silently replace practical aim with the lowest-count part');
     assert(!row.conditional);
     if (enemy.id === 'wretch') assert.equal(row.target.id, 'leg');
     if (enemy.id === 'vox-engine' && ['leveller', 'solo-silo'].includes(weapon)) {
@@ -40,7 +46,7 @@ for (const guide of factionGuides) {
 const unit = id => factionGuides.flatMap(guide => guide.units).find(item => item.enemy === id);
 for (const id of ['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher']) {
   assert.deepEqual(unit(id).weapons.slice(0, 2), ['grenade-launcher', 'epoch:charged']);
-  assert.equal(unit(id).weapons.at(-1), 'anti-materiel');
+  assert.equal(unit(id).weapons.at(-1), 'autocannon');
   for (const [choice, hits, damage] of [['grenade-launcher', 3, 260], ['epoch:charged', 1, 800]]) {
     const recommendation = factionRecommendation(unit(id), choice);
     assert.equal(recommendation.row.target.id, 'jetpack');
@@ -56,20 +62,26 @@ for (const id of ['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher']) {
   assert.equal(factionRecommendation(unit(id), 'heavy-machine-gun').row.hits, 4);
 }
 for (const guide of factionGuides) for (const item of guide.units) {
-  if (item.weapons.includes('anti-materiel')) assert.equal(item.weapons.at(-1), 'anti-materiel', 'AMR should remain the precision alternative');
+  assert(!item.weapons.includes('anti-materiel'));
 }
+assert.equal(factionRecommendation(unit('predator-stalker'), 'machine-gun').row.target.id, 'body-armor');
+assert.equal(factionRecommendation(unit('predator-stalker'), 'machine-gun').row.hits, 12, 'Do not automatically promote the 2-shot small head');
+assert.equal(factionRecommendation(unit('overseer'), 'machine-gun').row.target.id, 'chest-armor');
+assert.equal(factionRecommendation(unit('elevated-overseer'), 'machine-gun').row.target.id, 'chest-armor');
+assert.equal(factionRecommendation(unit('agitator'), 'grenade-launcher').row.target.id, 'pelvis-left-leg');
+assert.equal(factionRecommendation(unit('hulk-firebomber'), 'autocannon').row.target.id, 'heatsink');
 const jetHTML = renderFactionGuide(factionGuides.find(guide => guide.id === 'jet-brigade'), stratagems, wikiIcons);
 assert.match(jetHTML, /정면 상부에 착탄 → 뒤쪽 제트팩에 폭발/);
 assert.match(jetHTML, /3발 · 제트팩 파괴로 처치/);
 assert.match(jetHTML, /1발 · 제트팩 파괴로 처치/);
 assert.match(jetHTML, /정면 어디에 맞혀도 같은 결과가 나오는 것은 아니며/);
 assert.match(jetHTML, /제트팩 직격을 제외/);
-assert.match(jetHTML, /숙련 후 추천/);
-assert.match(jetHTML, /충전 타이밍 필요/);
+assert.match(jetHTML, /완전 충전 필요/);
+assert.match(jetHTML, /과도|지나치게|자폭/);
 const gate = factionRecommendation(unit('gatekeeper'), 'autocannon');
 assert.equal(gate.row.target.id, 'rear-weakspot');
 assert.equal(gate.row.hits, 3);
-assert.equal(gate.alternatives.find(row => row.target.id === 'chassis').hits, 10);
+assert.equal(calculateMatchup(gate.enemy, gate.mode, { shieldCleared: true }).rows.find(row => row.target.id === 'chassis').hits, 10);
 assert.equal(factionRecommendation(unit('gatekeeper'), 'recoilless').row.target.id, 'chassis');
 assert.equal(factionRecommendation(unit('rupture-spewer'), 'grenade-launcher').row.target.id, 'butt');
 const flesh = factionRecommendation(unit('fleshmob'), 'grenade-launcher');

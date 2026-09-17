@@ -25,7 +25,28 @@ const harvester = [
   pick('recoilless', 'joint', '관절 한 발 화력 · 정지 재장전', '보호막 제거 후 가로 연결부에 집중합니다. 눈을 노리는 방식이 아니며 빗맞히면 재장전 부담이 큽니다.'),
   pick('autocannon', 'joint', '관절 반복 사격 · 배낭 필요', '보호막 제거 뒤 같은 가로 관절을 계속 맞힙니다. 여러 다리에 피해를 나누지 말고 재장전할 엄폐를 확보하세요.'),
 ];
+const lightBot = [
+  pick('stalwart', 'torso', '몸통 연사 · 이동 재장전', '작은 머리보다 넓은 몸통에 연사하세요. 점프·화염 보병과 거리를 벌리며 재장전할 수 있고, 파괴된 팩의 폭발에는 접근하지 마세요.'),
+  pick('machine-gun', 'torso', '몸통 연사 · 정지 재장전', '가슴 중앙을 직접 맞히세요. 다른 적도 함께 상대하기 좋지만 재장전할 때 멈추므로 엄폐를 확보하세요.'),
+];
+const smallSpore = page => [
+  { ...sporeFire('flamethrower', '우선 추천 · 포자 방출 억제', '접근하는 적을 직접 점화하고 불타는 상태로 죽여 포자 방출을 막으세요. 화염 사거리와 아군 위치를 확인하세요.'), source: `https://helldivers.wiki.gg/wiki/${page}#Tactical_Information` },
+  { ...sporeFire('cremator', '직접 점화 · 연료 배낭 필요', '화염으로 무리를 태워 사망 시 포자 방출 억제를 노립니다. 연료 배낭이 필요하며 지면 화염과 아군 오사를 피하세요.'), source: `https://helldivers.wiki.gg/wiki/${page}#Tactical_Information` },
+  pick('stalwart', 'body', '비화염 대안 · 이동 재장전', '몸통을 따라가며 연사하고 포자 폭발 범위 밖을 유지하세요. 이 무기의 비화염 처치만으로는 포자 방출을 막지 못합니다.'),
+];
 export const factionLoadouts = {
+  'spore-burst-scavenger': smallSpore('Spore_Burst_Scavenger'),
+  'spore-burst-hunter': smallSpore('Spore_Burst_Hunter'),
+  'assault-raider': lightBot,
+  'jet-brigade-commissar': lightBot,
+  'jet-brigade-trooper': lightBot,
+  'jet-brigade-mg-raider': lightBot,
+  'pyro-trooper': lightBot,
+  'incendiary-rocket-raider': lightBot,
+  'obtruder': [
+    pick('stalwart', 'body', '비행체 몸통 연사 · 이동 재장전', '움직이는 비행체의 넓은 몸체를 따라가며 연사하세요. 작은 눈 정밀 조준보다 맞히기 쉽고 이동 재장전으로 포위를 벗어날 수 있습니다.'),
+    pick('autocannon:flak', null, '대공포탄 모드 · 군집 대응', '모여 있는 드론에 근접 신관과 파편을 활용하세요. 탄약 배낭과 정지 재장전이 필요하며 가까이 붙은 적에게 쏘면 폭발에 휘말릴 수 있습니다.'),
+  ],
   'predator-hunter': [
     pick('stalwart', 'body', '이동 재장전 · 몸통 연사', '은신이 풀리거나 도약 후 착지했을 때 드러난 몸통을 따라가며 연사하세요. 이동 재장전으로 거리를 유지하되 담즙 공격도 피하세요.'),
     pick('machine-gun', 'body', '몸통 연사 · 정지 재장전', '작은 머리 대신 몸통에 연사합니다. 재장전할 때 멈추므로 측면에서 접근하는 개체를 확인하세요.'),

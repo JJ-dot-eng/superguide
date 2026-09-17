@@ -2,12 +2,12 @@ import { categories, stratagems, checkedAt } from './data.js?v=fire-specs-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=predator-hunter-1';
+import { initCombat } from './combat-ui.js?v=all-enemies-1';
 import { initFeatureNavigation } from './features.js?v=faction-guide-1';
-import { initFactionGuide } from './faction-guide.js?v=predator-hunter-1';
+import { initFactionGuide } from './faction-guide.js?v=all-enemies-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
-import { pickerConfigs } from './picker-content.js?v=predator-hunter-1';
+import { pickerConfigs } from './picker-content.js?v=all-enemies-1';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };

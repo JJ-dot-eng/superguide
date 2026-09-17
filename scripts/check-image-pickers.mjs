@@ -11,7 +11,7 @@ import { initDemolition } from '../dist/demolition-ui.js';
 import { TestDocument } from './test-dom.mjs';
 
 const configs = pickerConfigs({ stratagems, categories, wikiIcons });
-assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 66], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
+assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 84], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
 for (const config of configs) {
   assert.equal(new Set(config.items.map(item => item.id)).size, config.items.length);
   const html = renderPickerItems(config.items, config.items[0].id);
@@ -124,7 +124,7 @@ try {
   type('존재하지않음');
   assert.equal(inside('.picker-empty').hidden, false);
   click(inside('.picker-empty button'));
-  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 66);
+  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 84);
   inside('input').dispatchEvent({ type: 'keydown', key: 'ArrowDown' });
   const buttons = inside('.picker-grid').querySelectorAll('button');
   const current = buttons.indexOf(doc.activeElement);
@@ -142,4 +142,4 @@ try {
 const css = await readFile(new URL('../dist/styles.css', import.meta.url), 'utf8');
 assert.match(css, /\.picker-grid\{[^}]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
 assert.match(css, /\.picker-scroll\{[^}]*overflow-y:auto[^}]*overscroll-behavior:contain/);
-console.log(`PASS: four image pickers, 228 options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} source image assets.`);
+console.log(`PASS: four image pickers, ${configs.reduce((sum, config) => sum + config.items.length, 0)} options, search/groups, selection synchronization, keyboard/focus/close behavior, both calculators and ${paths.size} source image assets.`);

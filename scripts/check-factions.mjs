@@ -72,7 +72,13 @@ assert(sporeHTML.indexOf('크리메이터') < sporeHTML.indexOf('비화염 대�
 const predatorHTML = renderFactionGuide(factionGuides.find(g => g.id === 'predator'), stratagems, wikiIcons);
 assert.match(predatorHTML, /175로 일반 고난이도 헌터 160/);
 assert.match(predatorHTML, /본체 체력 650/);
-assert.doesNotMatch(predatorHTML, /data-faction-combat="predator-hunter"/);
+assert.match(predatorHTML, /data-faction-combat="predator-hunter"/);
+assert.match(predatorHTML, /enemy-predator-hunter.png/);
+const predatorShot = factionRecommendation(unit('predator-hunter'), 'stalwart');
+assert.equal(predatorShot.enemy.main.hp, 175);
+assert.equal(predatorShot.row.target.id, 'body');
+assert.equal(predatorShot.row.hits, 2);
+assert.equal(predatorShot.row.outcome, 'kill');
 for (const id of ['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher']) {
   assert.deepEqual(unit(id).weapons.slice(0, 2), ['grenade-launcher', 'epoch:charged']);
   assert.equal(unit(id).weapons.at(-1), 'autocannon');
@@ -139,6 +145,10 @@ try {
   initFactionGuide({ stratagems, wikiIcons, openMatchup: combat.openMatchup });
   const root = doc.querySelector('#factions-view');
   const click = selector => { const button = root.querySelector(selector); assert(button, selector); root.dispatchEvent({ type: 'click', target: button }); };
+  click('[data-faction-combat="predator-hunter"][data-weapon="stalwart"]');
+  assert.equal(doc.querySelector('#combat-enemy').value, 'predator-hunter');
+  assert.match(doc.querySelector('#combat-enemy-info').innerHTML, /175/);
+  assert.match(doc.querySelector('#combat-routes').innerHTML, /predator-hunter-head/);
   click('[data-faction-side="illuminate"]');
   click('[data-faction-id="mindless"]');
   assert.match(root.innerHTML, /마인드리스 매스/);

@@ -11,7 +11,7 @@ import { initDemolition } from '../dist/demolition-ui.js';
 import { TestDocument } from './test-dom.mjs';
 
 const configs = pickerConfigs({ stratagems, categories, wikiIcons });
-assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 65], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
+assert.deepEqual(configs.map(config => [config.id, config.items.length]), [['combat-enemy', 66], ['combat-weapon', 33], ['demolition-structure', 19], ['demolition-weapon', 111]]);
 for (const config of configs) {
   assert.equal(new Set(config.items.map(item => item.id)).size, config.items.length);
   const html = renderPickerItems(config.items, config.items[0].id);
@@ -43,7 +43,7 @@ for (const asset of [...Object.values(pickerEnemyImages), ...Object.values(picke
     assert.equal(new URL(asset.originalUrl).hostname, assetHost);
     assert(asset.uploader);
   }
-  assert.equal(asset.retrievedAt, '2026-09-16');
+  assert.match(asset.retrievedAt, /^2026-09-(16|17)$/);
   assert(asset.width > 0 && asset.height > 0);
   const bytes = await readFile(new URL('../dist/' + asset.src.slice(2), import.meta.url));
   assert.equal(createHash('sha256').update(bytes).digest('hex'), asset.sha256);
@@ -124,7 +124,7 @@ try {
   type('존재하지않음');
   assert.equal(inside('.picker-empty').hidden, false);
   click(inside('.picker-empty button'));
-  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 65);
+  assert.equal(inside('.picker-grid').querySelectorAll('button').length, 66);
   inside('input').dispatchEvent({ type: 'keydown', key: 'ArrowDown' });
   const buttons = inside('.picker-grid').querySelectorAll('button');
   const current = buttons.indexOf(doc.activeElement);

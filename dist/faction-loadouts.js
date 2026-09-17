@@ -27,7 +27,8 @@ const harvester = [
 ];
 export const factionLoadouts = {
   'predator-hunter': [
-    { ...pick('stalwart', null, '이동 재장전 · 접근하는 몸통에 연사', '도약 전이나 착지 직후 드러난 몸통에 연사하며 거리를 벌리세요. 은신과 담즙 공격 때문에 표적을 놓치지 않도록 주변을 확인하세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Predator_Hunter', limitation: '프레데터 헌터 전용 계산은 아직 연결되지 않았습니다. 일반 헌터의 탄수를 대신 표시하지 않습니다.' },
+    pick('stalwart', 'body', '이동 재장전 · 몸통 연사', '은신이 풀리거나 도약 후 착지했을 때 드러난 몸통을 따라가며 연사하세요. 이동 재장전으로 거리를 유지하되 담즙 공격도 피하세요.'),
+    pick('machine-gun', 'body', '몸통 연사 · 정지 재장전', '작은 머리 대신 몸통에 연사합니다. 재장전할 때 멈추므로 측면에서 접근하는 개체를 확인하세요.'),
   ],
   'predator-stalker': [
     pick('machine-gun', 'body-armor', '몸통 연사 · 정지 재장전', '빠르게 접근하는 넓은 몸통에 연사합니다. 머리보다 탄은 더 들지만 작은 머리를 계속 따라갈 필요가 적습니다.'),

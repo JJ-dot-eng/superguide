@@ -1,4 +1,4 @@
-import { factionLoadouts } from './faction-loadouts.js?v=weapons-only-1';
+import { factionLoadouts } from './faction-loadouts.js?v=predator-hunter-1';
 // Curated composition and tactics; combat numbers always come from combat-data.
 export const factionCheckedAt = '2026-09-17';
 export const factionGuideEnemies = {
@@ -39,7 +39,7 @@ export const factionTactics = {
 export const factionGuides = [
   { id: 'predator', side: 'terminid', name: '프레데터 변종', en: 'Predator Strain', source: wiki('Predator_Strain'),
     intro: '기습과 추격에 대비하세요. 접근하는 변종의 몸통에 연사하거나 큰 표적에 직접 화력을 넣는 대응을 고릅니다.',
-    coverage: '헌터와 스토커 두 변종을 모두 안내합니다. 헌터는 전술 안내를 제공하며 전용 탄수 계산은 아직 연결되지 않았습니다.',
+    coverage: '헌터와 스토커 두 변종을 모두 안내합니다. 각 변종의 전용 부위 수치와 적 대응 계산으로 연결됩니다.',
     units: [unit('predator-hunter', '은신·담즙 발사·측면 도약을 사용하는 변종입니다. 본체 체력은 175로 일반 고난이도 헌터 160보다 높습니다. 머리 체력 40·장갑 0, 앞발·다리 체력 60은 일반 고난이도형과 같습니다. 화염 피해 배율은 0.7배입니다.', [], 'hunter-hardened'), unit('predator-stalker', '본체 체력 650으로 일반 스토커 800보다 낮고 머리 체력 175·장갑 1은 같습니다. 은신·혀 공격·피격 후 후퇴 없이 추격하며 둥지 외 순찰·증원에서도 등장합니다.', ['head'], 'stalker')] },
   { id: 'spore-burst', side: 'terminid', name: '스포어 버스트 변종', en: 'Spore Burst Strain', source: wiki('Spore_Burst_Strain'),
     intro: '사망 시 포자 폭발과 주변 적의 가속에 대비해 거리를 두세요. 대형 변종은 일반형의 탄수를 그대로 쓰면 안 됩니다.',

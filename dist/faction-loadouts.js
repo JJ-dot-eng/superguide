@@ -21,12 +21,17 @@ const harvester = [
   pick('autocannon', 'joint', '관절 반복 사격 · 배낭 필요', '보호막 제거 뒤 같은 가로 관절을 계속 맞힙니다. 여러 다리에 피해를 나누지 말고 재장전할 엄폐를 확보하세요.'),
 ];
 export const factionLoadouts = {
+  'predator-hunter': [
+    { ...pick('dog-breath', null, '가스 혼란 · 접근 방해', '은신하며 접근하는 헌터를 가스로 혼란시켜 공격을 방해하는 보조 장비입니다. 조준을 대신 도와주지만 혼자 모든 적을 처치하는 수단으로 보지 마세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Predator_Hunter#Tactical_Information', limitation: '가스 노출 시간과 자동 표적 선택을 고정할 수 없어 처치 탄수는 표시하지 않습니다.' },
+    { ...pick('stalwart', null, '이동 재장전 · 접근하는 몸통에 연사', '도약 전이나 착지 직후 드러난 몸통에 연사하며 거리를 벌리세요. 은신과 담즙 공격 때문에 표적을 놓치지 않도록 주변을 확인하세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Predator_Hunter', limitation: '프레데터 헌터 전용 계산은 아직 연결되지 않았습니다. 일반 헌터의 탄수를 대신 표시하지 않습니다.' },
+  ],
   'predator-stalker': [
     pick('machine-gun', 'body-armor', '몸통 연사 · 정지 재장전', '빠르게 접근하는 넓은 몸통에 연사합니다. 머리보다 탄은 더 들지만 작은 머리를 계속 따라갈 필요가 적습니다.'),
     pick('stalwart', 'underbelly', '이동 재장전 · 얇은 복부 조준', '움직이며 재장전할 수 있어 추격에 대응하기 좋습니다. 위쪽 외피보다 장갑이 낮은 아래 복부를 노려야 합니다.'),
     pick('autocannon', 'body-armor', '몸통 직접 타격 · 거리 확보', '작은 머리 대신 몸통을 맞힙니다. 근접 폭발을 피할 거리와 정지 재장전할 틈이 필요합니다.'),
   ],
   'spore-burst-warrior': [
+    { ...pick('flamethrower', null, '우선 추천 · 포자 방출 억제', '불타는 상태로 죽도록 점화해 포자 방출을 막으세요. 단순히 한 번 불을 붙였다는 이유로 보장되는 것은 아니며, 죽는 시점까지 불타는 상태여야 합니다. 화염 사거리 안으로 접근해야 하고 아군·지면 화염에 주의하세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Spore_Burst_Warrior#Tactical_Information', limitation: '화염 직격·지면 화염·화상 노출 시간에 따라 달라 고정 처치 탄수나 시간을 표시하지 않습니다. 가스 혼란만으로 같은 포자 억제 효과가 난다고 가정하지 않습니다.' },
     pick('grenade-launcher', 'head', '무리 폭발 · 거리 확보', '밀집한 무리에 유탄을 사용합니다. 표시 탄수는 한 마리의 한 경로만 계산하며 포자·근접 폭발을 피해 거리를 두세요.'),
     pick('machine-gun', 'head', '연사 보정 · 출혈 중 접근 주의', '머리에 연사하며 조준을 보정합니다. 머리가 떨어져도 잠시 공격할 수 있고 재장전 시 멈춥니다.'),
     pick('autocannon', 'head', '직격·폭발 · 탄약 배낭 필요', '드러난 머리에 직격시키고 폭발도 활용합니다. 탄약 배낭과 정지 재장전 때문에 주변 엄폐를 확보하세요.'),

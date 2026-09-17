@@ -27,7 +27,6 @@ const harvester = [
 ];
 export const factionLoadouts = {
   'predator-hunter': [
-    { ...pick('dog-breath', null, '가스 혼란 · 접근 방해', '은신하며 접근하는 헌터를 가스로 혼란시켜 공격을 방해하는 보조 장비입니다. 조준을 대신 도와주지만 혼자 모든 적을 처치하는 수단으로 보지 마세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Predator_Hunter#Tactical_Information', limitation: '가스 노출 시간과 자동 표적 선택을 고정할 수 없어 처치 탄수는 표시하지 않습니다.' },
     { ...pick('stalwart', null, '이동 재장전 · 접근하는 몸통에 연사', '도약 전이나 착지 직후 드러난 몸통에 연사하며 거리를 벌리세요. 은신과 담즙 공격 때문에 표적을 놓치지 않도록 주변을 확인하세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Predator_Hunter', limitation: '프레데터 헌터 전용 계산은 아직 연결되지 않았습니다. 일반 헌터의 탄수를 대신 표시하지 않습니다.' },
   ],
   'predator-stalker': [
@@ -38,9 +37,6 @@ export const factionLoadouts = {
   'spore-burst-warrior': [
     { ...pick('flamethrower', null, '우선 추천 · 포자 방출 억제', '불타는 상태로 죽도록 점화해 포자 방출을 막으세요. 단순히 한 번 불을 붙였다는 이유로 보장되는 것은 아니며, 죽는 시점까지 불타는 상태여야 합니다. 화염 사거리 안으로 접근해야 하고 아군·지면 화염에 주의하세요.'), adviceOnly: true, source: 'https://helldivers.wiki.gg/wiki/Spore_Burst_Warrior#Tactical_Information', limitation: '화염 직격·지면 화염·화상 노출 시간에 따라 달라 고정 처치 탄수나 시간을 표시하지 않습니다. 가스 혼란만으로 같은 포자 억제 효과가 난다고 가정하지 않습니다.' },
     sporeFire('cremator', '직접 점화 · 연료 배낭 필요', '화염방사기처럼 접근하는 적을 직접 태워 포자 방출 억제를 노립니다. 연료 배낭을 사용하므로 다른 배낭과 함께 들 수 없고, 지형에 막히거나 가까이서 되튀는 불길에 주의하세요.'),
-    sporeFire('hot-dog', '자동 점화 · 배낭 슬롯 사용', '직접 조준하는 부담을 줄이고 싶을 때 고릅니다. 드론이 접근하는 적을 자동으로 점화하므로 다른 무기로 대응하면서 화상을 활용할 수 있습니다. 연료 보충 중에는 공백이 생기며 아군과 퇴로에 불을 붙일 수 있습니다.'),
-    sporeFire('flame-sentry', '진입로 자동 점화 · 설치형', '한 방향으로 몰려오는 워리어를 태우도록 진입로에 배치합니다. 이동하면서 쓰는 무기와 달리 설치 위치가 중요하고, 적이 바짝 붙거나 사선이 막히면 지원하기 어렵습니다. 아군이 불길을 가로지르지 않게 놓으세요.'),
-    sporeFire('eagle-napalm', '무리 진입로 점화 · 잔불 활용', '적 무리 앞의 진입로에 불길을 깔아 뒤따라오는 적이 불타게 합니다. 화염 무기를 직접 들지 않고도 점화를 지원할 수 있지만 아군 퇴로를 태우지 마세요.', ' 최초 폭발로 점화 전에 죽는 적까지 포자 억제가 보장되지는 않습니다. 폭발 처치와 잔불에 의한 점화를 구분하세요.'),
     pick('machine-gun', 'head', '비화염 대안 · 머리 제거 후 출혈', '화염 장비를 쓰지 않는다면 머리를 제거한 뒤 거리를 벌려 출혈로 죽게 하는 방법이 있습니다. 출혈 중에도 공격하므로 접근하지 마세요. 추가 사격으로 먼저 죽이는 경우까지 포자 억제를 보장하지 않습니다.'),
   ],
   'spore-burst-bile-titan': tank,

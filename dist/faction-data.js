@@ -1,4 +1,4 @@
-import { factionLoadouts } from './faction-loadouts.js?v=spore-fire-options-1';
+import { factionLoadouts } from './faction-loadouts.js?v=weapons-only-1';
 // Curated composition and tactics; combat numbers always come from combat-data.
 export const factionCheckedAt = '2026-09-17';
 export const factionGuideEnemies = {

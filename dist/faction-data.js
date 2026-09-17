@@ -1,3 +1,4 @@
+import { factionLoadouts } from './faction-loadouts.js?v=loadouts-2';
 // Curated composition and tactics; combat numbers always come from combat-data.
 export const factionCheckedAt = '2026-09-17';
 export const factionSides = [
@@ -6,15 +7,7 @@ export const factionSides = [
   { id: 'illuminate', name: '일루미닛', icon: './assets/pickers/faction-illuminate.svg' },
 ];
 const wiki = name => `https://helldivers.wiki.gg/wiki/${name}`;
-const unit = (enemy, change, weapons, targets = ['head'], base = null) => ({ enemy, change, weapons, targets, base });
-const precision = ['autocannon', 'heavy-machine-gun', 'anti-materiel'];
-const antiTank = ['recoilless', 'quasar', 'commando'];
-const jetHulkWeapons = ['grenade-launcher', 'epoch:charged', 'autocannon', 'anti-materiel'];
-export const factionHandling = {
-  'anti-materiel': { label: '정밀 사격 · 숙련 후 추천', note: '작은 약점을 조준경으로 정확히 맞혀야 합니다. 적은 탄수보다 조준 난도를 고려해 후순위로 배치했습니다.' },
-  'grenade-launcher': { label: '범위 폭발 활용', note: '작은 점을 맞히는 대신 폭발 범위에 약점을 넣는 대응입니다. 근접 폭발과 아군 위치에 주의하세요.' },
-  'epoch:charged': { label: '충전 타이밍 필요', note: '완전 충전 후 발사하세요. 충전을 지나치게 유지하면 자폭할 수 있어 타이밍 연습이 필요합니다.' },
-};
+const unit = (enemy, change, targets = ['head'], base = null) => ({ enemy, change, weapons: factionLoadouts[enemy].map(item => item.weapon), targets, base });
 export const factionApproaches = Object.fromEntries(['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher'].flatMap(enemy =>
   ['grenade-launcher', 'epoch:charged'].map(choice => [`${enemy}:${choice}`, {
     target: 'jetpack', directHit: false,
@@ -42,40 +35,40 @@ export const factionTactics = {
 };
 export const factionGuides = [
   { id: 'predator', side: 'terminid', name: '프레데터 변종', en: 'Predator Strain', source: wiki('Predator_Strain'),
-    intro: '기습과 추격에 대비하세요. 접근하는 변종의 머리를 빠르게 노릴 수 있는 무기를 고릅니다.',
+    intro: '기습과 추격에 대비하세요. 접근하는 변종의 몸통에 연사하거나 큰 표적에 직접 화력을 넣는 대응을 고릅니다.',
     coverage: '주요 변종 중 계산이 지원되는 스토커를 다룹니다. 프레데터 헌터는 아직 계산 목록에 없습니다.',
-    units: [unit('predator-stalker', '일반 스토커보다 본체 체력이 낮지만, 은신 대신 계속 추격합니다. 머리 체력은 동일합니다.', ['machine-gun', 'autocannon', 'anti-materiel'], ['head'], 'stalker')] },
+    units: [unit('predator-stalker', '일반 스토커보다 본체 체력이 낮지만, 은신 대신 계속 추격합니다. 머리 체력은 동일합니다.', ['head'], 'stalker')] },
   { id: 'spore-burst', side: 'terminid', name: '스포어 버스트 변종', en: 'Spore Burst Strain', source: wiki('Spore_Burst_Strain'),
     intro: '사망 시 포자 폭발과 주변 적의 가속에 대비해 거리를 두세요. 대형 변종은 일반형의 탄수를 그대로 쓰면 안 됩니다.',
     coverage: '주요 워리어·바일 타이탄 기준입니다. 스캐빈저·헌터 변종은 계산 미등록입니다.',
-    units: [unit('spore-burst-warrior', '사망 시 포자를 방출합니다. 머리 파괴 후 출혈 중에도 공격할 수 있습니다.', ['machine-gun', 'autocannon', 'grenade-launcher'], ['head'], 'warrior-hardened'), unit('spore-burst-bile-titan', '일반형보다 머리 체력이 높습니다. 포자낭 파괴를 처치로 혼동하지 마세요.', antiTank, ['head'], 'bile-titan')] },
+    units: [unit('spore-burst-warrior', '사망 시 포자를 방출합니다. 머리 파괴 후 출혈 중에도 공격할 수 있습니다.', ['head'], 'warrior-hardened'), unit('spore-burst-bile-titan', '일반형보다 머리 체력이 높습니다. 포자낭 파괴를 처치로 혼동하지 마세요.', ['head'], 'bile-titan')] },
   { id: 'rupture', side: 'terminid', name: '럽처 변종', en: 'Rupture Strain', source: wiki('Rupture_Strain'),
     intro: '잠복 중이 아닌 지상으로 드러난 순간을 노리세요. 머리와 정면 장갑의 관통 조건이 중요합니다.',
-    units: [unit('rupture-warrior', '머리 장갑 3. 머리를 부순 뒤에도 출혈 중 공격하므로 거리를 유지하세요.', ['machine-gun', 'autocannon', 'anti-materiel'], ['head'], 'warrior-hardened'), unit('rupture-spewer', '잠복·재출현하며 담즙을 뿜습니다. 머리 외피와 장갑 없는 입의 조건이 다릅니다.', ['autocannon', 'grenade-launcher', 'anti-materiel'], ['head', 'butt', 'mouth'], 'bile-spewer-armored'), unit('rupture-charger', '머리 장갑 5로 일반 차저보다 높습니다. 지상에 드러난 머리를 대전차 무기로 노리세요.', antiTank, ['head'], 'charger')] },
+    units: [unit('rupture-warrior', '머리 장갑 3. 머리를 부순 뒤에도 출혈 중 공격하므로 거리를 유지하세요.', ['head'], 'warrior-hardened'), unit('rupture-spewer', '잠복·재출현하며 담즙을 뿜습니다. 머리 외피와 장갑 없는 입의 조건이 다릅니다.', ['head', 'butt', 'mouth'], 'bile-spewer-armored'), unit('rupture-charger', '머리 장갑 5로 일반 차저보다 높습니다. 지상에 드러난 머리를 대전차 무기로 노리세요.', ['head'], 'charger')] },
   { id: 'jet-brigade', side: 'automaton', name: '제트 여단', en: 'Jet Brigade', source: wiki('Jet_Brigade'),
     intro: '점프팩으로 거리를 좁힙니다. 헐크는 점프팩 파괴가 처치로 이어지지만, 데바스테이터는 같은 조건이 아닙니다.',
     coverage: '주요 중장갑 변종을 다룹니다. 일반 보병 변종은 포함하지 않습니다.',
-    units: [unit('jet-brigade-devastator', '점프팩을 부숴도 살아남을 수 있습니다. 확실한 처치 경로인 머리를 우선 비교합니다.', precision, ['head'], 'devastator'), unit('jet-brigade-hulk-bruiser', '정면 상부의 폭발로 뒤쪽 제트팩을 터뜨리는 대응을 먼저 추천합니다. 눈 정밀 사격보다 조준 부담이 적고, 제트팩 파괴는 즉시 처치로 이어집니다.', jetHulkWeapons, ['jetpack', 'head'], 'hulk-bruiser'), unit('jet-brigade-hulk-scorcher', '도약하는 화염방사형입니다. 거리를 두고 정면 상부를 폭발시켜 제트팩을 노리세요. 작은 눈 정밀 사격은 숙련자용 대안입니다.', jetHulkWeapons, ['jetpack', 'head'], 'hulk')] },
+    units: [unit('jet-brigade-devastator', '점프팩을 부숴도 살아남을 수 있습니다. 몸통 폭발이나 노출된 허리 공격으로 본체를 처치하세요.', ['head'], 'devastator'), unit('jet-brigade-hulk-bruiser', '정면 상부의 폭발로 뒤쪽 제트팩을 터뜨리는 대응을 먼저 추천합니다. 눈 정밀 사격보다 조준 부담이 적고, 제트팩 파괴는 즉시 처치로 이어집니다.', ['jetpack', 'head'], 'hulk-bruiser'), unit('jet-brigade-hulk-scorcher', '도약하는 화염방사형입니다. 거리를 두고 정면 상부를 폭발시켜 제트팩을 노리세요. 눈 대신 제트팩 폭발 대응을 우선합니다.', ['jetpack', 'head'], 'hulk')] },
   { id: 'incineration', side: 'automaton', name: '소각 군단', en: 'Incineration Corps', source: wiki('Incineration_Corps'),
     intro: '화염·소이 무장을 사용하는 주요 변종입니다. 같은 색상의 일반 유닛까지 체력 보정을 적용하지는 않습니다.',
     coverage: '화염형·소이 기관총 데바스테이터와 헐크 파이어봄버 기준입니다.',
-    units: [unit('conflagration-devastator', '소이 산탄총과 방패를 사용합니다. 방패 위로 드러난 머리를 노리거나 측면에서 허리를 공격하세요. 일반 헤비 데바스테이터의 배낭 약점은 없습니다.', precision, ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총과 방패로 압박합니다. 방패 정면을 계속 쏘기보다 위로 드러난 머리를 직접 맞히세요.', precision, ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 유탄과 화염방사기를 사용합니다. 정면에서는 작은 붉은 눈을 직접 맞히세요. 후방 방열판 파괴는 즉사와 다른 출혈 경로입니다.', ['autocannon', 'railgun', 'anti-materiel'], ['head'], 'hulk-bruiser')] },
+    units: [unit('conflagration-devastator', '소이 산탄총과 방패를 사용합니다. 방패 위로 드러난 머리를 노리거나 측면에서 허리를 공격하세요. 일반 헤비 데바스테이터의 배낭 약점은 없습니다.', ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총과 방패로 압박합니다. 방패 정면을 계속 쏘기보다 위로 드러난 머리를 직접 맞히세요.', ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 유탄과 화염방사기를 사용합니다. 정면에서는 작은 붉은 눈을 직접 맞히세요. 후방 방열판 파괴는 즉사와 다른 출혈 경로입니다.', ['head'], 'hulk-bruiser')] },
   { id: 'cyborgs', side: 'automaton', name: '사이보그 군단', en: 'Cyborg Legion', source: wiki('Cyborg_Legion'),
     intro: '래디컬·애지테이터가 스트라이더 계열을 대체하고, 고난이도에는 복스 엔진이 등장합니다. 보병 정밀 대응과 대형 표적용 화력을 함께 준비하세요.',
-    units: [unit('radical', '빠르게 접근하는 전용 보병입니다. 노출된 머리를 먼저 노리세요.', ['machine-gun', 'autocannon', 'anti-materiel']), unit('agitator', '주변 병력을 지휘하는 전용 보병입니다. 투구를 벗긴 뒤 머리에 후속 공격이 필요합니다.', precision, ['helmet', 'torso-armor']), unit('vox-engine', '팩토리 스트라이더를 대체하는 대형 병기입니다. 넓은 폭발의 위키 처치 안내와 단일 부위 계산을 구분합니다.', ['leveller', 'solo-silo', 'recoilless'], ['sarcophagus'])] },
+    units: [unit('radical', '빠르게 접근하는 전용 보병입니다. 넓은 가슴에 연사하거나 몸통 주변에 폭발을 넣으세요.'), unit('agitator', '주변 병력을 지휘하는 전용 보병입니다. 골반·왼다리에 화력을 넣거나 가슴 외피를 벗겨 공격할 수 있습니다. 투구 제거 후 머리 공격은 별도 경로입니다.', ['helmet', 'torso-armor']), unit('vox-engine', '팩토리 스트라이더를 대체하는 대형 병기입니다. 넓은 폭발의 위키 처치 안내와 단일 부위 계산을 구분합니다.', ['sarcophagus'])] },
   { id: 'vote-snatchers', side: 'illuminate', name: '보트 스내처', en: 'Vote Snatchers', source: wiki('Vote_Snatchers'),
     intro: '레치와 크러셔가 주요 일루미닛 병력을 대체합니다. 무권자·플레시몹도 함께 등장하므로 근접 압박에 대비하세요.',
-    units: [unit('wretch', '머리 파괴만으로 즉사하지 않습니다. 본체로 피해가 전달되는 다리 경로를 비교합니다.', ['machine-gun', 'heavy-machine-gun', 'autocannon'], ['leg']), unit('crusher', '장갑 4 헬멧을 제거한 뒤 머리를 공격합니다. 몸통·다리의 재생을 제외한 수치는 별도 조건입니다.', ['heavy-machine-gun', 'autocannon', 'railgun'], ['helmet'])] },
+    units: [unit('wretch', '머리 파괴만으로 즉사하지 않습니다. 본체로 피해가 전달되는 다리 경로를 비교합니다.', ['leg']), unit('crusher', '장갑 4 헬멧을 제거한 뒤 머리를 공격합니다. 몸통·다리의 재생을 제외한 수치는 별도 조건입니다.', ['helmet'])] },
   { id: 'mindless', side: 'illuminate', name: '마인드리스 매스', en: 'Mindless Masses', source: wiki('Mindless_Masses'),
     intro: '무권자·플레시몹의 비중이 커지는 편성입니다. 다수 대응용 무기와 고난이도 하베스터 대응 수단을 나눠 준비하세요.',
     coverage: '무권자는 중량형을 대표로 표시합니다. 팩션 버프가 아니라 체형별 수치이며, 전체 계산기에서 다른 체형도 선택할 수 있습니다.',
-    units: [unit('voteless-heavy', '몰려오는 무권자는 기관총으로 머리를 노리거나 유탄으로 무리를 처리하세요. 아래 탄수는 중량형 한 마리 기준이며 범위 내 처치 수는 아닙니다.', ['machine-gun', 'stalwart', 'grenade-launcher']), unit('fleshmob', '치명 부위가 없어 큰 피해를 본체에 누적해야 합니다. 머리 덩어리는 피해의 150%를 본체로 전달하며, 폭발·파편 무기로 여러 부위를 타격하는 대응이 효과적입니다. 덩어리 하나의 파괴는 처치가 아닙니다.', ['grenade-launcher', 'autocannon:flak', 'solo-silo'], []), unit('harvester', '고난이도에서는 여전히 등장합니다. 보호막을 걷어낸 뒤 몸통 아래의 가로 다리 연결부를 노리세요. 눈 파괴만으로는 죽지 않습니다.', ['heavy-machine-gun', 'autocannon', 'recoilless'], ['joint'])] },
+    units: [unit('voteless-heavy', '몰려오는 무권자는 기관총으로 머리를 노리거나 유탄으로 무리를 처리하세요. 아래 탄수는 중량형 한 마리 기준이며 범위 내 처치 수는 아닙니다.'), unit('fleshmob', '치명 부위가 없어 큰 피해를 본체에 누적해야 합니다. 머리 덩어리는 피해의 150%를 본체로 전달하며, 폭발·파편 무기로 여러 부위를 타격하는 대응이 효과적입니다. 덩어리 하나의 파괴는 처치가 아닙니다.', []), unit('harvester', '고난이도에서는 여전히 등장합니다. 보호막을 걷어낸 뒤 몸통 아래의 가로 다리 연결부를 노리세요. 눈 파괴만으로는 죽지 않습니다.', ['joint'])] },
   { id: 'appropriators', side: 'illuminate', name: '어프로프리에이터', en: 'Appropriators', source: wiki('Appropriators'),
     intro: '무권자·플레시몹이 없는 편성입니다. 조종형 병기의 연결부와 보호막 밖 약점을 노릴 무기를 준비하세요.',
     coverage: '주요 전용 병기 2종 기준입니다. 오브트루더는 현재 계산기에 등록되지 않아 추천 계산에서 제외합니다.',
-    units: [unit('veracitor', '조종사 보호막과 기체를 구분하세요. 기체 연결부는 조종사 보호막 밖의 처치 경로입니다.', ['autocannon', 'heavy-machine-gun', 'recoilless'], ['chassis', 'hip']), unit('gatekeeper', '베라시터보다 기체 중앙 장갑이 두껍습니다. 대전차 화력 또는 후방 약점을 비교하세요.', ['recoilless', 'commando', 'autocannon'], ['chassis', 'rear-weakspot'], 'veracitor')] },
+    units: [unit('veracitor', '조종사 보호막과 기체를 구분하세요. 기체 연결부는 조종사 보호막 밖의 처치 경로입니다.', ['chassis', 'hip']), unit('gatekeeper', '베라시터보다 기체 중앙 장갑이 두껍습니다. 대전차 화력 또는 후방 약점을 비교하세요.', ['chassis', 'rear-weakspot'], 'veracitor')] },
   { id: 'invasion', side: 'illuminate', name: '침공 함대', en: 'Invasion Fleet', source: 'https://helldiverscompanion.com/',
     intro: '일반 일루미닛 혼성 편성의 주요 위협입니다. 보병과 보호막을 가진 대형 병기의 대응 무기를 함께 확인하세요.',
     coverage: '주요 대표 유닛이며 전체 출현 목록은 아닙니다. 이 편성에만 적용되는 체력 보정은 가정하지 않습니다.',
-    units: [unit('overseer', '기본 지상 보병입니다. 외피와 머리의 명중 조건을 구분하세요.', precision), unit('elevated-overseer', '비행과 기동성이 높은 보병입니다. 움직이는 머리에 명중하는 조건의 계산입니다.', precision), unit('harvester', '보호막 제거 후 다리가 시작되는 가로 연결부를 노리세요.', ['heavy-machine-gun', 'autocannon', 'recoilless'], ['joint'])] },
+    units: [unit('overseer', '방패를 우회해 넓은 흉부를 공격하세요. 가슴 외피 제거와 후속 공격을 포함한 대응을 표시합니다.'), unit('elevated-overseer', '움직이는 몸통에 연사하거나, 옆·뒤에서 보이는 제트팩을 직접 노리세요.'), unit('harvester', '보호막 제거 후 다리가 시작되는 가로 연결부를 노리세요.', ['joint'])] },
 ];

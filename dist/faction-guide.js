@@ -1,8 +1,9 @@
-import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches, factionHandling } from './faction-data.js?v=faction-ease-1';
+import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches } from './faction-data.js?v=loadouts-2';
 import { enemies, weaponProfiles, combatCheckedAt } from './combat-data.js?v=vox-explanation-2';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
 import { combatCount, combatOutcome, combatTargetTip, combatRouteNotes, combatSummary, combatShieldNotice } from './combat-presentation.js?v=vox-leveller-1';
 import { pickerEnemyImages } from './selector-images.js?v=enemies-37-1';
+import { factionLoadouts } from './faction-loadouts.js?v=loadouts-2';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const link = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)} ↗</a>`;
@@ -15,14 +16,15 @@ export function factionRecommendation(unit, choice) {
   const mode = modeId ? profile?.modes.find(item => item.id === modeId) : profile?.modes[0];
   if (!enemy || !mode) throw new Error(`Unknown faction recommendation: ${unit.enemy}/${choice}`);
   const approach = factionApproaches[`${enemy.id}:${choice}`];
+  const selection = factionLoadouts[enemy.id]?.find(item => item.weapon === choice);
   const result = calculateMatchup(enemy, mode, { shieldCleared: true, ...(approach ? { directHit: approach.directHit } : {}) });
-  const targets = approach ? [approach.target] : factionAimTargets[`${enemy.id}:${choice}`] || unit.targets;
+  const targets = approach ? [approach.target] : selection?.targets || factionAimTargets[`${enemy.id}:${choice}`] || unit.targets;
   const candidates = targets.map(id => result.rows.find(item => item.target.id === id)).filter(item => item && fatal(item));
   // Compare the reviewed aim options for this weapon, not their array order.
   candidates.sort((a, b) => a.hits - b.hits || Number(a.outcome !== 'kill') - Number(b.outcome !== 'kill'));
-  const row = candidates[0] || result.best;
+  const row = candidates[0] || (selection ? null : result.best);
   const reference = combatSummary(enemy, mode, result, { weapon, shieldCleared: true }).reference;
-  return { enemy, weapon, profile, mode, row, reference, approach, alternatives: candidates.slice(1), tactic: factionTactics[`${enemy.id}:${choice}`] };
+  return { enemy, weapon, profile, mode, row, reference, approach, selection, alternatives: candidates.slice(1), tactic: factionTactics[`${enemy.id}:${choice}`] };
 }
 
 export function factionRouteText(row, mode) {
@@ -47,9 +49,9 @@ export function renderFactionGuide(guide, stratagems, wikiIcons) {
     const photo = pickerEnemyImages[enemy.id];
     const base = enemies.find(item => item.id === unit.base);
     const weapons = unit.weapons.map(choice => {
-      const { weapon, profile, mode, row, reference, alternatives, tactic, approach } = factionRecommendation(unit, choice);
+      const { weapon, profile, mode, row, reference, alternatives, tactic, approach, selection } = factionRecommendation(unit, choice);
       const item = stratagems.find(entry => entry.id === weapon);
-      const handling = factionHandling[choice] || factionHandling[weapon];
+      const handling = selection;
       const shield = enemy.shield?.partial ? '<p class="faction-condition">조종사 보호막과 기체를 구분하세요. 아래의 기체 노출 부위는 보호막 밖 경로입니다.</p>' : enemy.shield ? `<p class="faction-condition">${escape(combatShieldNotice(enemy, mode).label)} 기준. ${escape(combatShieldNotice(enemy, mode).note)}</p>` : '';
       const advice = tactic || (reference ? { title: '몸통 명중 시 1발 처치 가능', body: '위키 전술 설명 기준. 여러 부위가 폭발에 함께 맞는 조건이며, 실제 피해는 명중 위치에 따라 달라집니다.', source: reference.source } : null);
       const theory = approach && row ? `<p class="faction-result"><strong>${escape(approach.title)}</strong><span>${escape(combatCount(row.hits, mode))} · 제트팩 파괴로 처치</span></p><p>${escape(approach.tip)}</p><p class="faction-condition">${escape(approach.condition)}</p><details class="faction-theory"><summary>폭발 피해 계산 조건</summary><p>제트팩 체력 ${row.target.hp} / 장갑 ${row.target.armor}. 관통·폭발 저항 적용 후 한 발당 폭발 피해 ${row.stages[0].damage.explosion}. ${Number.isFinite(mode.innerRadius) ? `제트팩이 폭발 중심 ${mode.innerRadius}m 안에 들어오는 조건입니다.` : ''}</p><p>정면 폭발 전술은 ${link(approach.source, '위키 안내')}, 위 탄수는 기존 부위·무기 수치로 계산했습니다. 정면 명중마다 폭발이 제트팩에 닿는지 자동 판정하는 계산은 아닙니다.</p></details>` : row ? renderRoute(row, mode) : `<p>${escape(mode.unsupported || '검증된 처치 경로가 없어 계산을 보류합니다.')}</p>`;

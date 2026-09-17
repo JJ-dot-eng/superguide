@@ -21,7 +21,15 @@ for (const guide of factionGuides) {
     const selection = factionLoadouts[unit.enemy].find(item => item.weapon === choice);
     assert(selection?.label && selection.note);
     assert(html.includes(selection.note), 'Show the actual matchup-specific benefit and limitation');
-    const { enemy, mode, row, weapon, reference, tactic, approach } = factionRecommendation(unit, choice);
+    const { enemy, mode, row, weapon, reference, tactic, approach, adviceOnly } = factionRecommendation(unit, choice);
+    if (adviceOnly) {
+      assert(selection.source && selection.limitation);
+      assert(html.includes(selection.limitation));
+      assert(!html.includes(`data-faction-combat="${enemy.id}" data-weapon="${weapon}"`));
+      assert.equal(row, undefined);
+      cases++;
+      continue;
+    }
     if (!row) {
       assert(tactic?.source && mode.unsupported, `${unit.enemy}/${choice} needs source-backed advice and an explicit calculation limitation`);
       assert(html.includes(mode.unsupported));
@@ -44,6 +52,17 @@ for (const guide of factionGuides) {
   }
 }
 const unit = id => factionGuides.flatMap(guide => guide.units).find(item => item.enemy === id);
+assert.deepEqual(factionGuides.find(g => g.id === 'predator').units.map(u => u.enemy), ['predator-hunter', 'predator-stalker']);
+assert.equal(unit('spore-burst-warrior').weapons[0], 'flamethrower');
+const sporeHTML = renderFactionGuide(factionGuides.find(g => g.id === 'spore-burst'), stratagems, wikiIcons);
+assert.match(sporeHTML, /불타는 상태에서 죽으면 포자를 방출하지/);
+assert.match(sporeHTML, /출혈로 죽는 경우에도/);
+assert.match(sporeHTML, /고정 처치 탄수나 시간을 표시하지/);
+assert(sporeHTML.indexOf('화염방사기') < sporeHTML.indexOf('유탄 발사기'));
+const predatorHTML = renderFactionGuide(factionGuides.find(g => g.id === 'predator'), stratagems, wikiIcons);
+assert.match(predatorHTML, /175로 일반 고난이도 헌터 160/);
+assert.match(predatorHTML, /본체 체력 650/);
+assert.doesNotMatch(predatorHTML, /data-faction-combat="predator-hunter"/);
 for (const id of ['jet-brigade-hulk-bruiser', 'jet-brigade-hulk-scorcher']) {
   assert.deepEqual(unit(id).weapons.slice(0, 2), ['grenade-launcher', 'epoch:charged']);
   assert.equal(unit(id).weapons.at(-1), 'autocannon');

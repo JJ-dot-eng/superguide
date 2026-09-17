@@ -1,9 +1,10 @@
-import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches } from './faction-data.js?v=loadouts-2';
+import { factionGuides, factionSides, factionCheckedAt, factionAimTargets, factionTactics, factionApproaches } from './faction-data.js?v=spore-predator-1';
 import { enemies, weaponProfiles, combatCheckedAt } from './combat-data.js?v=vox-explanation-2';
 import { calculateMatchup } from './combat.js?v=enemies-37-1';
 import { combatCount, combatOutcome, combatTargetTip, combatRouteNotes, combatSummary, combatShieldNotice } from './combat-presentation.js?v=vox-leveller-1';
 import { pickerEnemyImages } from './selector-images.js?v=enemies-37-1';
-import { factionLoadouts } from './faction-loadouts.js?v=loadouts-2';
+import { factionLoadouts } from './faction-loadouts.js?v=spore-predator-1';
+import { factionGuideEnemies } from './faction-data.js?v=spore-predator-1';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const link = (url, label) => `<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)} ↗</a>`;
@@ -11,12 +12,13 @@ const fatal = row => !row.conditional && Number.isFinite(row.hits) && ['kill', '
 
 export function factionRecommendation(unit, choice) {
   const [weapon, modeId] = choice.split(':');
-  const enemy = enemies.find(item => item.id === unit.enemy);
+  const enemy = enemies.find(item => item.id === unit.enemy) || factionGuideEnemies[unit.enemy];
+  const selection = factionLoadouts[unit.enemy]?.find(item => item.weapon === choice);
+  if (enemy && selection?.adviceOnly) return { enemy, weapon, selection, adviceOnly: true };
   const profile = weaponProfiles[weapon];
   const mode = modeId ? profile?.modes.find(item => item.id === modeId) : profile?.modes[0];
   if (!enemy || !mode) throw new Error(`Unknown faction recommendation: ${unit.enemy}/${choice}`);
   const approach = factionApproaches[`${enemy.id}:${choice}`];
-  const selection = factionLoadouts[enemy.id]?.find(item => item.weapon === choice);
   const result = calculateMatchup(enemy, mode, { shieldCleared: true, ...(approach ? { directHit: approach.directHit } : {}) });
   const targets = approach ? [approach.target] : selection?.targets || factionAimTargets[`${enemy.id}:${choice}`] || unit.targets;
   const candidates = targets.map(id => result.rows.find(item => item.target.id === id)).filter(item => item && fatal(item));
@@ -45,12 +47,13 @@ function renderRoute(row, mode) {
 
 export function renderFactionGuide(guide, stratagems, wikiIcons) {
   const cards = guide.units.map(unit => {
-    const enemy = enemies.find(item => item.id === unit.enemy);
+    const enemy = enemies.find(item => item.id === unit.enemy) || factionGuideEnemies[unit.enemy];
     const photo = pickerEnemyImages[enemy.id];
     const base = enemies.find(item => item.id === unit.base);
     const weapons = unit.weapons.map(choice => {
-      const { weapon, profile, mode, row, reference, alternatives, tactic, approach, selection } = factionRecommendation(unit, choice);
+      const { weapon, profile, mode, row, reference, alternatives, tactic, approach, selection, adviceOnly } = factionRecommendation(unit, choice);
       const item = stratagems.find(entry => entry.id === weapon);
+      if (adviceOnly) return `<details class="faction-weapon"><summary><img src="${escape(wikiIcons[weapon].src)}" alt="" width="34" height="34"><span><strong>${escape(item.name)}</strong><small class="faction-handling">${escape(selection.label)}</small><small>전술 안내 · 고정 탄수 미표시</small></span><span class="faction-expand">자세히 ＋</span></summary><div class="faction-weapon-body"><p>${escape(selection.note)}</p><p class="faction-basis">${escape(selection.limitation)}</p><p class="combat-sources">${link(selection.source, '적 특성·전술 출처')} · ${link(item.source, '장비 출처')} · 확인 ${factionCheckedAt}</p></div></details>`;
       const handling = selection;
       const shield = enemy.shield?.partial ? '<p class="faction-condition">조종사 보호막과 기체를 구분하세요. 아래의 기체 노출 부위는 보호막 밖 경로입니다.</p>' : enemy.shield ? `<p class="faction-condition">${escape(combatShieldNotice(enemy, mode).label)} 기준. ${escape(combatShieldNotice(enemy, mode).note)}</p>` : '';
       const advice = tactic || (reference ? { title: '몸통 명중 시 1발 처치 가능', body: '위키 전술 설명 기준. 여러 부위가 폭발에 함께 맞는 조건이며, 실제 피해는 명중 위치에 따라 달라집니다.', source: reference.source } : null);

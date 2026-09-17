@@ -9,6 +9,22 @@ const wiki = name => `https://helldivers.wiki.gg/wiki/${name}`;
 const unit = (enemy, change, weapons, targets = ['head'], base = null) => ({ enemy, change, weapons, targets, base });
 const precision = ['anti-materiel', 'autocannon', 'heavy-machine-gun'];
 const antiTank = ['recoilless', 'quasar', 'commando'];
+// Weapon-specific aim choices take precedence over the unit's general shortlist.
+export const factionAimTargets = {
+  'rupture-spewer:grenade-launcher': ['butt', 'spinal-plates'],
+};
+export const factionTactics = {
+  'fleshmob:grenade-launcher': {
+    title: '유탄 발사기 4발 처치 안내 · 위키 전술 기준',
+    body: '여러 부위가 폭발에 맞는 실전 대응 안내입니다. 위키는 정확한 명중 위치·겹쳐 맞는 부위 수를 제시하지 않으므로, 어느 부위든 4발 처치를 보장하거나 단일 부위 계산으로 검증된 값으로 표시하지 않습니다.',
+    source: wiki('Fleshmob#Tactical_Information'),
+  },
+  'fleshmob:autocannon:flak': {
+    title: '대공포탄 모드로 폭발·파편 피해 활용',
+    body: '위키가 효과적인 대응 무기로 제시한 모드입니다. 근접 신관·파편의 명중 수와 여러 부위 동시 피해가 달라 고정 처치 탄수는 계산하지 않습니다.',
+    source: wiki('Fleshmob#Tactical_Information'),
+  },
+};
 export const factionGuides = [
   { id: 'predator', side: 'terminid', name: '프레데터 변종', en: 'Predator Strain', source: wiki('Predator_Strain'),
     intro: '기습과 추격에 대비하세요. 접근하는 변종의 머리를 빠르게 노릴 수 있는 무기를 고릅니다.',
@@ -28,7 +44,7 @@ export const factionGuides = [
   { id: 'incineration', side: 'automaton', name: '소각 군단', en: 'Incineration Corps', source: wiki('Incineration_Corps'),
     intro: '화염·소이 무장을 사용하는 주요 변종입니다. 같은 색상의 일반 유닛까지 체력 보정을 적용하지는 않습니다.',
     coverage: '화염형·소이 기관총 데바스테이터와 헐크 파이어봄버 기준입니다.',
-    units: [unit('conflagration-devastator', '화염 무장과 방패에 주의하세요. 방패를 우회해 머리나 허리에 직접 맞혀야 합니다.', precision, ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총을 사용하는 변종입니다. 무장 변화와 부위별 방어 수치를 구분합니다.', precision, ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 무장을 갖춘 헐크입니다. 눈과 후방 약점을 구분해 노리세요.', ['anti-materiel', 'railgun', 'autocannon'], ['head'], 'hulk-bruiser')] },
+    units: [unit('conflagration-devastator', '소이 산탄총과 방패를 사용합니다. 방패 위로 드러난 머리를 노리거나 측면에서 허리를 공격하세요. 일반 헤비 데바스테이터의 배낭 약점은 없습니다.', precision, ['head', 'stomach'], 'devastator'), unit('incendiary-mg-devastator', '소이 기관총과 방패로 압박합니다. 방패 정면을 계속 쏘기보다 위로 드러난 머리를 직접 맞히세요.', precision, ['head'], 'heavy-devastator'), unit('hulk-firebomber', '소이 유탄과 화염방사기를 사용합니다. 정면에서는 작은 붉은 눈을 직접 맞히세요. 후방 방열판 파괴는 즉사와 다른 출혈 경로입니다.', ['anti-materiel', 'railgun', 'autocannon'], ['head'], 'hulk-bruiser')] },
   { id: 'cyborgs', side: 'automaton', name: '사이보그 군단', en: 'Cyborg Legion', source: wiki('Cyborg_Legion'),
     intro: '래디컬·애지테이터가 스트라이더 계열을 대체하고, 고난이도에는 복스 엔진이 등장합니다. 보병 정밀 대응과 대형 표적용 화력을 함께 준비하세요.',
     units: [unit('radical', '빠르게 접근하는 전용 보병입니다. 노출된 머리를 먼저 노리세요.', ['machine-gun', 'anti-materiel', 'autocannon']), unit('agitator', '주변 병력을 지휘하는 전용 보병입니다. 투구를 벗긴 뒤 머리에 후속 공격이 필요합니다.', precision, ['helmet', 'torso-armor']), unit('vox-engine', '팩토리 스트라이더를 대체하는 대형 병기입니다. 넓은 폭발의 위키 처치 안내와 단일 부위 계산을 구분합니다.', ['leveller', 'solo-silo', 'recoilless'], ['sarcophagus'])] },
@@ -38,7 +54,7 @@ export const factionGuides = [
   { id: 'mindless', side: 'illuminate', name: '마인드리스 매스', en: 'Mindless Masses', source: wiki('Mindless_Masses'),
     intro: '무권자·플레시몹의 비중이 커지는 편성입니다. 다수 대응용 무기와 고난이도 하베스터 대응 수단을 나눠 준비하세요.',
     coverage: '무권자는 중량형을 대표로 표시합니다. 팩션 버프가 아니라 체형별 수치이며, 전체 계산기에서 다른 체형도 선택할 수 있습니다.',
-    units: [unit('voteless-heavy', '무권자 수가 많아지는 편성입니다. 중량형의 체력 기준이며 경량·중간형과 구분합니다.', ['machine-gun', 'stalwart', 'grenade-launcher']), unit('fleshmob', '출현 비중이 높아집니다. 팔·머리 덩어리 하나의 파괴를 전체 처치로 보지 않습니다.', ['grenade-launcher', 'c4-pack', 'solo-silo'], []), unit('harvester', '고난이도에서는 여전히 등장합니다. 보호막 제거 후 가로 다리 연결부를 집중 공격하세요.', ['heavy-machine-gun', 'autocannon', 'recoilless'], ['joint'])] },
+    units: [unit('voteless-heavy', '몰려오는 무권자는 기관총으로 머리를 노리거나 유탄으로 무리를 처리하세요. 아래 탄수는 중량형 한 마리 기준이며 범위 내 처치 수는 아닙니다.', ['machine-gun', 'stalwart', 'grenade-launcher']), unit('fleshmob', '치명 부위가 없어 큰 피해를 본체에 누적해야 합니다. 머리 덩어리는 피해의 150%를 본체로 전달하며, 폭발·파편 무기로 여러 부위를 타격하는 대응이 효과적입니다. 덩어리 하나의 파괴는 처치가 아닙니다.', ['grenade-launcher', 'autocannon:flak', 'solo-silo'], []), unit('harvester', '고난이도에서는 여전히 등장합니다. 보호막을 걷어낸 뒤 몸통 아래의 가로 다리 연결부를 노리세요. 눈 파괴만으로는 죽지 않습니다.', ['heavy-machine-gun', 'autocannon', 'recoilless'], ['joint'])] },
   { id: 'appropriators', side: 'illuminate', name: '어프로프리에이터', en: 'Appropriators', source: wiki('Appropriators'),
     intro: '무권자·플레시몹이 없는 편성입니다. 조종형 병기의 연결부와 보호막 밖 약점을 노릴 무기를 준비하세요.',
     coverage: '주요 전용 병기 2종 기준입니다. 오브트루더는 현재 계산기에 등록되지 않아 추천 계산에서 제외합니다.',

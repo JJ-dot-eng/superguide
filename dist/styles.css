@@ -224,6 +224,9 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .faction-weapon[open] .faction-expand span { display: inline-block; transform: rotate(45deg); }
 .faction-weapon-body { padding: 0 0 16px; font-size: 14px; line-height: 1.7; }
 .faction-weapon-body p + p { margin-top: 10px; }
+.faction-theory { margin: 12px 0; padding: 0 12px; border: 1px solid var(--border); }
+.faction-theory > summary { font-size: 13px; color: var(--muted); }
+.faction-theory[open] { padding-bottom: 12px; }
 .faction-weapon summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 .faction-result { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--green); }
 .faction-condition, .faction-reference { color: #d7ba7b; }

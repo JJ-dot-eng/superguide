@@ -18,6 +18,7 @@ for (const guide of factionGuides) {
   assert.doesNotMatch(html, /undefined|NaN/);
   assert(html.includes(guide.source));
   for (const unit of guide.units) for (const choice of unit.weapons) {
+    assert.equal(stratagems.find(item => item.id === choice.split(':')[0])?.category, 'support', 'Faction weapon recommendations must exclude backpacks, sentries and air/orbital strikes');
     const selection = factionLoadouts[unit.enemy].find(item => item.weapon === choice);
     assert(selection?.label && selection.note);
     assert(html.includes(selection.note), 'Show the actual matchup-specific benefit and limitation');
@@ -58,18 +59,16 @@ const sporeHTML = renderFactionGuide(factionGuides.find(g => g.id === 'spore-bur
 assert.match(sporeHTML, /불타는 상태에서 죽으면 포자를 방출하지/);
 assert.match(sporeHTML, /출혈로 죽는 경우에도/);
 assert.match(sporeHTML, /고정 처치 탄수나 시간을 표시하지/);
-assert.deepEqual(unit('spore-burst-warrior').weapons, ['flamethrower', 'cremator', 'hot-dog', 'flame-sentry', 'eagle-napalm', 'machine-gun']);
-for (const weapon of unit('spore-burst-warrior').weapons.slice(0, 5)) {
+assert.deepEqual(unit('spore-burst-warrior').weapons, ['flamethrower', 'cremator', 'machine-gun']);
+for (const weapon of unit('spore-burst-warrior').weapons.slice(0, 2)) {
   const recommendation = factionRecommendation(unit('spore-burst-warrior'), weapon);
   assert.equal(recommendation.adviceOnly, true);
   assert.equal(recommendation.row, undefined);
   assert(!sporeHTML.includes(`data-faction-combat="spore-burst-warrior" data-weapon="${weapon}"`));
 }
-assert.match(sporeHTML, /자동 점화/);
-assert.match(sporeHTML, /배낭 슬롯/);
-assert.match(sporeHTML, /최초 폭발로 점화 전에 죽는 적까지/);
+assert.doesNotMatch(sporeHTML, /핫 도그|화염 센트리|이글 네이팜/);
 assert.match(sporeHTML, /불이 꺼진 뒤/);
-assert(sporeHTML.indexOf('이글 네이팜 공중타격') < sporeHTML.indexOf('비화염 대안'));
+assert(sporeHTML.indexOf('크리메이터') < sporeHTML.indexOf('비화염 대안'));
 const predatorHTML = renderFactionGuide(factionGuides.find(g => g.id === 'predator'), stratagems, wikiIcons);
 assert.match(predatorHTML, /175로 일반 고난이도 헌터 160/);
 assert.match(predatorHTML, /본체 체력 650/);

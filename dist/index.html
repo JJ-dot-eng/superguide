@@ -7,8 +7,8 @@
   <meta name="description" content="헬다이버즈 2 스트라타젬 도감. 지원 무기, 궤도, 이글, 배낭, 센트리와 차량의 사거리, 직격·폭발 피해, 장갑 관통과 사용법을 찾아보세요.">
   <title>HELLDIVERS 2 — 스트라타젬 도감</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23111312'/%3E%3Cpath d='M16 4v24M4 16h24' stroke='%23ffe44f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23ffe44f' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./styles.css?v=vox-explanation-1">
-  <script type="module" src="./app.js?v=vox-explanation-2"></script>
+  <link rel="stylesheet" href="./styles.css?v=faction-guide-1">
+  <script type="module" src="./app.js?v=faction-guide-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">도감으로 바로 가기</a>
@@ -24,7 +24,7 @@
     </aside>
     <main id="main" tabindex="-1">
       <div class="page-heading"><div><div class="eyebrow"><span class="yellow-line"></span> SUPER EARTH FIELD MANUAL</div><h1><span id="page-title">스트라타젬 도감</span><span class="heading-dot">.</span></h1><p class="intro" id="page-intro">어디까지 닿고, 얼마나 뚫는지. 투하 전에 확인하세요.</p></div><div class="manual-stamp"><span>전술 자료집</span><strong>HD—02</strong><span>열람일 <time datetime="2026-09-16">2026.09.16</time></span></div></div>
-      <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view">스트라타젬 도감</button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view">적 대응 계산 <span>어디를 몇 발?</span></button><button data-feature="demolition" aria-pressed="false" aria-controls="demolition-view">건물 철거 계산 <span>어디까지 부숴질까?</span></button></nav>
+      <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view">스트라타젬 도감</button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view">적 대응 계산 <span>어디를 몇 발?</span></button><button data-feature="demolition" aria-pressed="false" aria-controls="demolition-view">건물 철거 계산 <span>어디까지 부숴질까?</span></button><button data-feature="factions" aria-pressed="false" aria-controls="factions-view">팩션별 장비 추천 <span>어떤 걸 들고 갈까?</span></button></nav>
       <div class="notice-strip" id="catalog-notice"><span class="notice-symbol" aria-hidden="true">!</span><p><strong>한 발의 피해와 한 번의 호출은 다릅니다.</strong> 기본 수치 · 함선 모듈 제외 · 미확인 수치 구분</p><button id="notice-guide" aria-label="피해량 기준 자세히 보기">기준 보기 <span aria-hidden="true">↗</span></button></div>
       <section class="catalog" id="catalog-view" aria-labelledby="section-title">
         <div class="catalog-heading"><div class="catalog-title"><h2 id="section-title">전체 스트라타젬</h2><span class="count-badge" id="total-count"></span></div><span class="catalog-caption" id="category-caption">임무에 맞는 화력을 찾아보세요.</span></div>
@@ -34,6 +34,7 @@
         <div class="card-grid" id="cards"></div>
         <div class="empty-state" id="empty" hidden><span aria-hidden="true">⌕</span><h3>일치하는 스트라타젬이 없습니다.</h3><p>다른 이름이나 용도로 검색해 보세요.</p><button class="primary-button" id="empty-reset">필터 초기화</button></div>
       </section>
+      <section id="factions-view" aria-label="팩션별 장비 추천" hidden></section>
       <section id="combat-view" class="combat-view" aria-labelledby="combat-title" hidden>
         <div class="combat-heading"><div><h2 id="combat-title">이 적, 어디를 노릴까?</h2><p>고난이도 기준으로 부위별 처치 여부와 이론 탄수·장약 개수를 비교합니다.</p></div><span class="count-badge" id="combat-coverage"></span></div>
         <div class="combat-controls">

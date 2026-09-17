@@ -2,8 +2,9 @@ import { categories, stratagems, checkedAt } from './data.js?v=fire-specs-1';
 import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=vox-explanation-2';
-import { initFeatureNavigation } from './features.js?v=all-stratagems-1';
+import { initCombat } from './combat-ui.js?v=faction-guide-1';
+import { initFeatureNavigation } from './features.js?v=faction-guide-1';
+import { initFactionGuide } from './faction-guide.js?v=faction-guide-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
 import { pickerConfigs } from './picker-content.js?v=enemies-37-1';
@@ -171,6 +172,7 @@ document.addEventListener('keydown', event => { if (event.key === '/' && !event.
 renderCategories(); renderCards();
 const navigate = initFeatureNavigation(renderComparisonState);
 const combat = initCombat({ stratagems, wikiIcons, navigate });
+initFactionGuide({ stratagems, wikiIcons, openMatchup: combat.openMatchup });
 initDemolition({ stratagems, categories, wikiIcons });
 initImagePickers(pickerConfigs({ stratagems, categories, wikiIcons }), { allIcon: icon('grid') });
 

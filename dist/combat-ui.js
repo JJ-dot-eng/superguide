@@ -161,6 +161,14 @@ export function initCombat({ stratagems, wikiIcons, navigate }) {
   updateModes(); render();
   return {
     showCatalog: () => navigate('catalog'),
+    openMatchup({ enemy, weapon, mode, shieldCleared = false }) {
+      if (!enemies.some(item => item.id === enemy) || !support.some(item => item.id === weapon) || !weaponProfiles[weapon]?.modes.some(item => item.id === mode)) return;
+      state.enemy = enemy; enemySelect.value = enemy;
+      state.weapon = weapon; weaponSelect.value = weapon;
+      updateModes(); state.mode = mode; modeSelect.value = mode;
+      updateConditions(); state.shieldCleared = shieldCleared;
+      render(); navigate('combat'); focusImagePicker(enemySelect);
+    },
     openWeapon(id) {
       if (!support.some(item => item.id === id)) return;
       state.weapon = id; weaponSelect.value = id; updateModes(); render(); navigate('combat'); focusImagePicker(enemySelect);

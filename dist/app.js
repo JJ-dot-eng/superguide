@@ -4,7 +4,7 @@ import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=faction-guide-1';
 import { initFeatureNavigation } from './features.js?v=faction-guide-1';
-import { initFactionGuide } from './faction-guide.js?v=faction-audit-1';
+import { initFactionGuide } from './faction-guide.js?v=faction-ease-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
 import { pickerConfigs } from './picker-content.js?v=enemies-37-1';

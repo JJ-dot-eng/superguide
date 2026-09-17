@@ -58,7 +58,18 @@ const sporeHTML = renderFactionGuide(factionGuides.find(g => g.id === 'spore-bur
 assert.match(sporeHTML, /불타는 상태에서 죽으면 포자를 방출하지/);
 assert.match(sporeHTML, /출혈로 죽는 경우에도/);
 assert.match(sporeHTML, /고정 처치 탄수나 시간을 표시하지/);
-assert(sporeHTML.indexOf('화염방사기') < sporeHTML.indexOf('유탄 발사기'));
+assert.deepEqual(unit('spore-burst-warrior').weapons, ['flamethrower', 'cremator', 'hot-dog', 'flame-sentry', 'eagle-napalm', 'machine-gun']);
+for (const weapon of unit('spore-burst-warrior').weapons.slice(0, 5)) {
+  const recommendation = factionRecommendation(unit('spore-burst-warrior'), weapon);
+  assert.equal(recommendation.adviceOnly, true);
+  assert.equal(recommendation.row, undefined);
+  assert(!sporeHTML.includes(`data-faction-combat="spore-burst-warrior" data-weapon="${weapon}"`));
+}
+assert.match(sporeHTML, /자동 점화/);
+assert.match(sporeHTML, /배낭 슬롯/);
+assert.match(sporeHTML, /최초 폭발로 점화 전에 죽는 적까지/);
+assert.match(sporeHTML, /불이 꺼진 뒤/);
+assert(sporeHTML.indexOf('이글 네이팜 공중타격') < sporeHTML.indexOf('비화염 대안'));
 const predatorHTML = renderFactionGuide(factionGuides.find(g => g.id === 'predator'), stratagems, wikiIcons);
 assert.match(predatorHTML, /175로 일반 고난이도 헌터 160/);
 assert.match(predatorHTML, /본체 체력 650/);

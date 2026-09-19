@@ -21,6 +21,7 @@ import './check-image-pickers.mjs';
 import './check-demolition.mjs';
 import './check-defense.mjs';
 import './check-factions.mjs';
+import './check-analytics.mjs';
 
 const categoryIds = new Set(categories.map(item => item.id));
 const ids = new Set();

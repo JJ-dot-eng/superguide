@@ -20,7 +20,7 @@ export function initFeatureNavigation(onChange) {
       button.setAttribute('aria-pressed', String(active));
     });
     if (updateHash) history.replaceState(null, '', `${location.pathname}${location.search}${view === 'catalog' ? '' : `#${view}`}`);
-    onChange();
+    onChange(view);
   };
   document.querySelectorAll('[data-feature]').forEach(button => button.addEventListener('click', () => selectView(button.dataset.feature)));
   window.addEventListener('hashchange', () => selectView(featureFromHash(location.hash), false));

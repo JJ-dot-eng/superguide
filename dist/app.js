@@ -3,7 +3,8 @@ import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from '
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
 import { initCombat } from './combat-ui.js?v=all-enemies-1';
-import { initFeatureNavigation } from './features.js?v=faction-guide-1';
+import { initFeatureNavigation } from './features.js?v=analytics-1';
+import { initAnalytics } from './analytics.js';
 import { initFactionGuide } from './faction-guide.js?v=all-enemies-1';
 import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
 import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
@@ -170,7 +171,11 @@ document.querySelectorAll('dialog').forEach(dialog => {
 });
 document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); combat.showCatalog(); $('#search').focus(); } });
 renderCategories(); renderCards();
-const navigate = initFeatureNavigation(renderComparisonState);
+const trackFeature = initAnalytics();
+const navigate = initFeatureNavigation(view => {
+  renderComparisonState();
+  trackFeature(view);
+});
 const combat = initCombat({ stratagems, wikiIcons, navigate });
 initFactionGuide({ stratagems, wikiIcons, openMatchup: combat.openMatchup });
 initDemolition({ stratagems, categories, wikiIcons });

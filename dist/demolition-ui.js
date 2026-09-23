@@ -1,7 +1,7 @@
-import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js?v=explosive-weapons-1';
-import { forceBounds } from './demolition.js?v=epoch-1';
-import { getDemolitionSelection, initialDemolitionSelection } from './demolition-selection.js?v=explosive-weapons-1';
-import { syncImagePicker } from './image-picker.js?v=portrait-layout-1';
+import { structures, demolitionProfiles, demolitionCheckedAt, demolitionSource, structureDamageSource } from './demolition-data.js';
+import { forceBounds } from './demolition.js';
+import { getDemolitionSelection, initialDemolitionSelection } from './demolition-selection.js';
+import { syncImagePicker } from './image-picker.js';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => value.toLocaleString('ko-KR');

@@ -1,5 +1,5 @@
-import { structures, demolitionProfiles } from './demolition-data.js?v=explosive-weapons-1';
-import { calculateDemolition } from './demolition.js?v=epoch-1';
+import { structures, demolitionProfiles } from './demolition-data.js';
+import { calculateDemolition } from './demolition.js';
 
 export const initialDemolitionSelection = Object.freeze({ structure: 'all', weapon: 'all', mode: 'all', shieldCleared: false, jammerDisabled: false });
 const isPossible = result => ['demolish', 'health', 'conditional'].includes(result.outcome);

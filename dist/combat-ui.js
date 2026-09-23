@@ -1,9 +1,9 @@
-import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js?v=all-enemies-1';
-import { calculateMatchup } from './combat.js?v=enemies-37-1';
-import { combatImages } from './combat-images.js?v=all-enemies-1';
-import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js?v=vox-leveller-1';
-import { resolveCombatCondition, combatConditionText } from './combat-conditions.js?v=enemies-37-1';
-import { syncImagePicker, focusImagePicker } from './image-picker.js?v=portrait-layout-1';
+import { enemies, weaponProfiles, unsupportedWeapons, combatCheckedAt, damageSource, enemyTypeCount } from './combat-data.js';
+import { calculateMatchup } from './combat.js';
+import { combatImages } from './combat-images.js';
+import { combatTerms, combatCount, combatOutcome, combatAssumption, combatTargetTip, combatShieldNotice, combatRouteNotes, combatSummary, combatModeStats, combatImpactLabel, combatImpactVerb } from './combat-presentation.js';
+import { resolveCombatCondition, combatConditionText } from './combat-conditions.js';
+import { syncImagePicker, focusImagePicker } from './image-picker.js';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';

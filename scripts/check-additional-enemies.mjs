@@ -11,7 +11,7 @@ import { stratagems, categories } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
 import { initCombat } from '../dist/combat-ui.js';
 import { pickerConfigs } from '../dist/picker-content.js';
-import { initImagePickers } from '../dist/image-picker.js?v=portrait-layout-1';
+import { initImagePickers } from '../dist/image-picker.js';
 import { TestDocument } from './test-dom.mjs';
 
 // 2026-09-17 audit of Wiki Nav Enemy's combat-unit rows. Overship is deliberately

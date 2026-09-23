@@ -1,4 +1,4 @@
-import { expandedCombatImages } from './combat-images-expanded.js?v=enemies-37-1';
+import { expandedCombatImages } from './combat-images-expanded.js';
 // Wiki-rendered anatomy images, served as WebP (quality 90) encodings of the Wiki PNGs whose hashes are recorded in sha256. thumbnailCrop is only the CSS viewing window; the enlarged view shows the full image.
 import { predatorHunterAnatomy } from './predator-hunter-images.js';
 import { additionalCombatImages } from './enemy-images-additional.js';

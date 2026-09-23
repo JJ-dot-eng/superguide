@@ -1,5 +1,5 @@
-import { explosionComponents } from './combat.js?v=enemies-37-1';
-import { combatConditionText, spearCannotLock } from './combat-conditions.js?v=enemies-37-1';
+import { explosionComponents } from './combat.js';
+import { combatConditionText, spearCannotLock } from './combat-conditions.js';
 
 const number = value => Number.isFinite(value) ? value.toLocaleString('ko-KR') : '자료 미확인';
 const hasBlast = mode => mode && (mode.explosion !== 0 || mode.explosions?.length > 0);

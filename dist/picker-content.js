@@ -1,6 +1,6 @@
-import { enemies, weaponProfiles } from './combat-data.js?v=all-enemies-1';
-import { structures } from './demolition-data.js?v=explosive-weapons-1';
-import { pickerEnemyImages, pickerStructureImages } from './selector-images.js?v=all-enemies-1';
+import { enemies, weaponProfiles } from './combat-data.js';
+import { structures } from './demolition-data.js';
+import { pickerEnemyImages, pickerStructureImages } from './selector-images.js';
 
 export function pickerConfigs({ stratagems, categories, wikiIcons }) {
   const weapons = stratagems.map(item => ({ ...item, image: { ...wikiIcons[item.id], kind: 'stratagem' }, group: categories.find(category => category.id === item.category).name }));

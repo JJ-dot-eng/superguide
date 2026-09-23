@@ -28,20 +28,13 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Version stylesheet to refresh browser caches
-        run: |
-          node --input-type=module <<'NODE'
-          import { createHash } from 'node:crypto';
-          import { readFileSync, writeFileSync } from 'node:fs';
-          const css = readFileSync('dist/styles.css', 'utf8').replaceAll('\r\n', '\n');
-          const version = createHash('sha256').update(css).digest('hex').slice(0, 12);
-          const html = readFileSync('dist/index.html', 'utf8');
-          const reference = /href="\.\/styles\.css(?:\?[^"]*)?"/;
-          if (!reference.test(html)) throw new Error('Stylesheet reference missing');
-          writeFileSync('dist/index.html', html.replace(reference, 'href="./styles.css?v=' + version + '"'));
-          NODE
+      # Tests import the plain source paths, so validate before cache keys are added.
       - name: Validate site
         run: npm run check
+      - name: Add content-hash cache keys to modules and stylesheet
+        run: |
+          node scripts/version-assets.mjs
+          node scripts/check-versioning.mjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site

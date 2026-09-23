@@ -5,7 +5,7 @@ import { stratagems, categories } from '../dist/data.js';
 import { wikiIcons } from '../dist/wiki-icons.js';
 import { pickerConfigs } from '../dist/picker-content.js';
 import { pickerEnemyImages, pickerStructureImages } from '../dist/selector-images.js';
-import { initImagePickers, filterPickerItems, renderPickerItems, pickerFocusIndex } from '../dist/image-picker.js?v=portrait-layout-1';
+import { initImagePickers, filterPickerItems, renderPickerItems, pickerFocusIndex } from '../dist/image-picker.js';
 import { initCombat } from '../dist/combat-ui.js';
 import { initDemolition } from '../dist/demolition-ui.js';
 import { TestDocument } from './test-dom.mjs';

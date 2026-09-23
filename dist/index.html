@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
 </head>
-<body>
+<body data-active-feature="catalog">
   <a class="skip-link" href="#main">도감으로 바로 가기</a>
   <header class="topbar">
     <a href="./" class="brand" aria-label="스트라타젬 도감 홈"><span class="brand-mark" aria-hidden="true">✛</span><span>HELLDIVERS<span class="brand-two">Ⅱ</span><small>LIBERTY FIELD GUIDE</small></span></a>
-    <div class="topbar-right"><span class="edition">비공식 전술 가이드 <span class="slash">/</span> 한국어</span><button class="text-button" id="guide-button"><span aria-hidden="true">ⓘ</span> 수치 읽는 법</button></div>
+    <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view" title="110종 수치와 사용법"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="feature-name">스트라타젬 도감</span><span class="feature-short" aria-hidden="true">도감</span></button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view" title="어디를 몇 발?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/></svg><span class="feature-name">적 대응 계산</span><span class="feature-short" aria-hidden="true">적 대응</span></button><button data-feature="demolition" aria-pressed="false" aria-controls="demolition-view" title="어디까지 부숴질까?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg><span class="feature-name">건물 철거 계산</span><span class="feature-short" aria-hidden="true">철거</span></button><button data-feature="factions" aria-pressed="false" aria-controls="factions-view" title="어떤 걸 들고 갈까?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V3m0 1h13l-3 5 3 5H5"/></svg><span class="feature-name">팩션별 장비 추천</span><span class="feature-short" aria-hidden="true">팩션 추천</span></button></nav><div class="topbar-right"><button class="text-button" id="guide-button"><span aria-hidden="true">ⓘ</span> 수치 읽는 법</button></div>
   </header>
   <div class="app-layout">
     <aside class="sidebar" aria-label="스트라타젬 종류">
@@ -24,7 +24,6 @@
     </aside>
     <main id="main" tabindex="-1">
       <div class="page-heading"><div><div class="eyebrow"><span class="yellow-line"></span> SUPER EARTH FIELD MANUAL</div><h1><span id="page-title">스트라타젬 도감</span><span class="heading-dot">.</span></h1><p class="intro" id="page-intro">어디까지 닿고, 얼마나 뚫는지. 투하 전에 확인하세요.</p></div><div class="manual-stamp"><span>전술 자료집</span><strong>HD—02</strong><span>열람일 <time datetime="2026-09-16">2026.09.16</time></span></div></div>
-      <nav class="feature-nav" aria-label="자료 종류"><button data-feature="catalog" class="active" aria-pressed="true" aria-controls="catalog-view">스트라타젬 도감</button><button data-feature="combat" aria-pressed="false" aria-controls="combat-view">적 대응 계산 <span>어디를 몇 발?</span></button><button data-feature="demolition" aria-pressed="false" aria-controls="demolition-view">건물 철거 계산 <span>어디까지 부숴질까?</span></button><button data-feature="factions" aria-pressed="false" aria-controls="factions-view">팩션별 장비 추천 <span>어떤 걸 들고 갈까?</span></button></nav>
       <div class="notice-strip" id="catalog-notice"><span class="notice-symbol" aria-hidden="true">!</span><p><strong>한 발의 피해와 한 번의 호출은 다릅니다.</strong> 기본 수치 · 함선 모듈 제외 · 미확인 수치 구분</p><button id="notice-guide" aria-label="피해량 기준 자세히 보기">기준 보기 <span aria-hidden="true">↗</span></button></div>
       <section class="catalog" id="catalog-view" aria-labelledby="section-title">
         <div class="catalog-heading"><div class="catalog-title"><h2 id="section-title">전체 스트라타젬</h2><span class="count-badge" id="total-count"></span></div><span class="catalog-caption" id="category-caption">임무에 맞는 화력을 찾아보세요.</span></div>

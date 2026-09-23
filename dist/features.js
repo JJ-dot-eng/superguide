@@ -12,6 +12,7 @@ export function initFeatureNavigation(onChange) {
     if (!featureIds.includes(view)) view = 'catalog';
     document.querySelector('#page-title').textContent = featureHeadings[view].title;
     document.querySelector('#page-intro').textContent = featureHeadings[view].intro;
+    document.body.dataset.activeFeature = view;
     for (const id of featureIds) document.querySelector(`#${id}-view`).hidden = id !== view;
     document.querySelector('#catalog-notice').hidden = view !== 'catalog';
     document.querySelectorAll('[data-feature]').forEach(button => {
@@ -22,7 +23,11 @@ export function initFeatureNavigation(onChange) {
     if (updateHash) history.replaceState(null, '', `${location.pathname}${location.search}${view === 'catalog' ? '' : `#${view}`}`);
     onChange(view);
   };
-  document.querySelectorAll('[data-feature]').forEach(button => button.addEventListener('click', () => selectView(button.dataset.feature)));
+  document.querySelectorAll('[data-feature]').forEach(button => button.addEventListener('click', () => {
+    const changed = document.body.dataset.activeFeature !== button.dataset.feature;
+    selectView(button.dataset.feature);
+    if (changed) window.scrollTo({ top: 0 });
+  }));
   window.addEventListener('hashchange', () => selectView(featureFromHash(location.hash), false));
   selectView(featureFromHash(location.hash), false);
   return selectView;

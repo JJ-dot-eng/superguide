@@ -1,14 +1,9 @@
-import { categories, stratagems, checkedAt } from './data.js?v=fire-specs-1';
-import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js?v=shield-generators-1';
+import { categories, stratagems, checkedAt } from './data.js';
+import { renderDefenseStats, renderDefenseSource, defenseComparisonRows } from './defense-stats.js';
 import { wikiIcons } from './wiki-icons.js';
 import { searchItems } from './search.js';
-import { initCombat } from './combat-ui.js?v=all-enemies-1';
-import { initFeatureNavigation } from './features.js?v=analytics-1';
+import { initFeatureNavigation } from './features.js';
 import { initAnalytics } from './analytics.js';
-import { initFactionGuide } from './faction-guide.js?v=all-enemies-1';
-import { initDemolition } from './demolition-ui.js?v=portrait-layout-1';
-import { initImagePickers } from './image-picker.js?v=portrait-layout-1';
-import { pickerConfigs } from './picker-content.js?v=all-enemies-1';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { category: 'all', search: '', penetration: 'all', view: 'grid', selected: new Set() };
@@ -123,7 +118,7 @@ function openDetail(id) {
     const button = document.createElement('button');
     button.className = 'primary-button combat-detail-button';
     button.textContent = '이 무기로 적 대응 계산 ↗';
-    button.addEventListener('click', () => { $('#detail-dialog').close(); combat.openWeapon(item.id); });
+    button.addEventListener('click', () => { $('#detail-dialog').close(); loadFeatures().then(combat => combat.openWeapon(item.id)); });
     $('#detail-content .dialog-summary').after(button);
   }
   $('#detail-dialog').showModal();
@@ -150,7 +145,7 @@ function openComparison() {
   $('#compare-dialog').setAttribute('aria-labelledby', 'comparison-title'); $('#compare-dialog').showModal();
 }
 
-$('#categories').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; combat.showCatalog(); state.category = button.dataset.category; renderCategories(); renderCards(); });
+$('#categories').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; navigate('catalog'); state.category = button.dataset.category; renderCategories(); renderCards(); });
 $('#search').addEventListener('input', event => { state.search = event.target.value; renderCards(); });
 $('#penetration').addEventListener('change', event => { state.penetration = event.target.value; renderCards(); });
 $('#cards').addEventListener('click', event => { const button = event.target.closest('[data-open]'); if (button) openDetail(button.dataset.open); });
@@ -169,17 +164,45 @@ $('#compare-open').addEventListener('click', openComparison);
 document.querySelectorAll('dialog').forEach(dialog => {
   dialog.addEventListener('click', event => { if (event.target.closest('[data-close]')) dialog.close(); else if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
 });
-document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); combat.showCatalog(); $('#search').focus(); } });
+document.addEventListener('keydown', event => { if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !document.querySelector('dialog[open]') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); navigate('catalog'); $('#search').focus(); } });
 renderCategories(); renderCards();
 const trackFeature = initAnalytics();
+// The calculators and faction guide carry most of the site's data (enemy
+// anatomy, image metadata), so they load on first use instead of with the catalog.
+let featuresReady;
+function loadFeatures() {
+  featuresReady ||= Promise.all([
+    import('./combat-ui.js'),
+    import('./faction-guide.js'),
+    import('./demolition-ui.js'),
+    import('./image-picker.js'),
+    import('./picker-content.js'),
+  ]).then(([{ initCombat }, { initFactionGuide }, { initDemolition }, { initImagePickers }, { pickerConfigs }]) => {
+    const combat = initCombat({ stratagems, wikiIcons, navigate });
+    initFactionGuide({ stratagems, wikiIcons, openMatchup: combat.openMatchup });
+    initDemolition({ stratagems, categories, wikiIcons });
+    initImagePickers(pickerConfigs({ stratagems, categories, wikiIcons }), { allIcon: icon('grid') });
+    document.body.removeAttribute('data-features-loading');
+    return combat;
+  }).catch(error => {
+    featuresReady = null;
+    document.body.removeAttribute('data-features-loading');
+    showToast('계산기를 불러오지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.');
+    throw error;
+  });
+  if (!document.body.hasAttribute('data-features-ready')) document.body.setAttribute('data-features-loading', '');
+  featuresReady.then(() => document.body.setAttribute('data-features-ready', ''), () => {});
+  return featuresReady;
+}
 const navigate = initFeatureNavigation(view => {
   renderComparisonState();
   trackFeature(view);
+  if (view !== 'catalog') loadFeatures().catch(error => console.error(error));
 });
-const combat = initCombat({ stratagems, wikiIcons, navigate });
-initFactionGuide({ stratagems, wikiIcons, openMatchup: combat.openMatchup });
-initDemolition({ stratagems, categories, wikiIcons });
-initImagePickers(pickerConfigs({ stratagems, categories, wikiIcons }), { allIcon: icon('grid') });
+// Start downloading when a visitor points at or focuses a calculator tab.
+document.querySelectorAll('[data-feature]:not([data-feature="catalog"])').forEach(button => {
+  for (const type of ['pointerenter', 'focus', 'touchstart']) button.addEventListener(type, () => loadFeatures().catch(() => {}), { once: true, passive: true });
+});
 
 // The optional browser API uses the same filters as the visible catalog.
 if (document.modelContext?.registerTool) {
@@ -204,7 +227,7 @@ if (document.modelContext?.registerTool) {
         if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).some(key => !['category', 'query', 'penetration'].includes(key))) throw new Error('필터는 category, query, penetration만 포함한 객체여야 합니다.');
         const { category = 'all', query = '', penetration = 'all' } = input;
         if (!categories.some(item => item.id === category) || !penetrationValues.includes(penetration) || typeof query !== 'string' || query.length > 200) throw new Error('유효하지 않은 종류, 검색어 또는 관통 등급입니다.');
-        combat.showCatalog();
+        navigate('catalog');
         Object.assign(state, { category, search: query, penetration });
         $('#search').value = query; $('#penetration').value = penetration;
         renderCategories(); renderCards();

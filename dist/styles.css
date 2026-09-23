@@ -235,3 +235,5 @@ dialog{padding:0;background:#191e17;color:var(--text);border:1px solid #626b51;b
 .faction-reference { border-left: 2px solid var(--yellow); padding-left: 12px; }
 .faction-reference a { color: inherit; }
 @media (max-width: 1000px) { .faction-unit-grid { grid-template-columns: 1fr; } }
+/* Shown while the calculators download on first use (see loadFeatures in app.js). */
+body[data-features-loading] :is(#combat-view,#demolition-view,#factions-view)::before{content:"계산 자료를 불러오는 중…";display:block;margin-bottom:16px;padding:12px 16px;border:1px dashed var(--border);border-radius:3px;color:var(--muted);font-size:.875rem}

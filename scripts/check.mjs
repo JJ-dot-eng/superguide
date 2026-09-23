@@ -10,6 +10,7 @@ import { combatImages } from '../dist/combat-images.js';
 import { pickerEnemyImages, pickerStructureImages } from '../dist/selector-images.js';
 import { createSearchMatcher, searchItems } from '../dist/search.js';
 import { server } from '../server.mjs';
+const anatomyWebp = JSON.parse(await readFile(new URL('./anatomy-webp.json', import.meta.url), 'utf8'));
 import './check-combat.mjs';
 import './check-enemy-expansion.mjs';
 import './check-additional-enemies.mjs';
@@ -121,19 +122,28 @@ for (const enemy of enemies) {
         const url = new URL(photo[key]);
         assert.equal(url.protocol, 'https:'); assert.equal(url.hostname, 'helldivers.wiki.gg');
       }
-      for (const [path, hash, width, height] of [[photo.src, photo.sha256, photo.width, photo.height], [photo.thumbnail, photo.thumbnailSha256, photo.thumbnailWidth || 320, photo.thumbnailHeight || 213]]) {
-        assert(/^\.\/assets\/anatomy\/[a-z-]+\.png$/.test(path), 'Anatomy images must load from the site');
+      // sha256 fields keep the original Wiki PNG hash; the site serves a WebP encoding of it.
+      for (const [path, sourceHash, width, height] of [[photo.src, photo.sha256, photo.width, photo.height], [photo.thumbnail, photo.thumbnailSha256, photo.thumbnailWidth || 320, photo.thumbnailHeight || 213]]) {
+        assert(/^\.\/assets\/anatomy\/[a-z-]+\.webp$/.test(path), 'Anatomy images must load from the site');
+        const encoded = anatomyWebp[path];
+        assert(encoded, `Missing WebP manifest entry: ${path}`);
+        assert.equal(encoded.sourceSha256, sourceHash, `WebP was not encoded from the recorded Wiki image: ${path}`);
         const bytes = await readFile(new URL(`../dist/${path}`, import.meta.url));
-        assert.equal(bytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', `Invalid anatomy PNG: ${path}`);
-        assert.equal(bytes.readUInt32BE(16), width); assert.equal(bytes.readUInt32BE(20), height);
-        assert.equal(createHash('sha256').update(bytes).digest('hex'), hash, `Wiki image changed: ${path}`);
-        anatomyPaths.set(path, hash);
+        assert(bytes.toString('latin1', 0, 4) === 'RIFF' && bytes.toString('latin1', 8, 15) === 'WEBPVP8', `Invalid anatomy WebP: ${path}`);
+        const format = bytes.toString('latin1', 12, 16);
+        const [encodedWidth, encodedHeight] = format === 'VP8 ' ? [bytes.readUInt16LE(26) & 0x3fff, bytes.readUInt16LE(28) & 0x3fff]
+          : format === 'VP8X' ? [bytes.readUIntLE(24, 3) + 1, bytes.readUIntLE(27, 3) + 1]
+          : [(bytes.readUInt32LE(21) & 0x3fff) + 1, ((bytes.readUInt32LE(21) >> 14) & 0x3fff) + 1];
+        assert.deepEqual([encodedWidth, encodedHeight], [width, height], `Anatomy size changed: ${path}`);
+        assert.equal(createHash('sha256').update(bytes).digest('hex'), encoded.sha256, `Anatomy WebP changed: ${path}`);
+        anatomyPaths.set(path, encoded.sha256);
       }
     }
   }
 }
 const anatomyFiles = await readdir(new URL('../dist/assets/anatomy/', import.meta.url));
 assert.deepEqual(anatomyFiles.sort(), [...anatomyPaths.keys()].map(path => path.split('/').at(-1)).sort(), 'No missing or unused anatomy images');
+assert.deepEqual(Object.keys(anatomyWebp).sort(), [...anatomyPaths.keys()].sort(), 'WebP manifest must match the anatomy images in use');
 
 const files = await readdir(new URL('../dist/', import.meta.url));
 for (const file of files.filter(name => name.endsWith('.js'))) {
@@ -160,7 +170,7 @@ try {
   for (const [path, sha256] of anatomyPaths) {
     const response = await fetch(new URL(path, base + '/'));
     assert.equal(response.status, 200, `Broken anatomy image: ${path}`);
-    assert(response.headers.get('content-type').includes('image/png'), `Incorrect anatomy MIME type: ${path}`);
+    assert(response.headers.get('content-type').includes('image/webp'), `Incorrect anatomy MIME type: ${path}`);
     assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), sha256);
   }
   const pickerAssets = new Map([...Object.values(pickerEnemyImages), ...Object.values(pickerStructureImages)].map(asset => [asset.src, asset]));

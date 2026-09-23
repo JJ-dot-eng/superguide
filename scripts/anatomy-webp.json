@@ -1,0 +1,1806 @@
+{
+  "./assets/anatomy/additional-assault-raider-arm-thumb.webp": {
+    "sha256": "1535267d0d60e3264454501b38d493163d5d4a6b26e3159a9bc09166e3928906",
+    "sourceSha256": "20cddfd90c2dbce2ac85edd97d30d12460066b1ad82c1dbb5bc300b1ebb6175a"
+  },
+  "./assets/anatomy/additional-assault-raider-arm.webp": {
+    "sha256": "4d567d9972737eeda0f06d8c46f00af67cad2ee5cf12ed6e591420193f739700",
+    "sourceSha256": "47bb7d3fa60ce3f5b9a3806c72c11f46e2a47bc10b0a860ca17ce15b8a1dfa9c"
+  },
+  "./assets/anatomy/additional-assault-raider-head-thumb.webp": {
+    "sha256": "cf3c7742faba49c8e09c8e6979593d1a7e4c775c37ffd0699f03642ae0a280b5",
+    "sourceSha256": "6b103b09c632539389dae37bc7873329e4f9aabca94aa7af43b35d806dbd5366"
+  },
+  "./assets/anatomy/additional-assault-raider-head.webp": {
+    "sha256": "ef9117069c8d2b0a684c7ed7699a33aaf51bd8d62d0db12bb8d0bbdc92056fb8",
+    "sourceSha256": "b91123d8b4037c307acf08bb47a08dd2aa665398f7c1014193d3f0a0187d434a"
+  },
+  "./assets/anatomy/additional-assault-raider-jetpack-thumb.webp": {
+    "sha256": "564db4891465aa3cec3da225e54e142d16d7ebdb0d8a0ca7916201e7e0e3f60f",
+    "sourceSha256": "f82a767bc2130981a73142712567a95a6da11e2f9c9376608bdd2bf1cc36e398"
+  },
+  "./assets/anatomy/additional-assault-raider-jetpack.webp": {
+    "sha256": "0a4e67199424d88e6e0aa9bf3c02c15407d667ccb08942a76b32ca8539c3119f",
+    "sourceSha256": "28792ebec3710459a9d1b9fe11a42efc4a21e8348bc722298c324202b55d0ea5"
+  },
+  "./assets/anatomy/additional-assault-raider-leg-thumb.webp": {
+    "sha256": "6c46004de7bfcc7fcc870e97229a79725b12c9c61bda8c9403c90ebba7929b6d",
+    "sourceSha256": "c0f76fc32b15e93e853be86bdc72149a68c56f67c2965acff4c8b8310fa1d0cb"
+  },
+  "./assets/anatomy/additional-assault-raider-leg.webp": {
+    "sha256": "98aa658ad4654f91c9685435c8091b9ae4e4b27a1f5dcfab1aab98295761525f",
+    "sourceSha256": "3082c09306f13153649c80dd1253c1ad8df84c73f1339d57d2859d6d0d25fccc"
+  },
+  "./assets/anatomy/additional-assault-raider-torso-thumb.webp": {
+    "sha256": "9ad800fa847e54d85142f840955fe8f4378120cfef605f3e062ae0bfbbfc5181",
+    "sourceSha256": "99145936f3181a2557f4078d23e1fa0229bd03f01cf4551077a290cfc8dc1c6e"
+  },
+  "./assets/anatomy/additional-assault-raider-torso.webp": {
+    "sha256": "3188ae2c3b0fb1bf1eaceab6c14d880f16cca33f64c130c23de4cfddb5831246",
+    "sourceSha256": "3e18251ee98e1239a587e9bacf3d6a1cfbad8b35fd4668f406ed52d277d1697b"
+  },
+  "./assets/anatomy/additional-bile-spitter-body-thumb.webp": {
+    "sha256": "62ba52c4ce72d5ef03ea71fcdc59b5d5ed0c23f5cc95d5e9f86bbb172e50df3d",
+    "sourceSha256": "aad0c8857ffc2cf5979cc7483d8e7757c3b062a4144e02761e3f7aa296e527fa"
+  },
+  "./assets/anatomy/additional-bile-spitter-body.webp": {
+    "sha256": "ef9a6da0a34266e60c83e12cebc18df536873924045fef81326d31e38d04cb12",
+    "sourceSha256": "3f9996c0697242cf5f70b5131851b8200070433277f44861b419fc7620a50d99"
+  },
+  "./assets/anatomy/additional-bile-spitter-head-thumb.webp": {
+    "sha256": "8bdccde989f4be347e395a4efeae5fada8a76ff798f10f4b2126abf551ca5ec6",
+    "sourceSha256": "15bbf25cdfaa14cd151dc719c1272ea8b9d3336d9fc3194ead0343c3b0fa9039"
+  },
+  "./assets/anatomy/additional-bile-spitter-head.webp": {
+    "sha256": "1c0377dbfbe644b481d63e2f3f4c4b8fcffcf6892226967c35bddbf12ebcc37c",
+    "sourceSha256": "e526a7f4c91f5d6c6e58408de65c7cb7108d355a73319fd68e31cbc55f635388"
+  },
+  "./assets/anatomy/additional-bile-spitter-leg-thumb.webp": {
+    "sha256": "ee8242772093b92285cd3f28dea28fd18b0230880482afb640e7ffba773182d0",
+    "sourceSha256": "27a58ca7a6dcb69b0ee29f658d4c037ff97395d7112e9c60b31b2a12b85256e8"
+  },
+  "./assets/anatomy/additional-bile-spitter-leg.webp": {
+    "sha256": "5293e4947f2e176bb9b36e46e1375ffe1914acca4fbd3732cadcbf76659dd1be",
+    "sourceSha256": "e6ee15ae80161e6b2ea4c909b36526f69b5a097fac44805a417d0410382a9a9e"
+  },
+  "./assets/anatomy/additional-brawler-left-arm-thumb.webp": {
+    "sha256": "a95bee7b242be80f12843c6d29a69be56e905f3997772dec0718ce2a3a2b2754",
+    "sourceSha256": "86bfb7bb12cb292a6f4c54a105206e0a544c0a3b2c792c4c40baa8f054cee883"
+  },
+  "./assets/anatomy/additional-brawler-left-arm.webp": {
+    "sha256": "8b368764f038e8a121582ad660e9f214b8bed21449d70b249a8f0a98afe3748e",
+    "sourceSha256": "0e2b5848c163ca58f495a575e21898e873cd3812015fa0141b046dec95eba08f"
+  },
+  "./assets/anatomy/additional-brawler-right-arm-thumb.webp": {
+    "sha256": "4d20d5b1a1d0304131be989b02f404ce96ae03625f8d2573565081c2729ef9cd",
+    "sourceSha256": "c9530128f928c0c7fe26a36ff12085e65ec8db133c0db47cd2c045e4f03f8698"
+  },
+  "./assets/anatomy/additional-brawler-right-arm.webp": {
+    "sha256": "3baef66d7c6f6557839ba8a8a6f3ac4b7d108f6e0dfaac2286c16c807e00a7a7",
+    "sourceSha256": "6b19f62a34099cdf70dfb90e7f180d0780553de43cdb01e18bcaadbc06fcd16a"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-arm-thumb.webp": {
+    "sha256": "935592b3e9c88b1d9c244d0390b69ea082ab078697f538aea99d702b94629403",
+    "sourceSha256": "28ecc33800382d14a4937af3c2e5d2ca83a1a1e98daa4b3607f20de0d06146ab"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-arm.webp": {
+    "sha256": "646333cba68e27bf4322a00aecb24ae76f6d47c018c9cf9406821ef05effff7b",
+    "sourceSha256": "bf6beabd72e3d49ee7f21dc4bf23704b985c62a52ee89c59812acde0753221c5"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-head-thumb.webp": {
+    "sha256": "5c538117e218a8526070d56b457d46b5a6f2afef44d01f7f7ab29cf2f66a72df",
+    "sourceSha256": "7f056c651450a75fb40272327196bd9f7428e979036de21e15cd09e9e1645371"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-head.webp": {
+    "sha256": "3523a8e7d727f5fec3459d3084e97bcf9dab91d609606225a7d33da73c2842ab",
+    "sourceSha256": "b60a3534fa47ea4d59d300ef551ec0ff757356df61cdd7a7dca9ff15d9529a40"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-leg-thumb.webp": {
+    "sha256": "44bac2d1c3155b5ae206bba14e71831c394ba2c7929bcc93c12adf3f830569c3",
+    "sourceSha256": "9801aa8d7be07a557f51ba7c47f25af26f0c0de03b150a307977667989c5c4e3"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-leg.webp": {
+    "sha256": "f509b7c85470c0827f519e651f037be3bd5a594de56b90436d99adf85aebe4cc",
+    "sourceSha256": "dd36200be6a454b5a8d35868cc5c64a1350a1019d55475651835d6229307864e"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-torso-thumb.webp": {
+    "sha256": "1cad869b1c39dccd6e4aec938e8cdc591c5ade3c6ca5f922beb40980f72da760",
+    "sourceSha256": "79169c8d4f40f4b7e675c310a69c0928cd6d5b046fc1171cc4019ee0d6ff010b"
+  },
+  "./assets/anatomy/additional-incendiary-rocket-raider-torso.webp": {
+    "sha256": "a52a449112e56da119a1bbd13d3acb4175113eaf4cea92f8d62159e1f568306e",
+    "sourceSha256": "e7dfd699db2cc7239a3b6793c3a4b59b828b5e65c61b9cb301b16c92a54a0eed"
+  },
+  "./assets/anatomy/additional-marauder-arm-thumb.webp": {
+    "sha256": "2a4301d3d5103c49527da23e15323cb3784b02b2ccd261af90d790c3fe2f8139",
+    "sourceSha256": "c10cba0860ea9d536912a8646d60993ffc96cd3144ff733cc267936ad874db9b"
+  },
+  "./assets/anatomy/additional-marauder-arm.webp": {
+    "sha256": "b716a7d9b764fd6c8f103bbfa8656266fa456b335a560c61bd63cf574dd54bc5",
+    "sourceSha256": "f8cf456b6dc442258cae19cfd6109b3219f8f4eaeda8ac9045ee4f77963a41ec"
+  },
+  "./assets/anatomy/additional-marauder-head-thumb.webp": {
+    "sha256": "7dc7ed3a00ddef5e196b812ecd601180a36b560f33bf6886a8b5e6eed916b944",
+    "sourceSha256": "4b18742a37bb5d4b0687c214fe0c90144ebc1014b484eee3c4794a13f744b250"
+  },
+  "./assets/anatomy/additional-marauder-head.webp": {
+    "sha256": "ac6753126adb4c07d49744061f2781cac325fd7abdf3c2610e61fe76054efa29",
+    "sourceSha256": "c42b92c29088396cd01b3b9fa18907e92783c28c28f1fdaf4e68995d140f04f7"
+  },
+  "./assets/anatomy/additional-marauder-leg-thumb.webp": {
+    "sha256": "5e4a9fcf90563976f7c57c9fe734e7cf61f1a3ec40cb9a15391a207617fe7899",
+    "sourceSha256": "6bd5e775bc547f50730967e961a12f6d8e422bb8ccf22f61aebf78cff36851e4"
+  },
+  "./assets/anatomy/additional-marauder-leg.webp": {
+    "sha256": "0a43787768b8dbbf67c9fea87573b72ef4fc2eb17c889f6ddb3258bcc2232aec",
+    "sourceSha256": "0a906700975a7f3bf74d9c4aba1fc42d4e1c0674522ff91d7ca7f6a603a1e49f"
+  },
+  "./assets/anatomy/additional-marauder-torso-thumb.webp": {
+    "sha256": "67cf8fc056905f6861192c3a8e2d302116175ea71d7ccbb522d9440111ac9296",
+    "sourceSha256": "5eedfd3adfbc15ecd2a65d8b160d8eec0bfce9c6b02d980a149123f27472a3cb"
+  },
+  "./assets/anatomy/additional-marauder-torso.webp": {
+    "sha256": "f77a33805ae9018dc20e7280b1e2b51941632134b9630dd01c1f98e681be5c82",
+    "sourceSha256": "60b1714a722b3a89c5716f369910bcf6c4f9cf1c6ed4fe54da49069665c9364c"
+  },
+  "./assets/anatomy/additional-mg-raider-backpack-thumb.webp": {
+    "sha256": "38aadcad922822fa50b4cf414482fafc9ea944df4a05b91dbb1863451de1aae0",
+    "sourceSha256": "c94e0934d9db6b9bb604dc2550f4957e48715834f5db20691ef9028485a72240"
+  },
+  "./assets/anatomy/additional-mg-raider-backpack.webp": {
+    "sha256": "f64c9b044e726c950b82e91fb5dc03f193f4071055a2bd988e601c1dfa90b483",
+    "sourceSha256": "71774385b8336f0b65cc9f9639f518273f3ea710b84d51008f2b585c1bcd1611"
+  },
+  "./assets/anatomy/additional-obtruder-body-thumb.webp": {
+    "sha256": "2d2e188ff17b5745482e8bb8a4c4216082dbddaaa80ba69689389b99363824c7",
+    "sourceSha256": "c605ac87ea740c9bd0acd31159b370b0aacd1daf2f0b7502f8afbf0ee7433968"
+  },
+  "./assets/anatomy/additional-obtruder-body.webp": {
+    "sha256": "040db51cf7180c0cdee80580d756a60a896d803bd54761b26a5c533d93a46ce6",
+    "sourceSha256": "63de1651a9fa707b3732cd49061a9cf2d7d67244002017f227e888bb427511a1"
+  },
+  "./assets/anatomy/additional-obtruder-eye-thumb.webp": {
+    "sha256": "e0b598fcae8a3ae8d16dd069cf834375876ff8ead92a9383289e719b6d493316",
+    "sourceSha256": "ba594b65540c563b4cdcea53708f1c3514a96b5d112f9ca213dbbe3003954fd6"
+  },
+  "./assets/anatomy/additional-obtruder-eye.webp": {
+    "sha256": "e6ce08dd9e954b3077da0a1d3d589466f6ac212c1634abd8e91b2b2aef091247",
+    "sourceSha256": "0fc4471d03d4c2df31ab213722976b8e68e7c0dfa8f4e77990ee43150b8082e8"
+  },
+  "./assets/anatomy/additional-obtruder-lateral-fin-thumb.webp": {
+    "sha256": "349e377ec23a8b0729f7959e0bbee884a3ec68f0943c0faebec16f3d31ec48a0",
+    "sourceSha256": "a9546c9104ac7faf8da9affe36f1681bd43d68ff11b2ab7b844f7a3c7834304f"
+  },
+  "./assets/anatomy/additional-obtruder-lateral-fin.webp": {
+    "sha256": "cc748c8edfd22f7f40e5ba7dfddf40545fa80f5a954992f6af1e7673ad494725",
+    "sourceSha256": "d8c6776ec1fc1567215c912c05515648baac1f8e9375f1d2cfef24b2f6cb50ed"
+  },
+  "./assets/anatomy/additional-obtruder-vertical-fin-thumb.webp": {
+    "sha256": "35092e227df659762b333cdb4f77329dda1482c5ab0e7a4649d1b2650fffdf98",
+    "sourceSha256": "47367b69f0d16c5b54fd3b15643a25c6184fad0f1f15c042fa7223092c069120"
+  },
+  "./assets/anatomy/additional-obtruder-vertical-fin.webp": {
+    "sha256": "1bbfbf12e215469b43f4c8b305eb58038c8dc1e23510d130668ddcee737c0594",
+    "sourceSha256": "04ac8647f427370577af7dcc9a183dbc8b339e75b99a332a4a8d2903b6c8fa62"
+  },
+  "./assets/anatomy/additional-pouncer-body-thumb.webp": {
+    "sha256": "12960e7da061e6a5d942eaef59f6e3e527d0494573187b6cdd40a9e0c40c20a6",
+    "sourceSha256": "fd2036bf77bf947fdb083db713b224f762645ad643481f51195d8676f135827c"
+  },
+  "./assets/anatomy/additional-pouncer-body.webp": {
+    "sha256": "e766e50edd029177dc30fbd50251b1fbf192b5f635e88e8dab5cac41bd1423a3",
+    "sourceSha256": "f0231705e27ef6e8b3024a9c93926946ac70a0a463c0eee2f721c341549531e4"
+  },
+  "./assets/anatomy/additional-pouncer-head-thumb.webp": {
+    "sha256": "5274974f794b7d55a282cefb35412acf052539bfa3523043ba4552f700641953",
+    "sourceSha256": "a77b7fc92990ce56049a4d65022a1662b640f4ddf13b25070cc1cf618eb484b6"
+  },
+  "./assets/anatomy/additional-pouncer-head.webp": {
+    "sha256": "2e8cd1d9fc9dba8664ad76f6fbc231feda28d55447a0216f287f876d938ed35f",
+    "sourceSha256": "16e6544a34aca7ae5ad3f9c391a298285e29dd5d64a3f67ed1995f3799041138"
+  },
+  "./assets/anatomy/additional-pouncer-leg-thumb.webp": {
+    "sha256": "b43adc9533952ca8feb6e77dd81f5d0cdeff7cfcb7d0d9bc74c964fa0b85c242",
+    "sourceSha256": "b4e827d00e752ccea0456e1136e6d6ea7b833d2eefb9c78e54df216139b92c94"
+  },
+  "./assets/anatomy/additional-pouncer-leg.webp": {
+    "sha256": "58bf2ae22c0ef323d2511d7d04be077fe7075ab3774f8117f73eb2a256104197",
+    "sourceSha256": "d7f03999d8c0936b877210e14cfbfa406dc77d73b703592eb182711a20b81d4d"
+  },
+  "./assets/anatomy/additional-pyro-trooper-arm-thumb.webp": {
+    "sha256": "33626d371c23bc9e96d06dd85fc3aae0fcc40df3bbfbc0562d525dd7b8895d4e",
+    "sourceSha256": "125ff0d15c35eb979ebb8bab28a9cc761722f5c9b2998e65a96325c69dac275a"
+  },
+  "./assets/anatomy/additional-pyro-trooper-arm.webp": {
+    "sha256": "85ce3a6c51cc2c37e8f334a8c1bd2a2a2af846e44ae09f2fa23d5740796ea13e",
+    "sourceSha256": "c7f150c2b70653f3dad495fb12fdbe887576aaa096892d647f036a096626aaf8"
+  },
+  "./assets/anatomy/additional-pyro-trooper-fuel-tanks-thumb.webp": {
+    "sha256": "b1d2da539a5e3fc270ad82a58e0a8d988959276f0f64a856ed8585227fe06088",
+    "sourceSha256": "2311a532024b00c19dcdc86cc4bf3d5029f3cf7b907e2caedf1daccc4ba930dd"
+  },
+  "./assets/anatomy/additional-pyro-trooper-fuel-tanks.webp": {
+    "sha256": "43eb700db1831f16c804cd846bebd7f5c9c3ca5ccac6ddfb65d5c0fd2042202a",
+    "sourceSha256": "ec55097bea9296ce951a3a83b65acbd2af92c69d8ad5c7d7ccf6a3fd56b23371"
+  },
+  "./assets/anatomy/additional-pyro-trooper-head-thumb.webp": {
+    "sha256": "38db780faf1fac1639216e0a0897cf13f799633cc53de308f3241d70acef6203",
+    "sourceSha256": "15fb07cf6c221353ea1c072bca7551234f6fb09f154c8d1e1eefd5b84aaa3be8"
+  },
+  "./assets/anatomy/additional-pyro-trooper-head.webp": {
+    "sha256": "b2dabdb211b1166539e020b4b6b52a8ec6375591b0e3f7ebe20a4a282091c7b3",
+    "sourceSha256": "60ecb0971395d1c354708392f65e1457f2cc740dbc374d57767927a89fb04a2a"
+  },
+  "./assets/anatomy/additional-pyro-trooper-leg-thumb.webp": {
+    "sha256": "c4989e9fab990d567f34e1e1323e870414cf39a2a52207503e7644eedc6eef4b",
+    "sourceSha256": "5ff839d94d914f8b004e446ff2d187c5fb0fca474cdf6f8efe2fc38b8888863a"
+  },
+  "./assets/anatomy/additional-pyro-trooper-leg.webp": {
+    "sha256": "c9dff3a8f5ca6e53aacb01d09709b48120083a05bd9ff7c1044988dbf4b8ae7c",
+    "sourceSha256": "6ed816872e91245f32b20b1ac04f1e3002b8afb04a68641df829f52f8f0e1827"
+  },
+  "./assets/anatomy/additional-pyro-trooper-torso-thumb.webp": {
+    "sha256": "62f2b582f56b0c7cb2c085a00a7669ca9e1dbac99031aac6729b93aa0b794185",
+    "sourceSha256": "6c47736dd16ce59c52696ab11303c7d6493e9f2b32fd4e5930c4e696a6588c45"
+  },
+  "./assets/anatomy/additional-pyro-trooper-torso.webp": {
+    "sha256": "43211ce88f3c36265a3aab011986657ddd9fa668879079bc1d8c51d33431b621",
+    "sourceSha256": "24a785558f74cfe638c9c8602cd5ab1acbcf1c0b5e9d9e6a5d97e174fbc37e7c"
+  },
+  "./assets/anatomy/additional-scavenger-body-thumb.webp": {
+    "sha256": "cf6b2a13c88f7a7afb0df2f0d6c631e61275230a4b679cadf97da602491653b4",
+    "sourceSha256": "525160e24381784f4af32790f1e46b39784e782bf9ca99b64153cc1ad4e62079"
+  },
+  "./assets/anatomy/additional-scavenger-body.webp": {
+    "sha256": "cab72fbd7d96e68795430e29fc33f5aa8a8b3abf7042f174325b9e122d54bfc5",
+    "sourceSha256": "847130e884b8e72ae1da336ede9a79d5a33ebbb2a241e26c34a963f70d450909"
+  },
+  "./assets/anatomy/additional-scavenger-head-thumb.webp": {
+    "sha256": "1e4ebf04b6122acbf6584402c396e65fb6a66a3f9a9887d4f29fcbbabe99a963",
+    "sourceSha256": "ba9f0061d54c98a38527a0f949b0e9d0915b730729181c0454c44ebf89322352"
+  },
+  "./assets/anatomy/additional-scavenger-head.webp": {
+    "sha256": "f15713029e74a19c60ecf3d3df19c0ad66761340220483620f2ce6e1c965c380",
+    "sourceSha256": "8d63df1a69ce107444c20d98d0a7985ad36bc73f6043d5bb059640dc3e6fba9e"
+  },
+  "./assets/anatomy/additional-scavenger-leg-thumb.webp": {
+    "sha256": "5637a792c2c40df893d11638fdde1797c8d956f1e97c589590a91ee12315122f",
+    "sourceSha256": "e7ccbc397ad627fae52ece799409faa46aea3eec6411570ef0b7b74e0a296fd4"
+  },
+  "./assets/anatomy/additional-scavenger-leg.webp": {
+    "sha256": "b0e082eff2fc95df9b823df1f2aadea337f3fcacac8565ce46ac413d4d3f4b8b",
+    "sourceSha256": "84ea15b68e3d16096356c1aa35cae3c0c70cc4aa86d9466430fab3bc39466f45"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-body-thumb.webp": {
+    "sha256": "e92269d8d2aedcbdf1c9621ae3f46fb3cb90483527d7b82e2ec2372d0d2276da",
+    "sourceSha256": "42fc720f4ec971a35c79dd6c02d09b98fb3ca64d066f0273ee2402c6dba7c555"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-body.webp": {
+    "sha256": "9992d13e624ee06f252a5beb6502954158b34197c4d5d0fb986e02661a3b8703",
+    "sourceSha256": "3d7f04aee1622d686726fbb9e4469a74f8ef46cb9ff5575a41f3842c8a720326"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-claw-thumb.webp": {
+    "sha256": "88b73091ec44eff0d73021b3554748af7f78d2e7147f5646b1869725bbbd5de4",
+    "sourceSha256": "815b9363e1f2becf4b55102a5cc36596b886c260da9b7507ff73111393571a35"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-claw.webp": {
+    "sha256": "100ccfc6b37e3eface237bd5f0dd1480ebd91d130be06ce0c6aa29cdfe82b7a4",
+    "sourceSha256": "004c8c5b95380052ac7539137e6b15f9c590abb303ff318d04cd5ecfb6a06e57"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-head-thumb.webp": {
+    "sha256": "e0e49f72a513a3a182e8c1d10500aa67abfdb1d98b1e979af7ae6660a71f9f55",
+    "sourceSha256": "11d183f455b027617e1c48fe0c88aac1b0ff2bda72d954aebd38dc33f431e83a"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-head.webp": {
+    "sha256": "5a59987e024048170828ac8dc89773bf76323df6d766c93ff1565136dfff79e0",
+    "sourceSha256": "5903f5009f19d3a78f2789edcb1dad9d5ec3abdcc0937811ca5c83703e6096af"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-leg-thumb.webp": {
+    "sha256": "e97bf6401454477a8272c66a9745c33f1e6d0e1493679d956a4665bc27058f3b",
+    "sourceSha256": "d906fd247484da7891bce56e4afda015fbcc992a3172a52399236e2b6c92b9f3"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-leg.webp": {
+    "sha256": "b6f33d5145bd980170b6a1a4109afa11f8aef4f9615e3e9fd4c67c7f14a13601",
+    "sourceSha256": "f6be1d9aa432d43ba35f376d47016420eb6b6402d59bfa59ccdd8bd321f125d9"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-wing-thumb.webp": {
+    "sha256": "b43adfd4647d24aeda1f2ed5cd2a6370e990c944d3622a2459e8343e0a310fe0",
+    "sourceSha256": "97b4315dc4dd00a359822ee9cd63988d67a557cc6b37365978a3d2e7f26d749d"
+  },
+  "./assets/anatomy/additional-spore-burst-hunter-wing.webp": {
+    "sha256": "d63c2e61588bbd5402f1d984171d86aaef24a40af7ae8d9ade3e9222446eb3e4",
+    "sourceSha256": "effd6b107a4e28142ab9bfe37f953942bd2f72c306b228916b835be9a7ea4624"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-body-thumb.webp": {
+    "sha256": "3bd0cfaf9a26db00c75e20a38c53d2ee7673e2b366636d7a2bab734f782ff634",
+    "sourceSha256": "1db3aa2dc2bb9b6700000661949b48ccdd20a753f9a7f7c6e4c898bd461cd107"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-body.webp": {
+    "sha256": "ef416e91bfead5419447bc6511783897e409b3ce0a9513d9f6305c2900a2a6ff",
+    "sourceSha256": "06a3c944364289405ec624432d39cdb06c73a742c39a49f78d4c79d639f1d551"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-head-thumb.webp": {
+    "sha256": "40c876173ea2be47805e3d1c3f4d3ee5fe6c0123a5d37ce9fcd8f9bc7415563d",
+    "sourceSha256": "a5db28540508caf05e08337d8fbfb295aa3e694ba8bdd9decbdbcbb4e473da88"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-head.webp": {
+    "sha256": "081b148c2013d9c612f285abf2d886ce140084c3f93a61bc465a8d9398e4c51c",
+    "sourceSha256": "8bab62a3e02a5f589a42ae9beefbd1fb443e564eb9402738a20f6ca425bb49cf"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-leg-thumb.webp": {
+    "sha256": "f5fc6eb3e9da882abb9bf803c9c131760e84e8157cf4bd07de748d9781be1c1b",
+    "sourceSha256": "2406636a5e2656f545bf56af4c14bb555b89d688286e214cbb25e1f0fa29cc77"
+  },
+  "./assets/anatomy/additional-spore-burst-scavenger-leg.webp": {
+    "sha256": "05fe67e260ae69ec34d61acae504b07659a6b04566ff2199313820ea337972c8",
+    "sourceSha256": "5bf1eba7298f9f6cfcbbe73c9ad257c1d4e7eaeae88feb72c1c17ae71bd74af9"
+  },
+  "./assets/anatomy/additional-trooper-arm-thumb.webp": {
+    "sha256": "0079f409129c4cfad579c9949c14171de036caec772329d470dec768454fdbea",
+    "sourceSha256": "16ab176a4e26d73552acdcd5bc661df890096879832bd99c12f79aea4460dc8a"
+  },
+  "./assets/anatomy/additional-trooper-arm.webp": {
+    "sha256": "ace075d5b3ef52cccd46675df090f6bc57f254da8a5077aa932de241f52c8d84",
+    "sourceSha256": "90cd9cd5052e09826a493bed08221dbf10784b39d54eb66961e29fab93f8cd97"
+  },
+  "./assets/anatomy/additional-trooper-head-thumb.webp": {
+    "sha256": "50910b9fbbaf69a6eb21f90d7af778ed694dd3a59e3d60784548c2aa36f01aab",
+    "sourceSha256": "41918bc79a0802ce6331cdff59c74e3467b78c2868b5e9baac2fd4ca41ef592e"
+  },
+  "./assets/anatomy/additional-trooper-head.webp": {
+    "sha256": "99e4cdd1b0b658d30010a2257c70e6a73ca5f26124d5b93c21ddb42785d65e32",
+    "sourceSha256": "07fd379dc4efc60e557008fc0845d6b95e15409bbe7119685680e47ad60f2e11"
+  },
+  "./assets/anatomy/additional-trooper-leg-thumb.webp": {
+    "sha256": "356ff72f8709fde1f89aa1ed82b736df4c92561694a28763df9e457922fd764a",
+    "sourceSha256": "88ad2c4ac73267e99e404e3561305cd1f0facd7af3c2145482f679fb1fc92edc"
+  },
+  "./assets/anatomy/additional-trooper-leg.webp": {
+    "sha256": "fbbce93f167a4131422f9969eac2b0c5f36cb0577eae7b9833269266b320bc2a",
+    "sourceSha256": "4d403fc7b8f270c50bb969f71b9b07789088652b4e330f3be203632991cd0b57"
+  },
+  "./assets/anatomy/additional-trooper-torso-thumb.webp": {
+    "sha256": "bf86c37d9122397964932fa8152f3da8a53bae564c1d3227e532457716d0726b",
+    "sourceSha256": "a2f3084684fe5f5e94f635c393c16156e91a313bbb5e36fcfa8c894bcfd04622"
+  },
+  "./assets/anatomy/additional-trooper-torso.webp": {
+    "sha256": "29bf4314c8cc04ed1028297610d684b1266376ba7173d19997ef989f3d83deae",
+    "sourceSha256": "d9b2223418ce6437e58c6c6e74690054ba171430d40b5213ba4f58903a23d135"
+  },
+  "./assets/anatomy/annihilator-tank-engine-thumb.webp": {
+    "sha256": "80a81c3a8e8386d76204eeb83b901951c0eeee04ec5967aa704617f1b7ae7b18",
+    "sourceSha256": "c1a2a2649cc11ae844109603f058955c7104fe2c318a7fe49897f9a5d098a2e6"
+  },
+  "./assets/anatomy/annihilator-tank-engine.webp": {
+    "sha256": "42af5f2c3f129faa3d5ea71c229de1d0d1bc4db8d221dd68336ddfc3c33efdfc",
+    "sourceSha256": "d26d97ea98a1d7e12d8c2c610c4e0250ab222530759183914cd5cbdf54d28fae"
+  },
+  "./assets/anatomy/annihilator-tank-heatsink-thumb.webp": {
+    "sha256": "ee3076cf0d85ef0349ef5e4d7fb36a05f6df79026d709b62b16deff84a54d866",
+    "sourceSha256": "14806f33251bf1122ba8b1476bd9f0b28f491b8bbcc45cdb98fce88881d9d745"
+  },
+  "./assets/anatomy/annihilator-tank-heatsink.webp": {
+    "sha256": "16687cc83895326a8d96518fc7e063ac06f92efe6d11870ac0cc5653c44bc3a2",
+    "sourceSha256": "1796b191c57e85f608faed013707449af70a6b3febc97102844a70ab7f9ab065"
+  },
+  "./assets/anatomy/annihilator-tank-hull-front-thumb.webp": {
+    "sha256": "afd56c618b50537e31f4bbe356d2900746960d5c01f5d087bafeee2d86a0d2bf",
+    "sourceSha256": "3a74deed8165a9069528e6fbe15ec5d0ea885956920cbcbc441b5242bd250190"
+  },
+  "./assets/anatomy/annihilator-tank-hull-front.webp": {
+    "sha256": "6ecf24914e15f02587820ee00ee38577a0f4cca4823ce73d45a1feaa7d7af993",
+    "sourceSha256": "1569b7116efa33121499ead649366589498e5a4f3986ea3f8ced891a3bc2a658"
+  },
+  "./assets/anatomy/annihilator-tank-turret-front-thumb.webp": {
+    "sha256": "4dc1733a22e4ac82e4a42a96bd19193377b46d282b33a0677d49483e0cfd1295",
+    "sourceSha256": "d0b2efc2aff644ad8b58d1c937920a91d0ce0eb11efbfc5e322e0664111111c2"
+  },
+  "./assets/anatomy/annihilator-tank-turret-front.webp": {
+    "sha256": "d03fa79c0515d1bde7e7fe99586910145189fb766dfc537af87a4ac4d4d192ff",
+    "sourceSha256": "476386e71a51b121e40ce677c0364549f542ab01322cbb331f77460995d97bdc"
+  },
+  "./assets/anatomy/behemoth-butt-thumb.webp": {
+    "sha256": "e4cb9ce048e4eaf3f19b9fea94396abde3ac44f490fda12d5c91cf09abee8ad0",
+    "sourceSha256": "7a5c68b35d2d1a4ba14f04d5f0d406e2ddbe8122c863943a62a9bde2ad9ec00e"
+  },
+  "./assets/anatomy/behemoth-butt.webp": {
+    "sha256": "cc550a3d256a47edfd3ee2d873c9f0b713ccdcef74986ddc68064161262c7ae5",
+    "sourceSha256": "02c47d673ec2a5f7add47d1e524166e5d6e9ea96a7b03ab6ba3574777db3c3b9"
+  },
+  "./assets/anatomy/behemoth-front-leg-exposed-thumb.webp": {
+    "sha256": "363c65ec936ec725f6a3ed4870851d8e26f0efdba13cffdd788ffdf374f972c4",
+    "sourceSha256": "171cde9f7d7570b67a5c92905bad3ab3d5ce59f0b0518daa4b532fbf8d403fd7"
+  },
+  "./assets/anatomy/behemoth-front-leg-exposed.webp": {
+    "sha256": "0e0d7d153ac19ef41d8cb4368765eb9e7a45383c164f3f0e056ace2c7a9dfb8b",
+    "sourceSha256": "572ec5548a7d917c092e74863e78f1b0368c95aae2f733e13ef04a7740ebf525"
+  },
+  "./assets/anatomy/behemoth-front-leg-thumb.webp": {
+    "sha256": "affddc227c449161a0350e895c61d62acfb93e835e9251336bb7e4b1c1a09764",
+    "sourceSha256": "84daa1990d4f7a3a52a64bb50567dc5bc8a7c92c2b41cede1050cd363ed84f38"
+  },
+  "./assets/anatomy/behemoth-front-leg.webp": {
+    "sha256": "f55f3cc8d6dadcb8f6756ef31f4dd60cc8ff13e62c8163012285a40174bc73bc",
+    "sourceSha256": "d0294871dd44913db1cbafa9d9379d3c37a8c686923d63e35a1df03c60078b07"
+  },
+  "./assets/anatomy/behemoth-head-thumb.webp": {
+    "sha256": "5b712349f0676d8109d9c227d8ba70692d6efd28d530ec20a70d220a7590ea48",
+    "sourceSha256": "3defbe78d136a8138587be96fb90afbecf7e280d0ca0081eccef99bc610eca66"
+  },
+  "./assets/anatomy/behemoth-head.webp": {
+    "sha256": "1dbd10ffdde8851b906cc1bffc349067fd7ee73ccaa5defa0c2b1fab6a173dc3",
+    "sourceSha256": "99f094ed4b448c17a022c63be46fe37d0903bb60cad9f9b5800803b57f677b97"
+  },
+  "./assets/anatomy/berserker-chest-thumb.webp": {
+    "sha256": "55c651c07490d8f960a5ef17635919ae0d71523cdafd4e8c646d4909e2359a60",
+    "sourceSha256": "7685952cd0d119defc0ed275e831dbfd2dec31b06e4220b8672d38359e1d2ba3"
+  },
+  "./assets/anatomy/berserker-chest.webp": {
+    "sha256": "f6a1fd3f43c7fb1858d451edb6d47a6b82ccf98c5b667323de33cf5f4dbd0d6c",
+    "sourceSha256": "882bee087e71eeba421297a929ab0bb4c4cb5ff117285e85685e94907c177e5b"
+  },
+  "./assets/anatomy/berserker-head-thumb.webp": {
+    "sha256": "d9eb924952bcaaff3398c42316adf2058ef486373598083aedba3288acfdf56b",
+    "sourceSha256": "0ecf296ec783378e8f2b04555a1ff925f7e2fe643ad54ea54a0013ccfb01f1ab"
+  },
+  "./assets/anatomy/berserker-head.webp": {
+    "sha256": "276d1824427a356fe5f174f13d4b1393f6d6eda00fd337cf9988559a4b1a54c3",
+    "sourceSha256": "9df30ceb072d9c314b624ded97868994e7e6d3b4b9f9996191f7e7762a4b6ed2"
+  },
+  "./assets/anatomy/berserker-stomach-thumb.webp": {
+    "sha256": "c98ec5dc74726b4a6684db763cf35f8ff86abcaf006e3d2ceb4276a3e9007e93",
+    "sourceSha256": "86593009c8e82ac311f2cf7efd9dcf1b69a122c894c2a010ba814d3c023ddd35"
+  },
+  "./assets/anatomy/berserker-stomach.webp": {
+    "sha256": "004aa25e3f416f94667eeaf7d56f95dd7e474840c7c86551b80dab8ffb186b08",
+    "sourceSha256": "46c58541d29d9b0776c8e0e359241159b769919907ed85cddfb0991d25f36081"
+  },
+  "./assets/anatomy/bile-spewer-butt-thumb.webp": {
+    "sha256": "bc5ebdb2d4037c31f650071374083583c6eda90a86bfeb0374de35afd9e1e1ee",
+    "sourceSha256": "c90d57127cb769e9aa2fba926872fac278f9eb8cf6a7c674289e1af80dd189d6"
+  },
+  "./assets/anatomy/bile-spewer-butt.webp": {
+    "sha256": "010a983fb7a15b295c58cd3534f2f0475f8d31ee510813b2da2df46af573d01f",
+    "sourceSha256": "5bf8da0ca704d179dc0256a2c53ecbf4707fe1de23cc8d9b491528c16e6d1250"
+  },
+  "./assets/anatomy/bile-spewer-head-thumb.webp": {
+    "sha256": "749aef983539487d3b5ab4155fd20b19c93656f0cc92d11de698a37015d97c99",
+    "sourceSha256": "0d696898ff1733d442c38fd338a8f08292d26b0a98c239968165d7e3ab310617"
+  },
+  "./assets/anatomy/bile-spewer-head.webp": {
+    "sha256": "218cc135a41135a01de06a1605a7bf64ff1665861e1cc8cce4ea5a3775b83aae",
+    "sourceSha256": "2f8cb56e739e90ff436c39050a65b7bf033e7b7765507dc98b8d865382c613fd"
+  },
+  "./assets/anatomy/bile-spewer-mouth-thumb.webp": {
+    "sha256": "275bfdeaaae0af657f5fe3ac5360dc528202de417daf2b16374acec411b864aa",
+    "sourceSha256": "cf1c823a06e8740134724a0225c62cb68d16bb9354bed645c972ad0bc0db2a9f"
+  },
+  "./assets/anatomy/bile-spewer-mouth.webp": {
+    "sha256": "0f4523d6e25262ec1f9324a9fa0daab70ff1281bae47216c98ef975c359a5c93",
+    "sourceSha256": "d704e43640a46141d6551d08da9bcaaf570c5b6a048adbb8cb70ceaedadea86c"
+  },
+  "./assets/anatomy/bile-titan-head-thumb.webp": {
+    "sha256": "d3ff7cbb44d37e6bdf6e56561b338e717c9f4fe33adeb7dba37165d76a6921da",
+    "sourceSha256": "52bfb224c7ca2703d2ccbbe6769a9027ca04b649dd68e079e18c3bc1b36ce134"
+  },
+  "./assets/anatomy/bile-titan-head.webp": {
+    "sha256": "7ae723490ccb90bb64526d4671e91b35525a4ef527a913543f0bd12ee1be5d1c",
+    "sourceSha256": "2952ec8a897e4a92ced82143e1c59dc1a5989265d8ebde5ceac130594f9e42e0"
+  },
+  "./assets/anatomy/bile-titan-sac-thumb.webp": {
+    "sha256": "77c6ec03d6613377307be134cdc2482f511ee85fbced741fb7bf27ca16f7857f",
+    "sourceSha256": "75693981a8cba0c6fa02e27e09011e22acc0bf9858701170bb3e138c0fa367b5"
+  },
+  "./assets/anatomy/bile-titan-sac.webp": {
+    "sha256": "49bb515a677c96eae804384e95a49f8c20972318c4fe62770557f1f45464b339",
+    "sourceSha256": "741cfd6b607cf2b2f6db9268f1b21badd82b61a0ef7130874591e48fa9e3c662"
+  },
+  "./assets/anatomy/bile-titan-underside-thumb.webp": {
+    "sha256": "dba713b4b488303a826d11714c9896b241b53317b1d89d173251bd1c5bd7446b",
+    "sourceSha256": "93b526aacbb18b9edb97f789cee0bd8ed5b7fdb435896bc9fe8d9d822dc987ee"
+  },
+  "./assets/anatomy/bile-titan-underside.webp": {
+    "sha256": "63040636d82f53ceb18654d8f1de8e81f79f66c210deafe7ae5f1802f5898aba",
+    "sourceSha256": "6661cc623c68ff2db7640e5c866b69878e4480c8eb8a8ed89beb16a1c9ea5956"
+  },
+  "./assets/anatomy/brood-commander-claw-thumb.webp": {
+    "sha256": "ceb1e2029a9a3b43d7f350a2d83ea49d8acd47980ab4ef9efe9b8861ac9d4bea",
+    "sourceSha256": "fce6d6b9f7617b45ddfcbda0fe6f53895bd8b61d81542d83fd282b9935760c60"
+  },
+  "./assets/anatomy/brood-commander-claw.webp": {
+    "sha256": "147d801bb5e0d4613ece96f590f66bec8574e9dd3e17d6064ac7cb73e18570f1",
+    "sourceSha256": "7c85eddadce10563c1b4a3c9e61b88498e8826f987200b811debe3eb9d107dc8"
+  },
+  "./assets/anatomy/brood-commander-head-thumb.webp": {
+    "sha256": "0d9f3fdf61f241ca9acfe408102a821278bf8e9c27c9523a593729856f0d5f34",
+    "sourceSha256": "1939e8edc6b9178f2b27dda3134c3eac84227cdfd45e89c9d953fef0eba51919"
+  },
+  "./assets/anatomy/brood-commander-head.webp": {
+    "sha256": "2f396c7f097e8b863b5cfe1b204e260006709a9d7f88d40b0b8aefc4cb6c9f32",
+    "sourceSha256": "8b9f5d66fb15e6b7f33a407e2e3e74f58f7fdb04d0365bf1bf96b03ff5b08060"
+  },
+  "./assets/anatomy/brood-commander-leg-thumb.webp": {
+    "sha256": "ff1c27574a8d4803a2b686330b98c02513f7a076c4f636fe1818963292d388f3",
+    "sourceSha256": "e7c41b87b8727d92b364a63142833b8d5f5535e4a861b3029ade724180cdc5b8"
+  },
+  "./assets/anatomy/brood-commander-leg.webp": {
+    "sha256": "6e53da28725403dee5120a2d2cae83f5dc87c32bf43e58d521d83d68e34261cc",
+    "sourceSha256": "17e5430d2462203bc4b216008778f12fe4326663e4cf8bb087f06dc10be17882"
+  },
+  "./assets/anatomy/charger-butt-thumb.webp": {
+    "sha256": "c59bac35c18ffd496e865669814cc49d9e0fb6276cefbad0377d8bb3ddcc922e",
+    "sourceSha256": "8f1b2f0e09907446bbb9728c381c53ae474d7f1d284ef3de29e9542a302d6ab3"
+  },
+  "./assets/anatomy/charger-butt.webp": {
+    "sha256": "a23b08038d13fe095888da259c5d057d8ea1dcb8ce9408347a32b250d913e875",
+    "sourceSha256": "798fdc46343d2701e29458074b9e748b14dbf34f3ae73902c973b87204a705c6"
+  },
+  "./assets/anatomy/charger-front-leg-exposed-thumb.webp": {
+    "sha256": "4599d8eccbe14912b3d2f1ddbb0d3b2078f2ddeeeb31de111aa63a36a13b8d94",
+    "sourceSha256": "b10ca63f1fb94b5049e3fb0d80781dd7b96281042115511f9d93d7abfe230c62"
+  },
+  "./assets/anatomy/charger-front-leg-exposed.webp": {
+    "sha256": "0ba6829d9f3a819875741aef7edb7f73dfcc60b5e380556216e1ae29ecdb9ec9",
+    "sourceSha256": "9b55be70a7f5ccbec2bafbf73846a54f1710f49cbd182d632ae7126e968b44c8"
+  },
+  "./assets/anatomy/charger-front-leg-thumb.webp": {
+    "sha256": "544f43d6e988220108f175d564bec765073d2e184e2aceda749dc3bd52db5901",
+    "sourceSha256": "ce8f7b7ae8ef4c4d7c0391df8a667f43788e706e5601d64ec4c4fc1d25108cca"
+  },
+  "./assets/anatomy/charger-front-leg.webp": {
+    "sha256": "414a992252a4cb3ebe1e3f5c4492fa758df087587c5d6eabd8e73068c3eaa69d",
+    "sourceSha256": "e4788509eaa251376069e81c19ed58703164e36daf575b234ab657ab01811892"
+  },
+  "./assets/anatomy/charger-head-thumb.webp": {
+    "sha256": "4105e7f547151e75471d5970f3cd57678e931320f630eb41c3d3878992fe9dc6",
+    "sourceSha256": "3336a8f7b5eb76db00ef481345abdc5c113086440fd01b456e0c3a34e7ce0903"
+  },
+  "./assets/anatomy/charger-head.webp": {
+    "sha256": "4522d5c26f0ced8bf1377d0e02de6d0143230b5f7dc81de0d348ea33a49b323b",
+    "sourceSha256": "726bee9c8f12288879c93870a6e97d9d0afd6d769217b884a685a36a69f6ba6b"
+  },
+  "./assets/anatomy/devastator-head-thumb.webp": {
+    "sha256": "ed8152ebab7a8f515381fa52a677d552caf86f3412cc95dc69ec5dae60d6aaaa",
+    "sourceSha256": "de66966b5efd62a0bfd83b58d2afb658b9c2e31d1e48f08245600d3354a1a246"
+  },
+  "./assets/anatomy/devastator-head.webp": {
+    "sha256": "1d6539c91a5cae487da7f7b262abceb49d6953bc116a46a6c285dad5b9ba6420",
+    "sourceSha256": "71fd57527947169361b2604c092b6c60b0fe699483a984a1a360397cd1960215"
+  },
+  "./assets/anatomy/devastator-stomach-thumb.webp": {
+    "sha256": "6a6a500ceae94e2efe04728c18e73af00a643a22445527c5dbc43046263f089e",
+    "sourceSha256": "6a6a6bd5a8888efafee12017ef6ff211feb1f27ad878971d284a8f72e152eb4e"
+  },
+  "./assets/anatomy/devastator-stomach.webp": {
+    "sha256": "03a6fe2d4acf76acad7b684fd4ce0a7b88ba4b44740b033ac4ba0d74b72ff9ef",
+    "sourceSha256": "a8c0ac9152851f9ad6acb21a2b60cdf74d35da8a778ad6b37e3a45472dfeeee3"
+  },
+  "./assets/anatomy/devastator-torso-thumb.webp": {
+    "sha256": "9308589bc1bd6d4eac98964b49487d4632163c2193b17f8f5e15132d24a7a5f7",
+    "sourceSha256": "a7c247133eb29f7bc663c8bab8b6c87ba7bfe88cde63f0c41600a9293fa9d3fe"
+  },
+  "./assets/anatomy/devastator-torso.webp": {
+    "sha256": "5e1954e416f289aa6bd4d8fd6a6d27f2223e6d07020844a691dbc83b08d71e5c",
+    "sourceSha256": "1730b4a343d7b374755e65be54561ef51ed6790268129d1764df30f94dfa8b81"
+  },
+  "./assets/anatomy/elevated-overseer-chest-armor-thumb.webp": {
+    "sha256": "5e84d673efba11225654535528bfbe12e88ae517505e8d416edda6731598f86b",
+    "sourceSha256": "84d042c890b60e30edb3a37d24c50ee59966a5539a5601d8fd7a6a183ad3ae30"
+  },
+  "./assets/anatomy/elevated-overseer-chest-armor.webp": {
+    "sha256": "7627701879eb65548738e5591c066b220aef506f38601b6d00bfbeda1046d9ad",
+    "sourceSha256": "fad8a02f2cf81e8e7911aae90654d41b0fce0fd953dcf4137ce2979869bf7ea0"
+  },
+  "./assets/anatomy/elevated-overseer-head-thumb.webp": {
+    "sha256": "ee7649ad87b42dbc27af0813b6fa4aa11954cbb36995d99d246ae1bd8e412309",
+    "sourceSha256": "a2e742f6c53d512cd0a6943333ef31e67616fb56c247334eae8e516543eeea63"
+  },
+  "./assets/anatomy/elevated-overseer-head.webp": {
+    "sha256": "a7e80a26563a6d2216bd67ad5a3bedcc8e875c6bec682a72de9055363564f9b8",
+    "sourceSha256": "9ed30f272bade6b93f8790fb0ab51ac808e8431070b29cb0dbf0941563dfbfc9"
+  },
+  "./assets/anatomy/elevated-overseer-jetpack-thumb.webp": {
+    "sha256": "79e8437865fa573faf785e97d0b1006043aef01b931959348dc2ee0f5447f808",
+    "sourceSha256": "e0bf5b3dcffa4a25710db9e11e7f43040d6d41f6a4dca86dcd5d6e08ac2ddad1"
+  },
+  "./assets/anatomy/elevated-overseer-jetpack.webp": {
+    "sha256": "b95ae38677374e853885d4323b363f872a8f31c080739ae6bc2452ceb62847d3",
+    "sourceSha256": "8e6c30645e90d1c3595df86ace6591b04d11c4fead5b4083dfd8e0e2ec4012d6"
+  },
+  "./assets/anatomy/expanded-agitator-helmet-exposed.webp": {
+    "sha256": "0d93f34f336f11af575bd2bc60ad9bf131c1b9ab01e86da9bc1ce4aba70c7545",
+    "sourceSha256": "0222896af8e8ca060524ab5a4f970960c450e733faa620eb43f3288531c2642e"
+  },
+  "./assets/anatomy/expanded-agitator-helmet.webp": {
+    "sha256": "41a2937c2539b56cdb7af67feedb060a8ba20c9955192e7d0f6469db4ae8cc94",
+    "sourceSha256": "0d37ed80a79632144ef0cf4dd0d6328560889ea41f0389442233844f5dc3bb73"
+  },
+  "./assets/anatomy/expanded-agitator-pelvis-left-leg.webp": {
+    "sha256": "62f18ce9dae1aec38183bd2cbef695c2c43481d46d4f70fbd10c79a2a5d9fc25",
+    "sourceSha256": "b4ae0b0dac40a748ae14bb4b7c31ac28b64d9f90a07292d88a0fa29fa540f74b"
+  },
+  "./assets/anatomy/expanded-agitator-right-leg.webp": {
+    "sha256": "69eb0f9d082c1e627e0dfc1e5017404d44ee8a7bee000930f502a008b766e8bf",
+    "sourceSha256": "05fb62a4bceaa6d4eb9eab102417ca543c79bd891f4702db02d4b42707f2b00a"
+  },
+  "./assets/anatomy/expanded-agitator-torso-armor-exposed.webp": {
+    "sha256": "9078c3772d56b299b06e640d237b19922872191928b932fdab964dec82884f2a",
+    "sourceSha256": "680c5c276282aab3e293a37941d9287085457458b78023073c06e97943939c44"
+  },
+  "./assets/anatomy/expanded-agitator-torso-armor.webp": {
+    "sha256": "e03bce88fb6ae4bed009e6adeb3f37cb1e838f21441abfb084d1799c64826d75",
+    "sourceSha256": "e17bc3860d7b972b5cda21a4c31185f2331ddd97db316b47027a9ec0c8d8ba19"
+  },
+  "./assets/anatomy/expanded-agitator-upper-arm.webp": {
+    "sha256": "8078164c5173302b81882b3cb95c5e37b177455c9c9070310d77d875ddbc4754",
+    "sourceSha256": "12a93165c3bc4768cfebc50a5a7236db1a9e82b74f5c4f1e3d640a7847615e64"
+  },
+  "./assets/anatomy/expanded-alpha-commander-claw.webp": {
+    "sha256": "b4cb7df50709f13ea53f9f0105abc2eb4510f4d644f36eb42db16cb1897c95e6",
+    "sourceSha256": "c45b26f7727c602eead6be3364ad36a49c63a15514906b69968ae9cde649b35c"
+  },
+  "./assets/anatomy/expanded-alpha-commander-head.webp": {
+    "sha256": "5e489a95a0e73a4474dc296f205090b4059cada9ae38b6228ab0ad9ef3534982",
+    "sourceSha256": "d09b42f107adf273943b9e4ef3c5cd8e6065d99a7a1b1cf34c2756e4f0193e41"
+  },
+  "./assets/anatomy/expanded-alpha-commander-leg.webp": {
+    "sha256": "0bd2fcc1ff77c18049814f0fefd369adf3d161433475b0e26964be8c4c12c15e",
+    "sourceSha256": "078abba64f365aacf62752fff798522de693c8bb4e61b511fd2243e99b96f8fc"
+  },
+  "./assets/anatomy/expanded-alpha-warrior-claw.webp": {
+    "sha256": "eba90177d8d9b3d5fbc3d639e59645b7d53eb1f08350f3a98545c9937d332f69",
+    "sourceSha256": "989243dd639894e6f27cccadde1f34ce739ad1d2545eafdb92841b59d6d454d1"
+  },
+  "./assets/anatomy/expanded-alpha-warrior-head.webp": {
+    "sha256": "6d50cfdd280d749218138d52b6c9fdfd471a0fd4bd0c1605fa11b0ca94f6a582",
+    "sourceSha256": "6cbfd68c8fbffd7ac7b313ada3282da6edf4b4fbfd8e975cad6ec94a55f00df2"
+  },
+  "./assets/anatomy/expanded-alpha-warrior-leg.webp": {
+    "sha256": "fe8f8ae92ae0325b92864fdd42e25f5b4b364ed51e34b588f54e1ed9d448d5a6",
+    "sourceSha256": "13488e1a5545fbbea12614bb107d1f983f0a11e386e7755b028cc665778e6240"
+  },
+  "./assets/anatomy/expanded-barrager-tank-engine.webp": {
+    "sha256": "51378dfe74a9e2a6973c0b7da14f4b9f21033ddbe89ca2c1a3d1e1d9e422207d",
+    "sourceSha256": "fd1ea5bef82b78201ef82dcd6d0daaed6ab1389677064c82aa5b19b009cf79ee"
+  },
+  "./assets/anatomy/expanded-barrager-tank-hull-front.webp": {
+    "sha256": "c82e23db836dc4014f03ab8fc672a6f2e12af0eee5bf194f5a1746ae8678eaf2",
+    "sourceSha256": "c86486fa40dca13f1da8c4dbfb666f386948bbcdcdc7c3409793f19a65725224"
+  },
+  "./assets/anatomy/expanded-barrager-tank-hull-side.webp": {
+    "sha256": "6b0618396773385c2304e1e379cfc59eef1d60b850dd5206334a72a783df92bf",
+    "sourceSha256": "02c3142f5d1fb82c19420a5eb8f520c2f5868e82615f86aabd79e300d70d19fc"
+  },
+  "./assets/anatomy/expanded-barrager-tank-launch-tubes.webp": {
+    "sha256": "78cb201d77959be602ffb1ae46ea6295f99dd65797827dac69835f6411b5dea3",
+    "sourceSha256": "e38185d763edc35b8d0a427432b411320ed5e55fc2b3ffa81c66a346b4b74b9b"
+  },
+  "./assets/anatomy/expanded-barrager-tank-track.webp": {
+    "sha256": "98f90bc8172432268e778381a2172f22105d139a25dbfa948920ffbf8d663a05",
+    "sourceSha256": "26c66959d76e740d8e73415a554597cf3e073673c2ada8f29d25fb06364ab107"
+  },
+  "./assets/anatomy/expanded-barrager-tank-turret.webp": {
+    "sha256": "cbf00b482c3da43d5e1cb950c97b9448ab1ccfdd9afb34b71df40e7c3d7099c5",
+    "sourceSha256": "d8c0d01788f481451070def29aeb5ad765bc1b1f84f22d851ad20814ea2dad5c"
+  },
+  "./assets/anatomy/expanded-bile-warrior-claw.webp": {
+    "sha256": "35ac17b02be586ed3788a523453cd993b55e4034e0a38caa08462d7a9d99aba2",
+    "sourceSha256": "de6b4e0f3bfab032d032ea943c2528f381931c01a66806d486b0127b95b1cca7"
+  },
+  "./assets/anatomy/expanded-bile-warrior-head.webp": {
+    "sha256": "d671a6f89f08396eb300af24fc6afcbf1310a30a712ac74ba998023bd5f3b667",
+    "sourceSha256": "c27e9b318885412953c27db978d999151a330e6c4f5b33f3aebadea98d144901"
+  },
+  "./assets/anatomy/expanded-bile-warrior-leg.webp": {
+    "sha256": "ae28538311e43a211568a7e2eafbc1fe3662698252de8864e810089c95282e68",
+    "sourceSha256": "3f9d447503414a4261b06b73d2421379f63f15ecefecb198197ffa87757302f5"
+  },
+  "./assets/anatomy/expanded-conflagration-devastator-arm.webp": {
+    "sha256": "b8f67d9f61e496fb7c9a4fd7136905b33f5b7770a34fcbff75a0d360878acb49",
+    "sourceSha256": "c10bbc33cf3c982f9d58f29d49bf25d16c84cdfff0663dbffa1e286c93800ff1"
+  },
+  "./assets/anatomy/expanded-conflagration-devastator-head.webp": {
+    "sha256": "74060d5343e6d7e0b3cc9a1cb7e20be449930e8540d029a0fd5716e8bbdc5f97",
+    "sourceSha256": "0533cdadee59416da2b165be2e138d0599884e683d9ab9c0901bd67d86b4b063"
+  },
+  "./assets/anatomy/expanded-conflagration-devastator-shield.webp": {
+    "sha256": "12c8845f450b77974fae72c61d45ef503d4daa6de34a637fb501b0a8023756ae",
+    "sourceSha256": "0dac8b7ff349fdb5bb4f87f86824eb71fdfa49ec803df7cfb1bda595305ecf52"
+  },
+  "./assets/anatomy/expanded-conflagration-devastator-stomach.webp": {
+    "sha256": "69bc95ae406f33c0cbfc6a25a853e451fb255eded52a85e2f583b2a8f7917478",
+    "sourceSha256": "f54c195a92f5e13c659c0cb2a48af42806f0e44ff3546034137aa70e3e072706"
+  },
+  "./assets/anatomy/expanded-conflagration-devastator-torso.webp": {
+    "sha256": "0313f32d24cb33146892eb1314d9a9e367dab6de313fa9b20deb5e5c4ade350d",
+    "sourceSha256": "b6d375d6c6e322291f6093ecb34c36c0dc61ef6d59b28aaf44cbfe681291db89"
+  },
+  "./assets/anatomy/expanded-crescent-overseer-crotch-armor.webp": {
+    "sha256": "6cf3fbc64db3a0b670b777cf96978d0835187c9e480bede74f7fefb78c2a9da1",
+    "sourceSha256": "8df6a61183248874c0ee0f28c0836427ef69539075dd3a4edafa4d52b762c5a6"
+  },
+  "./assets/anatomy/expanded-dragonroach-abdomen-armor.webp": {
+    "sha256": "f34b632011d9b33fd547b169495849ecbbee7037286d01cf4bc791c1c3f6f4cf",
+    "sourceSha256": "50ec13455773f7aa88f73ab80556952d815071fabed69d783a57706c18b1cdad"
+  },
+  "./assets/anatomy/expanded-dragonroach-abdomen-sac.webp": {
+    "sha256": "dd0d35c58e9992b71ecd97401aaa1a6cef2b854365aeb45d2070217af1c72108",
+    "sourceSha256": "37cf2be451b6459310ffd82711c402ce8eb4edaf692cc95a2d36c3dc67bee7ef"
+  },
+  "./assets/anatomy/expanded-dragonroach-head.webp": {
+    "sha256": "5426e421e70b2f19206a915926a1b08695e74997ffc3dc98a914c89614a1a477",
+    "sourceSha256": "e06bf277423be8f60e66840ae6b67ea0250d11b2822d4efa10efcd341fe24f83"
+  },
+  "./assets/anatomy/expanded-dragonroach-thorax-innards.webp": {
+    "sha256": "2add53f93210c61600b02c61bce7e7d1a6174863f9a1cb7eee419fa5d062a294",
+    "sourceSha256": "b07d97a9a490d3240579298519dc5f6649a2b089118f58417a921c1704450968"
+  },
+  "./assets/anatomy/expanded-dragonroach-thorax-sac.webp": {
+    "sha256": "0f6262bd5036b265c031efbac1ef62c8f5b9387c2dea6c10b9198eeda7674bcc",
+    "sourceSha256": "cf98724af281766a8497277e9952a13659cb88f34e5d6d40158e6ed2ff9a62ef"
+  },
+  "./assets/anatomy/expanded-dragonroach-wing.webp": {
+    "sha256": "fd71f2730ba86fd97f3cc9375c80f6fed6c5e1668dd57879030913b98b410e53",
+    "sourceSha256": "4e851485d18dc3973e4ca6368090fcfabc5af9693b4a11c11b894ffb2d7000d2"
+  },
+  "./assets/anatomy/expanded-dropship-fuselage.webp": {
+    "sha256": "275422300d450d7c8ef09e60362127ffac610693e5ff7160d7f3f56597d8f2c9",
+    "sourceSha256": "568c671ecbfa9dc37a94558922b5143978f6a66cc2e9ac09f9adee8d7a50204c"
+  },
+  "./assets/anatomy/expanded-dropship-thruster.webp": {
+    "sha256": "1c171f5a60f221c70493acb60c75a58dc11226c6606d5dcd9414f0ce77c771a0",
+    "sourceSha256": "a789de3eff48723b7483a9e7cb4faa3ec677468c69293696cc58d2b6dde5ff31"
+  },
+  "./assets/anatomy/expanded-factory-strider-belly-panel.webp": {
+    "sha256": "0edb765f5903a2b6d19d2762af0800421c459a528defa744d54658d00ad67f4d",
+    "sourceSha256": "ded37327c74f02c72ce4469c74a57b405c8b1e3218459036ec931b9a14e41f1b"
+  },
+  "./assets/anatomy/expanded-factory-strider-cannon.webp": {
+    "sha256": "853ac836789565a700187339d568c43bb55db1192998e66537bdc713339554e2",
+    "sourceSha256": "4e781d4fe717385976d372bd85a135010fcd178d88f9e5a3ff727dc790183bc2"
+  },
+  "./assets/anatomy/expanded-factory-strider-gatling.webp": {
+    "sha256": "343830d92da34f845c68f67d33b5b460c87ac5a84f75148b7b8d758d9f3b09ac",
+    "sourceSha256": "735951ab324ffc1291719e70276fec613188a942b98b9da3bdadd6425b243540"
+  },
+  "./assets/anatomy/expanded-factory-strider-head-armor.webp": {
+    "sha256": "732ba3337d1c9d9b0cceb3551941ceea19ef28cfc26e3cfd7777d0bee9e0acf6",
+    "sourceSha256": "a807b06f56edaffc92701792aaf543d4c5e984d22adbf48e4879f7c1c016c189"
+  },
+  "./assets/anatomy/expanded-factory-strider-head.webp": {
+    "sha256": "5945d33faa84b5414378502e3ce24c82ec4c3f72410119b45f6d53f1e13aa2ba",
+    "sourceSha256": "0dcb8a35c1fd3a261a5f491f61f51d2afa8a578903deeccfe884c6fcbf26f58c"
+  },
+  "./assets/anatomy/expanded-factory-strider-leg-armor.webp": {
+    "sha256": "b10bbfaec70069f1c2990df5ba92bad9a20d88a6d1f1f0810444ae338cfbe8b3",
+    "sourceSha256": "31626663cd68031fa21bbdd95bad76c8480054c089b16a5107ae1fee4c03ec29"
+  },
+  "./assets/anatomy/expanded-factory-strider-leg-assembly.webp": {
+    "sha256": "72ae84b48f4dbcb8db9351bc1ddfbc458ca2b381fb3bec3034e957ce1f8f1cf7",
+    "sourceSha256": "4b87f6fad2a056b3b24b48122fcbe7669a347486e0021512ee94ab4857af9176"
+  },
+  "./assets/anatomy/expanded-factory-strider-rear-engine.webp": {
+    "sha256": "d30d814fb4685ac4aa5a3f47ce1864bbed23838b713d8ee61574d1ed52819448",
+    "sourceSha256": "1de2921a46f3deac764009b50a89b9d8c07ea515a5b86c3883f49fc4ca5787b9"
+  },
+  "./assets/anatomy/expanded-factory-strider-side-armor-exposed.webp": {
+    "sha256": "a90df92c4fc897880277fe7a93273c976516c214ed6959a4b063d7c859fb4032",
+    "sourceSha256": "c531e6ee291883feb2030ab79c5e058fc234c7b0210d7c4d1ee273533bc5c118"
+  },
+  "./assets/anatomy/expanded-factory-strider-side-armor.webp": {
+    "sha256": "64c84c65b0a1e382080030b41bd9237591c7305a370b15a217834116fdf2b585",
+    "sourceSha256": "b090a924a0f0321bd070cb2ed223aade337e40e295e9ae65802d8133695b99fa"
+  },
+  "./assets/anatomy/expanded-fleshmob-arm.webp": {
+    "sha256": "fd0b9a00d739097a33e34a1aa41639c8a1594e9f41c02c83ed4b23664f2e91c8",
+    "sourceSha256": "f5c1a3171e4658d840357b1103cd4d07e80d9c8a076b9fc59176e836d6e6d736"
+  },
+  "./assets/anatomy/expanded-fleshmob-head-chunk.webp": {
+    "sha256": "241b5a1d8292bf54051e5d501f577c417ea8a4e5f9e47a15019da3a303fb9804",
+    "sourceSha256": "6dde5b7782b6ae19b5d8572e98f24577bdd91adc62cf3c06142dcad9c33e5861"
+  },
+  "./assets/anatomy/expanded-fleshmob-leg.webp": {
+    "sha256": "1db1102e8157fa48e330e49d16c8ce9c0382fd3c8e06b7460e8f6eebb9a7c992",
+    "sourceSha256": "6c9cf04d3ecf01ce2ae6199d1720d197aa481bdee4520bdd29d7ce62689a6093"
+  },
+  "./assets/anatomy/expanded-fleshmob-stomach-chunk.webp": {
+    "sha256": "e368c658ad5f8b7e6d81c8dd34a7a5dd253a9c3f9aa01fa461abee4e8706d677",
+    "sourceSha256": "6bc987204eb73e6a51dae86a5fa2ae510083a3f6fe2c2bc712a0f4429c011771"
+  },
+  "./assets/anatomy/expanded-gatekeeper-chassis.webp": {
+    "sha256": "07d96e033bc1f2092128f814770abe9089a7c5b00aa254c23659c0a7f1e6d849",
+    "sourceSha256": "e47bd490f688add5100387a57182ecb4fb73890a44d0abc0ed206571034e2957"
+  },
+  "./assets/anatomy/expanded-gatekeeper-cockpit-weakspot.webp": {
+    "sha256": "af6150f7911527e806b8aa6812f496f0225e6e4ce1c1f5eef720a14c0add7f66",
+    "sourceSha256": "bb46997ea48b5a588ec87716352d55c58f753580811ba0dd0411e8d0a6d5e92c"
+  },
+  "./assets/anatomy/expanded-gatekeeper-generator.webp": {
+    "sha256": "d99eb536a6d97c1d917dd1a65f33b690a8d859ee08df6974e3ba66eb66aa56a7",
+    "sourceSha256": "5e513bb86136df4ebac71f50b8ff1766f0e472b60a08bb2e0eebee284e479d70"
+  },
+  "./assets/anatomy/expanded-gatekeeper-leg-armor-exposed.webp": {
+    "sha256": "ad3892eeb3a2788685e7e16ac5fc1944b9e527f833c093541fe6360aa063e2ce",
+    "sourceSha256": "a3e1b2b867e395f96571326188b8ce2c690f6187efaa55cac9880150428bd026"
+  },
+  "./assets/anatomy/expanded-gatekeeper-leg-armor.webp": {
+    "sha256": "09d031e893182ba40c9deafb9ec586e5a13af8f497afe41eb13f0bc5fd54186b",
+    "sourceSha256": "57b13c571627edae95a4fc6cad1dc75338d6b3d5f5cd68c0eb39bcdd693a0513"
+  },
+  "./assets/anatomy/expanded-gatekeeper-pilot.webp": {
+    "sha256": "69b9389540a7200e5ac47548efb8cb59c05b53974ac5786f1bfdf756ac2e94ed",
+    "sourceSha256": "8980310dc68c09b3894fc0a0e8e79abcb7e75a0b5b33b96be8324a97fcd16127"
+  },
+  "./assets/anatomy/expanded-gatekeeper-rear-weakspot.webp": {
+    "sha256": "7315da033788693bdb29400d864683048f8e5b92f70a439b4528fd022b017a90",
+    "sourceSha256": "5aed22243322aa5434193f83b891a305460632c251936bae39d82d181673388c"
+  },
+  "./assets/anatomy/expanded-hive-lord-crown.webp": {
+    "sha256": "9236811d7703af5da6694ae876fd69639753c13806549e17a3a6809fbb30359e",
+    "sourceSha256": "c4f53218616d2ab0784dd31323f97489f6908ee7c48cb4090f5262e9c1e6ec19"
+  },
+  "./assets/anatomy/expanded-hive-lord-dorsal-armor-exposed.webp": {
+    "sha256": "39e3b7b3385da9e9f4aa3661241fd3e5ce4921a0fdc0af1e1b94c6f796093e28",
+    "sourceSha256": "9aa86d16ff968f202d5faeea1c601a45e1b29da990ea4d6f5f0ea0993491fa03"
+  },
+  "./assets/anatomy/expanded-hive-lord-dorsal-armor.webp": {
+    "sha256": "0af24d534c130c711a427578dcae0c71c7537abe4f3a09eb742a7d37da55c95d",
+    "sourceSha256": "e38d521b567a808f268fae97b1f557f03f04be0d6b93e83a91d718c19d2f4812"
+  },
+  "./assets/anatomy/expanded-hive-lord-jaws.webp": {
+    "sha256": "978460069533e559752fc45a6c25b9411a1ce1a69fe1a34c377afecd9ee7d54d",
+    "sourceSha256": "7b8fa1cd277b2b0914c35bd670e932af0b22fcec071b61f84864f6b83bfbd04a"
+  },
+  "./assets/anatomy/expanded-hive-lord-lower-sterna-armor.webp": {
+    "sha256": "6ff474e52979d5ac7d254e43c9f12d285715b9f624d9aa07c4677b3bd998d55d",
+    "sourceSha256": "9ed486aa382b9a59ae5cccea055180785ce69f50176ab2bae8b800d910bdf039"
+  },
+  "./assets/anatomy/expanded-hive-lord-mandible.webp": {
+    "sha256": "fe4c58910cf1de32ccb82d016dae8aa0b844de38c0a6f6747b22bf1b286f2f30",
+    "sourceSha256": "581a2d824360cadc5b34740b7b17c6cc13c73c53d9918db17a2922098ed67bc7"
+  },
+  "./assets/anatomy/expanded-hive-lord-mouth.webp": {
+    "sha256": "2bde6c57a90e1566f5c41a2c347430e9a6182ea9923560b173b88ff242b13141",
+    "sourceSha256": "79264cab1600fa09fcdff139786538c4e29ac386e84e137756b9e663e021e2a6"
+  },
+  "./assets/anatomy/expanded-hive-lord-sterna-armor.webp": {
+    "sha256": "bbdce36119d035cb0b7eb7b292c5ef96aa08c1bad225d0e330cb458e17f703b6",
+    "sourceSha256": "8453a10261e523bec40cdd033d871b48d35cda1d4cdbafb6d08c40697d985484"
+  },
+  "./assets/anatomy/expanded-hulk-bruiser-arm.webp": {
+    "sha256": "a01890e6894379f89f9920e2384e68c4406cb75929395d4484c11c13791665f8",
+    "sourceSha256": "abd715754302e6dc110adf7baa8342681e0a4a90a006fc3eea444f1cd7b1f238"
+  },
+  "./assets/anatomy/expanded-hulk-bruiser-head.webp": {
+    "sha256": "62c01cc1682fcaf0a376439438174cd52e33d203b26ea089a4187c82cfd1bb76",
+    "sourceSha256": "2959a749e77424e27fc7a4a321d7d5f0725d7df1c834665f33b1b1b141f3f7ec"
+  },
+  "./assets/anatomy/expanded-hulk-bruiser-heatsink.webp": {
+    "sha256": "411d517f23f5f6ce4bb69cf06712b5f8f6ce349bbdc45d95c480ea84be678111",
+    "sourceSha256": "d6abea4ee670be8eff3061d9032496fe7dba1cf8f49eaed9957e447332a73b81"
+  },
+  "./assets/anatomy/expanded-hulk-bruiser-leg.webp": {
+    "sha256": "d125fb24b4a3118cdbad5da8a2f6ff1d98f988cbd9bb9148d0a291fdf37b2874",
+    "sourceSha256": "86ffae7c080c8dbc68eeeb729a460367ba99d3f84823fc65fb42607f45cc08a9"
+  },
+  "./assets/anatomy/expanded-hulk-firebomber-arm.webp": {
+    "sha256": "6d9eba55955be3333520a9867a863ec831ea969bdab2325c615b17b221d56377",
+    "sourceSha256": "c392fb6f74310da2a97c93722d218be3b1e20e5ff104dfe5a4c1f6b0ae12a6d6"
+  },
+  "./assets/anatomy/expanded-hulk-firebomber-head.webp": {
+    "sha256": "de0d7f3f69f0ee1b16b02e9488ad43b593d9054eb09f134aae5be6f5939969eb",
+    "sourceSha256": "1d521a0243228dcd88bad9eaf3de365ec5c46936d90fb9c45ed1fe45a02bf55c"
+  },
+  "./assets/anatomy/expanded-hulk-firebomber-heatsink.webp": {
+    "sha256": "b8d451a46b64c92b6ca8dc5e6f86783199d92ff9dd01124180d208649e75d5d2",
+    "sourceSha256": "87b7c371707fb7de57a1feebe5963f8f7156b5fdc03f3ec52de50663dd5887ac"
+  },
+  "./assets/anatomy/expanded-hulk-firebomber-leg.webp": {
+    "sha256": "6d024cd04e48f68aad3735a937aabf8fd67f82ee1d593d2316f6e9de90168db4",
+    "sourceSha256": "b0cfcedb29d312622ab90d32bac62109758c240f9dbd7a54e79c0735ac3a036e"
+  },
+  "./assets/anatomy/expanded-hulk-obliterator-arm.webp": {
+    "sha256": "b2961b3f90485506cd5e9a3a37f2812f001effe179cf070c6d27d0e21a3bf98f",
+    "sourceSha256": "3b548e35e79d7d8a0c44f162ae77d600a7c9777569dd2b4cb6a07f27b5ff7c94"
+  },
+  "./assets/anatomy/expanded-hulk-obliterator-head.webp": {
+    "sha256": "b1a19cc99b3f0c1345cabab10670cc7775b6fb78ade41b37c59b80562a098ec4",
+    "sourceSha256": "6f11c06612b70e577f8a3961af6556ce90b3db6d70d98e4a72009940cbce3add"
+  },
+  "./assets/anatomy/expanded-hulk-obliterator-heatsink.webp": {
+    "sha256": "745df115210f4e76f26643a41c16fbfdc309a2605f7b9fb9036a85fb9688d988",
+    "sourceSha256": "b11c6b2215bd56d86661bb2058fa5bc8c79de50a28d3edcfc209a7666745c6de"
+  },
+  "./assets/anatomy/expanded-hulk-obliterator-leg.webp": {
+    "sha256": "992bdbf66d73f41b5e8b36986fa4ce2d5047d79f0700b4a24a3b03f35fa13d35",
+    "sourceSha256": "ad42e599569e00e219f8c1d900a975794939402e422d324c151f18897bcc0e92"
+  },
+  "./assets/anatomy/expanded-jet-brigade-devastator-head.webp": {
+    "sha256": "4fdd6d0e69d93d2c33ff55d81b6b0d9f7a20c4689edacac24b90112071a3e169",
+    "sourceSha256": "1be869135ffff822924a21c0efd89171e4fcbcba339fa0e0689bcd1e5b4d2800"
+  },
+  "./assets/anatomy/expanded-jet-brigade-devastator-jetpack.webp": {
+    "sha256": "a12f07cf65647e70f028b19ea71f8ed7d55d48129e271186328adb4601e1988e",
+    "sourceSha256": "94612bba4ae7bbf7fd4304dba602bd904408f2afe2d5a18c869fc399fe1fba52"
+  },
+  "./assets/anatomy/expanded-jet-brigade-devastator-leg.webp": {
+    "sha256": "8c829a3bb11f5c03de01756f43d268bb4f222f97bcb0bc22683f8f5cceb4b835",
+    "sourceSha256": "0d297fdab6527087db9a31700baada40979071786e8c25912e991c903a4d0611"
+  },
+  "./assets/anatomy/expanded-jet-brigade-devastator-stomach.webp": {
+    "sha256": "c67e97bae19d43602cda56a75ad564ae4300ef89ffad762072ed4c1da1539a90",
+    "sourceSha256": "f1ba8599004d44500aa670cb529117451f11e415016bb3d74368e6bdd0562e0a"
+  },
+  "./assets/anatomy/expanded-jet-brigade-devastator-torso.webp": {
+    "sha256": "74d003e9f15fdf8a727fefd1b40675536c78fa05d683235d844cddf37afe06ae",
+    "sourceSha256": "0623dee37454a1471cee41305e84580366fae1ec8b95eb9f4fe5dada657ab28d"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-bruiser-arm.webp": {
+    "sha256": "650f74ae2ed26ee35207adb891862b11821c197a61e3955d7b5cfc4480efe8ef",
+    "sourceSha256": "4e2d69646d0479ab1e1e59b059d2edc9d0ada297bcfe3b65a4aa37571a3d75c1"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-bruiser-head.webp": {
+    "sha256": "8c8d4de5f0821a6e346712ed45f87251bdfe504c00fee05ba2dde6dd22596856",
+    "sourceSha256": "b1a1036c5bfa319a669407504b02d00e154dfc22bef02c342b0c2cfa5b03c9b1"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-bruiser-jetpack.webp": {
+    "sha256": "4f11b32af9cc50901d030185326c2c87b69c5e3f4a66c77822fc97ff3b8fa78b",
+    "sourceSha256": "f10ec18e64a171aa0191f6fae816d355796946b41c6761cffbd47e249e3396d1"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-bruiser-leg.webp": {
+    "sha256": "95825dd26bc4fb6f7b6dd4ba252adbea3e7efbc5027f91c0e303d3860c2bcde6",
+    "sourceSha256": "5faf4965aa6f785d3f04c74c941af6f21cc652d9011bd4d688c9fc3a39f0afd3"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-scorcher-arm.webp": {
+    "sha256": "064ce43c46869b2be25df4a87d646b3a610bdf20a94a3515830e739bf30338bd",
+    "sourceSha256": "8e1948a0e5f930f60fe6c796ad2ce02df6d6fc368b24bcfec61f13dc15786417"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-scorcher-head.webp": {
+    "sha256": "de5d077bd10c85ba83669b400e0dc1a040a11f30bf457af9f7b07a921a087c9f",
+    "sourceSha256": "fb9d36b5840e6977fae7b92fba8fbbc4729983d35a819dd520ac28ad99839d57"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-scorcher-jetpack.webp": {
+    "sha256": "d488d27ce7e21b2d61d04036081649595f02430d9c9b3572ac1a9ae127575c34",
+    "sourceSha256": "d869b123f102aca1ef756abb49f2ba25a482b841b578315730a5ff78c1238718"
+  },
+  "./assets/anatomy/expanded-jet-brigade-hulk-scorcher-leg.webp": {
+    "sha256": "bcc2e18890c4674ae287498ca20691ee98bc02c657523e355dc8f9e00b34f1e5",
+    "sourceSha256": "23388dd4611caf0412278685fe2e7d5b4e0eda347931b9824ccb2260616a6cda"
+  },
+  "./assets/anatomy/expanded-leviathan-front-vertebra.webp": {
+    "sha256": "345f04ace60806ffa1a2fc3aa7d1e82fc3309a1d47704bbc6f2dbcf3c1282e50",
+    "sourceSha256": "77809199141a1df0cdb07b16ec80727b7e9c78c0f0f08a269746bfab96831845"
+  },
+  "./assets/anatomy/expanded-leviathan-rear-fin.webp": {
+    "sha256": "94293cbe54bfd1133fc7bdcbff01a55fbaa2c1c1169ea6577ed4ed00945a3cc0",
+    "sourceSha256": "49ce85af71d1b0419cdf9859e7d77790a6d0a6c447620fc21eca7e9d79c3a4bb"
+  },
+  "./assets/anatomy/expanded-leviathan-tail-exposed.webp": {
+    "sha256": "24aaa779fc5476a44fab7bacdef9cc19ac63781227109b3f5e74c81a6fd10f73",
+    "sourceSha256": "38d1426cf50b7e3ec17ec202b6945348547d4e60bcdaf76591d117d81753dba7"
+  },
+  "./assets/anatomy/expanded-leviathan-tail.webp": {
+    "sha256": "072a275af2b4d0b7d6e6848d374576bd2d2f0d896f074a097cc7a6a8100172c8",
+    "sourceSha256": "855a779659f2e7e9cc6abbfa94e596ff7ef7a97ecf32189a1ac1ce39704065b9"
+  },
+  "./assets/anatomy/expanded-leviathan-turret.webp": {
+    "sha256": "e9285113e9314071dc11bd576aacdcf4029ba5c1826f59c37d02b04057091312",
+    "sourceSha256": "d27056ba0e2a4f89a993aa5ab5531ce6b2b9cf78a6170311f4ef43ee749a237e"
+  },
+  "./assets/anatomy/expanded-predator-stalker-body-armor.webp": {
+    "sha256": "780371b1211083339d7105759454ec7b8fdb4e862ece42b2289360173d5d75c6",
+    "sourceSha256": "c365d241fe59951eabd5a89e9a5ebc412f8f6cd2130a4758bbddc558128a88c9"
+  },
+  "./assets/anatomy/expanded-predator-stalker-claw.webp": {
+    "sha256": "5b7a09fcc370236f4b4bbae436da44c7924c49daae202a1580be6d2d9fd31ef1",
+    "sourceSha256": "e63c8ab415e9ccf79823a7a815537fca58f48bbdb763856ada687a3b5ffd90fc"
+  },
+  "./assets/anatomy/expanded-predator-stalker-head.webp": {
+    "sha256": "df30e4bb1b936f532aa6e7157f932978043285885aaccbcdc83453348b71fda4",
+    "sourceSha256": "620203ba8a099a7eca4a4cc8d51d35e5d021abdf10f6565046337160a102fc1e"
+  },
+  "./assets/anatomy/expanded-predator-stalker-left-leg.webp": {
+    "sha256": "b76fc36a3ea082931540c217dcb3c7570361ff68a7bba8ed0df9ea807b8a930d",
+    "sourceSha256": "537a75b72443c8d8deb1be657f0058a6bae8a33d630b0c29efcffa8242f59a67"
+  },
+  "./assets/anatomy/expanded-predator-stalker-right-leg.webp": {
+    "sha256": "662291e101adba496a3ab1158d6a822622866516148fad74bb1bb370582babc8",
+    "sourceSha256": "57322f9ffadac1db9cbe0a6ab5d2229df04dca5ef0930caa84e578180f8df66b"
+  },
+  "./assets/anatomy/expanded-predator-stalker-underbelly.webp": {
+    "sha256": "3c2db035e3856808533432fb25fa1b74d377bac6c4a0111c5028ad8ff413abf4",
+    "sourceSha256": "b222e54240a0eea3614365d1e3b398c32e3620be73decb7f87a697941c0c9d2b"
+  },
+  "./assets/anatomy/expanded-radical-head.webp": {
+    "sha256": "34f6f61b8b5b04ffbfb54671609e4b22511ff76516b37be37d3ca071fde83cd4",
+    "sourceSha256": "f9d2ab84b2e2b750828cfb6a0179d21065ed38be3bede19a7eccc482a81293c9"
+  },
+  "./assets/anatomy/expanded-radical-pelvis-left-leg.webp": {
+    "sha256": "62f18ce9dae1aec38183bd2cbef695c2c43481d46d4f70fbd10c79a2a5d9fc25",
+    "sourceSha256": "b4ae0b0dac40a748ae14bb4b7c31ac28b64d9f90a07292d88a0fa29fa540f74b"
+  },
+  "./assets/anatomy/expanded-radical-right-leg.webp": {
+    "sha256": "21f69c768f32d669c44d525a6c95a4d49d7a2a8610b680378cce067fc66da80a",
+    "sourceSha256": "274e130778474e8017ab9f26d840347b732daef54460157c6e52bc14dba6e38b"
+  },
+  "./assets/anatomy/expanded-radical-torso.webp": {
+    "sha256": "0f3404c55c48c282e4c80100397eb9aa49dee72326db00efaf0934e9957a4392",
+    "sourceSha256": "8797c685e12c17554938c9fe04b2ee0ec7a2b9fa4875a45dac93c93051076c2a"
+  },
+  "./assets/anatomy/expanded-radical-upper-arm.webp": {
+    "sha256": "6cdaddb3ed55fb15b07c40f967365d7cea77756c96dd13f0f278bb1efbeffbae",
+    "sourceSha256": "f360727e922fa338e7fb89bfdd97676aeeffc1299e66a0d0bb15ad2478138c3a"
+  },
+  "./assets/anatomy/expanded-rupture-charger-butt.webp": {
+    "sha256": "3d43838299aa3bcb19a990cdd4ff430414a5cfb92f33b71fadb090fc6e2dbc35",
+    "sourceSha256": "48d8e2aff0d5174b9ae90c52ee4cd169e9485285b7143b3ece56f1887b542230"
+  },
+  "./assets/anatomy/expanded-rupture-charger-front-leg-exposed.webp": {
+    "sha256": "d5e212ba1bdc4064ed6fdc89d160a9417920b2c97d5a585d5f859cb8f35a410f",
+    "sourceSha256": "a6b368cc93fc88d8eb76df6b706fa6e8da8b2716fb31f7e15916b0df62bdd929"
+  },
+  "./assets/anatomy/expanded-rupture-charger-front-leg.webp": {
+    "sha256": "d7649cb7d628fb3b7d04aae06fc6949958b8d15418ec22da71e84816ed34b3a9",
+    "sourceSha256": "d72c2787f51632cca66db97b0a58a37a8f366aeecf10357a966eae68227fa8e2"
+  },
+  "./assets/anatomy/expanded-rupture-charger-frontal-tarsal-plate.webp": {
+    "sha256": "801c8acac46a1be0bba4eed62ea20e62bf6232a5cf2a0dcd43e5efe319171711",
+    "sourceSha256": "995f233bf2e5f5289cce8546ef02e9cb0181d9fd3f9854e0e2478143268b0257"
+  },
+  "./assets/anatomy/expanded-rupture-charger-head.webp": {
+    "sha256": "c8a94030d21a44e89b8c3ccd242504fd5b22df37cd29fa35ec86f946f3a458c4",
+    "sourceSha256": "1dd6a505a88c4108354295126863f6279f2f6e9bb4222cfb510e1d63f3607366"
+  },
+  "./assets/anatomy/expanded-rupture-charger-rear-armor.webp": {
+    "sha256": "2c2735b6b37513b46a0ce72612269553eaea558fce46e51ecae10b39e9ce773d",
+    "sourceSha256": "0744b567219474f9d52382ec8a7cfe3155debbbc76de9d2437d9278f252f9d52"
+  },
+  "./assets/anatomy/expanded-rupture-charger-torso-armor-exposed.webp": {
+    "sha256": "9ac5addaac39ea39ddefdee8fe8a4d8bae4f2fe9212c4870a6191407ff53779d",
+    "sourceSha256": "43e5f37fdd0c9ccf0f1df4709733af2767c1d7acdeb3f61796227d107e698dd2"
+  },
+  "./assets/anatomy/expanded-rupture-charger-torso-armor.webp": {
+    "sha256": "4bfe187e2248bd4ff6f5ba00bd227c528727ea85a7228704323e818e0dfeb791",
+    "sourceSha256": "5eb0fce2bb01ad69a361edf90fb25db884339540f4e8e32aa4e51e6e33209188"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-butt.webp": {
+    "sha256": "cb7d37bfa6fa2dc5259767171e1978e383162df336af7f17a401b1eb61b26515",
+    "sourceSha256": "84944bce1eea98ffcd0c8cc89af1ec35214788c5c522b5ea69545185322b14a7"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-front-leg.webp": {
+    "sha256": "28ba8ef04b519bd1d94797a70df0ee16d070ece8a400e450b4670a0a369385b1",
+    "sourceSha256": "8b1d6eef883858a31f869447a9a11883999ffd1f73cb7e611208d7cb203b07b2"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-head.webp": {
+    "sha256": "116376dc13e201c463941ac6b59b65ceae911b5642956ea075100c8ecaeaa93d",
+    "sourceSha256": "f05e00a6f241b6738a03b63934c28ed1c4ae798c580992177c29111f43f48ccd"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-mouth.webp": {
+    "sha256": "931d961ed56004e1170db5508e23154486ebef17e8f30d9b46a6621337323156",
+    "sourceSha256": "2fb3d331de50b6dd49b2e7681cd573392e72b68549d729a12674fdff75ce685f"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-rear-leg.webp": {
+    "sha256": "17d1b1a3b2eaa3ca46725455763540905d3cb6ef3726dc108307c7a62d67d22a",
+    "sourceSha256": "8689994688a272629a13400e361284ff28f01bb6e8be275f1691fafcf7d5a189"
+  },
+  "./assets/anatomy/expanded-rupture-spewer-spinal-plates.webp": {
+    "sha256": "bc04ea56e795c85b75ed45be2afaad17ece4d2d756dbc9b4bd408a5a32e3b4da",
+    "sourceSha256": "c2fd155b15acc48abb1a508ad7a5870860544e236919accd2b14221846082fbc"
+  },
+  "./assets/anatomy/expanded-rupture-warrior-claw.webp": {
+    "sha256": "2e9db8411642650ed189e66a196d1de8ba1e80ea0285d59c25b5973314e54b5e",
+    "sourceSha256": "f1f74baba45c3629677802d8f9d306f01e1a1b0ceafd728d828c6f2600224a54"
+  },
+  "./assets/anatomy/expanded-rupture-warrior-head.webp": {
+    "sha256": "2bae3b1167c90ebdf741b473ede1fec6c971bf0b9670e2ff590e0958dc7585fd",
+    "sourceSha256": "3253ecfb6a35ffbe2cb896eb88f728008faf388c3f925a2b2d3828a2b3e62886"
+  },
+  "./assets/anatomy/expanded-rupture-warrior-leg.webp": {
+    "sha256": "16f9b535b713d7b2561099e4d8cb2fcc7ac386f23af9f861b0906d170492a2ee",
+    "sourceSha256": "81b3fbb1a6da52dd07b728f667747ec74d6e12574ca03cff0e3e625de06bba1a"
+  },
+  "./assets/anatomy/expanded-shredder-tank-engine.webp": {
+    "sha256": "94f084709747ef21ef3cecc8240a32edeaa8606aa7d68e43ace798eff43c7a65",
+    "sourceSha256": "2577426150252c688df2f02eceee361ebf4579af8c8f135e440b174f97260be1"
+  },
+  "./assets/anatomy/expanded-shredder-tank-hull-front.webp": {
+    "sha256": "7f8a01b94cd3184c3a5b539b2e868b69837cacb46174805d94b2a7a23a74f3b6",
+    "sourceSha256": "c0b1f7d2507eb4660f5d9055ea2b212a71e9e9fe22bdee32cfad2f26908ff01b"
+  },
+  "./assets/anatomy/expanded-shredder-tank-hull-side.webp": {
+    "sha256": "43400ee71d942c9f9eec9870975b138af675e77828a513940ffd01e883bf7e7e",
+    "sourceSha256": "8accf02727101a8988b8a20ce3c883b113f68c8463d3d64c1a08f686c1d81c04"
+  },
+  "./assets/anatomy/expanded-shredder-tank-track.webp": {
+    "sha256": "5d66c45c2f68088944a576fa9c6082a51823d952260388caa5df836aac9a97c9",
+    "sourceSha256": "9c5bc0c9ae3731be013eeb2109aace543e7b06314d04716f907926a5bc75d3f4"
+  },
+  "./assets/anatomy/expanded-shredder-tank-turret-heatsink.webp": {
+    "sha256": "dbaa5d6205f4bea1eaf4d7703b875577875f4cf9265166b3ed68bb03baa58efe",
+    "sourceSha256": "75eb6470b4d73d6531fd2be5ba28657d9917e98640e23773adcfa880b25c7d48"
+  },
+  "./assets/anatomy/expanded-shredder-tank-turret.webp": {
+    "sha256": "1e05ea88b1f14a9039ab51149156a4104a283577cb849263e960445c33c0c257",
+    "sourceSha256": "2e694f1aa4ca0d72b6f752eeb82dc4fd675eb9eb469f2abaa16c4d2958ba8237"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-butt-armor.webp": {
+    "sha256": "ac9a289b6ca8dff41e07de2e54f5cd0aa39d9b56c8bb6f3f5d493a139306b035",
+    "sourceSha256": "050b1863c711035215b0658ac2b2f457ab483c332c283acd346dfda06a35a04e"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-front-left-leg-flesh.webp": {
+    "sha256": "4408ea045294b95737859a871e2b56e4ac813e336aa628dd4fe73dad55d7c082",
+    "sourceSha256": "4724d4fa228d1336f7900419ddaf86733730b7b74a3f5ab86c7f3e2b2f4dfa5a"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-head.webp": {
+    "sha256": "edcc096a6dc48e8f2ad76436c8e9c862c384ef220c08cb47a9624d9e1de5d97e",
+    "sourceSha256": "e8e6308c4b3a6194ae1486b3822d4dcb03e902709b2444b9623adf9f5636cd07"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-leg-flesh.webp": {
+    "sha256": "7a4e8ffaa3dc3e8687d31a26c5dd06225aefd310421a7fa1acb9d3c0730c74b5",
+    "sourceSha256": "8fe63b3c1c80bb41ef200c5176fa1440b2a0e2af9c7fd50a2c910ba00426d520"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-lower-sac.webp": {
+    "sha256": "c8e4296a4406e8cbca450ccbc1959d048bc7eea40b3f56040fa603b516a754f9",
+    "sourceSha256": "867d2b5446dad17b31e9ce6e2fe090384914c924c8aa74ee2d5072e425fab05a"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-torso-armor-exposed.webp": {
+    "sha256": "0a45051fcfb426bc5e761caf317362af9688d2c64f97fe39a0699ec7ddd519f8",
+    "sourceSha256": "1400d7c378d0309aaf89016989442b31672b05a55fab0e108327441f39fe77ce"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-torso-armor.webp": {
+    "sha256": "158d9dd84ff455620e8e32ca62490285e3f6b354ce5bcaccc4348a6450e9391a",
+    "sourceSha256": "eb73f1a895e8547eb751b3370823d503cd1758efedad1a870609520f06b275f9"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-underside.webp": {
+    "sha256": "f0decb60556dd3aff5a3276a85b5c8230b28e473031dfd7912a40d43266c6d64",
+    "sourceSha256": "a7099b29f0d6fb6da68b09ddecd4c74ed4362173b60565ca2ad3e9feef08bb62"
+  },
+  "./assets/anatomy/expanded-spore-burst-bile-titan-upper-sac.webp": {
+    "sha256": "20f8fcc5250613c92bf89fdd6a39c681f2c032158b84e291f6ae80a809133384",
+    "sourceSha256": "943a5e11b518541f3ffcd939d4c8b73101a978df3325717c44796920586c883b"
+  },
+  "./assets/anatomy/expanded-spore-burst-warrior-claw.webp": {
+    "sha256": "9287ea0700c680baf70714400d0d0935d7f9550eb8293a25fce6923d748d005c",
+    "sourceSha256": "059329cd058e46193e45654f99eb4f97a2a3a8a4c94aa80c160c6c7ff5283f19"
+  },
+  "./assets/anatomy/expanded-spore-burst-warrior-head.webp": {
+    "sha256": "086270e8cdfe7204b7e18e70cfdb478499a7c7e7d30ff88c61d46bbdeb93ced1",
+    "sourceSha256": "1e9a76e8981bc9e8fa4f91301bcbb68c78b2fc03767e0caf5c195f3feab311f5"
+  },
+  "./assets/anatomy/expanded-spore-burst-warrior-leg.webp": {
+    "sha256": "cdae79573044cd9a5c1581b746a7892a706a10e23d4c4ef8978219c2f3ba7d62",
+    "sourceSha256": "cd4bfb26ee0dbbc8eae1250e6d0a7d6cb4c3df8701e63f0fdfd9602145f008b5"
+  },
+  "./assets/anatomy/expanded-spore-charger-butt.webp": {
+    "sha256": "2b7a495df3de414aa07a5f589fa0bbcd4e6f9cb037b9e3f48eb18f275b8b6d93",
+    "sourceSha256": "e5821dc9712df418474b2d69934e3b4dfa6f47effae7835e356e3c9238755965"
+  },
+  "./assets/anatomy/expanded-spore-charger-front-leg-exposed.webp": {
+    "sha256": "2a622a1b0644dcb906c6063dce6c2f69038ea9021629a8833f935c3a5696f43a",
+    "sourceSha256": "af741d8934194e3e9d6c55c41094867280dadb01cd36e41ed5861ff251ab1dde"
+  },
+  "./assets/anatomy/expanded-spore-charger-front-leg.webp": {
+    "sha256": "6427cf6bb594fddb4692b264698ed80cec6669078f15efd7a211c2304e60e591",
+    "sourceSha256": "627b7a04ab58a5bcbf10b1def67b10bad0d3d9cbe92e8acedd423c133ff62cd0"
+  },
+  "./assets/anatomy/expanded-spore-charger-head.webp": {
+    "sha256": "e3251120c8b30193c9b30f721b86272c6024ca46cbfd650db6748b2366a8e364",
+    "sourceSha256": "0b7f176f5d93a97346286cd17ba4bcb8a0ac74986ec99391a71b8d23b2da2d06"
+  },
+  "./assets/anatomy/expanded-spore-charger-rear-armor.webp": {
+    "sha256": "4302c5198d9a8e06cf6b0d005ec5f3ed7d2d9d24e085d998fc8a68b3e90d26d8",
+    "sourceSha256": "06dd1736c61e08e4fe883f5a9cdaf0882e722cc168923df1572b52c6d273c545"
+  },
+  "./assets/anatomy/expanded-spore-charger-spore.webp": {
+    "sha256": "869a15c3de420d5236f403d5e97f968ecb00831ea75b9f5788aa313cd41150ba",
+    "sourceSha256": "c157cecd33d11f8a825be25bd6a66a68fc35349861af6dfa8606c782f217269d"
+  },
+  "./assets/anatomy/expanded-spore-charger-torso-armor-exposed.webp": {
+    "sha256": "a5015f1effbdf7ea33a36febf73634712ec37a121bbbcd00e150a2b10ca99c84",
+    "sourceSha256": "b55d86baed85d96dca0cd1d6427bbdd9fa5cd884cecfe10883d5d53b65ca330a"
+  },
+  "./assets/anatomy/expanded-spore-charger-torso-armor.webp": {
+    "sha256": "b962d1bc4bf11ae3d4157785c56d7d8f67e851d30388cc72b693eddc5ec97a6c",
+    "sourceSha256": "5ee91d830b76abc61ccc2f5a90c816e0a07b09a9c754b065ad9dc7b53d179f77"
+  },
+  "./assets/anatomy/expanded-stingray-gun-ports.webp": {
+    "sha256": "44f111c7cd8e2cdf5f0485a6a21ba0edc370ba87c78304eedd1954c75e80145c",
+    "sourceSha256": "929143420e97c1799df017dc383ff3eaff84c85ae3d8b7653190bb8177163207"
+  },
+  "./assets/anatomy/expanded-veracitor-chassis.webp": {
+    "sha256": "6df354733a28ca961c814a732d0fd8f366139d1f4e2d2c746bebf77cda25534c",
+    "sourceSha256": "27f17e8db0b29250b92968bc76acdac4ef6013b78b838dd7c7d1f35c54d4fcb0"
+  },
+  "./assets/anatomy/expanded-veracitor-cockpit-weakspot.webp": {
+    "sha256": "8ec8c4b29257f34ef234c6dbe7bbaaf4cbf19486107666b0e0b7930a130d4980",
+    "sourceSha256": "4cda23d2a72de49eae64c2ac9e7b1a6b6b4766d4b2b2cfaaf577e9a9ecea6d3a"
+  },
+  "./assets/anatomy/expanded-veracitor-generator.webp": {
+    "sha256": "0b0018f0fb2e349cead8507dd9ae409ca6298c31b4f2410872e0e174386b1ba5",
+    "sourceSha256": "ff5bbdf1b0741e40cb4cfef0fcd2ca80ebe6b14d1f67dc6b3cbcfef134080c41"
+  },
+  "./assets/anatomy/expanded-veracitor-hip.webp": {
+    "sha256": "de989d621419d56d0fbc9e20d3327478285dd143b92510c9ebae4a7d355616d0",
+    "sourceSha256": "7a2b034d5152817eb608bf939c35402aaf185c92ac1bd62f5de7f5b63b595ec0"
+  },
+  "./assets/anatomy/expanded-veracitor-internals.webp": {
+    "sha256": "880b1f295822881fd1fd2f74c3e835b06a0c4e85999522c85f085d04adaa8195",
+    "sourceSha256": "8f1312acdf40c563f4eb9c7df06ac2f80a2480678742f8b5170d4caccc723541"
+  },
+  "./assets/anatomy/expanded-veracitor-pilot.webp": {
+    "sha256": "68e784de0250251be9db13818f2a5b54800d0dc90a35a213bb7c772d9d21484f",
+    "sourceSha256": "7255d7b900e52e91e62040b7ea6e46697178a7ee862392f3ec80cbb0e223421f"
+  },
+  "./assets/anatomy/expanded-vox-engine-cannon.webp": {
+    "sha256": "77afcacd8ae1b48e19bb686fdde0c3b0b55164cadb5a682f0519b3e4592a5734",
+    "sourceSha256": "a05a81c0173dd3d582a33e9d48fe4c1dd8a01c899f191cea9dd34de6a88b69e0"
+  },
+  "./assets/anatomy/expanded-vox-engine-hatch.webp": {
+    "sha256": "ac81947f20b03664f59dc8e9f742b6a1f5e87439121cf71c85448d21722e8219",
+    "sourceSha256": "e26b582dc99bc28f19516311203915ac427bc307f6d323efde075bff16565449"
+  },
+  "./assets/anatomy/expanded-vox-engine-missile-launcher.webp": {
+    "sha256": "8681ac9158196392481c9be00b4ffe64a9894eded5e2d21be37261a3e49e6d6a",
+    "sourceSha256": "3a294ffd1ab00ed37feee1dba0b30af5a2a45205e976facf49696a6347d87fa9"
+  },
+  "./assets/anatomy/expanded-vox-engine-sarcophagus.webp": {
+    "sha256": "0b61e85273189c5c15f385f6b1aac04ccefa144fb5035a9594bdac65d3eff40f",
+    "sourceSha256": "2fdaa5141f4bddd649975e44e85ec908e718d1ae0b028ed6206f60772a953db5"
+  },
+  "./assets/anatomy/expanded-vox-engine-torso-flap.webp": {
+    "sha256": "a883e2b184984cb4f8f488b6f86e4f343a80e046d0d3fad901209426b893f426",
+    "sourceSha256": "df84d03d14903ecef6cef0e59629341056c85c1afe3d35c65b1d6ac6776883c0"
+  },
+  "./assets/anatomy/expanded-vox-engine-torso.webp": {
+    "sha256": "659e896b6a3e8591bc2d4c9682430e6811979d9a08cd174bdc99139825f32b4a",
+    "sourceSha256": "ca5502494bf66df83a4744958a4b3ad3454286d3a3b40d82dbb2a8981f18b251"
+  },
+  "./assets/anatomy/expanded-vox-engine-track.webp": {
+    "sha256": "2d14864cf84e4f180a7a1ca4a9a6f67a94ad82327a6895f1dbcdb35ff6e0ceda",
+    "sourceSha256": "c2d0b6a049c0fd1c980101e61f95e35d5682fed1b55ac916c5f386593d92a3fd"
+  },
+  "./assets/anatomy/expanded-vox-engine-trackpod-latch.webp": {
+    "sha256": "834ab76cec036fc8d0a08ca761c12b27217066fc7d762f32df69ad2773e0bc90",
+    "sourceSha256": "a0664f63e93550760845e91e02eb32600f353c40b7a673b5dfc10d0e80e0ce8a"
+  },
+  "./assets/anatomy/expanded-vox-engine-undercarriage.webp": {
+    "sha256": "b631c588010b6e19d056a3709df712cf2db63220908b05e3c6d04e0ca6d6b8b9",
+    "sourceSha256": "943e19629162def88f2fc5e914e506ba7113cca597dfab3ea15a2cc39c2e536c"
+  },
+  "./assets/anatomy/expanded-vox-engine-vent.webp": {
+    "sha256": "171a1a3f8220d2c7eda337aa54322a58c8019eacdda49387c1199f9867b1be04",
+    "sourceSha256": "7ad6bca8acb2aea95d8475bf9f1757c3ce753ca349a7df9e34089b8774468b49"
+  },
+  "./assets/anatomy/expanded-war-strider-crotch.webp": {
+    "sha256": "c3ebf97c7b7a02c01b46d7d91712659e9d677a5a36bf94d0199a8ff4187b6be8",
+    "sourceSha256": "76a040f2a83fad9bddff922197077a7919584c53f3c22065fb306cca80fb12b5"
+  },
+  "./assets/anatomy/expanded-war-strider-eye.webp": {
+    "sha256": "6aa36fa7cea79cad2500333e87f49d5ba8e7ff12c69e22b1a29c1f2aec566919",
+    "sourceSha256": "42594cfcb31c8346101644caf59a01edb836ff554c6c7cc1cd1874268585beaf"
+  },
+  "./assets/anatomy/expanded-war-strider-heatsink.webp": {
+    "sha256": "9219595c3b3f5c47bfc052191973e8c808616c25f3f6b44b0cff1784e5e2c021",
+    "sourceSha256": "2fb06daa8343a883bd9f00eaa813b19bcc11e97952ff838ca729bd796e9950d9"
+  },
+  "./assets/anatomy/expanded-war-strider-hip.webp": {
+    "sha256": "f646e7c8a1c45685cb0d2e6c9a463f1d0e6dfd4440105949b3c4f7260b03a214",
+    "sourceSha256": "9151457ec8d840c500869801221cd44a0211d2ca251316ae06df801b6a025ce0"
+  },
+  "./assets/anatomy/expanded-war-strider-leg.webp": {
+    "sha256": "af5e40fed29497fe039eef92ffeafe70807c125a79d2e7687e1e11d2428501be",
+    "sourceSha256": "1d58c87fd90d1f4b682d7fe024b1d25fd3b4eb8e7546bbc1e213e8697d2170e8"
+  },
+  "./assets/anatomy/expanded-war-strider-torso.webp": {
+    "sha256": "0e14c3786d827903a657235c5e191ad9afc109c7003be1166a9d2adebe7d879d",
+    "sourceSha256": "b0e6839a174e1b11dd540ba8d493c41003180f73c8071ee850018eaa0949db04"
+  },
+  "./assets/anatomy/expanded-warp-ship-beamer.webp": {
+    "sha256": "4a2de95f7d2573b9e8d487626426a7a7b0f5a244991d89e4219f574ff712b77a",
+    "sourceSha256": "5f9a0ed2349c4cf2ce37ff47b7a45abd881e82575808458e975d411f296b0061"
+  },
+  "./assets/anatomy/expanded-warp-ship-engine.webp": {
+    "sha256": "51f64141458c80d2342207f1b7aabd8fc6c69e8a32bcbabc05ca1c84e6a80b68",
+    "sourceSha256": "32e1944e611193a21f460a680997473119b2f39d7fca66e282919ce8dd9a0456"
+  },
+  "./assets/anatomy/expanded-warp-ship-front-fuselage.webp": {
+    "sha256": "30c14048b9045505a3857b63cbf819fef2ed5b80672afc2e0fd7cc54f485131d",
+    "sourceSha256": "15614d83268995c3aa3f87a2756da9ca24804fb29a0a789e52f02f2d91514bef"
+  },
+  "./assets/anatomy/gunship-front-thruster-thumb.webp": {
+    "sha256": "f3b0377b4381f31c912d184b1449574d770ba89fdbca314d20942cfc3c12364c",
+    "sourceSha256": "a97658ea80cd87d1503ebcef28bcc7e308736dda07f39050178186ea37ad3ef6"
+  },
+  "./assets/anatomy/gunship-front-thruster.webp": {
+    "sha256": "828c2d870d3bce08e26c87b954dc54c4716062f36cbb4d7b81b9d4a9a308aa33",
+    "sourceSha256": "8459ff09c7cee275cbcd592b4559637cce5e9b0d11ccaec0d927c71077d4f327"
+  },
+  "./assets/anatomy/gunship-fuselage-thumb.webp": {
+    "sha256": "8d8b813000a927323c4b6f60373a7db63b26cfc738cd35f7c33e8832b34207a2",
+    "sourceSha256": "4d2c8ce8b0d5a84cd7aa305f802ccddd6dc8233273379e3243180efdf3bf901e"
+  },
+  "./assets/anatomy/gunship-fuselage.webp": {
+    "sha256": "13852dd821146e50263901a5784e45ee631d31bf46eadd10fe89be2533baa622",
+    "sourceSha256": "42afa8539057fedd2a0d2a4c789257c89a5e5e01b5aec0bf58ee9814ba18424b"
+  },
+  "./assets/anatomy/gunship-rear-thruster-thumb.webp": {
+    "sha256": "31f59954b4c1eb1e2e0574851d6f092f011e7a52e880eda6572b50730ac62976",
+    "sourceSha256": "840015af52a887335d4ecd6b9566d7a45839025ed611d45110b0c495ecf2cde0"
+  },
+  "./assets/anatomy/gunship-rear-thruster.webp": {
+    "sha256": "2f728b00ace8a11b0aa58a561be6522c59998e8142f8d8993d7eddae91934193",
+    "sourceSha256": "fbd3929a12d8b9c3352b08a4b236c23d48344b0ea6b9535642c03f5aa28c70be"
+  },
+  "./assets/anatomy/harvester-eye-thumb.webp": {
+    "sha256": "b2506977577f33e29a002c7001c6d2100aff6234b70087862b94daccf9970d3c",
+    "sourceSha256": "82b29d0df80633ca56ad6eeaac685bd8931ea24e641ac53afa458b6538bd0f2b"
+  },
+  "./assets/anatomy/harvester-eye.webp": {
+    "sha256": "3a3a439cbfc4157cb99fb7efd24db5ba32b69a83941f0a57fe010f8b40b80ded",
+    "sourceSha256": "3a4bef4372c3b1ed003ee6d612a6c35b3c24824eaa6331abf4d60468ac24569c"
+  },
+  "./assets/anatomy/harvester-generator-thumb.webp": {
+    "sha256": "19a2138be842b76de6763c140ec06e873f7a0f3e0f0b3bb081f11538d6231918",
+    "sourceSha256": "ee2aa51a80a4d4d769741fd644e8752749458e33b93183fbf1e15f2ff628b2f4"
+  },
+  "./assets/anatomy/harvester-generator.webp": {
+    "sha256": "e4a44cbead5f98f66708cac008f50f6b1d6bf30444a38050403c313e26c78ac9",
+    "sourceSha256": "0b0751c876f5ba557d3bc257fd8e2a1e12649b197a077ecff905360d3dfdc243"
+  },
+  "./assets/anatomy/harvester-joint-thumb.webp": {
+    "sha256": "c8c04dcd12600799b8952b179b89169ecaf0a5aaba9dc8d0ff5633ce643501ed",
+    "sourceSha256": "494a2356821e3bbcdb90b37569ffcfe7d34c96f6e2b8a1588ed19927e0735ff8"
+  },
+  "./assets/anatomy/harvester-joint.webp": {
+    "sha256": "60aa64ebf8f8ed94f14494eeda6943ca738bad6f82c4d268f406852ebf26c586",
+    "sourceSha256": "e42ca401559088773e84cdf192b6b64d1a09ff81b5397b01d1b0be6e1c07d6d4"
+  },
+  "./assets/anatomy/harvester-left-joint-thumb.webp": {
+    "sha256": "80ee4ab1b174a61e939e833057b9c3cff69fb69069cb63cbfa5b539e0e812b23",
+    "sourceSha256": "ef7d9de562b942a8b8b274b7163952d1f9a70dc0ab32c450f3eaae7f8441ea96"
+  },
+  "./assets/anatomy/harvester-left-joint.webp": {
+    "sha256": "7707fd03047f50fa30e36aeff57d5727e4ad236d602e41d1375c6fbdfde75a39",
+    "sourceSha256": "9cd09a617403ec224fde07748c08d6fbcfdb4d58ca656aa42302bc970e5d53d2"
+  },
+  "./assets/anatomy/heavy-devastator-backpack-thumb.webp": {
+    "sha256": "ce905df1d82cd517b69e76dc1849ba235055736a413dfd7a78f18638b2328391",
+    "sourceSha256": "2cdb416918b9e55c6ee36cba97b2343a8312bf3fedb0402c51f7cfce8fdd78a8"
+  },
+  "./assets/anatomy/heavy-devastator-backpack.webp": {
+    "sha256": "b5c85d4fe816ec12ef9cf2e6a83f271c18b5a85e619be4f5f18d16ec72ed93e7",
+    "sourceSha256": "7073cdc49615e5728cee0fe7f526d117e9ead0b9ecc62b72b9afaef1eee537b9"
+  },
+  "./assets/anatomy/heavy-devastator-head-thumb.webp": {
+    "sha256": "e95c92dae1bda1c783881f1c8adca7241827f79c6e4ba6580529a2e297c11831",
+    "sourceSha256": "307fa8b4e73ea40f10ff2aaad644eaac8de43c2e4c737efe73f673387c5f9de3"
+  },
+  "./assets/anatomy/heavy-devastator-head.webp": {
+    "sha256": "3e3907ab98556036583b749169b92adb4c57ead80820507018c5dbb6cb47cbfd",
+    "sourceSha256": "f5c98d6cd85e985f06bee4039969b25e4b337048b8c3eb472c2d5eb91549a085"
+  },
+  "./assets/anatomy/heavy-devastator-stomach-thumb.webp": {
+    "sha256": "023fa2e0f41de7b7d18858dfec6553b412890c94465076ce33baeee4604ad785",
+    "sourceSha256": "1b226e915f629c874a0b10b92c47281230fcc827ac32b2bffe81d23acb99f32b"
+  },
+  "./assets/anatomy/heavy-devastator-stomach.webp": {
+    "sha256": "22cff55ca8b19620e0321f660141308eeda7a0c220495c19ad63359ae6c536f3",
+    "sourceSha256": "38a566d11ba1ea60985edf2c99cf2b0b72785616671efdc4db0e56f58c9e8ab3"
+  },
+  "./assets/anatomy/hive-guard-claw-thumb.webp": {
+    "sha256": "35ac748f0f0a54387e531988896438d8a2f883d35c2195ced68e41fb88aad3bb",
+    "sourceSha256": "849b5372a67e30269a169aa035669c7dc064967497c3545307691ee7e82d107d"
+  },
+  "./assets/anatomy/hive-guard-claw.webp": {
+    "sha256": "f09791e0940236725af4ddf84e4a0d3218b3b82509ef8ff4d8bf03a168a552a3",
+    "sourceSha256": "705d5602df8d0b7a25d23440ac6ecd24c1c67efce41bb5954aa93c774af6c931"
+  },
+  "./assets/anatomy/hive-guard-head-thumb.webp": {
+    "sha256": "f6b960611ee9b6c12d4609f160c4c7e4bd91bc56fdfc07aca30b10e0cf1cbb46",
+    "sourceSha256": "9484ff74dfd0df050d7853a847488a68fc9134dc5c8550449b3dc390cc5bd8dc"
+  },
+  "./assets/anatomy/hive-guard-head.webp": {
+    "sha256": "d80705b03830ac1fe0929949a6775d5d2ee00a84a9de1320ea56b628346845f7",
+    "sourceSha256": "0f31a21ee1219310216736af78cfb2825f16dbd399b5edafa9ec59d95a759602"
+  },
+  "./assets/anatomy/hive-guard-rear-leg-thumb.webp": {
+    "sha256": "a43678c5d9d8c6f64b9802546a9a6b325ec685e07ee10f22fad8be9dac90ca18",
+    "sourceSha256": "62be649af21c1fe22815eea0a62ac13d0050e89fd53537ccccf5c49260d78208"
+  },
+  "./assets/anatomy/hive-guard-rear-leg.webp": {
+    "sha256": "87efe50cc4e7485dcc0f8ab79b494fed837acfc62531fa1cec364dac685bd34d",
+    "sourceSha256": "11d4e09a63849629da674958b5848c379c3a01647cedc4c0d71fd9faa95b342d"
+  },
+  "./assets/anatomy/hulk-head-thumb.webp": {
+    "sha256": "31878632bd519ece53f1af1cc9f087a39ae070ee6469ca5fdd67849fc9a35ad1",
+    "sourceSha256": "70c9249017616b4632c973abfc5ede6079ccd4cc39ed293cd03ba45962abed2b"
+  },
+  "./assets/anatomy/hulk-head.webp": {
+    "sha256": "cb2cfa67420052d83c2629c060b3d1da608b14e99fb200fa23f88378d83e3f67",
+    "sourceSha256": "b2fa1f3ee1bbfad92256f8366ff77a5cb7b1a1ac104ff0766df8eab6468eda38"
+  },
+  "./assets/anatomy/hulk-heatsink-thumb.webp": {
+    "sha256": "1cc0eeadcb4f10508490dea9456afeafdb6176f5cb098cea63610afd9fdf8b48",
+    "sourceSha256": "c7227d5a7175970c3334213cd019018cabcce2251c3f207c73ff891edc8e8d07"
+  },
+  "./assets/anatomy/hulk-heatsink.webp": {
+    "sha256": "f769a7d2bd2312a2c5a550693c6c3dead8c4b0ac4c7f431cf52692a2a895ef9f",
+    "sourceSha256": "d3f674cbeed54940814df1b0372ccf7eb271d8e96be161738b730febed1b6fd9"
+  },
+  "./assets/anatomy/hunter-claw-thumb.webp": {
+    "sha256": "27435cea534caeed47b6d8ab8bcbe74d0bc733b309befe727d6a7806ac97d40e",
+    "sourceSha256": "29cb8c26ef002aee4334bb3b9cdd547c32d37512c22698109a02cd885046569d"
+  },
+  "./assets/anatomy/hunter-claw.webp": {
+    "sha256": "cfae8bf49e8a072bd03da269d2ff82feb0e52e1b65066cb415024b6f6ed99525",
+    "sourceSha256": "691aa8a159e31ac83ad1e01c88fb88c4bfb24ea370ff03404aaf0f03ee702c63"
+  },
+  "./assets/anatomy/hunter-head-thumb.webp": {
+    "sha256": "40d816264d932c3e4f4481f45fdd96c399582f5c872138fe75a43221e7407d9b",
+    "sourceSha256": "9624fa372059bc24137d17ee148d0985fc569b56e747c0d343d6c99f283947dc"
+  },
+  "./assets/anatomy/hunter-head.webp": {
+    "sha256": "e5e4e95c52129b7883d2fecf8dfb3547190f65c3e5348ea4afe52f836c711212",
+    "sourceSha256": "811f1b69b80734f21a996c008bfd6f85eb4a02d3bfd104a51085dc212f535cd1"
+  },
+  "./assets/anatomy/hunter-leg-thumb.webp": {
+    "sha256": "1b80c0b8205a322ff5f16534491eaff501af2c278d2e21de4690c847e08780b0",
+    "sourceSha256": "3d2e1baacfcaf1ebe2c8972381166aa27ead230a91bf9a4c2a440ca31a424138"
+  },
+  "./assets/anatomy/hunter-leg.webp": {
+    "sha256": "cb8958db9c1152239b55984b1c1be1d344d098ff3132e4c5769831a041104fc0",
+    "sourceSha256": "a451bb1f7cc0363885f235687b2c2ce80a15276c0721a0fd4dc92c2b22db6a85"
+  },
+  "./assets/anatomy/impaler-head-thumb.webp": {
+    "sha256": "bafa1860e57be61f25ead5bfb1733b0f01bec3f53acec93edf08a113c69095d9",
+    "sourceSha256": "3d888ed524041d5efbca4566af135027aeae03524f2700b797b6b82daf85fa39"
+  },
+  "./assets/anatomy/impaler-head.webp": {
+    "sha256": "09b122c0021022bb134aa74260f0c600267124ac2288b72bc063e9407ce99635",
+    "sourceSha256": "cb0dc129d27f14b4c6aff1699ffe5de56de052c0e655c4de9c55140973dab8a4"
+  },
+  "./assets/anatomy/impaler-leg-armor-exposed-thumb.webp": {
+    "sha256": "941c1ed37a03359d58b6f32419029df00f93a5109673bbe295b2de64b0fd94b4",
+    "sourceSha256": "10ee4923585ae55554988ed38ffad2381b3ea81282acaecbb7def8493e8596cf"
+  },
+  "./assets/anatomy/impaler-leg-armor-exposed.webp": {
+    "sha256": "506b0cf648e5f13cd9be2c6e7085111bd0fa660b424e80d1b34d9b80e0493cc3",
+    "sourceSha256": "03842208c683474d85580f40adb3777d4ba5b5ac949a58d2172769d2481bd736"
+  },
+  "./assets/anatomy/impaler-leg-armor-thumb.webp": {
+    "sha256": "b800b25dac83e1526565b73030bc0c9d98926041412e00b6c0297606a0a3efff",
+    "sourceSha256": "a6a024173129ff117717b7077efe7312809c963420beb9625f2497fd9c234fc5"
+  },
+  "./assets/anatomy/impaler-leg-armor.webp": {
+    "sha256": "059c9eeb0d4c64c0a040729258bbc47fea703d9a76482baa153853d9cc98f3e9",
+    "sourceSha256": "34ff09bd9330e6497d1a8296de24d9716cbf79603c690b7d88a44ad0a18429ba"
+  },
+  "./assets/anatomy/impaler-tentacle-thumb.webp": {
+    "sha256": "88feff410730b38b55d5203da6bc90757688e0ff187bcaaa04bbdb646f9ca9ad",
+    "sourceSha256": "1a267830705426d98aafcb2f5ec24b5138ebc61291af54161fa2a2cd4589c321"
+  },
+  "./assets/anatomy/impaler-tentacle.webp": {
+    "sha256": "535ecee0d913b2fb4a4f6d7698ea5a4ccf50f957cc85cc6be8838d9eadc227c4",
+    "sourceSha256": "920e0b5e016a0afe3e0ec56c965b348d204af1f14842b647f6a38fa92e37d276"
+  },
+  "./assets/anatomy/nursing-spewer-butt-thumb.webp": {
+    "sha256": "d99315d9fb7957db04fe98078ad776733493c74502de19a91f0706676d68faf7",
+    "sourceSha256": "82b774b4757ffd5c0809a6b921b5bc92a13c748043f5dddbead710925c7cb3d7"
+  },
+  "./assets/anatomy/nursing-spewer-butt.webp": {
+    "sha256": "eb2b85a1825764b34b4cb49771942bdd2f71fe7c78ad23b13452d28cafbb75de",
+    "sourceSha256": "f91fe4688e709bcd4e64498d0009e696c47ba651fd9b9731f7455754cfe6edb7"
+  },
+  "./assets/anatomy/nursing-spewer-head-thumb.webp": {
+    "sha256": "996a23e1b4cedb06918dc2012771be871ad4b657e4bddb647823fcf7effad533",
+    "sourceSha256": "045468b5c799889221dedbb4bded2ebc1cbdf25a458e766bc1f95a981add8da7"
+  },
+  "./assets/anatomy/nursing-spewer-head.webp": {
+    "sha256": "f68f0c393cac0c63a9951d5c4ca93bfc8e940065e78e4a1a070a00e64a709fba",
+    "sourceSha256": "795acf2047355d86c0a043acc3ea5e75e8a2198c728271d88d05a5c2d613df47"
+  },
+  "./assets/anatomy/nursing-spewer-mouth-thumb.webp": {
+    "sha256": "4075e98accf5c6c8add021fb844322b2308cfd0d4ecbbcfd5ebb3a9fef764199",
+    "sourceSha256": "1e60f840ad3e02b16d3290e6682ff64f1f26afb452c44446954826712eecb1a1"
+  },
+  "./assets/anatomy/nursing-spewer-mouth.webp": {
+    "sha256": "60b5030da7c61e3ed04d61e8714d2345ffbc9764215738db20b2a20ed45a2baa",
+    "sourceSha256": "27fe9bffa2a5f5c18145050b7f31fc5cfc4934bd7b4a42eb7197580ce7794892"
+  },
+  "./assets/anatomy/overseer-chest-armor-exposed-thumb.webp": {
+    "sha256": "39be52f1ff3c3d04780a570a7a6f8131a240cf52fb2da02e675ca791f547356f",
+    "sourceSha256": "38cf63bf944c5ec8049df86fc0aeb7fd3e937d5e699c5144b63a377e98531859"
+  },
+  "./assets/anatomy/overseer-chest-armor-exposed.webp": {
+    "sha256": "5fea9b2580de1630013878da6346dc434f389e3304577ac07801e634bc0a404b",
+    "sourceSha256": "0b119a915326692df109318c7872bdb00acbe91e68b20651ee8334a2a05cc034"
+  },
+  "./assets/anatomy/overseer-chest-armor-thumb.webp": {
+    "sha256": "1a99d21aa24045985f95d4d2920dc1555c0b18407c9c4eb2e60c5e40ac9c66a1",
+    "sourceSha256": "a01c8b975b36c83aa83698c8aef228416bcd1c382e8e77f68f57b71520dbcb49"
+  },
+  "./assets/anatomy/overseer-chest-armor.webp": {
+    "sha256": "3ccf42b7ec32a2d8183ad8af8a2f0792b4b5d5a746122b311546210cf19ccd1d",
+    "sourceSha256": "ee707214e8fc0f5b50a9b77d67c83feb92d05c7497feb4f177fea848278d90d5"
+  },
+  "./assets/anatomy/overseer-head-thumb.webp": {
+    "sha256": "3d25c0e437fef67e65df55742a987b7bc9fe95672af2011ce20cb42f235b51e9",
+    "sourceSha256": "c16e3bccd31146057181432a6ee27b47732caa67f1b263fa46d35c7cf2bf20de"
+  },
+  "./assets/anatomy/overseer-head.webp": {
+    "sha256": "af33583e232c1e439a3f0437af5a93cb18b6cb83e13b97cae7bda06e111b0d73",
+    "sourceSha256": "f2b66585710e694d8a9ae30935d87fdd30c0c4ce05ccb7afca79d084d1828e57"
+  },
+  "./assets/anatomy/predator-hunter-body-thumb.webp": {
+    "sha256": "67fcf3bafd3908ce6f0b2b523467d4bd24e5c83491343c6f42f747b7e025ca18",
+    "sourceSha256": "68420b2486d6fa59ffab53137cf7f27c232de23cb58cac51c81c9560c2d26b9e"
+  },
+  "./assets/anatomy/predator-hunter-body.webp": {
+    "sha256": "cdd8470e16ed5a078a97bb5dc1521634b18800497f214a642e2922dd8345dd14",
+    "sourceSha256": "ea966fbb4ef78817f438275d1ec7d4ee31ffc26039f206b2d7b5a93237e9d70c"
+  },
+  "./assets/anatomy/predator-hunter-claw-thumb.webp": {
+    "sha256": "fa32fa9298c14c082ed3111011a7bfe87d7cdf7ef0c9897e557fdf958d2620c6",
+    "sourceSha256": "2a4954d105f74f9264f6df139a480c450ad3d8e154e1b7e667fdc86e6f227daf"
+  },
+  "./assets/anatomy/predator-hunter-claw.webp": {
+    "sha256": "912c003b018e31fcdab535d1d6a19d1f3b8bc89afb51c3b275a90a3e396a7fa1",
+    "sourceSha256": "eb0d4a9052fc2501ccec987554a988234f4190244cb2be6963940b1588ae1ab7"
+  },
+  "./assets/anatomy/predator-hunter-head-thumb.webp": {
+    "sha256": "2cd94b8c4635a0765329af2b1bdd2f1276ad85a1d743389d21604bd17ca8a4fe",
+    "sourceSha256": "dc90b9c749afb8d4be482f10f5f10a3e07a98dbea49d9cec71475d94d032dd46"
+  },
+  "./assets/anatomy/predator-hunter-head.webp": {
+    "sha256": "c5eb44a99bf0994fa71fa4b7f619502938c850261482950bd34cabdae85c6277",
+    "sourceSha256": "ea3691a31cc87607a62c6d1dc48ea68a6d54fd03dd7cbe7aa705b295ffe11eae"
+  },
+  "./assets/anatomy/predator-hunter-leg-thumb.webp": {
+    "sha256": "ab0547db33cf8197f770c7dc4d5dd99d547d2c2de71ca5b7dfcadcd9df78f6d7",
+    "sourceSha256": "118cae215ce8f2f7af13d79b417a7c88eb328d4d19ee0dbc26e126bbd6b890bb"
+  },
+  "./assets/anatomy/predator-hunter-leg.webp": {
+    "sha256": "c7d2a49e3acad326605fb755c3f583da22f46eadd8bb57a34d8318375b7af378",
+    "sourceSha256": "35539a2c5c3b27ef827fb1f4c5bd5f42c4b38a8b330a6e1043eacec86964fbe8"
+  },
+  "./assets/anatomy/predator-hunter-wing-thumb.webp": {
+    "sha256": "16c93900d1bc1c22b58e8c6bc8a3807d8d145ff8d1af1cf5f2003f4707bb5ae4",
+    "sourceSha256": "db844bc866dbf79034ca65f69d8f180ec06bed7f4f18eb536cb629dd8d33ffd8"
+  },
+  "./assets/anatomy/predator-hunter-wing.webp": {
+    "sha256": "aae9e67570bdaa18af62243f03101697e9f5ac4a57979f4e41a7132c2c820e6b",
+    "sourceSha256": "230d6daf36f302a0ed2d7d6c9bc6e466bd54fcc7edc34acbaec502a0dbebee69"
+  },
+  "./assets/anatomy/reinforced-strider-leg-thumb.webp": {
+    "sha256": "d98c5290013146a4ff5c05c4a5abea2899746ce5394d3a2d77b16ac7e2844da4",
+    "sourceSha256": "dc6840d026385e08b6beaddd7c57c7cf56d908e22b171b429017351baffee390"
+  },
+  "./assets/anatomy/reinforced-strider-leg.webp": {
+    "sha256": "c4e596a8537c8b98470383f08cf8e806a33bedb8b8caad2764472164ee2f01b3",
+    "sourceSha256": "64d1fa6c2c7670fda784504d880cddbd310abf6d6a5b3968444cbbd2ddc15573"
+  },
+  "./assets/anatomy/reinforced-strider-turret-system-thumb.webp": {
+    "sha256": "cd815f60c3b072201b331b443d24ba3d1ef524921e4b89a94afb4cfab68e5664",
+    "sourceSha256": "02fb828691030bba891f884762e6de8cc286b91e30d6b6c3dad90a0d46dbaa9d"
+  },
+  "./assets/anatomy/reinforced-strider-turret-system.webp": {
+    "sha256": "74587f79a924b63bc7fe20029afea3a747dfd64c56d753a5978406a13d997b7f",
+    "sourceSha256": "2d158979a9006714750c42a921cc995ab49fb5b5f2236019cf83bca7a9dcaf5a"
+  },
+  "./assets/anatomy/reinforced-strider-waist-thumb.webp": {
+    "sha256": "918534c4a430819d4aa4bb268162f5337d23cf7c6eeaa3d9d1ab6951a097ae9e",
+    "sourceSha256": "cdb7bd653d9bd6397fd60b9709c0f5009743c7571d2bd07b0fdff5a9f09338d4"
+  },
+  "./assets/anatomy/reinforced-strider-waist.webp": {
+    "sha256": "7bbf3446bf02b00a3ab4c45ed97417d20f3e316a8e3e5421802718de43bfcb35",
+    "sourceSha256": "9e1106a44c5d696e4eab2419103b89da6a9c4337061a5007cd053eef5b24bccb"
+  },
+  "./assets/anatomy/rocket-devastator-head-thumb.webp": {
+    "sha256": "f9e4875094e061230053dbd70f36fb23f1b2e9cef1337b82b6897d48c5a402e4",
+    "sourceSha256": "d0e78d29aa6c793e3fbfafe5c1e59378d0e777089316e53de87403dbad6cbd81"
+  },
+  "./assets/anatomy/rocket-devastator-head.webp": {
+    "sha256": "0017a04bc7755e40b3eebe173e978b7a5f5ebf64eacd2a9f490281f352bbc91b",
+    "sourceSha256": "3ee7344fb0ad4964affbe687b432b27600bbf9bd3e5734290fc60645e1dbe62e"
+  },
+  "./assets/anatomy/rocket-devastator-rocket-pod-thumb.webp": {
+    "sha256": "ce83055d426da304a2b6e79f983934acc45ad5e7f937f3edc07756491ae6c54a",
+    "sourceSha256": "01c19e15a931e6e8449798a85f458bfb3ad06cf7146b2330731c01ded84d99cf"
+  },
+  "./assets/anatomy/rocket-devastator-rocket-pod.webp": {
+    "sha256": "b94d3ec4490d775d5c842754d874bfcab4b40aa8c0285cc06088dcb960a277f7",
+    "sourceSha256": "b5e639b291fffa0880c210f944cc6b979588c5210c5633efee719eedab512744"
+  },
+  "./assets/anatomy/rocket-devastator-stomach-thumb.webp": {
+    "sha256": "51a454a8a385d370f86c45599f26ff7ed6f4dc2db4705e789c830e322aea7a33",
+    "sourceSha256": "74b7f64742d28524022321ff861a7236df5fd71b43a97e741e08e3614556e430"
+  },
+  "./assets/anatomy/rocket-devastator-stomach.webp": {
+    "sha256": "b3853fef993be18d388f1da2a6c7c66b56df543c3600cb5d17f10bda56bae529",
+    "sourceSha256": "efab49a669265846cb4ac7b908deab5f0beec67b291bbe29053f3e6bbbcbda0b"
+  },
+  "./assets/anatomy/scout-strider-leg-thumb.webp": {
+    "sha256": "fa4d285d6c94aebb0c705df0381fa3ee0d23db4228de49ea7145a12386d5d444",
+    "sourceSha256": "8dc4e42f0ccd343d68219e1836d34f309a2b7618865821c9831a1e34ca224487"
+  },
+  "./assets/anatomy/scout-strider-leg.webp": {
+    "sha256": "5e7d80efe933a4efcac5a45ee146d6c6812388460de641825fbd6f14f8c1e4bb",
+    "sourceSha256": "8eb0c8bd2771794ac3ec69f284dd78c75b81d95812972b159d045e351acfe43f"
+  },
+  "./assets/anatomy/scout-strider-pilot-head-thumb.webp": {
+    "sha256": "50910b9fbbaf69a6eb21f90d7af778ed694dd3a59e3d60784548c2aa36f01aab",
+    "sourceSha256": "f940fdcdc27e7950788349a3438b024c87d010ba778c6c2a0c8ab7780a4e1964"
+  },
+  "./assets/anatomy/scout-strider-pilot-head.webp": {
+    "sha256": "99e4cdd1b0b658d30010a2257c70e6a73ca5f26124d5b93c21ddb42785d65e32",
+    "sourceSha256": "07fd379dc4efc60e557008fc0845d6b95e15409bbe7119685680e47ad60f2e11"
+  },
+  "./assets/anatomy/scout-strider-waist-thumb.webp": {
+    "sha256": "9046dd214584f4e81f6d5654f25320e898dc034cc7039949474c3199a65eb536",
+    "sourceSha256": "eaee5806157a3af9a63cae7763890c621a9ffcc6c2247ffec79185c22f8d0ba1"
+  },
+  "./assets/anatomy/scout-strider-waist.webp": {
+    "sha256": "85322279211dcb587d3ae7d1fc5c2bbda6b46730bf26919c10cffc01082b5106",
+    "sourceSha256": "c69d88add57d4b3a3d2ce33e59de39937bebdcfc6b5272e23559e9dfbf51f499"
+  },
+  "./assets/anatomy/shrieker-head-thumb.webp": {
+    "sha256": "e34e99fad3cd86486b7b7b0c024e64c0a28a731790f8afe1de028cbebd95ba11",
+    "sourceSha256": "1276351281280eb6a8c8ea957560f2332ffe0f89adf01e456f24fb49d6396835"
+  },
+  "./assets/anatomy/shrieker-head.webp": {
+    "sha256": "c11e3bfa13ab607439bd6e46bfc8277ad94837f5f879451bed195ed4dd6ac644",
+    "sourceSha256": "c1c521ad77a3bf85360eb9463abf75aa4c7077ec95e92d0ec3f5343700a8467d"
+  },
+  "./assets/anatomy/shrieker-wing-thumb.webp": {
+    "sha256": "2be7984f6c9287578e0a5049ecfc7271dc4675345515da79401399ae3a5702e5",
+    "sourceSha256": "e8970c7be9a135d002192d2c5e7a587f15fe7442925d9d6e90d8fb800143e65d"
+  },
+  "./assets/anatomy/shrieker-wing.webp": {
+    "sha256": "7aa90e1c24f57ddd4af1263ca0c05942df08f460dfed118e48518609060c2afe",
+    "sourceSha256": "f822195842543a9827819255a447c42358a46792f9a5e4698f96093066b8443a"
+  },
+  "./assets/anatomy/stalker-body-armor-thumb.webp": {
+    "sha256": "bdf5ef3140d831ce33702117c43e637dde4f1f69930257a796d5244262a496d1",
+    "sourceSha256": "1f9bcd7771f83ab25fde68e4bc8f45bed199fe4e6fb1ed3a5c435b5bb259f404"
+  },
+  "./assets/anatomy/stalker-body-armor.webp": {
+    "sha256": "ed3fc69d566a7789c93523e64850163d452599dcb38eddfaa59d54efffbaa25e",
+    "sourceSha256": "e6b6b4a30fae201d9ac8ab30a367a3adf3b0cf4708beb133d336fa78b4b3da5d"
+  },
+  "./assets/anatomy/stalker-head-thumb.webp": {
+    "sha256": "0496510817f5103e88baf3b6a46f7619aeac557a8bcaa42ebb61e6c2860bfc6f",
+    "sourceSha256": "96412b7987ba88b7dc66a9824177ea4555a298bc1214e4565f61fd6443f212f5"
+  },
+  "./assets/anatomy/stalker-head.webp": {
+    "sha256": "7ec700e29a3fc5d1717cea83381b2a2d409c43b7cb2db7395df8d69b94d61709",
+    "sourceSha256": "73d65f0ce3c2a6a86808fca41cec0e6759df5704e19a183d163f5893f2026d43"
+  },
+  "./assets/anatomy/stalker-underbelly-thumb.webp": {
+    "sha256": "7c3e22707f3f06bda5f96d507661a46fcdc3ef6d700b7593c855db4ff43b10a0",
+    "sourceSha256": "3d085af44f9285ac40ac7119b2c3d291ae961625c34d0649fae7f0bf52d20b62"
+  },
+  "./assets/anatomy/stalker-underbelly.webp": {
+    "sha256": "785ffb3ed2d49237c3cc892fc79e30805365a54c8429a760b3507f9d9144557e",
+    "sourceSha256": "c736a9047b348db41d2acfb76bbef758750f20853a3269f9f3b793f8044ffe7d"
+  },
+  "./assets/anatomy/voteless-heavy-forearm-thumb.webp": {
+    "sha256": "35701cc196053b1ca746b48068108ca808975275fdc99eb3e7c99934d2d631f4",
+    "sourceSha256": "772282fcb0f88bda0ab493a0ff4dbe1687f3c71a1ecf87b8ce47c33856519ebd"
+  },
+  "./assets/anatomy/voteless-heavy-forearm.webp": {
+    "sha256": "d140a6c89615a542fd80775e922296928c9761a565bebbf560449accf57ea3a3",
+    "sourceSha256": "ff3837a6f74ea4dd73a600948cc7ccb2a2168f670175d056d3de8ccb6ae71dfe"
+  },
+  "./assets/anatomy/voteless-heavy-head-thumb.webp": {
+    "sha256": "401e833dc93ebc087b37c380790b748bfb694c50f2eef17134d0139221598497",
+    "sourceSha256": "374616d70e6431093217a75f71b03d793fe2b2ce5760637fd792a1f29385ccf2"
+  },
+  "./assets/anatomy/voteless-heavy-head.webp": {
+    "sha256": "40c55dea9d98b328fb3e51008eaf0cbf14af8bad910e41417d2d808a0ee93630",
+    "sourceSha256": "14f3ec7bf0a7475c9e7c4ecc7771db5fbc93451edb6d5672a070c7fd8ca29207"
+  },
+  "./assets/anatomy/voteless-heavy-leg-thumb.webp": {
+    "sha256": "1f6933b0b5b59f7d134a411a05cf2055aba9bfb31a5c266fc71126ca45cd6486",
+    "sourceSha256": "e7fb3e99f66e6e8ae6901a99dd69699e38bc64e379d7b768be52c05fcd52aad0"
+  },
+  "./assets/anatomy/voteless-heavy-leg.webp": {
+    "sha256": "311c68811c1705106c6c23e288b3625821a97ca9c66d73c5d428d6c1e27d971d",
+    "sourceSha256": "542ba1bda626365a2e740b890f5d8eb4feab3d2420d3820eb5a0c018364d8edf"
+  },
+  "./assets/anatomy/voteless-light-forearm-thumb.webp": {
+    "sha256": "b8e56b18572ea6ccdaaf7a50ba69d2bcce67aa834a87632880cb973ac2fcf16a",
+    "sourceSha256": "276718370ec3eb969bbc35794bc01b8699fdc473bef016849c569121ff287594"
+  },
+  "./assets/anatomy/voteless-light-forearm.webp": {
+    "sha256": "ad8730c191ce9d8884fe8ea4bee6ca276541296b6cabde41572caae220240c36",
+    "sourceSha256": "b562e7d1e725c9f7981057f76f3ffa565e1cdac9780db5fdab06e60569290f2c"
+  },
+  "./assets/anatomy/voteless-light-head-thumb.webp": {
+    "sha256": "97fcf73f7f194ad3bf8623a2bf856864f2dcb986d777c0cc8f05d000fd901d73",
+    "sourceSha256": "2b393acc2c1aa171668c3bbb9ce3444a8ea48b0124581139367691a1dda56464"
+  },
+  "./assets/anatomy/voteless-light-head.webp": {
+    "sha256": "5c9536993bb325805492f1e38e75ae7290ae167cc897f3e452fa71136061da8f",
+    "sourceSha256": "39dfe4570e9cc20cc67dcdb3755239cd6baebe905c5123c7bb45d084e86d9dca"
+  },
+  "./assets/anatomy/voteless-light-leg-thumb.webp": {
+    "sha256": "18581ee127b4385166d2b3f10aa0f137fc9dbfb3c80170ba339624196f95d3c1",
+    "sourceSha256": "077a5efc214e856ae6c29171de980e1eea0ecdc231643feee138981c51a43ae1"
+  },
+  "./assets/anatomy/voteless-light-leg.webp": {
+    "sha256": "68e5609d1ff344b2cf3deb900ca4ad7129c38a967b0d2461183ab1b67fdb9fb4",
+    "sourceSha256": "1545a599c1b1914ecede345e5f4456e153b17482a484c63d3d61d164e872878e"
+  },
+  "./assets/anatomy/voteless-medium-forearm-thumb.webp": {
+    "sha256": "f2ba4dbcad84a7d7561371e2f0010fe358f63a83201b276c7ee69b31952864c3",
+    "sourceSha256": "819a9a3fee1f2b867cdbfe58f304a41102cb18d2b1e186183056d17db0617a59"
+  },
+  "./assets/anatomy/voteless-medium-forearm.webp": {
+    "sha256": "5ab0415d7968a5bcea2d040539bdd03201a3e1afd601f5a6fa7d508aaf3c0bfb",
+    "sourceSha256": "c779e6f40621af6633bd8073053634e91d8af25f9c0d8ad5c8f627273c0aaa42"
+  },
+  "./assets/anatomy/voteless-medium-head-thumb.webp": {
+    "sha256": "5cd59ce33c1fda6ba4563d598d2b7d729888d5a9cc482ff7d6ee5a8e1c26566c",
+    "sourceSha256": "69503c90cf97b2c0d29cc4d1dadeb3cad69ce4b8d6f3be3045bd8915ceffc601"
+  },
+  "./assets/anatomy/voteless-medium-head.webp": {
+    "sha256": "963f8c0054dabb80dce9d0259f362e504feeeb7bf47fa046a89dabe153182831",
+    "sourceSha256": "e093f0708852b71c80a431f51f75c89b7994594d14e072500d7c91332c38cfe5"
+  },
+  "./assets/anatomy/voteless-medium-leg-thumb.webp": {
+    "sha256": "8d6b0765a0230a39430821bdc57050414eb62a43393c0fab48619d93651f096e",
+    "sourceSha256": "1a4eb5cf86b1164e5b7110d15774aa5b3a6914086678102d20f0feecdb798bdf"
+  },
+  "./assets/anatomy/voteless-medium-leg.webp": {
+    "sha256": "93bcae3161cca31c49f1d7fe237cb3670da1aa0786ed80f489e23776b23d748b",
+    "sourceSha256": "b556f7fd746f8917591f6e5fcc63ee496a72ee24067b152ff5931306acda191a"
+  },
+  "./assets/anatomy/warrior-claw-thumb.webp": {
+    "sha256": "e073537157c68eef6eded433b2944a006c746e5b9d393b3c4bedd746e1f9abda",
+    "sourceSha256": "9d3f8e3652d0ae924c06561b9e40d96306370be9df125c3ec1917c12c97e68a5"
+  },
+  "./assets/anatomy/warrior-claw.webp": {
+    "sha256": "b3ff52627e4f5e6b70fae3223dfd278524fb19b4ab2b66232b23e71485b297c1",
+    "sourceSha256": "6f2a605efe9d2db179be339f1f6bb987eddff5874db3c08b4e307c4ef89e8272"
+  },
+  "./assets/anatomy/warrior-head-thumb.webp": {
+    "sha256": "d006617d869068e3d9b6e669b5ec4584092d3cdec93630bc9967d2e064eb5a52",
+    "sourceSha256": "f86d2f0310c2ba4153cf31d43d272dee9fdebc95e77f371969b2f6a5943d2e68"
+  },
+  "./assets/anatomy/warrior-head.webp": {
+    "sha256": "1da5c278c90a6bf957b6058c09074ea6b6ec9ab94b56b748d993cb61e2ea3f7e",
+    "sourceSha256": "32db2e3cd1703fbb327d4c90c6891584ad3f58f44454ffe0237bb559fc2aa9e0"
+  },
+  "./assets/anatomy/warrior-leg-thumb.webp": {
+    "sha256": "7e385ec96a84bdb762734a57ee0b8095d7b7d45c8e75b6f79ea0d350507c9ce6",
+    "sourceSha256": "50a375fab67949f5904e8ba3d8bdddaec41cb0ee4aaeb19d255c364c891d0ba9"
+  },
+  "./assets/anatomy/warrior-leg.webp": {
+    "sha256": "f35787da8addaaba7aa67149605ca1db4a50f12bdba4d1af2c7aa47e34afa23f",
+    "sourceSha256": "defa4dade0a4068c6b4c23e597fcf5badafbd11b1172b6d670b08e4c6855182d"
+  },
+  "./assets/anatomy/watcher-body-thumb.webp": {
+    "sha256": "bb0d4e0ce1c132acc817c18bf11e3087229930a35627b69bed18dcbdd95330dc",
+    "sourceSha256": "759d343cf472ed9a631cf2cc8cc7193b8d7f624b73e21cd418501095ed31ae5d"
+  },
+  "./assets/anatomy/watcher-body.webp": {
+    "sha256": "f94b2320021ff339b052bb3586be943794272ca01fd0641451c3da42f3902161",
+    "sourceSha256": "61423395654383fbe9fab9bf7d08869554e151f280fa945ca3a10e216e40568d"
+  },
+  "./assets/anatomy/watcher-eye-thumb.webp": {
+    "sha256": "49b1e576db3db0fc63393e472237d20bdf6328754c00689c2ea56f671147c3f3",
+    "sourceSha256": "1cffd27ca29fc6afb477b266e5331cce502d4eae4b6641dcb03bf3f2b30099b2"
+  },
+  "./assets/anatomy/watcher-eye.webp": {
+    "sha256": "7236d8c5d730fc3aebdb0e5bb0f376b4203a6fa42075d801e73e2c76a9e6ccb1",
+    "sourceSha256": "f2f96cdccdad066c2c9255388ea20846ea728b0439ed59416d01acb397498c2e"
+  },
+  "./assets/anatomy/watcher-upper-fin-thumb.webp": {
+    "sha256": "07ef3a157c7cf662093242cdc4e60b3147b8e2f06c059bd8888b961725d83eed",
+    "sourceSha256": "19f13c3b7d83574c7c889a9fcd5e5996018bbb74f36ed6e7bd3139cbd78bc63c"
+  },
+  "./assets/anatomy/watcher-upper-fin.webp": {
+    "sha256": "3fb0bd532e5e3ea68a9db8b0e0dbf8f55d5a27c1370679db1dcd56bf39b23b48",
+    "sourceSha256": "3ebfe398b20b5ff95249ee280b567f47937b1b4320609d72f541722572beff60"
+  }
+}

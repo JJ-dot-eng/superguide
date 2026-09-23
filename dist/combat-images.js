@@ -1,5 +1,5 @@
 import { expandedCombatImages } from './combat-images-expanded.js?v=enemies-37-1';
-// Wiki-rendered anatomy images, unaltered. thumbnailCrop is only the CSS viewing window; the enlarged view shows the full image.
+// Wiki-rendered anatomy images, served as WebP (quality 90) encodings of the Wiki PNGs whose hashes are recorded in sha256. thumbnailCrop is only the CSS viewing window; the enlarged view shows the full image.
 import { predatorHunterAnatomy } from './predator-hunter-images.js';
 import { additionalCombatImages } from './enemy-images-additional.js';
 export const combatImages = {
@@ -9,8 +9,8 @@ export const combatImages = {
   "charger": {
     "head": [
       {
-        "src": "./assets/anatomy/charger-head.png",
-        "thumbnail": "./assets/anatomy/charger-head-thumb.png",
+        "src": "./assets/anatomy/charger-head.webp",
+        "thumbnail": "./assets/anatomy/charger-head-thumb.webp",
         "title": "Charger Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Head_Front.png",
@@ -32,8 +32,8 @@ export const combatImages = {
     ],
     "butt": [
       {
-        "src": "./assets/anatomy/charger-butt.png",
-        "thumbnail": "./assets/anatomy/charger-butt-thumb.png",
+        "src": "./assets/anatomy/charger-butt.webp",
+        "thumbnail": "./assets/anatomy/charger-butt-thumb.webp",
         "title": "Charger Butt Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Butt_Rear.png",
@@ -55,8 +55,8 @@ export const combatImages = {
     ],
     "front-leg": [
       {
-        "src": "./assets/anatomy/charger-front-leg.png",
-        "thumbnail": "./assets/anatomy/charger-front-leg-thumb.png",
+        "src": "./assets/anatomy/charger-front-leg.webp",
+        "thumbnail": "./assets/anatomy/charger-front-leg-thumb.webp",
         "title": "Charger Front Leg Armor Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Front_Leg_Armor_Front.png",
@@ -70,8 +70,8 @@ export const combatImages = {
         "retrievedAt": "2026-09-16"
       },
       {
-        "src": "./assets/anatomy/charger-front-leg-exposed.png",
-        "thumbnail": "./assets/anatomy/charger-front-leg-exposed-thumb.png",
+        "src": "./assets/anatomy/charger-front-leg-exposed.webp",
+        "thumbnail": "./assets/anatomy/charger-front-leg-exposed-thumb.webp",
         "title": "Charger Leg Flesh Front.png",
         "stage": "exposed",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Leg_Flesh_Front.png",
@@ -89,8 +89,8 @@ export const combatImages = {
   "behemoth": {
     "head": [
       {
-        "src": "./assets/anatomy/behemoth-head.png",
-        "thumbnail": "./assets/anatomy/behemoth-head-thumb.png",
+        "src": "./assets/anatomy/behemoth-head.webp",
+        "thumbnail": "./assets/anatomy/behemoth-head-thumb.webp",
         "title": "Charger Behemoth Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Behemoth_Head_Front.png",
@@ -112,8 +112,8 @@ export const combatImages = {
     ],
     "butt": [
       {
-        "src": "./assets/anatomy/behemoth-butt.png",
-        "thumbnail": "./assets/anatomy/behemoth-butt-thumb.png",
+        "src": "./assets/anatomy/behemoth-butt.webp",
+        "thumbnail": "./assets/anatomy/behemoth-butt-thumb.webp",
         "title": "Charger Behemoth Butt Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Behemoth_Butt_Rear.png",
@@ -135,8 +135,8 @@ export const combatImages = {
     ],
     "front-leg": [
       {
-        "src": "./assets/anatomy/behemoth-front-leg.png",
-        "thumbnail": "./assets/anatomy/behemoth-front-leg-thumb.png",
+        "src": "./assets/anatomy/behemoth-front-leg.webp",
+        "thumbnail": "./assets/anatomy/behemoth-front-leg-thumb.webp",
         "title": "Charger Behemoth Front Leg Armor Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Behemoth_Front_Leg_Armor_Front.png",
@@ -150,8 +150,8 @@ export const combatImages = {
         "retrievedAt": "2026-09-16"
       },
       {
-        "src": "./assets/anatomy/behemoth-front-leg-exposed.png",
-        "thumbnail": "./assets/anatomy/behemoth-front-leg-exposed-thumb.png",
+        "src": "./assets/anatomy/behemoth-front-leg-exposed.webp",
+        "thumbnail": "./assets/anatomy/behemoth-front-leg-exposed-thumb.webp",
         "title": "Charger Behemoth Leg Flesh Front.png",
         "stage": "exposed",
         "source": "https://helldivers.wiki.gg/wiki/File:Charger_Behemoth_Leg_Flesh_Front.png",
@@ -169,8 +169,8 @@ export const combatImages = {
   "bile-titan": {
     "head": [
       {
-        "src": "./assets/anatomy/bile-titan-head.png",
-        "thumbnail": "./assets/anatomy/bile-titan-head-thumb.png",
+        "src": "./assets/anatomy/bile-titan-head.webp",
+        "thumbnail": "./assets/anatomy/bile-titan-head-thumb.webp",
         "title": "Bile Titan Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Titan_Head_Front.png",
@@ -192,8 +192,8 @@ export const combatImages = {
     ],
     "sac": [
       {
-        "src": "./assets/anatomy/bile-titan-sac.png",
-        "thumbnail": "./assets/anatomy/bile-titan-sac-thumb.png",
+        "src": "./assets/anatomy/bile-titan-sac.webp",
+        "thumbnail": "./assets/anatomy/bile-titan-sac-thumb.webp",
         "title": "Bile Titan Upper Bile Sac Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Titan_Upper_Bile_Sac_Side.png",
@@ -215,8 +215,8 @@ export const combatImages = {
     ],
     "underside": [
       {
-        "src": "./assets/anatomy/bile-titan-underside.png",
-        "thumbnail": "./assets/anatomy/bile-titan-underside-thumb.png",
+        "src": "./assets/anatomy/bile-titan-underside.webp",
+        "thumbnail": "./assets/anatomy/bile-titan-underside-thumb.webp",
         "title": "Bile Titan Underside Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Titan_Underside_Side.png",
@@ -240,8 +240,8 @@ export const combatImages = {
   "hulk": {
     "head": [
       {
-        "src": "./assets/anatomy/hulk-head.png",
-        "thumbnail": "./assets/anatomy/hulk-head-thumb.png",
+        "src": "./assets/anatomy/hulk-head.webp",
+        "thumbnail": "./assets/anatomy/hulk-head-thumb.webp",
         "title": "Hulk Scorcher Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hulk_Scorcher_Head_Front.png",
@@ -263,8 +263,8 @@ export const combatImages = {
     ],
     "heatsink": [
       {
-        "src": "./assets/anatomy/hulk-heatsink.png",
-        "thumbnail": "./assets/anatomy/hulk-heatsink-thumb.png",
+        "src": "./assets/anatomy/hulk-heatsink.webp",
+        "thumbnail": "./assets/anatomy/hulk-heatsink-thumb.webp",
         "title": "Hulk Scorcher Vent Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hulk_Scorcher_Vent_Rear.png",
@@ -288,8 +288,8 @@ export const combatImages = {
   "devastator": {
     "head": [
       {
-        "src": "./assets/anatomy/devastator-head.png",
-        "thumbnail": "./assets/anatomy/devastator-head-thumb.png",
+        "src": "./assets/anatomy/devastator-head.webp",
+        "thumbnail": "./assets/anatomy/devastator-head-thumb.webp",
         "title": "Devastator Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Devastator_Head_Front.png",
@@ -311,8 +311,8 @@ export const combatImages = {
     ],
     "stomach": [
       {
-        "src": "./assets/anatomy/devastator-stomach.png",
-        "thumbnail": "./assets/anatomy/devastator-stomach-thumb.png",
+        "src": "./assets/anatomy/devastator-stomach.webp",
+        "thumbnail": "./assets/anatomy/devastator-stomach-thumb.webp",
         "title": "Devastator Stomach Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Devastator_Stomach_Front.png",
@@ -334,8 +334,8 @@ export const combatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/devastator-torso.png",
-        "thumbnail": "./assets/anatomy/devastator-torso-thumb.png",
+        "src": "./assets/anatomy/devastator-torso.webp",
+        "thumbnail": "./assets/anatomy/devastator-torso-thumb.webp",
         "title": "Devastator Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Devastator_Torso_Front.png",
@@ -359,8 +359,8 @@ export const combatImages = {
   "berserker": {
     "head": [
       {
-        "src": "./assets/anatomy/berserker-head.png",
-        "thumbnail": "./assets/anatomy/berserker-head-thumb.png",
+        "src": "./assets/anatomy/berserker-head.webp",
+        "thumbnail": "./assets/anatomy/berserker-head-thumb.webp",
         "title": "Berserker Head.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Berserker_Head.png",
@@ -382,8 +382,8 @@ export const combatImages = {
     ],
     "stomach": [
       {
-        "src": "./assets/anatomy/berserker-stomach.png",
-        "thumbnail": "./assets/anatomy/berserker-stomach-thumb.png",
+        "src": "./assets/anatomy/berserker-stomach.webp",
+        "thumbnail": "./assets/anatomy/berserker-stomach-thumb.webp",
         "title": "Berserker Boss.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Berserker_Boss.png",
@@ -405,8 +405,8 @@ export const combatImages = {
     ],
     "chest": [
       {
-        "src": "./assets/anatomy/berserker-chest.png",
-        "thumbnail": "./assets/anatomy/berserker-chest-thumb.png",
+        "src": "./assets/anatomy/berserker-chest.webp",
+        "thumbnail": "./assets/anatomy/berserker-chest-thumb.webp",
         "title": "Berserker Chest.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Berserker_Chest.png",
@@ -430,8 +430,8 @@ export const combatImages = {
   "overseer": {
     "head": [
       {
-        "src": "./assets/anatomy/overseer-head.png",
-        "thumbnail": "./assets/anatomy/overseer-head-thumb.png",
+        "src": "./assets/anatomy/overseer-head.webp",
+        "thumbnail": "./assets/anatomy/overseer-head-thumb.webp",
         "title": "Overseer Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Overseer_Head_Front.png",
@@ -453,8 +453,8 @@ export const combatImages = {
     ],
     "chest-armor": [
       {
-        "src": "./assets/anatomy/overseer-chest-armor.png",
-        "thumbnail": "./assets/anatomy/overseer-chest-armor-thumb.png",
+        "src": "./assets/anatomy/overseer-chest-armor.webp",
+        "thumbnail": "./assets/anatomy/overseer-chest-armor-thumb.webp",
         "title": "Overseer Chest Armor Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Overseer_Chest_Armor_Front.png",
@@ -474,8 +474,8 @@ export const combatImages = {
         ]
       },
       {
-        "src": "./assets/anatomy/overseer-chest-armor-exposed.png",
-        "thumbnail": "./assets/anatomy/overseer-chest-armor-exposed-thumb.png",
+        "src": "./assets/anatomy/overseer-chest-armor-exposed.webp",
+        "thumbnail": "./assets/anatomy/overseer-chest-armor-exposed-thumb.webp",
         "title": "Overseer Half Bare Torso.png",
         "stage": "exposed",
         "source": "https://helldivers.wiki.gg/wiki/File:Overseer_Half_Bare_Torso.png",
@@ -493,8 +493,8 @@ export const combatImages = {
   "harvester": {
     "joint": [
       {
-        "src": "./assets/anatomy/harvester-joint.png",
-        "thumbnail": "./assets/anatomy/harvester-joint-thumb.png",
+        "src": "./assets/anatomy/harvester-joint.webp",
+        "thumbnail": "./assets/anatomy/harvester-joint-thumb.webp",
         "title": "Harvester Right and Middle Hip Joints Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Harvester_Right_and_Middle_Hip_Joints_Front.png",
@@ -516,8 +516,8 @@ export const combatImages = {
     ],
     "left-joint": [
       {
-        "src": "./assets/anatomy/harvester-left-joint.png",
-        "thumbnail": "./assets/anatomy/harvester-left-joint-thumb.png",
+        "src": "./assets/anatomy/harvester-left-joint.webp",
+        "thumbnail": "./assets/anatomy/harvester-left-joint-thumb.webp",
         "title": "Harvester Left Hip Joint Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Harvester_Left_Hip_Joint_Front.png",
@@ -539,8 +539,8 @@ export const combatImages = {
     ],
     "eye": [
       {
-        "src": "./assets/anatomy/harvester-eye.png",
-        "thumbnail": "./assets/anatomy/harvester-eye-thumb.png",
+        "src": "./assets/anatomy/harvester-eye.webp",
+        "thumbnail": "./assets/anatomy/harvester-eye-thumb.webp",
         "title": "Harvester Eye.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Harvester_Eye.png",
@@ -562,8 +562,8 @@ export const combatImages = {
     ],
     "generator": [
       {
-        "src": "./assets/anatomy/harvester-generator.png",
-        "thumbnail": "./assets/anatomy/harvester-generator-thumb.png",
+        "src": "./assets/anatomy/harvester-generator.webp",
+        "thumbnail": "./assets/anatomy/harvester-generator-thumb.webp",
         "title": "Harvester Shield Generators Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Harvester_Shield_Generators_Front.png",
@@ -587,8 +587,8 @@ export const combatImages = {
   "hive-guard": {
     "head": [
       {
-        "src": "./assets/anatomy/hive-guard-head.png",
-        "thumbnail": "./assets/anatomy/hive-guard-head-thumb.png",
+        "src": "./assets/anatomy/hive-guard-head.webp",
+        "thumbnail": "./assets/anatomy/hive-guard-head-thumb.webp",
         "title": "Hive Guard Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hive_Guard_Head_Front.png",
@@ -610,8 +610,8 @@ export const combatImages = {
     ],
     "claw": [
       {
-        "src": "./assets/anatomy/hive-guard-claw.png",
-        "thumbnail": "./assets/anatomy/hive-guard-claw-thumb.png",
+        "src": "./assets/anatomy/hive-guard-claw.webp",
+        "thumbnail": "./assets/anatomy/hive-guard-claw-thumb.webp",
         "title": "Hive Guard Claws Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hive_Guard_Claws_Front.png",
@@ -633,8 +633,8 @@ export const combatImages = {
     ],
     "rear-leg": [
       {
-        "src": "./assets/anatomy/hive-guard-rear-leg.png",
-        "thumbnail": "./assets/anatomy/hive-guard-rear-leg-thumb.png",
+        "src": "./assets/anatomy/hive-guard-rear-leg.webp",
+        "thumbnail": "./assets/anatomy/hive-guard-rear-leg-thumb.webp",
         "title": "Hive Guard Hind Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hive_Guard_Hind_Legs_Side.png",
@@ -658,8 +658,8 @@ export const combatImages = {
   "brood-commander": {
     "head": [
       {
-        "src": "./assets/anatomy/brood-commander-head.png",
-        "thumbnail": "./assets/anatomy/brood-commander-head-thumb.png",
+        "src": "./assets/anatomy/brood-commander-head.webp",
+        "thumbnail": "./assets/anatomy/brood-commander-head-thumb.webp",
         "title": "Brood Commander Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Brood_Commander_Head_Front.png",
@@ -681,8 +681,8 @@ export const combatImages = {
     ],
     "claw": [
       {
-        "src": "./assets/anatomy/brood-commander-claw.png",
-        "thumbnail": "./assets/anatomy/brood-commander-claw-thumb.png",
+        "src": "./assets/anatomy/brood-commander-claw.webp",
+        "thumbnail": "./assets/anatomy/brood-commander-claw-thumb.webp",
         "title": "Brood Commander Claws Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Brood_Commander_Claws_Front.png",
@@ -704,8 +704,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/brood-commander-leg.png",
-        "thumbnail": "./assets/anatomy/brood-commander-leg-thumb.png",
+        "src": "./assets/anatomy/brood-commander-leg.webp",
+        "thumbnail": "./assets/anatomy/brood-commander-leg-thumb.webp",
         "title": "Brood Commander Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Brood_Commander_Legs_Side.png",
@@ -729,8 +729,8 @@ export const combatImages = {
   "nursing-spewer": {
     "head": [
       {
-        "src": "./assets/anatomy/nursing-spewer-head.png",
-        "thumbnail": "./assets/anatomy/nursing-spewer-head-thumb.png",
+        "src": "./assets/anatomy/nursing-spewer-head.webp",
+        "thumbnail": "./assets/anatomy/nursing-spewer-head-thumb.webp",
         "title": "Nursing Spewer Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Nursing_Spewer_Head_Front.png",
@@ -752,8 +752,8 @@ export const combatImages = {
     ],
     "mouth": [
       {
-        "src": "./assets/anatomy/nursing-spewer-mouth.png",
-        "thumbnail": "./assets/anatomy/nursing-spewer-mouth-thumb.png",
+        "src": "./assets/anatomy/nursing-spewer-mouth.webp",
+        "thumbnail": "./assets/anatomy/nursing-spewer-mouth-thumb.webp",
         "title": "Nursing Spewer Mouth.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Nursing_Spewer_Mouth.png",
@@ -775,8 +775,8 @@ export const combatImages = {
     ],
     "butt": [
       {
-        "src": "./assets/anatomy/nursing-spewer-butt.png",
-        "thumbnail": "./assets/anatomy/nursing-spewer-butt-thumb.png",
+        "src": "./assets/anatomy/nursing-spewer-butt.webp",
+        "thumbnail": "./assets/anatomy/nursing-spewer-butt-thumb.webp",
         "title": "Nursing Spewer Butt Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Nursing_Spewer_Butt_Rear.png",
@@ -800,8 +800,8 @@ export const combatImages = {
   "stalker": {
     "head": [
       {
-        "src": "./assets/anatomy/stalker-head.png",
-        "thumbnail": "./assets/anatomy/stalker-head-thumb.png",
+        "src": "./assets/anatomy/stalker-head.webp",
+        "thumbnail": "./assets/anatomy/stalker-head-thumb.webp",
         "title": "Stalker Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Stalker_Head_Front.png",
@@ -823,8 +823,8 @@ export const combatImages = {
     ],
     "body-armor": [
       {
-        "src": "./assets/anatomy/stalker-body-armor.png",
-        "thumbnail": "./assets/anatomy/stalker-body-armor-thumb.png",
+        "src": "./assets/anatomy/stalker-body-armor.webp",
+        "thumbnail": "./assets/anatomy/stalker-body-armor-thumb.webp",
         "title": "Stalker Body Armor Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Stalker_Body_Armor_Rear.png",
@@ -846,8 +846,8 @@ export const combatImages = {
     ],
     "underbelly": [
       {
-        "src": "./assets/anatomy/stalker-underbelly.png",
-        "thumbnail": "./assets/anatomy/stalker-underbelly-thumb.png",
+        "src": "./assets/anatomy/stalker-underbelly.webp",
+        "thumbnail": "./assets/anatomy/stalker-underbelly-thumb.webp",
         "title": "Stalker Belly Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Stalker_Belly_Side.png",
@@ -871,8 +871,8 @@ export const combatImages = {
   "impaler": {
     "head": [
       {
-        "src": "./assets/anatomy/impaler-head.png",
-        "thumbnail": "./assets/anatomy/impaler-head-thumb.png",
+        "src": "./assets/anatomy/impaler-head.webp",
+        "thumbnail": "./assets/anatomy/impaler-head-thumb.webp",
         "title": "Impaler Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Impaler_Head_Front.png",
@@ -894,8 +894,8 @@ export const combatImages = {
     ],
     "leg-armor": [
       {
-        "src": "./assets/anatomy/impaler-leg-armor.png",
-        "thumbnail": "./assets/anatomy/impaler-leg-armor-thumb.png",
+        "src": "./assets/anatomy/impaler-leg-armor.webp",
+        "thumbnail": "./assets/anatomy/impaler-leg-armor-thumb.webp",
         "title": "Impaler Leg Armor Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Impaler_Leg_Armor_Front.png",
@@ -915,8 +915,8 @@ export const combatImages = {
         ]
       },
       {
-        "src": "./assets/anatomy/impaler-leg-armor-exposed.png",
-        "thumbnail": "./assets/anatomy/impaler-leg-armor-exposed-thumb.png",
+        "src": "./assets/anatomy/impaler-leg-armor-exposed.webp",
+        "thumbnail": "./assets/anatomy/impaler-leg-armor-exposed-thumb.webp",
         "title": "Impaler Leg Flesh Front.png",
         "stage": "exposed",
         "source": "https://helldivers.wiki.gg/wiki/File:Impaler_Leg_Flesh_Front.png",
@@ -938,8 +938,8 @@ export const combatImages = {
     ],
     "tentacle": [
       {
-        "src": "./assets/anatomy/impaler-tentacle.png",
-        "thumbnail": "./assets/anatomy/impaler-tentacle-thumb.png",
+        "src": "./assets/anatomy/impaler-tentacle.webp",
+        "thumbnail": "./assets/anatomy/impaler-tentacle-thumb.webp",
         "title": "Impaler Tentacles Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Impaler_Tentacles_Front.png",
@@ -963,8 +963,8 @@ export const combatImages = {
   "shrieker": {
     "head": [
       {
-        "src": "./assets/anatomy/shrieker-head.png",
-        "thumbnail": "./assets/anatomy/shrieker-head-thumb.png",
+        "src": "./assets/anatomy/shrieker-head.webp",
+        "thumbnail": "./assets/anatomy/shrieker-head-thumb.webp",
         "title": "Shrieker Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Shrieker_Head_Front.png",
@@ -986,8 +986,8 @@ export const combatImages = {
     ],
     "wing": [
       {
-        "src": "./assets/anatomy/shrieker-wing.png",
-        "thumbnail": "./assets/anatomy/shrieker-wing-thumb.png",
+        "src": "./assets/anatomy/shrieker-wing.webp",
+        "thumbnail": "./assets/anatomy/shrieker-wing-thumb.webp",
         "title": "Shrieker Wings Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Shrieker_Wings_Side.png",
@@ -1011,8 +1011,8 @@ export const combatImages = {
   "rocket-devastator": {
     "head": [
       {
-        "src": "./assets/anatomy/rocket-devastator-head.png",
-        "thumbnail": "./assets/anatomy/rocket-devastator-head-thumb.png",
+        "src": "./assets/anatomy/rocket-devastator-head.webp",
+        "thumbnail": "./assets/anatomy/rocket-devastator-head-thumb.webp",
         "title": "Rocket Devastator Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Rocket_Devastator_Head_Front.png",
@@ -1034,8 +1034,8 @@ export const combatImages = {
     ],
     "stomach": [
       {
-        "src": "./assets/anatomy/rocket-devastator-stomach.png",
-        "thumbnail": "./assets/anatomy/rocket-devastator-stomach-thumb.png",
+        "src": "./assets/anatomy/rocket-devastator-stomach.webp",
+        "thumbnail": "./assets/anatomy/rocket-devastator-stomach-thumb.webp",
         "title": "Rocket Devastator Stomach Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Rocket_Devastator_Stomach_Front.png",
@@ -1057,8 +1057,8 @@ export const combatImages = {
     ],
     "rocket-pod": [
       {
-        "src": "./assets/anatomy/rocket-devastator-rocket-pod.png",
-        "thumbnail": "./assets/anatomy/rocket-devastator-rocket-pod-thumb.png",
+        "src": "./assets/anatomy/rocket-devastator-rocket-pod.webp",
+        "thumbnail": "./assets/anatomy/rocket-devastator-rocket-pod-thumb.webp",
         "title": "Rocket Devastator Rocket Pods Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Rocket_Devastator_Rocket_Pods_Rear.png",
@@ -1082,8 +1082,8 @@ export const combatImages = {
   "heavy-devastator": {
     "head": [
       {
-        "src": "./assets/anatomy/heavy-devastator-head.png",
-        "thumbnail": "./assets/anatomy/heavy-devastator-head-thumb.png",
+        "src": "./assets/anatomy/heavy-devastator-head.webp",
+        "thumbnail": "./assets/anatomy/heavy-devastator-head-thumb.webp",
         "title": "Heavy Devastator Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Devastator_Head_Front.png",
@@ -1105,8 +1105,8 @@ export const combatImages = {
     ],
     "stomach": [
       {
-        "src": "./assets/anatomy/heavy-devastator-stomach.png",
-        "thumbnail": "./assets/anatomy/heavy-devastator-stomach-thumb.png",
+        "src": "./assets/anatomy/heavy-devastator-stomach.webp",
+        "thumbnail": "./assets/anatomy/heavy-devastator-stomach-thumb.webp",
         "title": "Heavy Devastator Stomach Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Devastator_Stomach_Front.png",
@@ -1128,8 +1128,8 @@ export const combatImages = {
     ],
     "backpack": [
       {
-        "src": "./assets/anatomy/heavy-devastator-backpack.png",
-        "thumbnail": "./assets/anatomy/heavy-devastator-backpack-thumb.png",
+        "src": "./assets/anatomy/heavy-devastator-backpack.webp",
+        "thumbnail": "./assets/anatomy/heavy-devastator-backpack-thumb.webp",
         "title": "Heavy Devastator Backpack Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Devastator_Backpack_Rear.png",
@@ -1153,8 +1153,8 @@ export const combatImages = {
   "scout-strider": {
     "pilot-head": [
       {
-        "src": "./assets/anatomy/scout-strider-pilot-head.png",
-        "thumbnail": "./assets/anatomy/scout-strider-pilot-head-thumb.png",
+        "src": "./assets/anatomy/scout-strider-pilot-head.webp",
+        "thumbnail": "./assets/anatomy/scout-strider-pilot-head-thumb.webp",
         "title": "Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Head_Front.png",
@@ -1176,8 +1176,8 @@ export const combatImages = {
     ],
     "waist": [
       {
-        "src": "./assets/anatomy/scout-strider-waist.png",
-        "thumbnail": "./assets/anatomy/scout-strider-waist-thumb.png",
+        "src": "./assets/anatomy/scout-strider-waist.webp",
+        "thumbnail": "./assets/anatomy/scout-strider-waist-thumb.webp",
         "title": "Scout Strider Waist Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Scout_Strider_Waist_Front.png",
@@ -1199,8 +1199,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/scout-strider-leg.png",
-        "thumbnail": "./assets/anatomy/scout-strider-leg-thumb.png",
+        "src": "./assets/anatomy/scout-strider-leg.webp",
+        "thumbnail": "./assets/anatomy/scout-strider-leg-thumb.webp",
         "title": "Scout Strider Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Scout_Strider_Legs_Side.png",
@@ -1224,8 +1224,8 @@ export const combatImages = {
   "reinforced-strider": {
     "turret-system": [
       {
-        "src": "./assets/anatomy/reinforced-strider-turret-system.png",
-        "thumbnail": "./assets/anatomy/reinforced-strider-turret-system-thumb.png",
+        "src": "./assets/anatomy/reinforced-strider-turret-system.webp",
+        "thumbnail": "./assets/anatomy/reinforced-strider-turret-system-thumb.webp",
         "title": "Reinforced Scout Strider Turret System Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Reinforced_Scout_Strider_Turret_System_Front.png",
@@ -1247,8 +1247,8 @@ export const combatImages = {
     ],
     "waist": [
       {
-        "src": "./assets/anatomy/reinforced-strider-waist.png",
-        "thumbnail": "./assets/anatomy/reinforced-strider-waist-thumb.png",
+        "src": "./assets/anatomy/reinforced-strider-waist.webp",
+        "thumbnail": "./assets/anatomy/reinforced-strider-waist-thumb.webp",
         "title": "Reinforced Scout Strider Waist Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Reinforced_Scout_Strider_Waist_Front.png",
@@ -1270,8 +1270,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/reinforced-strider-leg.png",
-        "thumbnail": "./assets/anatomy/reinforced-strider-leg-thumb.png",
+        "src": "./assets/anatomy/reinforced-strider-leg.webp",
+        "thumbnail": "./assets/anatomy/reinforced-strider-leg-thumb.webp",
         "title": "Reinforced Scout Strider Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Reinforced_Scout_Strider_Legs_Side.png",
@@ -1295,8 +1295,8 @@ export const combatImages = {
   "gunship": {
     "front-thruster": [
       {
-        "src": "./assets/anatomy/gunship-front-thruster.png",
-        "thumbnail": "./assets/anatomy/gunship-front-thruster-thumb.png",
+        "src": "./assets/anatomy/gunship-front-thruster.webp",
+        "thumbnail": "./assets/anatomy/gunship-front-thruster-thumb.webp",
         "title": "Gunship Front Engines 1.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Gunship_Front_Engines_1.png",
@@ -1318,8 +1318,8 @@ export const combatImages = {
     ],
     "rear-thruster": [
       {
-        "src": "./assets/anatomy/gunship-rear-thruster.png",
-        "thumbnail": "./assets/anatomy/gunship-rear-thruster-thumb.png",
+        "src": "./assets/anatomy/gunship-rear-thruster.webp",
+        "thumbnail": "./assets/anatomy/gunship-rear-thruster-thumb.webp",
         "title": "Gunship Rear Engines 2.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Gunship_Rear_Engines_2.png",
@@ -1341,8 +1341,8 @@ export const combatImages = {
     ],
     "fuselage": [
       {
-        "src": "./assets/anatomy/gunship-fuselage.png",
-        "thumbnail": "./assets/anatomy/gunship-fuselage-thumb.png",
+        "src": "./assets/anatomy/gunship-fuselage.webp",
+        "thumbnail": "./assets/anatomy/gunship-fuselage-thumb.webp",
         "title": "Gunship Fuselage Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Gunship_Fuselage_Front.png",
@@ -1366,8 +1366,8 @@ export const combatImages = {
   "annihilator-tank": {
     "turret-front": [
       {
-        "src": "./assets/anatomy/annihilator-tank-turret-front.png",
-        "thumbnail": "./assets/anatomy/annihilator-tank-turret-front-thumb.png",
+        "src": "./assets/anatomy/annihilator-tank-turret-front.webp",
+        "thumbnail": "./assets/anatomy/annihilator-tank-turret-front-thumb.webp",
         "title": "Annihilator Turret Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Annihilator_Turret_Front.png",
@@ -1389,8 +1389,8 @@ export const combatImages = {
     ],
     "heatsink": [
       {
-        "src": "./assets/anatomy/annihilator-tank-heatsink.png",
-        "thumbnail": "./assets/anatomy/annihilator-tank-heatsink-thumb.png",
+        "src": "./assets/anatomy/annihilator-tank-heatsink.webp",
+        "thumbnail": "./assets/anatomy/annihilator-tank-heatsink-thumb.webp",
         "title": "Annihilator Turret Vent Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Annihilator_Turret_Vent_Rear.png",
@@ -1412,8 +1412,8 @@ export const combatImages = {
     ],
     "hull-front": [
       {
-        "src": "./assets/anatomy/annihilator-tank-hull-front.png",
-        "thumbnail": "./assets/anatomy/annihilator-tank-hull-front-thumb.png",
+        "src": "./assets/anatomy/annihilator-tank-hull-front.webp",
+        "thumbnail": "./assets/anatomy/annihilator-tank-hull-front-thumb.webp",
         "title": "Annihilator Hull Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Annihilator_Hull_Front.png",
@@ -1435,8 +1435,8 @@ export const combatImages = {
     ],
     "engine": [
       {
-        "src": "./assets/anatomy/annihilator-tank-engine.png",
-        "thumbnail": "./assets/anatomy/annihilator-tank-engine-thumb.png",
+        "src": "./assets/anatomy/annihilator-tank-engine.webp",
+        "thumbnail": "./assets/anatomy/annihilator-tank-engine-thumb.webp",
         "title": "Annihilator Engine Bay Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Annihilator_Engine_Bay_Rear.png",
@@ -1460,8 +1460,8 @@ export const combatImages = {
   "voteless-light": {
     "head": [
       {
-        "src": "./assets/anatomy/voteless-light-head.png",
-        "thumbnail": "./assets/anatomy/voteless-light-head-thumb.png",
+        "src": "./assets/anatomy/voteless-light-head.webp",
+        "thumbnail": "./assets/anatomy/voteless-light-head-thumb.webp",
         "title": "Light Voteless Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Light_Voteless_Head_Front.png",
@@ -1483,8 +1483,8 @@ export const combatImages = {
     ],
     "forearm": [
       {
-        "src": "./assets/anatomy/voteless-light-forearm.png",
-        "thumbnail": "./assets/anatomy/voteless-light-forearm-thumb.png",
+        "src": "./assets/anatomy/voteless-light-forearm.webp",
+        "thumbnail": "./assets/anatomy/voteless-light-forearm-thumb.webp",
         "title": "Light Voteless Forearms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Light_Voteless_Forearms_Front.png",
@@ -1506,8 +1506,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/voteless-light-leg.png",
-        "thumbnail": "./assets/anatomy/voteless-light-leg-thumb.png",
+        "src": "./assets/anatomy/voteless-light-leg.webp",
+        "thumbnail": "./assets/anatomy/voteless-light-leg-thumb.webp",
         "title": "Light Voteless Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Light_Voteless_Legs_Side.png",
@@ -1531,8 +1531,8 @@ export const combatImages = {
   "voteless-medium": {
     "head": [
       {
-        "src": "./assets/anatomy/voteless-medium-head.png",
-        "thumbnail": "./assets/anatomy/voteless-medium-head-thumb.png",
+        "src": "./assets/anatomy/voteless-medium-head.webp",
+        "thumbnail": "./assets/anatomy/voteless-medium-head-thumb.webp",
         "title": "Medium Voteless Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Medium_Voteless_Head_Front.png",
@@ -1554,8 +1554,8 @@ export const combatImages = {
     ],
     "forearm": [
       {
-        "src": "./assets/anatomy/voteless-medium-forearm.png",
-        "thumbnail": "./assets/anatomy/voteless-medium-forearm-thumb.png",
+        "src": "./assets/anatomy/voteless-medium-forearm.webp",
+        "thumbnail": "./assets/anatomy/voteless-medium-forearm-thumb.webp",
         "title": "Medium Voteless Forearms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Medium_Voteless_Forearms_Front.png",
@@ -1577,8 +1577,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/voteless-medium-leg.png",
-        "thumbnail": "./assets/anatomy/voteless-medium-leg-thumb.png",
+        "src": "./assets/anatomy/voteless-medium-leg.webp",
+        "thumbnail": "./assets/anatomy/voteless-medium-leg-thumb.webp",
         "title": "Medium Voteless Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Medium_Voteless_Legs_Side.png",
@@ -1602,8 +1602,8 @@ export const combatImages = {
   "voteless-heavy": {
     "head": [
       {
-        "src": "./assets/anatomy/voteless-heavy-head.png",
-        "thumbnail": "./assets/anatomy/voteless-heavy-head-thumb.png",
+        "src": "./assets/anatomy/voteless-heavy-head.webp",
+        "thumbnail": "./assets/anatomy/voteless-heavy-head-thumb.webp",
         "title": "Heavy Voteless Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Voteless_Head_Front.png",
@@ -1625,8 +1625,8 @@ export const combatImages = {
     ],
     "forearm": [
       {
-        "src": "./assets/anatomy/voteless-heavy-forearm.png",
-        "thumbnail": "./assets/anatomy/voteless-heavy-forearm-thumb.png",
+        "src": "./assets/anatomy/voteless-heavy-forearm.webp",
+        "thumbnail": "./assets/anatomy/voteless-heavy-forearm-thumb.webp",
         "title": "Heavy Voteless Forearms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Voteless_Forearms_Front.png",
@@ -1648,8 +1648,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/voteless-heavy-leg.png",
-        "thumbnail": "./assets/anatomy/voteless-heavy-leg-thumb.png",
+        "src": "./assets/anatomy/voteless-heavy-leg.webp",
+        "thumbnail": "./assets/anatomy/voteless-heavy-leg-thumb.webp",
         "title": "Heavy Voteless Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Heavy_Voteless_Legs_Side.png",
@@ -1673,8 +1673,8 @@ export const combatImages = {
   "watcher": {
     "body": [
       {
-        "src": "./assets/anatomy/watcher-body.png",
-        "thumbnail": "./assets/anatomy/watcher-body-thumb.png",
+        "src": "./assets/anatomy/watcher-body.webp",
+        "thumbnail": "./assets/anatomy/watcher-body-thumb.webp",
         "title": "Watcher Body Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Watcher_Body_Side.png",
@@ -1696,8 +1696,8 @@ export const combatImages = {
     ],
     "eye": [
       {
-        "src": "./assets/anatomy/watcher-eye.png",
-        "thumbnail": "./assets/anatomy/watcher-eye-thumb.png",
+        "src": "./assets/anatomy/watcher-eye.webp",
+        "thumbnail": "./assets/anatomy/watcher-eye-thumb.webp",
         "title": "Watcher Eye Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Watcher_Eye_Front.png",
@@ -1719,8 +1719,8 @@ export const combatImages = {
     ],
     "upper-fin": [
       {
-        "src": "./assets/anatomy/watcher-upper-fin.png",
-        "thumbnail": "./assets/anatomy/watcher-upper-fin-thumb.png",
+        "src": "./assets/anatomy/watcher-upper-fin.webp",
+        "thumbnail": "./assets/anatomy/watcher-upper-fin-thumb.webp",
         "title": "Watcher Upper Fin Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Watcher_Upper_Fin_Front.png",
@@ -1744,8 +1744,8 @@ export const combatImages = {
   "elevated-overseer": {
     "head": [
       {
-        "src": "./assets/anatomy/elevated-overseer-head.png",
-        "thumbnail": "./assets/anatomy/elevated-overseer-head-thumb.png",
+        "src": "./assets/anatomy/elevated-overseer-head.webp",
+        "thumbnail": "./assets/anatomy/elevated-overseer-head-thumb.webp",
         "title": "Elevated Overseer Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Elevated_Overseer_Head_Front.png",
@@ -1767,8 +1767,8 @@ export const combatImages = {
     ],
     "jetpack": [
       {
-        "src": "./assets/anatomy/elevated-overseer-jetpack.png",
-        "thumbnail": "./assets/anatomy/elevated-overseer-jetpack-thumb.png",
+        "src": "./assets/anatomy/elevated-overseer-jetpack.webp",
+        "thumbnail": "./assets/anatomy/elevated-overseer-jetpack-thumb.webp",
         "title": "Elevated Overseer Jetpack Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Elevated_Overseer_Jetpack_Rear.png",
@@ -1790,8 +1790,8 @@ export const combatImages = {
     ],
     "chest-armor": [
       {
-        "src": "./assets/anatomy/elevated-overseer-chest-armor.png",
-        "thumbnail": "./assets/anatomy/elevated-overseer-chest-armor-thumb.png",
+        "src": "./assets/anatomy/elevated-overseer-chest-armor.webp",
+        "thumbnail": "./assets/anatomy/elevated-overseer-chest-armor-thumb.webp",
         "title": "Elevated Overseer Torso Armor Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Elevated_Overseer_Torso_Armor_Front.png",
@@ -1811,8 +1811,8 @@ export const combatImages = {
         ]
       },
       {
-        "src": "./assets/anatomy/overseer-chest-armor-exposed.png",
-        "thumbnail": "./assets/anatomy/overseer-chest-armor-exposed-thumb.png",
+        "src": "./assets/anatomy/overseer-chest-armor-exposed.webp",
+        "thumbnail": "./assets/anatomy/overseer-chest-armor-exposed-thumb.webp",
         "title": "Overseer Half Bare Torso.png",
         "stage": "exposed",
         "source": "https://helldivers.wiki.gg/wiki/File:Overseer_Half_Bare_Torso.png",
@@ -1837,8 +1837,8 @@ export const combatImages = {
   "hunter-hardened": {
     "head": [
       {
-        "src": "./assets/anatomy/hunter-head.png",
-        "thumbnail": "./assets/anatomy/hunter-head-thumb.png",
+        "src": "./assets/anatomy/hunter-head.webp",
+        "thumbnail": "./assets/anatomy/hunter-head-thumb.webp",
         "title": "Hunter Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hunter_Head_Front.png",
@@ -1860,8 +1860,8 @@ export const combatImages = {
     ],
     "claw": [
       {
-        "src": "./assets/anatomy/hunter-claw.png",
-        "thumbnail": "./assets/anatomy/hunter-claw-thumb.png",
+        "src": "./assets/anatomy/hunter-claw.webp",
+        "thumbnail": "./assets/anatomy/hunter-claw-thumb.webp",
         "title": "Hunter Claws Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hunter_Claws_Front.png",
@@ -1883,8 +1883,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/hunter-leg.png",
-        "thumbnail": "./assets/anatomy/hunter-leg-thumb.png",
+        "src": "./assets/anatomy/hunter-leg.webp",
+        "thumbnail": "./assets/anatomy/hunter-leg-thumb.webp",
         "title": "Hunter Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Hunter_Legs_Side.png",
@@ -1908,8 +1908,8 @@ export const combatImages = {
   "warrior-hardened": {
     "head": [
       {
-        "src": "./assets/anatomy/warrior-head.png",
-        "thumbnail": "./assets/anatomy/warrior-head-thumb.png",
+        "src": "./assets/anatomy/warrior-head.webp",
+        "thumbnail": "./assets/anatomy/warrior-head-thumb.webp",
         "title": "Warrior Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Warrior_Head_Front.png",
@@ -1931,8 +1931,8 @@ export const combatImages = {
     ],
     "claw": [
       {
-        "src": "./assets/anatomy/warrior-claw.png",
-        "thumbnail": "./assets/anatomy/warrior-claw-thumb.png",
+        "src": "./assets/anatomy/warrior-claw.webp",
+        "thumbnail": "./assets/anatomy/warrior-claw-thumb.webp",
         "title": "Warrior Claws Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Warrior_Claws_Front.png",
@@ -1954,8 +1954,8 @@ export const combatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/warrior-leg.png",
-        "thumbnail": "./assets/anatomy/warrior-leg-thumb.png",
+        "src": "./assets/anatomy/warrior-leg.webp",
+        "thumbnail": "./assets/anatomy/warrior-leg-thumb.webp",
         "title": "Warrior Legs Side.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Warrior_Legs_Side.png",
@@ -1979,8 +1979,8 @@ export const combatImages = {
   "bile-spewer-armored": {
     "head": [
       {
-        "src": "./assets/anatomy/bile-spewer-head.png",
-        "thumbnail": "./assets/anatomy/bile-spewer-head-thumb.png",
+        "src": "./assets/anatomy/bile-spewer-head.webp",
+        "thumbnail": "./assets/anatomy/bile-spewer-head-thumb.webp",
         "title": "Bile Spewer Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spewer_Head_Front.png",
@@ -2002,8 +2002,8 @@ export const combatImages = {
     ],
     "mouth": [
       {
-        "src": "./assets/anatomy/bile-spewer-mouth.png",
-        "thumbnail": "./assets/anatomy/bile-spewer-mouth-thumb.png",
+        "src": "./assets/anatomy/bile-spewer-mouth.webp",
+        "thumbnail": "./assets/anatomy/bile-spewer-mouth-thumb.webp",
         "title": "Bile Spewer Mouth.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spewer_Mouth.png",
@@ -2025,8 +2025,8 @@ export const combatImages = {
     ],
     "butt": [
       {
-        "src": "./assets/anatomy/bile-spewer-butt.png",
-        "thumbnail": "./assets/anatomy/bile-spewer-butt-thumb.png",
+        "src": "./assets/anatomy/bile-spewer-butt.webp",
+        "thumbnail": "./assets/anatomy/bile-spewer-butt-thumb.webp",
         "title": "Bile Spewer Butt Rear.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spewer_Butt_Rear.png",

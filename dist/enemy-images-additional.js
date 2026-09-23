@@ -1,4 +1,4 @@
-// Unmodified Wiki portraits and anatomy overlays. Reused diagrams follow the individual enemy Wiki pages.
+// Unmodified Wiki portraits; anatomy overlays are WebP encodings of the Wiki PNGs (sha256 keeps the PNG hash). Reused diagrams follow the individual enemy Wiki pages.
 export const additionalPickerImages = {
   "scavenger": {
     "src": "./assets/pickers/enemy-scavenger.png",
@@ -239,8 +239,8 @@ export const additionalCombatImages = {
   "scavenger": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-scavenger-body.png",
-        "thumbnail": "./assets/anatomy/additional-scavenger-body-thumb.png",
+        "src": "./assets/anatomy/additional-scavenger-body.webp",
+        "thumbnail": "./assets/anatomy/additional-scavenger-body-thumb.webp",
         "title": "Scavenger Main Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Scavenger_Main_Front.png",
@@ -258,8 +258,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-scavenger-head.png",
-        "thumbnail": "./assets/anatomy/additional-scavenger-head-thumb.png",
+        "src": "./assets/anatomy/additional-scavenger-head.webp",
+        "thumbnail": "./assets/anatomy/additional-scavenger-head-thumb.webp",
         "title": "Scavenger Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Scavenger_Head_Front.png",
@@ -277,8 +277,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-scavenger-leg.png",
-        "thumbnail": "./assets/anatomy/additional-scavenger-leg-thumb.png",
+        "src": "./assets/anatomy/additional-scavenger-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-scavenger-leg-thumb.webp",
         "title": "Scavenger Limbs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Scavenger_Limbs_Front.png",
@@ -298,8 +298,8 @@ export const additionalCombatImages = {
   "bile-spitter": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-bile-spitter-body.png",
-        "thumbnail": "./assets/anatomy/additional-bile-spitter-body-thumb.png",
+        "src": "./assets/anatomy/additional-bile-spitter-body.webp",
+        "thumbnail": "./assets/anatomy/additional-bile-spitter-body-thumb.webp",
         "title": "Bile Spitter Main Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spitter_Main_Front.png",
@@ -317,8 +317,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-bile-spitter-head.png",
-        "thumbnail": "./assets/anatomy/additional-bile-spitter-head-thumb.png",
+        "src": "./assets/anatomy/additional-bile-spitter-head.webp",
+        "thumbnail": "./assets/anatomy/additional-bile-spitter-head-thumb.webp",
         "title": "Bile Spitter Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spitter_Head_Front.png",
@@ -336,8 +336,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-bile-spitter-leg.png",
-        "thumbnail": "./assets/anatomy/additional-bile-spitter-leg-thumb.png",
+        "src": "./assets/anatomy/additional-bile-spitter-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-bile-spitter-leg-thumb.webp",
         "title": "Bile Spitter Limbs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Bile_Spitter_Limbs_Front.png",
@@ -357,8 +357,8 @@ export const additionalCombatImages = {
   "pouncer": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-pouncer-body.png",
-        "thumbnail": "./assets/anatomy/additional-pouncer-body-thumb.png",
+        "src": "./assets/anatomy/additional-pouncer-body.webp",
+        "thumbnail": "./assets/anatomy/additional-pouncer-body-thumb.webp",
         "title": "Pouncer Main Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pouncer_Main_Front.png",
@@ -376,8 +376,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-pouncer-head.png",
-        "thumbnail": "./assets/anatomy/additional-pouncer-head-thumb.png",
+        "src": "./assets/anatomy/additional-pouncer-head.webp",
+        "thumbnail": "./assets/anatomy/additional-pouncer-head-thumb.webp",
         "title": "Pouncer Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pouncer_Head_Front.png",
@@ -395,8 +395,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-pouncer-leg.png",
-        "thumbnail": "./assets/anatomy/additional-pouncer-leg-thumb.png",
+        "src": "./assets/anatomy/additional-pouncer-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-pouncer-leg-thumb.webp",
         "title": "Pouncer Limbs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pouncer_Limbs_Front.png",
@@ -416,8 +416,8 @@ export const additionalCombatImages = {
   "spore-burst-scavenger": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-scavenger-body.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-body-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-scavenger-body.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-body-thumb.webp",
         "title": "Spore Burst Scavenger Main Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Scavenger_Main_Front.png",
@@ -435,8 +435,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-scavenger-head.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-head-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-scavenger-head.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-head-thumb.webp",
         "title": "Spore Burst Scavenger Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Scavenger_Head_Front.png",
@@ -454,8 +454,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-scavenger-leg.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-leg-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-scavenger-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-scavenger-leg-thumb.webp",
         "title": "Spore Burst Scavenger Limbs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Scavenger_Limbs_Front.png",
@@ -475,8 +475,8 @@ export const additionalCombatImages = {
   "spore-burst-hunter": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-hunter-body.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-body-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-hunter-body.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-body-thumb.webp",
         "title": "Spore Burst Hunter Main Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Hunter_Main_Front.png",
@@ -494,8 +494,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-hunter-head.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-head-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-hunter-head.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-head-thumb.webp",
         "title": "Spore Burst Hunter Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Hunter_Head_Front.png",
@@ -513,8 +513,8 @@ export const additionalCombatImages = {
     ],
     "claw": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-hunter-claw.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-claw-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-hunter-claw.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-claw-thumb.webp",
         "title": "Spore Burst Hunter Claws Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Hunter_Claws_Front.png",
@@ -532,8 +532,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-hunter-leg.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-leg-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-hunter-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-leg-thumb.webp",
         "title": "Spore Burst Hunter Limbs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Hunter_Limbs_Front.png",
@@ -551,8 +551,8 @@ export const additionalCombatImages = {
     ],
     "wing": [
       {
-        "src": "./assets/anatomy/additional-spore-burst-hunter-wing.png",
-        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-wing-thumb.png",
+        "src": "./assets/anatomy/additional-spore-burst-hunter-wing.webp",
+        "thumbnail": "./assets/anatomy/additional-spore-burst-hunter-wing-thumb.webp",
         "title": "Spore Burst Hunter Wings Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Spore_Burst_Hunter_Wings_Front.png",
@@ -572,8 +572,8 @@ export const additionalCombatImages = {
   "trooper": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-trooper-head.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-head.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.webp",
         "title": "Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Head_Front.png",
@@ -591,8 +591,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-trooper-torso.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.webp",
         "title": "Trooper Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Torso_Front.png",
@@ -610,8 +610,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-trooper-arm.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.webp",
         "title": "Trooper Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Arms_Front.png",
@@ -629,8 +629,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-trooper-leg.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.webp",
         "title": "Trooper Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Legs_Front.png",
@@ -650,8 +650,8 @@ export const additionalCombatImages = {
   "brawler": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-trooper-head.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-head.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.webp",
         "title": "Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Head_Front.png",
@@ -669,8 +669,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-trooper-torso.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.webp",
         "title": "Trooper Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Torso_Front.png",
@@ -688,8 +688,8 @@ export const additionalCombatImages = {
     ],
     "left-arm": [
       {
-        "src": "./assets/anatomy/additional-brawler-left-arm.png",
-        "thumbnail": "./assets/anatomy/additional-brawler-left-arm-thumb.png",
+        "src": "./assets/anatomy/additional-brawler-left-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-brawler-left-arm-thumb.webp",
         "title": "Brawler Left Arm Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Brawler_Left_Arm_Front.png",
@@ -707,8 +707,8 @@ export const additionalCombatImages = {
     ],
     "right-arm": [
       {
-        "src": "./assets/anatomy/additional-brawler-right-arm.png",
-        "thumbnail": "./assets/anatomy/additional-brawler-right-arm-thumb.png",
+        "src": "./assets/anatomy/additional-brawler-right-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-brawler-right-arm-thumb.webp",
         "title": "Brawler Right Arm Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Brawler_Right_Arm_Front.png",
@@ -726,8 +726,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-trooper-leg.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.webp",
         "title": "Trooper Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Legs_Front.png",
@@ -747,8 +747,8 @@ export const additionalCombatImages = {
   "commissar": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-trooper-head.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-head.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.webp",
         "title": "Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Head_Front.png",
@@ -766,8 +766,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-trooper-torso.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.webp",
         "title": "Trooper Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Torso_Front.png",
@@ -785,8 +785,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-trooper-arm.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.webp",
         "title": "Trooper Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Arms_Front.png",
@@ -804,8 +804,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-trooper-leg.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.webp",
         "title": "Trooper Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Legs_Front.png",
@@ -825,8 +825,8 @@ export const additionalCombatImages = {
   "rocket-raider": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-trooper-head.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-head.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-head-thumb.webp",
         "title": "Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Head_Front.png",
@@ -844,8 +844,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-trooper-torso.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-torso-thumb.webp",
         "title": "Trooper Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Torso_Front.png",
@@ -863,8 +863,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-trooper-arm.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-arm-thumb.webp",
         "title": "Trooper Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Arms_Front.png",
@@ -882,8 +882,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-trooper-leg.png",
-        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.png",
+        "src": "./assets/anatomy/additional-trooper-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-trooper-leg-thumb.webp",
         "title": "Trooper Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Trooper_Legs_Front.png",
@@ -903,8 +903,8 @@ export const additionalCombatImages = {
   "assault-raider": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-head.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-head.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.webp",
         "title": "Assault Raider Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Head_Front.png",
@@ -922,8 +922,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-torso.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.webp",
         "title": "Assault Raider Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Torso_Front.png",
@@ -941,8 +941,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-arm.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.webp",
         "title": "Assault Raider Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Arms_Front.png",
@@ -960,8 +960,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-leg.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.webp",
         "title": "Assault Raider Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Legs_Front.png",
@@ -979,8 +979,8 @@ export const additionalCombatImages = {
     ],
     "jetpack": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-jetpack.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-jetpack.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.webp",
         "title": "Assault Raider Jetpack Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Jetpack_Front.png",
@@ -1000,8 +1000,8 @@ export const additionalCombatImages = {
   "marauder": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-marauder-head.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-head-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-head.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-head-thumb.webp",
         "title": "Marauder Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Head_Front.png",
@@ -1019,8 +1019,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-marauder-torso.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-torso-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-torso-thumb.webp",
         "title": "Marauder Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Torso_Front.png",
@@ -1038,8 +1038,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-marauder-arm.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-arm-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-arm-thumb.webp",
         "title": "Marauder Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Arms_Front.png",
@@ -1057,8 +1057,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-marauder-leg.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-leg-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-leg-thumb.webp",
         "title": "Marauder Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Legs_Front.png",
@@ -1078,8 +1078,8 @@ export const additionalCombatImages = {
   "mg-raider": {
     "backpack": [
       {
-        "src": "./assets/anatomy/additional-mg-raider-backpack.png",
-        "thumbnail": "./assets/anatomy/additional-mg-raider-backpack-thumb.png",
+        "src": "./assets/anatomy/additional-mg-raider-backpack.webp",
+        "thumbnail": "./assets/anatomy/additional-mg-raider-backpack-thumb.webp",
         "title": "Marauder Power Pack Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Power_Pack_Front.png",
@@ -1097,8 +1097,8 @@ export const additionalCombatImages = {
     ],
     "head": [
       {
-        "src": "./assets/anatomy/additional-marauder-head.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-head-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-head.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-head-thumb.webp",
         "title": "Marauder Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Head_Front.png",
@@ -1116,8 +1116,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-marauder-torso.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-torso-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-torso-thumb.webp",
         "title": "Marauder Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Torso_Front.png",
@@ -1135,8 +1135,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-marauder-arm.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-arm-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-arm-thumb.webp",
         "title": "Marauder Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Arms_Front.png",
@@ -1154,8 +1154,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-marauder-leg.png",
-        "thumbnail": "./assets/anatomy/additional-marauder-leg-thumb.png",
+        "src": "./assets/anatomy/additional-marauder-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-marauder-leg-thumb.webp",
         "title": "Marauder Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Marauder_Legs_Front.png",
@@ -1175,8 +1175,8 @@ export const additionalCombatImages = {
   "jet-brigade-commissar": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-head.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-head.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.webp",
         "title": "Assault Raider Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Head_Front.png",
@@ -1194,8 +1194,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-torso.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.webp",
         "title": "Assault Raider Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Torso_Front.png",
@@ -1213,8 +1213,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-arm.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.webp",
         "title": "Assault Raider Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Arms_Front.png",
@@ -1232,8 +1232,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-leg.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.webp",
         "title": "Assault Raider Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Legs_Front.png",
@@ -1251,8 +1251,8 @@ export const additionalCombatImages = {
     ],
     "jetpack": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-jetpack.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-jetpack.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.webp",
         "title": "Assault Raider Jetpack Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Jetpack_Front.png",
@@ -1272,8 +1272,8 @@ export const additionalCombatImages = {
   "jet-brigade-trooper": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-head.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-head.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.webp",
         "title": "Assault Raider Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Head_Front.png",
@@ -1291,8 +1291,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-torso.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.webp",
         "title": "Assault Raider Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Torso_Front.png",
@@ -1310,8 +1310,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-arm.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.webp",
         "title": "Assault Raider Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Arms_Front.png",
@@ -1329,8 +1329,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-leg.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.webp",
         "title": "Assault Raider Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Legs_Front.png",
@@ -1348,8 +1348,8 @@ export const additionalCombatImages = {
     ],
     "jetpack": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-jetpack.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-jetpack.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.webp",
         "title": "Assault Raider Jetpack Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Jetpack_Front.png",
@@ -1369,8 +1369,8 @@ export const additionalCombatImages = {
   "jet-brigade-mg-raider": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-head.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-head.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-head-thumb.webp",
         "title": "Assault Raider Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Head_Front.png",
@@ -1388,8 +1388,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-torso.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-torso-thumb.webp",
         "title": "Assault Raider Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Torso_Front.png",
@@ -1407,8 +1407,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-arm.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-arm-thumb.webp",
         "title": "Assault Raider Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Arms_Front.png",
@@ -1426,8 +1426,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-leg.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-leg-thumb.webp",
         "title": "Assault Raider Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Legs_Front.png",
@@ -1445,8 +1445,8 @@ export const additionalCombatImages = {
     ],
     "jetpack": [
       {
-        "src": "./assets/anatomy/additional-assault-raider-jetpack.png",
-        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.png",
+        "src": "./assets/anatomy/additional-assault-raider-jetpack.webp",
+        "thumbnail": "./assets/anatomy/additional-assault-raider-jetpack-thumb.webp",
         "title": "Assault Raider Jetpack Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Assault_Raider_Jetpack_Front.png",
@@ -1466,8 +1466,8 @@ export const additionalCombatImages = {
   "pyro-trooper": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-pyro-trooper-head.png",
-        "thumbnail": "./assets/anatomy/additional-pyro-trooper-head-thumb.png",
+        "src": "./assets/anatomy/additional-pyro-trooper-head.webp",
+        "thumbnail": "./assets/anatomy/additional-pyro-trooper-head-thumb.webp",
         "title": "Pyro Trooper Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pyro_Trooper_Head_Front.png",
@@ -1485,8 +1485,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-pyro-trooper-torso.png",
-        "thumbnail": "./assets/anatomy/additional-pyro-trooper-torso-thumb.png",
+        "src": "./assets/anatomy/additional-pyro-trooper-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-pyro-trooper-torso-thumb.webp",
         "title": "Pyro Trooper Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pyro_Trooper_Torso_Front.png",
@@ -1504,8 +1504,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-pyro-trooper-arm.png",
-        "thumbnail": "./assets/anatomy/additional-pyro-trooper-arm-thumb.png",
+        "src": "./assets/anatomy/additional-pyro-trooper-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-pyro-trooper-arm-thumb.webp",
         "title": "Pyro Trooper Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pyro_Trooper_Arms_Front.png",
@@ -1523,8 +1523,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-pyro-trooper-leg.png",
-        "thumbnail": "./assets/anatomy/additional-pyro-trooper-leg-thumb.png",
+        "src": "./assets/anatomy/additional-pyro-trooper-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-pyro-trooper-leg-thumb.webp",
         "title": "Pyro Trooper Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pyro_Trooper_Legs_Front.png",
@@ -1542,8 +1542,8 @@ export const additionalCombatImages = {
     ],
     "fuel-tanks": [
       {
-        "src": "./assets/anatomy/additional-pyro-trooper-fuel-tanks.png",
-        "thumbnail": "./assets/anatomy/additional-pyro-trooper-fuel-tanks-thumb.png",
+        "src": "./assets/anatomy/additional-pyro-trooper-fuel-tanks.webp",
+        "thumbnail": "./assets/anatomy/additional-pyro-trooper-fuel-tanks-thumb.webp",
         "title": "Pyro Trooper Fuel Tanks Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Pyro_Trooper_Fuel_Tanks_Front.png",
@@ -1563,8 +1563,8 @@ export const additionalCombatImages = {
   "incendiary-rocket-raider": {
     "head": [
       {
-        "src": "./assets/anatomy/additional-incendiary-rocket-raider-head.png",
-        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-head-thumb.png",
+        "src": "./assets/anatomy/additional-incendiary-rocket-raider-head.webp",
+        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-head-thumb.webp",
         "title": "Incendiary Rocket Raider Head Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Incendiary_Rocket_Raider_Head_Front.png",
@@ -1582,8 +1582,8 @@ export const additionalCombatImages = {
     ],
     "torso": [
       {
-        "src": "./assets/anatomy/additional-incendiary-rocket-raider-torso.png",
-        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-torso-thumb.png",
+        "src": "./assets/anatomy/additional-incendiary-rocket-raider-torso.webp",
+        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-torso-thumb.webp",
         "title": "Incendiary Rocket Raider Torso Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Incendiary_Rocket_Raider_Torso_Front.png",
@@ -1601,8 +1601,8 @@ export const additionalCombatImages = {
     ],
     "arm": [
       {
-        "src": "./assets/anatomy/additional-incendiary-rocket-raider-arm.png",
-        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-arm-thumb.png",
+        "src": "./assets/anatomy/additional-incendiary-rocket-raider-arm.webp",
+        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-arm-thumb.webp",
         "title": "Incendiary Rocket Raider Arms Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Incendiary_Rocket_Raider_Arms_Front.png",
@@ -1620,8 +1620,8 @@ export const additionalCombatImages = {
     ],
     "leg": [
       {
-        "src": "./assets/anatomy/additional-incendiary-rocket-raider-leg.png",
-        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-leg-thumb.png",
+        "src": "./assets/anatomy/additional-incendiary-rocket-raider-leg.webp",
+        "thumbnail": "./assets/anatomy/additional-incendiary-rocket-raider-leg-thumb.webp",
         "title": "Incendiary Rocket Raider Legs Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Incendiary_Rocket_Raider_Legs_Front.png",
@@ -1641,8 +1641,8 @@ export const additionalCombatImages = {
   "obtruder": {
     "body": [
       {
-        "src": "./assets/anatomy/additional-obtruder-body.png",
-        "thumbnail": "./assets/anatomy/additional-obtruder-body-thumb.png",
+        "src": "./assets/anatomy/additional-obtruder-body.webp",
+        "thumbnail": "./assets/anatomy/additional-obtruder-body-thumb.webp",
         "title": "Obtruder Body Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Obtruder_Body_Front.png",
@@ -1660,8 +1660,8 @@ export const additionalCombatImages = {
     ],
     "eye": [
       {
-        "src": "./assets/anatomy/additional-obtruder-eye.png",
-        "thumbnail": "./assets/anatomy/additional-obtruder-eye-thumb.png",
+        "src": "./assets/anatomy/additional-obtruder-eye.webp",
+        "thumbnail": "./assets/anatomy/additional-obtruder-eye-thumb.webp",
         "title": "Obtruder Eye Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Obtruder_Eye_Front.png",
@@ -1679,8 +1679,8 @@ export const additionalCombatImages = {
     ],
     "vertical-fin": [
       {
-        "src": "./assets/anatomy/additional-obtruder-vertical-fin.png",
-        "thumbnail": "./assets/anatomy/additional-obtruder-vertical-fin-thumb.png",
+        "src": "./assets/anatomy/additional-obtruder-vertical-fin.webp",
+        "thumbnail": "./assets/anatomy/additional-obtruder-vertical-fin-thumb.webp",
         "title": "Obtruder Vertical Fins Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Obtruder_Vertical_Fins_Front.png",
@@ -1698,8 +1698,8 @@ export const additionalCombatImages = {
     ],
     "lateral-fin": [
       {
-        "src": "./assets/anatomy/additional-obtruder-lateral-fin.png",
-        "thumbnail": "./assets/anatomy/additional-obtruder-lateral-fin-thumb.png",
+        "src": "./assets/anatomy/additional-obtruder-lateral-fin.webp",
+        "thumbnail": "./assets/anatomy/additional-obtruder-lateral-fin-thumb.webp",
         "title": "Obtruder Lateral Fins Front.png",
         "stage": "initial",
         "source": "https://helldivers.wiki.gg/wiki/File:Obtruder_Lateral_Fins_Front.png",

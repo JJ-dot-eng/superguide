@@ -158,6 +158,8 @@ $('#cards').addEventListener('change', event => {
 });
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { state.view = button.dataset.view; document.querySelectorAll('[data-view]').forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-pressed', String(item === button)); }); renderCards(); }));
 ['#reset', '#empty-reset'].forEach(selector => $(selector).addEventListener('click', resetFilters));
+// The v2 link opens the same tool there; v2 understands these hashes.
+$('#version-link').addEventListener('click', event => { event.currentTarget.href = `https://jj-dot-eng.github.io/superguide-v2/#${document.body.dataset.activeFeature || 'catalog'}`; });
 ['#guide-button', '#notice-guide', '#sources-button'].forEach(selector => $(selector).addEventListener('click', openInfo));
 $('#compare-clear').addEventListener('click', () => { state.selected.clear(); renderComparisonState(); });
 $('#compare-open').addEventListener('click', openComparison);

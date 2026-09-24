@@ -15,7 +15,7 @@ function createSearchRanker(value) {
     })) return 2;
 
     // Codes, descriptions and roles keep their existing phrase matching.
-    const searchableText = [item.name, item.en, item.code, item.summary, ...item.tags, ...aliases].join(' ');
+    const searchableText = [item.name, item.en, item.code, item.summary, ...item.tags, ...aliases, ...(item.variants || []).map(variant => variant.name)].join(' ');
     return normalize(searchableText).includes(query) ? 1 : 0;
   };
 }

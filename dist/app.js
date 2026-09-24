@@ -42,6 +42,49 @@ function renderStats(item, context = 'card') {
   return `<div class="${detailed ? 'detail-stats' : 'stats-grid'}">${statValues(item).map(stat => `<div class="${detailed ? 'detail-stat' : 'stat'}"><span class="stat-label">${stat.label}</span><span class="stat-value ${stat.style}">${stat.value}</span><span class="stat-caption">${escape(stat.caption)}</span></div>`).join('')}</div>`;
 }
 
+// Weapons with switchable ammunition or armaments carry per-mode numbers in
+// `variants`; a variant replaces every per-shot stat so nothing leaks between modes.
+const VARIANT_STATS = ['direct', 'directText', 'directNoteShort', 'splash', 'splashText', 'splashNoteShort', 'ap', 'apNoteShort', 'splashAp', 'radius', 'innerRadius', 'unit'];
+const withVariant = (item, variant) => variant
+  ? { ...item, ...Object.fromEntries(VARIANT_STATS.map(key => [key, variant[key] ?? (key === 'radius' || key === 'innerRadius' ? null : undefined)])) }
+  : item;
+function variantBrief(item, variant) {
+  const v = withVariant(item, variant);
+  const parts = [`직격 ${v.directText || number(v.direct)}`];
+  if (v.splashText) parts.push(v.splashText);
+  else if (v.splash > 0) parts.push(`폭발 ${number(v.splash)}`);
+  parts.push(`AP ${v.ap}${v.splashAp != null && v.splashAp !== v.ap ? `/${v.splashAp}` : ''}`);
+  if (v.radius != null) parts.push(`외곽 ${number(v.radius)}m`);
+  return parts.join(' · ');
+}
+// Cards show the other modes under the main numbers; long shell lists collapse to names.
+function cardModes(item) {
+  const variants = item.variants || [];
+  if (variants.length < 2) return '';
+  const rest = variants.slice(1);
+  const kind = escape(item.variantKind || 'modes');
+  if (rest.length > 2) return `<span class="card-modes" data-kind="${kind}"><span><b>${variants.length}종</b> ${escape(variants.map(v => v.tab || v.name).join(' · '))}</span></span>`;
+  return `<span class="card-modes" data-kind="${kind}">${rest.map(v => `<span><b>${escape(v.tab || v.name)}</b> ${escape(variantBrief(item, v))}</span>`).join('')}</span>`;
+}
+function blastFigure(item) {
+  if (!item.radius || !item.innerRadius) return '';
+  const inner = Math.max(10, 57 * item.innerRadius / item.radius);
+  return `<div class="blast-figure"><svg viewBox="0 0 140 140" role="img" aria-label="중심 ${item.innerRadius}미터, 외곽 ${item.radius}미터의 폭발 반경"><path d="M70 0v140M0 70h140" stroke="#344429"/><circle cx="70" cy="70" r="57" fill="#a3ad4420" stroke="#a5b572" stroke-dasharray="3 4"/><circle cx="70" cy="70" r="${inner}" fill="#e4d95435" stroke="#e4d954"/><path d="M70 70H13M70 70H${70 + inner}" stroke="#f0f1e9" stroke-width="1.2"/><circle cx="70" cy="70" r="3" fill="#f4e454"/><g class="blast-label" aria-hidden="true"><text x="66" y="63" text-anchor="end">외곽 ${number(item.radius)}m</text><text x="74" y="84">중심 ${number(item.innerRadius)}m</text></g></svg><p><strong>중심 ${item.innerRadius} m</strong> 안쪽이 최대 피해 구간입니다.<br>외곽 ${item.radius} m까지 피해가 감소합니다.<br>그림은 충격파·함선 모듈을 제외한 반경입니다.</p></div>`;
+}
+// Detail stats: one panel per mode behind tabs, or the plain grid.
+function detailStats(item) {
+  const variants = item.variants?.length > 1 ? item.variants : null;
+  if (!variants) return renderStats(item, 'detail');
+  const label = escape(item.variantLabel || '모드별 수치');
+  return `<div class="variant-tabs"><h3>${label}</h3><div class="variant-buttons" role="group" aria-label="${label}">${variants.map((v, index) => `<button type="button" data-variant="${escape(v.id)}" aria-pressed="${index === 0}">${escape(v.tab || v.name)}</button>`).join('')}</div></div>${variants.map((v, index) => { const view = withVariant(item, v); return `<div class="variant-panel" data-variant-panel="${escape(v.id)}" ${index === 0 ? '' : 'hidden'}>${renderStats(view, 'detail')}${blastFigure(view)}${v.note ? `<p class="variant-note">${escape(v.note)}</p>` : ''}</div>`; }).join('')}`;
+}
+// Measured spread of sub-munitions: big numbers first, then the conditions behind them.
+function spreadBlock(item) {
+  const s = item.spread;
+  if (!s) return '';
+  return `<div class="detail-block"><h3>${escape(s.title)}</h3><div class="detail-stats">${s.rows.map(row => `<div class="detail-stat"><span class="stat-label">${escape(row.label)}</span><span class="stat-value">${escape(row.value)}<small>${escape(row.unit)}</small></span><span class="stat-caption">${escape(row.caption)}</span></div>`).join('')}</div><ul>${s.notes.map(note => `<li>${escape(note)}</li>`).join('')}</ul><p class="spread-source">${escape(s.source)}</p></div>`;
+}
+
 function renderCategories() {
   $('#categories').innerHTML = categories.map(category => `<button class="category-button ${state.category === category.id ? 'active' : ''}" data-category="${category.id}" aria-pressed="${state.category === category.id}">${icon(category.icon)}<span>${category.name}</span><span class="nav-count">${category.id === 'all' ? stratagems.length : stratagems.filter(item => item.category === category.id).length}</span></button>`).join('');
 }
@@ -61,7 +104,7 @@ function filteredItems() {
   return searchItems(items, state.search);
 }
 function card(item) {
-  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>${renderStats(item)}</button>${renderDefenseSource(item)}<div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}" aria-label="${escape(item.name)} 자세히 보기" aria-haspopup="dialog" aria-controls="detail-dialog">자세히 <span aria-hidden="true">↗</span></button></div></article>`;
+  return `<article class="stratagem-card ${state.selected.has(item.id) ? 'selected' : ''}" data-category="${item.category}" data-id="${item.id}"><button class="card-open" data-open="${item.id}" aria-label="${escape(item.name)} 상세 보기"><div class="card-top"><span class="strat-icon">${stratagemIcon(item)}</span><div class="card-code"><span>${cat(item.category).name}</span>${escape(item.code || cat(item.category).label)}</div></div><h3>${escape(item.name)}</h3><p class="card-en">${escape(item.en)}</p><p class="card-summary">${escape(item.summary)}</p><div class="card-tags">${item.tags.slice(0, 3).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>${renderStats(item)}${cardModes(item)}</button>${renderDefenseSource(item)}<div class="card-footer"><label class="compare-check"><input type="checkbox" data-compare="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''} aria-label="${escape(item.name)} 비교에 추가">비교 담기</label><button class="detail-link" data-open="${item.id}" aria-label="${escape(item.name)} 자세히 보기" aria-haspopup="dialog" aria-controls="detail-dialog">자세히 <span aria-hidden="true">↗</span></button></div></article>`;
 }
 function renderCards() {
   const items = filteredItems();
@@ -99,7 +142,7 @@ const dialogTop = label => `<div class="dialog-top"><span>${label}</span><button
 function openDetail(id) {
   const item = stratagems.find(item => item.id === id);
   if (!item) return;
-  $('#detail-content').innerHTML = `<div class="dialog-inner">${dialogTop(cat(item.category).label + ' / FIELD NOTES')}<div class="dialog-identity"><span class="strat-icon">${stratagemIcon(item)}</span><div><h2 id="detail-title">${escape(item.name)}</h2><p class="dialog-en">${escape(item.en)}</p></div></div><p class="dialog-summary">${escape(item.summary)}</p>${item.input ? `<div class="input-sequence"><span>호출 코드</span>${escape(item.input)}</div>` : ''}${renderStats(item, 'detail')}<div class="detail-block"><h3>이렇게 사용하세요</h3><p>${escape(item.usage)}</p></div>${item.notes || item.rangeNote || item.modes ? `<div class="detail-block"><h3>수치와 운용 기준</h3><ul>${[item.rangeNote, item.notes, ...(item.modes || [])].filter(Boolean).map(note => `<li>${escape(note)}</li>`).join('')}</ul></div>` : ''}${item.radius && item.innerRadius ? `<div class="detail-block"><h3>폭발 범위</h3><div class="blast-figure"><svg viewBox="0 0 140 140" role="img" aria-label="중심 ${item.innerRadius}미터, 외곽 ${item.radius}미터의 폭발 반경"><path d="M70 0v140M0 70h140" stroke="#344429"/><circle cx="70" cy="70" r="57" fill="#a3ad4420" stroke="#a5b572" stroke-dasharray="3 4"/><circle cx="70" cy="70" r="${Math.max(10, 57 * item.innerRadius / item.radius)}" fill="#e4d95435" stroke="#e4d954"/><circle cx="70" cy="70" r="3" fill="#f4e454"/></svg><p><strong>중심 ${item.innerRadius} m</strong> 안쪽이 최대 피해 구간입니다.<br>외곽 ${item.radius} m까지 피해가 감소합니다.<br>그림은 충격파·함선 모듈을 제외한 반경입니다.</p></div></div>` : ''}${item.warning ? `<p class="detail-caution">${escape(item.warning)}</p>` : ''}<div class="source-note"><p><strong>자료 열람 ${escape(item.defense ? item.defense.checkedAt || '자료 미확인' : checkedAt)}</strong>${item.patch ? ` · 페이지 갱신 패치 ${escape(item.patch)}` : ''}</p><p>${item.verified ? '표시된 수치는 커뮤니티 위키의 세부 통계에서 확인했습니다.' : '확인된 정보만 표시하며, 미확인 수치는 임의로 추정하지 않습니다.'} ${item.utility ? '지원 기능의 피해량은 해당 없음으로 표시합니다.' : '실제 피해는 타격 부위, 내구도, 각도, 거리의 영향을 받습니다.'}</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener noreferrer">Helldivers Wiki · 항목 원문 ↗</a></p></div></div>`;
+  $('#detail-content').innerHTML = `<div class="dialog-inner">${dialogTop(cat(item.category).label + ' / FIELD NOTES')}<div class="dialog-identity"><span class="strat-icon">${stratagemIcon(item)}</span><div><h2 id="detail-title">${escape(item.name)}</h2><p class="dialog-en">${escape(item.en)}</p></div></div><p class="dialog-summary">${escape(item.summary)}</p>${item.input ? `<div class="input-sequence"><span>호출 코드</span>${escape(item.input)}</div>` : ''}${detailStats(item)}<div class="detail-block"><h3>이렇게 사용하세요</h3><p>${escape(item.usage)}</p></div>${item.notes || item.rangeNote || item.modes ? `<div class="detail-block"><h3>수치와 운용 기준</h3><ul>${[item.rangeNote, item.notes, ...(item.modes || [])].filter(Boolean).map(note => `<li>${escape(note)}</li>`).join('')}</ul></div>` : ''}${item.radius && item.innerRadius && !(item.variants?.length > 1) ? `<div class="detail-block"><h3>폭발 범위</h3>${blastFigure(item)}</div>` : ''}${spreadBlock(item)}${item.warning ? `<p class="detail-caution">${escape(item.warning)}</p>` : ''}<div class="source-note"><p><strong>자료 열람 ${escape(item.defense ? item.defense.checkedAt || '자료 미확인' : checkedAt)}</strong>${item.patch ? ` · 페이지 갱신 패치 ${escape(item.patch)}` : ''}</p><p>${item.verified ? '표시된 수치는 커뮤니티 위키의 세부 통계에서 확인했습니다.' : '확인된 정보만 표시하며, 미확인 수치는 임의로 추정하지 않습니다.'} ${item.utility ? '지원 기능의 피해량은 해당 없음으로 표시합니다.' : '실제 피해는 타격 부위, 내구도, 각도, 거리의 영향을 받습니다.'}</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener noreferrer">Helldivers Wiki · 항목 원문 ↗</a></p></div></div>`;
   $('#detail-dialog').setAttribute('aria-labelledby', 'detail-title');
   const iconLink = document.createElement('a');
   iconLink.href = wikiIcons[item.id].source;
@@ -135,6 +178,7 @@ function openComparison() {
     ['종류', item => cat(item.category).name],
     ...['사거리 / 범위', '직격 / 지속 피해', '폭발 피해', '장갑 관통'].filter((_, index) => !defenseOnly || index === 0).map((label, index) => [label, item => { const stat = statValues(item)[index]; return `<span class="comparison-value">${stat.value}</span><small>${escape(stat.caption)}</small>`; }]),
     ...defenseComparisonRows(items),
+    ...(items.some(item => item.variants) ? [['모드별', item => item.variants ? `<ul class="compare-modes">${item.variants.map(v => `<li><b>${escape(v.name)}</b> ${escape(variantBrief(item, v))}</li>`).join('')}</ul>` : '<small>—</small>']] : []),
     ['주요 용도', item => escape(item.tags.join(' · '))],
     ['사용법', item => escape(item.usage)],
     ['주의', item => escape(item.warning || '항목의 세부 기준을 확인하세요.')],
@@ -161,6 +205,12 @@ document.querySelectorAll('[data-view]').forEach(button => button.addEventListen
 // The v2 link opens the same tool there; v2 understands these hashes.
 $('#version-link').addEventListener('click', event => { event.currentTarget.href = `https://jj-dot-eng.github.io/superguide-v2/#${document.body.dataset.activeFeature || 'catalog'}`; });
 ['#guide-button', '#notice-guide', '#sources-button'].forEach(selector => $(selector).addEventListener('click', openInfo));
+$('#detail-content').addEventListener('click', event => {
+  const pick = event.target.closest('[data-variant]');
+  if (!pick) return;
+  document.querySelectorAll('#detail-content [data-variant]').forEach(button => button.setAttribute('aria-pressed', String(button === pick)));
+  document.querySelectorAll('#detail-content [data-variant-panel]').forEach(panel => { panel.hidden = panel.dataset.variantPanel !== pick.dataset.variant; });
+});
 $('#compare-clear').addEventListener('click', () => { state.selected.clear(); renderComparisonState(); });
 $('#compare-open').addEventListener('click', openComparison);
 document.querySelectorAll('dialog').forEach(dialog => {
